@@ -1,6 +1,6 @@
-# US 3004
+# US G003
 
-*This is an example template*
+*As Project Manager, I want the team to configure the project structure to facilitate / accelerate the development of upcoming user stories.*
 
 ## 1. Context
 

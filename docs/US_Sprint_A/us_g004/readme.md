@@ -1,6 +1,6 @@
-# US 1001
+# US G004
 
-*This is an example template*
+*As Project Manager, I want the team to setup a continuous integration server.*
 
 ## 1. Context
 
