@@ -20,10 +20,10 @@ jobs:  # --> Workflow that will be executed whenever the events are triggered
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3 # --> Action to be executed
+    - uses: actions/checkout@v4 # --> Action to be executed
 
     - name: Set up JDK 21 # Name given to the action
-      uses: actions/setup-java@v3 # --> Action to be executed
+      uses: actions/setup-java@v4 # --> Action to be executed
       with:
         java-version: '21'
         distribution: 'temurin'
