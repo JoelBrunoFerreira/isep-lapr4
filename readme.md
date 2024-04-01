@@ -2,7 +2,9 @@
 
 ## 1. Description of the Project
 
-*To Do*
+The Jobs4U App is a comprehensive solution designed to streamline the talent acquisition process for companies seeking 
+to recruit human resources. The app automates various activities involved in recruitment, providing a user-friendly 
+interface for system administrators, customer managers, operators, and candidates.
 
 ## 2. Planning and Technical Documentation
 
@@ -10,19 +12,31 @@
 
 ## 3. How to Build
 
-*To Do*
+To build application the application on Linux run:
+
+    ./quickbuild.sh
+
+To build application the application on Windows run:
+
+    quickbuild.bat
+    
 
 ## 4. How to Execute Tests
 
-*To Do*
+To execute tests on Linux run:
+
+To execute tests on Windows run:
+
 
 ## 5. How to Run
 
 *To Do*
 
+
 ## 6. How to Install/Deploy into Another Machine (or Virtual Machine)
 
 *To Do*
+
 
 ## 7. How to Generate PlantUML Diagrams
 

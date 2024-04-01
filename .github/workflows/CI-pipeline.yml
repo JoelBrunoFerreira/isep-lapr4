@@ -4,6 +4,7 @@
 name: Java CI with Maven
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -29,7 +30,7 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B compile --file pom.xml
 
   test: # --> Second job
     runs-on: ubuntu-latest
