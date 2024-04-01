@@ -14,19 +14,22 @@ interface for system administrators, customer managers, operators, and candidate
 
 To build application the application on Linux run:
 
-    ./quickbuild.sh
+    ./build-all.sh
 
 To build application the application on Windows run:
 
-    quickbuild.bat
+    build-all.bat
     
 
 ## 4. How to Execute Tests
 
 To execute tests on Linux run:
 
+    ./run-JUnitTests.sh
+
 To execute tests on Windows run:
 
+    run-JUnitTests.bat
 
 ## 5. How to Run
 
@@ -35,7 +38,20 @@ To execute tests on Windows run:
 
 ## 6. How to Install/Deploy into Another Machine (or Virtual Machine)
 
-*To Do*
+* Clone the repository to your local machine.
+  https://github.com/Departamento-de-Engenharia-Informatica/sem4pi-23-24-2na2.git
+
+* Build the application running one of the following scripts:
+
+On Linux run:
+
+    ./build-all.sh
+
+On Windows run:
+
+    build-all.bat
+
+* Run the APP
 
 
 ## 7. How to Generate PlantUML Diagrams
