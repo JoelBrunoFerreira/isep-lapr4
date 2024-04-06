@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: hello2.HelloWorld
+Main-Class: hello2.App_Customer

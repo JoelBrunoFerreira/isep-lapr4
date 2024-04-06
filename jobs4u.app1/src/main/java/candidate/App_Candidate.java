@@ -1,8 +1,8 @@
-package hello;
+package candidate;
 
-public class HelloWorld {
+public class App_Candidate {
 	public static void main(String[] args) {
-		Greeter greeter = new Greeter();
+		Greeter_Candidate greeter = new Greeter_Candidate();
 		System.out.println(greeter.sayHello());
 		System.out.println();
 	}
