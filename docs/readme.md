@@ -45,10 +45,10 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 
 | Student Nr.	                  | Name           | Justification                                              | Engineering Process | Issues and Version Control | Team Work | Deployment | Integration | Req. Satisfaction | 
 |-------------------------------|----------------|------------------------------------------------------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
-| [1191843](members/1191843/readme.md)  | Joel Ferreira  | [1191843 - Justification](members/1191843/lapr4/Sprint_A/readme.md) | 4                   | 4                          | 4         | 4          | 4           | 4                 |
-| [1100719](members/1100719/readme.md)	 | Fábio Borges   | [1100719 - Justification](members/1100719/lapr4/Sprint_A/readme.md) | 4                   | 4                          | 4         | 4          | 4           | 4                 |
-| [1221715](members/1221715/readme.md)  | Jorge Cruz     | [1221715 - Justification](members/1221715/lapr4/Sprint_A/readme.md) | 4                   | 4                          | 4         | 4          | 4           | 4                 |
-| [1221722](members/1221722/readme.md)	 | Victor Salgado | [1221722 - Justification](members/1221722/lapr4/Sprint_A/readme.md) | 4                   | 4                          | 4         | 4          | 4           | 4                 |
+| [1191843](members/1191843/readme.md)  | Joel Ferreira  | [1191843 - Justification](members/1191843/lapr4/Sprint_A/readme.md) | 4                   | 5                          | 5         | 5          | 4           | 4                 |
+| [1100719](members/1100719/readme.md)	 | Fábio Borges   | [1100719 - Justification](members/1100719/lapr4/Sprint_A/readme.md) | 4                   | 5                          | 5         | 5          | 4           | 4                 |
+| [1221715](members/1221715/readme.md)  | Jorge Cruz     | [1221715 - Justification](members/1221715/lapr4/Sprint_A/readme.md) | 4                   | 5                          | 5         | 5          | 4           | 4                 |
+| [1221722](members/1221722/readme.md)	 | Victor Salgado | [1221722 - Justification](members/1221722/lapr4/Sprint_A/readme.md) | 4                   | 5                          | 5         | 5          | 4           | 4                 |
 
 ### Sprint B
 

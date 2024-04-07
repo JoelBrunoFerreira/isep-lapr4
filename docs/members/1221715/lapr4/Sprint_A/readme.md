@@ -16,7 +16,8 @@
 
 **Selected Level:** 4
 
-**Justification and Evidences:**
+**Justification and Evidences:**\
+The Requirements Engineering process was aligned with the needs presented by the client. The team paid special attention to the design of the domain model so that it reflected the business model as much as possible.
 
 ## Issues and Version Control
 
@@ -29,9 +30,10 @@
 | 4 – Correct	| Frequent use of the repository: messages that are mostly significant but sometimes fail to connect to issues/tasks. Use task/issue management boards correctly. |
 | 5 - Exceptional |	Frequent use of the repository: mostly significant messages and (virtually) no failures in connection to issues/tasks. They use task/issue management boards in an exemplary way. |
 
-**Selected Level:** 4
+**Selected Level:** 5
 
-**Justification and Evidences:**
+**Justification and Evidences:**\
+Individual branches were created that allowed each element to make its contribution to the respective Sprint, so that everything could be brought together in the same branch for final submission.
 
 ## Team Work
 
@@ -44,9 +46,10 @@
 | 4 – Correct	| There is evidence of a team decision-making process in which students actively participate and which results in the assignment of tasks in a clear and timely manner. |
 | 5 - Exceptional |	There is evidence of a team decision-making process in which students actively participate and which results in the assignment of tasks in a clear and timely manner. There is evidence of group tasks such as integration and deployment activities. |
 
-**Selected Level:** 4
+**Selected Level:** 5
 
-**Justification and Evidences:**
+**Justification and Evidences:**\
+All the elements contributed effectively to the work carried out in Sprint A.
 
 ## Deployment
 
@@ -59,9 +62,10 @@
 | 4 – Correct	| The system runs outside the IDE, distributed across two or more local virtual environments (machines or containers). The group was able to demonstrate the system without any execution failures during the demonstration. The correct version was used. |
 | 5 - Exceptional |	The system runs outside the IDE, distributed across two or more remote virtual environments (machines or containers) (e.g. in the cloud). The group was able to demonstrate the system without any execution failures during the demonstration. The correct version was used. |
 
-**Selected Level:** 4
+**Selected Level:** 5
 
-**Justification and Evidences:**
+**Justification and Evidences:**\
+Both applications: Candidate App and Customer App, run individually outside of the IDE, in their respective JAR file without any execution failure.
 
 ## Integration
 
@@ -76,7 +80,8 @@
 
 **Selected Level:** 4
 
-**Justification and Evidences:**
+**Justification and Evidences:**\
+All the components are integrated and the functionalities requested for this Sprint have been met.
 
 ## Req. Satisfaction
 
@@ -91,4 +96,5 @@
 
 **Selected Level:** 4
 
-**Justification and Evidences:**
+**Justification and Evidences:**\
+All requirements have been met in full.
