@@ -1,4 +1,4 @@
-# Project Jobs4U
+# Project Jobs4U - ISEP - LAPR4 - 2023/2024
 
 ## 1. Description of the Project
 
@@ -12,6 +12,8 @@ interface for system administrators, customer managers, operators, and candidate
 
 ## 3. How to Build
 
+Make sure Maven is installed and on the PATH
+
 To build application the application on Linux run:
 
     ./build-all.sh
@@ -23,6 +25,8 @@ To build application the application on Windows run:
 
 ## 4. How to Execute Tests
 
+Make sure Maven is installed and on the PATH
+
 To execute tests on Linux run:
 
     ./run-JUnitTests.sh
@@ -33,13 +37,24 @@ To execute tests on Windows run:
 
 ## 5. How to Run
 
-*To Do*
+Make sure a JRE is installed and on the PATH
 
+To run the Candidate App or the Customer App on Linux run:
+
+    ./run-candidate-app.sh
+
+    ./run-customer-app.sh
+
+To run the Candidate App or the Customer App on Windows run:
+
+    run-candidate-app.bat
+
+    run-customer-app.bat
 
 ## 6. How to Install/Deploy into Another Machine (or Virtual Machine)
 
-* Clone the repository to your local machine.
-  https://github.com/Departamento-de-Engenharia-Informatica/sem4pi-23-24-2na2.git
+* Clone the repository to your local machine.\
+  https://github.com/Departamento-de-Engenharia-Informatica/sem4pi-23-24-2na2.git 
 
 * Build the application running one of the following scripts:
 

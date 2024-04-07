@@ -1,6 +1,6 @@
 package candidate;
 
-public class Greeter_Candidate {
+public class GreeterCandidate {
 	public String sayHello() {
 		return "Welcome to the Candidate App!";
 	}

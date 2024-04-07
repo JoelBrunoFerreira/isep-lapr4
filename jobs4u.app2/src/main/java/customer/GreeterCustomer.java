@@ -1,6 +1,6 @@
-package hello2;
+package customer;
 
-public class Greeter_Customer {
+public class GreeterCustomer {
 	public String sayHello() {
 		return "Welcome to the Customer App!";
 	}

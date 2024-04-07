@@ -1,4 +1,4 @@
-package hello2;
+package customer;
 
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,11 +9,11 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 class GreeterCustomerTest {
 
-    private Greeter_Customer greeter;
+    private GreeterCustomer greeter;
 
     @BeforeEach
     void init() {
-        greeter = new Greeter_Customer();
+        greeter = new GreeterCustomer();
     }
 
     @DisplayName("Say hello to Customer")

@@ -9,11 +9,11 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 class GreeterCandidateTest {
 
-    private Greeter_Candidate greeter;
+    private GreeterCandidate greeter;
 
     @BeforeEach
     void init() {
-        greeter = new Greeter_Candidate();
+        greeter = new GreeterCandidate();
     }
     @DisplayName("Say hello to Candidate")
     @Test
