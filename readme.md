@@ -53,20 +53,10 @@ To run the Candidate App or the Customer App on Windows run:
 
 ## 6. How to Install/Deploy into Another Machine (or Virtual Machine)
 
-* Clone the repository to your local machine.\
+Clone the repository to your local machine.\
   https://github.com/Departamento-de-Engenharia-Informatica/sem4pi-23-24-2na2.git 
 
-* Build the application running one of the following scripts:
-
-On Linux run:
-
-    ./build-all.sh
-
-On Windows run:
-
-    build-all.bat
-
-* Run the APP
+>Make sure JDK, JRE and Maven is installed and on the PATH
 
 
 ## 7. How to Generate PlantUML Diagrams
