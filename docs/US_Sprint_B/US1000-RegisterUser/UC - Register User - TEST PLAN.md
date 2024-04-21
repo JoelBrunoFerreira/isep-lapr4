@@ -2,55 +2,27 @@
 
 
 ## Test Plan
-### 1. Sequence Diagram (SSD)
+
+## Case #1: Register new User
+ >1. Login as Admin
+ >2. Create a new user
+ >3. Select role
+ >4. Insert name and e-mail
+ >5. Submit
+ >6. List users to confirm User creation
 
 
-
-	TEST PLAN
-
-	_______________________________
-	CASO #2: Change Dish
-	_______________________________
-
-	1. Fazer o login como chef/Password1
-	2. Escolher a op��o Dishes > Change DishInformation
-	3. Escolher a op��o Change Nutricional Info
-	4. Mostrar todos os pratos e seu estado
-	5. Escolher Dish a atualizar a informa��o nutricional
-	6. Escolher a op��o Dishes > Change DishInformation
-	7. Escolher a op��o Change Price
-	8. Escolher Dish a atualizar o pre�o
-	9. Confirmar as atualiza���es efetuadas1 atrav�s de List Dishes (Dish  >  List Dish)
+## Case #2: Register repeated User
+>1. Login as Admin
+>2. Run case #1
+>3. Run case #1 with the same input
+>4. The system shall alert that the User already exists
 
 
+## Case #3: Register User without e-mail or name
+>1. Login as Admin
+>2. Create a new user
+>3. Select role
+>4. Submit
+>4. The system shall alert that the User must have e-mail and name
 
-
-	ANÁLISE
-	____________
-
-
-	Reunião com o cliente  em 2024.03.21
-
-	* Garantir que é usado o email para identificar qualquer utilizador do sistema. (Admin, Customer Manager, Operator)
-	* É importante para cada utilizador termos o nome completo. (Customer manager, Candidate)
-	* Necessário nome e endereço para empresa (Customer)
-
-
-	______________________
-
-	REGRAS DE NEGÓCIO
-	_____________________
-
-
-	* Não � possivel alterar informa��o sensivel do prato como o seu nome (Name) e o seu tipo (DishType)
-
-
-	______________________
-		
-	TESTES UNIT�RIOS
-	_____________________
-
-
-	* testchangeNutricionalInfoToMustNotBeNull
-	* testchangePriceToMustNotBeNull
-	* testchangePriceToCanNotBeNegative

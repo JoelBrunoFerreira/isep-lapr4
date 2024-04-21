@@ -55,7 +55,7 @@
 
 
 >* testUsernameMustBeUnique
->* testCreateUser
+>* testCreateUserSuccess
 >* testNameMustNotBeNull
 >* testRoleMustNotBeNull
 >* testUserPasswordCriteria

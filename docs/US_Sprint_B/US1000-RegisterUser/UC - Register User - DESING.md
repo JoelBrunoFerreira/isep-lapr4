@@ -16,4 +16,4 @@
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this use case.
 
-![SD - Register User.svg](SD%20-%20Register%20User.svg)
+![SD - Register User.svg](/docs/US_Sprint_B/US1000-RegisterUser/SD%20-%20Register%20User.svg)
