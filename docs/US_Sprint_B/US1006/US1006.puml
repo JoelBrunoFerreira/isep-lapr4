@@ -1,0 +1,63 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor CustomerManager as Actor
+participant DisplayCandidateDataUI as UI <<presentation>>
+participant GetCandidateController as Controller <<application>>
+database CandidateRepository as Repository <<repository>>
+participant CandidateMapper as Mapper <<mapper>>
+participant "user:User" as Domain <<domain>>
+participant CandidateDTO as DTO <<DTO>>
+
+Actor --> UI: Display candidate data
+activate UI
+    UI --> Actor: Ask Candidate Id
+    Actor --> UI: Candidate Id
+
+    UI -> Controller: getCandidateData(id)
+
+    activate Controller
+        Controller -> Repository: getCandidateByID(id)
+
+        activate Repository
+            Repository -> Controller: candidate
+        deactivate Repository
+
+            Controller -> Mapper: MapToCandidateDTO(id)
+
+        activate Mapper
+            Mapper -> Domain: getInfo(id)
+            activate Domain
+                Domain -> Mapper: candidateInfo
+            deactivate Domain
+
+            Mapper -> DTO: create(candidateInfo)
+
+
+        activate DTO
+            DTO -> Mapper: candidateDTO
+        deactivate DTO
+
+        Mapper -> Controller: candidateDTO
+        deactivate Mapper
+        Controller -> UI: candidateDTO
+    deactivate Controller
+
+
+    UI --> Actor: Show candidate data
+
+deactivate UI
+
+
+
+
+
+
+
+deactivate UI
+@enduml
