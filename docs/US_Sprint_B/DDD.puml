@@ -67,7 +67,7 @@ package "InterviewModel Aggregate" {
 package "RecruitmentProcess_Phases Aggregate" {
     Enum Phases <<Enum>> {}
     Entity Phase <<Root>> {}
-    Class Period <<Value Object>> {}
+    Class Period <<Value Object>><<StartDate, EndDate>>
     Phase --> "1" Phases
     Phase --> Period
 }
