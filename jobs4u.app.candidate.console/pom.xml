@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- This pom.xml belongs to jobs4u.app2 - Customer-->
+    <!-- This pom.xml belongs to jobs4u.app1 - Candidate-->
 
     <parent>
         <groupId>lapr4</groupId>
@@ -10,9 +10,9 @@
         <version>0.1.0</version>
     </parent>
 
-    <artifactId>jobs4u.app2</artifactId>
+    <artifactId>jobs4u.app.candidate.console</artifactId>
     <packaging>jar</packaging>
-    <name>jobs4u.app2</name>
+    <name>jobs4u.app.candidate.console</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,5 +39,3 @@
         </plugins>
     </build>
 </project>
-
-
