@@ -1,6 +1,6 @@
 @startuml
 'http://plantuml.com/skinparam.html
-skinparam handwritten true
+skinparam handwritten false
 skinparam monochrome true
 skinparam packageStyle rect
 skinparam defaultFontName FG Virgil
@@ -9,8 +9,8 @@ skinparam shadowing false
 actor Admin as Actor
 participant AddUserUI as UI <<presentation>>
 participant AddUserController as Controller <<application>>
-participant UserBuilder as Builder <<builder>>
-participant "user:User" as Domain <<domain>>
+participant SystemUserBuilder as Builder <<builder>>
+participant "user:SystemUser" as Domain <<domain>>
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
 database UserRepository as Repository <<repository>>
@@ -19,16 +19,16 @@ Actor --> UI: Add User
 activate UI
     UI -> Controller: create
     UI --> Actor: Ask user information
-    Actor --> UI: Full name, E-Mail, Password
+    Actor --> UI: fullName, E-Mail, Password
 
     loop option != 0
         UI --> Actor: Show List\nof Role Types
         Actor --> UI: Role Type
     end
 
-    UI -> Controller: addUser(email, password, \nfull name, roles)
+    UI -> Controller: addUser(email, password, \nfullName, roles)
     activate Controller
-        note right of Builder:UserBuilder é usado para criar uma entidade do tipo User num estado válido
+        note right of Builder:SystemUserBuilder é usado para criar uma entidade do tipo User num estado válido
         Controller -> Builder: create
         Controller -> Builder:setEmail(username)
 
@@ -42,7 +42,7 @@ activate UI
 
         Controller -> Builder:createUser()
         activate Builder
-            Builder -> Domain: create (email,\npassword, fullName, roles)
+            Builder -> Domain: build (email,\npassword, fullName, roles)
             Domain->Builder: user
             Builder -> Controller:user
         deactivate Builder
