@@ -1,0 +1,77 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor CustomerManager as Actor
+participant DisplayCandidateDataUI as UI <<presentation>>
+participant GetCandidateController as CandidateController <<application>>
+
+participant GetJobApplicationController as Controller <<application>>
+database JobApplicationRepository as Repository <<repository>>
+participant JobApplicationMapper as Mapper <<mapper>>
+participant "jobApplication:JobApplication" as Domain <<domain>>
+participant JobApplicationDTO as DTO <<DTO>>
+
+
+
+Actor --> UI: Display candidate data
+activate UI
+    UI --> Actor: Ask Candidate Id
+    Actor --> UI: CandidateController Id
+
+    UI -> CandidateController: getCandidateData(id)
+
+    activate CandidateController
+
+
+        CandidateController -> UI: candidateDTO
+
+    deactivate CandidateController
+
+UI -> Controller: getJobApplicationsByCandidateId(id)
+
+    activate Controller
+        Controller -> Repository: getJobApplicationsByCandidateId(id)
+
+        activate Repository
+            Repository -> Controller: job applications
+        deactivate Repository
+
+            Controller -> Mapper: MapToJobApplicationDTO(id)
+
+        activate Mapper
+            Mapper -> Domain: getInfo(id)
+            activate Domain
+                Domain -> Mapper: jobApplicationInfo
+            deactivate Domain
+
+            Mapper -> DTO: create(jobApplicationInfo)
+
+
+        activate DTO
+            DTO -> Mapper: jobApplicationDTO
+        deactivate DTO
+
+        Mapper -> Controller: jobApplicationDTO
+        deactivate Mapper
+        Controller -> UI: jobApplicationDTO
+    deactivate Controller
+
+
+
+    UI --> Actor: Show candidate data and its applications
+
+deactivate UI
+
+
+
+
+
+
+
+deactivate UI
+@enduml
