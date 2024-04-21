@@ -7,24 +7,21 @@ skinparam defaultFontName FG Virgil
 skinparam shadowing false
 
 actor CustomerManager as Actor
-participant AddRecuitmentProcessPhaseUI as UI <<presentation>>
-participant AddJobInterviewPhaseController as Controller <<application>>
+participant AddRecruitmentProcessPhaseUI as UI <<presentation>>
+participant AddRecruitmentProcessPhaseController as Controller <<application>>
 participant SystemUserBuilder as Builder <<builder>>
 participant "user:SystemUser" as Domain <<domain>>
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
 database UserRepository as Repository <<repository>>
 
-Actor --> UI: Add AddRecuitmentProcessPhaseUI Phases
+Actor --> UI: Add AddRecruitmentProcessPhase
 activate UI
     UI -> Controller: create
-    UI --> Actor: Ask user if wants to add Interview phase
+    UI --> Actor: Ask user if he wants to add Interview phase
     Actor --> UI: Yes/No
 
-    loop option != 0
-        UI --> Actor: Show List\nof Role Types
-        Actor --> UI: Role Type
-    end
+
 
     UI -> Controller: addJob(email, password, \nfullName, roles)
     activate Controller
