@@ -7,7 +7,7 @@ skinparam defaultFontName FG Virgil
 skinparam shadowing false
 
 actor CustomerManager as Actor
-participant AddJobInterviewPhaseUI as UI <<presentation>>
+participant AddRecuitmentProcessPhaseUI as UI <<presentation>>
 participant AddJobInterviewPhaseController as Controller <<application>>
 participant SystemUserBuilder as Builder <<builder>>
 participant "user:SystemUser" as Domain <<domain>>
@@ -15,18 +15,18 @@ participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
 database UserRepository as Repository <<repository>>
 
-Actor --> UI: Add Job Interview Phase
+Actor --> UI: Add AddRecuitmentProcessPhaseUI Phases
 activate UI
     UI -> Controller: create
-    UI --> Actor: Ask user information
-    Actor --> UI: fullName, E-Mail, Password
+    UI --> Actor: Ask user if wants to add Interview phase
+    Actor --> UI: Yes/No
 
     loop option != 0
         UI --> Actor: Show List\nof Role Types
         Actor --> UI: Role Type
     end
 
-    UI -> Controller: addUser(email, password, \nfullName, roles)
+    UI -> Controller: addJob(email, password, \nfullName, roles)
     activate Controller
         note right of Builder:SystemUserBuilder é usado para criar uma entidade do tipo User num estado válido
         Controller -> Builder: create
