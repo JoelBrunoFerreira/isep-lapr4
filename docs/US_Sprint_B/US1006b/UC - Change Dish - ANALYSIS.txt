@@ -1,0 +1,30 @@
+	___________
+
+	ANÁLISE
+	____________
+
+
+	Informnações obtidas com o cliente
+
+	* Listar o nome completo do candidato.
+	* O Customer Manager pode consultas os dados pessoais de qualquer candidato inserido no sistema.
+
+
+	______________________
+
+	REGRAS DE NEGÓCIO
+	_____________________
+
+
+	* Não é possível alterar os dados pessoais de um candidato.
+
+
+	______________________
+		
+	TESTES UNIT�RIOS
+	_____________________
+
+
+	* testchangeNutricionalInfoToMustNotBeNull
+	* testchangePriceToMustNotBeNull
+	* testchangePriceToCanNotBeNegative
