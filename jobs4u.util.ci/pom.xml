@@ -25,14 +25,14 @@
 
     <dependencies>
         <dependency>
-            <version>0.1.0</version>
             <groupId>lapr4</groupId>
             <artifactId>jobs4u.app.candidate.console</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <version>0.1.0</version>
             <groupId>lapr4</groupId>
             <artifactId>jobs4u.app.customer.console</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
