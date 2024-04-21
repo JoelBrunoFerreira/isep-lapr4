@@ -1,0 +1,31 @@
+@startuml
+skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+
+actor CustomerManager as Actor
+participant ListJobOpeningsUI as UI <<presentation>>
+participant ListJobOpeningsController as Controller <<application>>
+participant "JobOpening" as Domain <<domain>>
+
+Actor --> UI: Display candidate data
+activate UI
+    UI -> Controller: getAllJobOpenings()
+    activate Controller
+        Controller -> Repository: getAllJobOpenings()
+        Repository --> Controller: list of job openings
+        Controller -> UI: list of job openings
+    deactivate Controller
+    UI --> Actor: show all job openings
+
+    Actor --> UI: Filter Job Openings
+    note right of UI: Job openings can be filtered by date or customer
+    UI -> Controller: filterBy(Customer|Date)
+    activate Controller
+        Controller -> Repository: filterBy(Customer|Date)
+        Repository --> Controller: filtered job openings list
+        Controller -> UI: filtered job openings list
+    deactivate Controller
+    UI --> Actor: show filtered list
+deactivate UI
+@enduml

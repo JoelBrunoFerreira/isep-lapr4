@@ -29,7 +29,7 @@ activate UI
         CustomerController -> URepository : getAllCustomers()
         URepository -> CustomerController : allCustomers()
         CustomerController -> UI : show all customers
-        note left of UI: select and get customer \n acronym for jobReference
+        note left of UI: select and get customer name \n and acronym for jobReference
     deactivate CustomerController
     UI --> Actor: Ask job opening information
     Actor --> UI: Description, VacancyNumber, Address, \nMode, ContractType, Title
@@ -37,7 +37,7 @@ activate UI
     loop 4-5
         UI -> RPController: createPhase
         activate RPController
-            RPController -> PFactory : createPhase(Period,...)
+            RPController -> PFactory : createPhase(Period,TypeOfPhase)
             activate PFactory
                 PFactory -> Phase: createPhase(Period,...)
                 note right of Phase : Application, Screening(Get Requirements Specifications), \n Interview (Get Interview Model), Analysis and Results
