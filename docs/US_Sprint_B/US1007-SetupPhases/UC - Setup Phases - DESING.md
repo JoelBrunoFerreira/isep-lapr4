@@ -1,12 +1,12 @@
-# UC 1000 - As Administrator, I want to be able to register, disable/enable, and list users of the backoffice
+# UC 1007 - As Customer Manager, I want to setup the phases of the process for a job opening.
 
 
 ## 1. Design
 
 >* Use layer structure architecture
->  * Domain class:
->  * Controller: AddUserController
->  * Repository: UserRepository
+>  * Domain class: Phase
+>  * Controller: RecruitmentProcessController
+>  * Repository: RecruitmentProcessRepository
 
 
 
