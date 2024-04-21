@@ -7,29 +7,33 @@ skinparam defaultFontName FG Virgil
 skinparam shadowing false
 
 actor CustomerManager as Actor
-participant AddRecruitmentProcessPhaseUI as UI <<presentation>>
-participant AddRecruitmentProcessPhaseController as Controller <<application>>
-participant SystemUserBuilder as Builder <<builder>>
-participant "user:SystemUser" as Domain <<domain>>
+participant RegisterJobOpeningUI as UI <<presentation>>
+participant RecruitmentProcessController as Controller <<application>>
+'participant PhaseBuilder as Builder <<builder>>
+
+
+
+participant Phase as Domain <<domain>>
 participant PersistenceContext as Persistence <<persistence>>
-participant RepositoryFactory as Factory <<factory>>
-database UserRepository as Repository <<repository>>
+participant PhaseFactory as Factory <<factory>>
+database PhaseRepository as Repository <<repository>>
 
-Actor --> UI: Add AddRecruitmentProcessPhase
+Actor --> UI: Add Recruitment Process Phase
+loop 4-5 Phases
 activate UI
-    UI -> Controller: create
-    UI --> Actor: Ask user if he wants to add Interview phase
-    Actor --> UI: Yes/No
+'    UI -> Controller: create
+'    UI --> Actor: Ask user if he wants to add Interview phase
+'    Actor --> UI: Yes/No
 
 
 
-    UI -> Controller: addJob(email, password, \nfullName, roles)
+    UI -> Controller: create()
     activate Controller
-        note right of Builder:SystemUserBuilder é usado para criar uma entidade do tipo User num estado válido
-        Controller -> Builder: create
-        Controller -> Builder:setEmail(username)
-
-        note right of Controller: Set the rest of the information
+'        note right of Builder:SystemUserBuilder é usado para criar uma entidade do tipo User num estado válido
+'        Controller -> Builder: create
+'        Controller -> Builder:setEmail(username)
+'
+'        note right of Controller: Set the rest of the information
 
         'Controller -> Builder:setPassword(password)
         'Controller -> Builder:setFirstName(firstName)
@@ -37,12 +41,21 @@ activate UI
         'Controller -> Builder:setEmail(email)
         'Controller -> Builder:setRoles(roles)
 
-        Controller -> Builder:createUser()
-        activate Builder
-            Builder -> Domain: build (email,\npassword, fullName, roles)
-            Domain->Builder: user
-            Builder -> Controller:user
-        deactivate Builder
+        Controller -> Factory:createPhase()
+        activate Factory
+            Factory -> Controller: ask period
+            Controller -> UI: ask period
+            UI-> Actor: ask period
+            Actor -> UI : period
+            UI->Controller : period
+
+            Factory -> Domain : createPhase(Period)
+            activate Domain
+            note right of Domain: Types of phases:\n Application, Screening, Interview,\n Analysis, Result
+            Domain -> Factory : Phase
+            deactivate Domain
+            Factory -> Controller : Phase
+        deactivate Factory
 
         Controller -> Persistence: repositories()
         activate Persistence
@@ -58,9 +71,9 @@ activate UI
         deactivate Factory
 
         Controller->Repository:save(user)
-        Controller->UI: user
+        Controller->UI: Phase
     deactivate Controller
-
+end
         UI-->Actor: displayUserInfo
 deactivate UI
 @enduml
