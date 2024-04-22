@@ -1,0 +1,30 @@
+@startuml
+title Application Registration and File Import Process
+
+participant Operator
+participant System
+participant "Application File Bot" as Bot
+
+== Operator Initiated Registration ==
+Operator -> System: Initiate registration process
+System -> Operator: Prompt to select shared folder
+
+== Automatic Data Import ==
+System -> Bot: Import data
+Bot --> System: Imported data
+
+== Template File Generation and Submission ==
+System -> Operator: Generate template file
+Operator -> Operator: Fill in required data
+Operator -> System: Submit template file
+
+== Evaluation and Verification ==
+System -> System: Evaluate application
+System --> Operator: Application status
+
+== Recording in the System ==
+System -> System: Record application submission
+System -> System: Import and store files
+System --> Operator: Confirmation
+
+@enduml
