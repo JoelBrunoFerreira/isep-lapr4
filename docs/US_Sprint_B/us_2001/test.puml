@@ -1,0 +1,42 @@
+@startuml
+
+package "SCOMP System" {
+    package "Sprint B" {
+        class "US 2001" as US2001 {
+            - Priority: 1
+            - References: NFR12(SCOMP)
+        }
+    }
+
+    class "Applications Email Bot" as EmailBot
+    class Operator
+
+    class NFR12 {
+        - Description
+    }
+}
+
+package "Applications File Bot" {
+    class "Applications File Bot" {
+        - Description
+    }
+}
+
+package "System Specification" {
+    class "Input Directory" as InputDir
+    class "Input Files" as InputFiles
+    class "Output Directory" as OutputDir
+    class "Expected Subdirectories" as Subdirectories
+}
+
+US2001 --> EmailBot: Initiates file processing
+US2001 --> Operator: Requires operator intervention for importing
+
+NFR12 --> "Applications File Bot": Describes requirements
+
+"Applications File Bot" --> InputDir
+"Applications File Bot" --> InputFiles
+"Applications File Bot" --> OutputDir
+"Applications File Bot" --> Subdirectories
+
+@enduml

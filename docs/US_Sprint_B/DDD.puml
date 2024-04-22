@@ -1,0 +1,133 @@
+@startuml Domain_Model
+
+'left to right direction
+
+' CustomerManager Aggregate
+package "CustomerManager Aggregate" {
+    Entity CustomerManager
+}
+
+' Candidate Aggregate
+package "Candidate Aggregate" {
+    Entity Candidate <<Aggregate Root>> {
+    }
+    Class Email <<Identity>><<Value Object>> {
+    }
+    Class Password <<Value Object>> {
+    }
+    Class Name <<Value Object>> {}
+    Class PhoneNumber <<Value Object>> {}
+    Candidate --> Email
+    Candidate --> Password
+    Candidate --> Name
+    Candidate --> PhoneNumber
+}
+
+' JobApplication Aggregate
+package "JobApplication Aggregate" {
+    Entity JobApplication <<Aggregate Root>> {
+    }
+    Class JobApplicationPhase <<Value Object>> {
+    }
+    Class Files {}
+    JobApplication --> "1...*" Files
+    JobApplication --> JobApplicationPhase
+}
+
+' RequirementSpecifications Aggregate
+package "RequirementSpecifications Aggregate" {
+    Entity RequirementSpecifications <<Aggregate Root>> {}
+    Class Title <<Identity>><<Value Object>> {}
+    Entity JobRequirement {}
+    Class FileName <<Value Object>> {}
+    Class RequirementsScore <<Value Object>> {}
+    RequirementSpecifications --> RequirementsScore
+    RequirementSpecifications --> "1" Title
+    RequirementSpecifications -> "1" FileName
+    RequirementSpecifications --o "1...*" JobRequirement
+}
+
+' InterviewModel Aggregate
+package "InterviewModel Aggregate" {
+    Entity InterviewModel <<Aggregate Root>> {
+    }
+    Class Title <<Identity>> <<Value Object>> {}
+    Class FileName <<Value Object>> {}
+    Class Question <<Value Object>> {}
+    Class Answer
+    Class InterviewModelScore
+    InterviewModel --> Answer
+    InterviewModel --> InterviewModelScore
+    InterviewModel --> "1" Title
+    InterviewModel --* "1...*" Question
+    InterviewModel --> "1" FileName
+}
+
+' Phases Aggregate
+package "RecruitmentProcess_Phases Aggregate" {
+    Enum Phases <<Enum>> {}
+    Entity Phase <<Root>> {}
+    Class Period <<Value Object>><<StartDate, EndDate>>
+    Phase --> "1" Phases
+    Phase --> Period
+}
+
+' JobOpening Aggregate
+package "JobOpening Aggregate" {
+    Entity JobOpening <<Aggregate Root>> {}
+    Class JobReference <<Identity>><<ValueObject>> {}
+    Class Title <<Value Object>> {}
+    Enum ContractType <<Enum>><<Value Object>> {}
+    Enum Mode <<Enum>><<Value Object>> {}
+    Class Address <<Value Object>> {}
+    Class NumberVacancies <<Value Object>> {}
+    Class Description <<Value Object>> {}
+    Class RecruitmentProcess <<Value Object>> {}
+
+    JobOpening --> RecruitmentProcess
+    JobOpening --> JobReference
+    JobOpening --> Title
+    JobOpening --> ContractType
+    JobOpening --> Mode
+    JobOpening --> Address
+    JobOpening --> NumberVacancies
+    JobOpening --> Description
+}
+
+' Customer Aggregate
+package "Customer/CustomerManager Aggregate" {
+    Entity Customer <<Aggregate Root>> {}
+    Class Email <<Identity>> <<Value Object>> {}
+    Class Password <<Value Object>> {}
+    Class Name <<Value Object>> {}
+    Class Address <<Value Object>> {}
+    Class Acronym <<Value Object>> {}
+
+    Customer --> "1" Email
+    Customer --> "1" Password
+    Customer --> "1" Address
+    Customer --> "1" Acronym
+    Customer --> "1" Name
+}
+
+' Services
+Entity RequirementsEvaluation <<Service>>
+Entity InterviewModelEvaluation <<Service>>
+Entity ApplicationsFileBot <<Service>>
+
+ApplicationsFileBot ..> "Operator" JobApplication
+Files ..> RequirementsEvaluation
+JobRequirement ..> RequirementsEvaluation
+RequirementsScore <.. RequirementsEvaluation
+Question ..> InterviewModelEvaluation
+Answer ..> InterviewModelEvaluation
+InterviewModelScore <.. InterviewModelEvaluation
+JobApplication "1...*" --* "1" JobOpening
+JobApplication "1..." o-- "1" Candidate
+Phase "Interview Phase" --> "0-1" InterviewModel
+RecruitmentProcess "1" --> "1...5" Phase
+JobOpening --> "1" Customer : Company
+Phase "Screening Phase" --> "1" RequirementSpecifications
+CustomerManager --> "0...*" JobOpening
+
+@enduml
