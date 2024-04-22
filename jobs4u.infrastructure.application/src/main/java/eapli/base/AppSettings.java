@@ -20,15 +20,15 @@
  */
 package eapli.base;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * the application settings.
@@ -43,7 +43,6 @@ public class AppSettings {
     private static final String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
     private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private static final String SCHEMA_GENERATION_KEY = "jakarta.persistence.schema-generation.database.action";
-    private static final String HIGH_CALORIES_DISH_LIMIT = "HighCaloriesDishLimit";
 
     private final Properties applicationProperties = new Properties();
 
@@ -73,7 +72,6 @@ public class AppSettings {
         this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli"
                 + ".base");
-        this.applicationProperties.setProperty(HIGH_CALORIES_DISH_LIMIT, "300");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -89,9 +87,6 @@ public class AppSettings {
         return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
     }
 
-    public Integer getHighCaloriesDishLimit() {
-        return Integer.valueOf(this.applicationProperties.getProperty(HIGH_CALORIES_DISH_LIMIT));
-    }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Map getExtendedPersistenceProperties() {

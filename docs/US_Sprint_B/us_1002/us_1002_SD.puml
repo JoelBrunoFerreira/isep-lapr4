@@ -1,0 +1,72 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor CustomerManager as Actor
+participant RegisterJobOpeningUI as UI <<presentation>>
+participant GetCustomerController as CustomerController <<application>>
+participant RegisterJobOpeningController as Controller <<application>>
+participant RecruitmentProcessController as RPController <<application>>
+participant GetRequirementsController as ReqController <<application>>
+participant GetInterviewModelController as IMController <<application>>
+participant JobOpeningBuilder as Builder <<builder>>
+participant JobOpening as Domain <<domain>>
+participant PhaseFactory as PFactory <<factory>>
+participant Phase as Phase <<domain>>
+participant RepositoryFactory as Factory <<factory>>
+database UserRepository as URepository <<repository>>
+database JobOpeningRepository as Repository <<repository>>
+
+
+Actor --> UI: add job opening
+activate UI
+    UI -> CustomerController : getCustomer
+    activate CustomerController
+        CustomerController -> URepository : getAllCustomers()
+        URepository -> CustomerController : allCustomers()
+        CustomerController -> UI : show all customers
+        note left of UI: select and get customer name \n and acronym for jobReference
+    deactivate CustomerController
+    UI --> Actor: Ask job opening information
+    Actor --> UI: Description, VacancyNumber, Address, \nMode, ContractType, Title
+    Actor --> UI: Set Recruitment Process
+    loop 4-5
+        UI -> RPController: createPhase
+        activate RPController
+            RPController -> PFactory : createPhase(Period,TypeOfPhase)
+            activate PFactory
+                PFactory -> Phase: createPhase(Period,...)
+                note right of Phase : Application, Screening(Get Requirements Specifications), \n Interview (Get Interview Model), Analysis and Results
+                Phase -> PFactory: Phase
+                PFactory -> RPController: Phase
+                RPController -> UI: Phase
+            deactivate PFactory
+        deactivate RPController
+    end
+    UI -> Controller: RegisterJobOpening(JobReference, Company, \nDescription, Address, Mode, ContractType, \nVacancyNumber, Title, RecruitmentProcess)
+    activate Controller
+        Controller -> Builder : create
+        note right of Builder: JobOpeningBuilder used to create a JobOpening entity in a valid state
+        Controller -> Builder:setJobReference(acronym)
+        note right of Controller: Set the rest of the information
+        Controller -> Builder:registerJobOpening()
+        activate Builder
+            Builder -> Domain: registerJobOpening(JobReference, Company, \nDescription, Address, Mode, ContractType, \nVacancyNumber, Title, RecruitmentProcess)
+            Domain->Builder: JobOpening
+            Builder -> Controller:JobOpening
+        deactivate Builder
+        Controller -> Factory
+        activate Factory
+            Factory -> Repository : create
+            Factory -> Controller : JobOpening
+        deactivate Factory
+        Controller -> Repository : save(JobOpening)
+        Controller -> UI : JobOpening
+    deactivate Controller
+    UI-->Actor: displayJobOpeningInfo
+deactivate UI
+@enduml
