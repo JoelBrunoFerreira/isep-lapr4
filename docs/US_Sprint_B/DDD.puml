@@ -28,18 +28,21 @@ package JobApplication_Aggregate{
     Entity JobApplication <<Aggregate Root>>{
     }
 
+
+
     class JobApplicationState <<Value Object>>{
     }
-    Entity RequirementsAnswers
+    Entity JobApplicationFile
     Entity RequirementsScore
-    Entity InterviewModelAnswers
-    Entity InterviewModelScore
+    Entity JobApplicationReport
 
-   JobApplication  --> "1…*" RequirementsAnswers
+
+
+   JobApplication  --> "1…*" JobApplicationFile
    JobApplication  --> "1" RequirementsScore
    JobApplication  --> JobApplicationState
     JobApplication --> "1…*" InterviewModelAnswers
-    JobApplication  --> "1" InterviewModelScore
+    JobApplication  --> "1" JobApplicationReport
 
 }
 
@@ -50,10 +53,12 @@ Entity InterviewModelEvaluation <<Service>>
 package RequirementSpecifications_Aggregate{
     Entity RequirementSpecifications <<Aggregate Root>>{}
     Class Title <<Identity>><<Value Object>>{}
-
+    Class RequirementSpecificationsResult <<ValueObject>>{}
     Class FileName <<Value Object>>
+    RequirementSpecifications -> "1     " RequirementSpecificationsResult
     RequirementSpecifications --> "1" Title
     RequirementSpecifications -> "1" FileName
+    RequirementSpecificationsResult -> "0...1" Justification
 }
 
 '=== InterviewModel Aggregate ===
@@ -66,9 +71,13 @@ package InterviewModel_Aggregate{
     }
     Class FileName <<Value Object>> {}
 
+Class InterviewModelGrade <<Value Object>> {}
+
     InterviewModel --> "1" Title
 
     InterviewModel --> "1" FileName
+
+    InterviewModel --> "1" InterviewModelGrade
 }
 
 
@@ -81,7 +90,7 @@ package RecruitmentProcess_Aggregate{
     Class Period <<Value Object>> {}
     RecruitmentProcess --> "4...5" Phase
     Phase -->  "1" Phases
-    Phase "1" --> "1" Period
+    Phase  --> "1" Period
 }
 
 
@@ -122,22 +131,21 @@ package Customer_Aggregate{
     Class Acronym <<Value Object>>{
     }
 
-    Customer --> "1" Email
+    Customer --> "1   " Email
     Customer --> "1" Password
     Customer --> "1" Address
     Customer --> "1" Acronym
     Customer --> "1" Name
 }
 
-RequirementsAnswers <.. RequirementsEvaluation
 RequirementsScore <.. RequirementsEvaluation
 InterviewModelAnswers <.. InterviewModelEvaluation
 InterviewModelScore <.. InterviewModelEvaluation
 JobApplication  --> "1" JobOpening
 JobApplication  --> "1" Candidate
-JobOpening --> "1" InterviewModel
-JobOpening --> "1" RecruitmentProcess
-JobOpening --> "1" Customer : Company
+JobOpening --> "0...1     " InterviewModel
+JobOpening --> "1       " RecruitmentProcess
+JobOpening --> "1   " Customer
 JobOpening --> "1" RequirementSpecifications
 
 @enduml
