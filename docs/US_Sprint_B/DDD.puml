@@ -1,10 +1,6 @@
 @startuml Domain Model
 left to right direction
 
-'=== CustomerManager Aggregate ===
-Entity CustomerManager
-
-
 '=== Candidate Aggregate ===
 package Candidate_Aggregate{
 
@@ -20,10 +16,10 @@ package Candidate_Aggregate{
     Class PhoneNumber <<Value Object>> {}
 
 
-    Candidate --> Email
-    Candidate -->  Password
-    Candidate --> Name
-    Candidate --> PhoneNumber
+    Candidate --> "1" Email
+    Candidate --> "1" Password
+    Candidate --> "1" Name
+    Candidate --> "1" PhoneNumber
 }
 
 '=== JobApplication Aggregate ===
@@ -54,11 +50,10 @@ Entity InterviewModelEvaluation <<Service>>
 package RequirementSpecifications_Aggregate{
     Entity RequirementSpecifications <<Aggregate Root>>{}
     Class Title <<Identity>><<Value Object>>{}
-    Class JobRequirement <<Value Object>> {}
+
     Class FileName <<Value Object>>
     RequirementSpecifications --> "1" Title
     RequirementSpecifications -> "1" FileName
-    RequirementSpecifications --o "1...*"JobRequirement
 }
 
 '=== InterviewModel Aggregate ===
@@ -70,10 +65,9 @@ package InterviewModel_Aggregate{
     Class Title <<Identity>> <<Value Object>>{
     }
     Class FileName <<Value Object>> {}
-    Class Question <<Value Object>>{
-    }
+
     InterviewModel --> "1" Title
-    InterviewModel --* "1...*"Question
+
     InterviewModel --> "1" FileName
 }
 
@@ -82,12 +76,12 @@ package InterviewModel_Aggregate{
 package RecruitmentProcess_Aggregate{
     Entity RecruitmentProcess <<Aggregate Root>>{
     }
-    Enum Phases<<Enum>>{}
+    Enum Phases<<ValueObject>>{}
     Class Phase <<Value Object>> {}
     Class Period <<Value Object>> {}
-    RecruitmentProcess o-- "1...5" Phase
+    RecruitmentProcess --> "4...5" Phase
     Phase -->  "1" Phases
-    Phase --> Period
+    Phase "1" --> "1" Period
 }
 
 
@@ -103,13 +97,13 @@ package JobOpening_Aggregate{
     Class NumberVacancies <<Value Object>>{}
     Class Description <<Value Object>> {}
 
-    JobOpening --> "1"JobReference
-    JobOpening --> "1"JobTitle
-    JobOpening --> "1"ContractType
-    JobOpening --> "1"WorkingMode
-    JobOpening --> "1"Address
-    JobOpening --> "1"NumberVacancies
-    JobOpening --> "1"Description
+    JobOpening --> "1" JobReference
+    JobOpening --> "1" JobTitle
+    JobOpening --> "1" ContractType
+    JobOpening --> "1" WorkingMode
+    JobOpening --> "1" Address
+    JobOpening --> "1" NumberVacancies
+    JobOpening --> "1" Description
 }
 
 '=== Company/Customer Aggregate ===
@@ -135,17 +129,15 @@ package Customer_Aggregate{
     Customer --> "1" Name
 }
 
-Entity ApplicationsFileBot<<Service>> {}
-ApplicationsFileBot ..> JobApplication
 RequirementsAnswers <.. RequirementsEvaluation
 RequirementsScore <.. RequirementsEvaluation
 InterviewModelAnswers <.. InterviewModelEvaluation
 InterviewModelScore <.. InterviewModelEvaluation
-JobApplication "1...*" --* "1" JobOpening
-JobApplication "1..." o-- "1" Candidate
+JobApplication  --> "1" JobOpening
+JobApplication  --> "1" Candidate
 JobOpening --> "1" InterviewModel
 JobOpening --> "1" RecruitmentProcess
 JobOpening --> "1" Customer : Company
 JobOpening --> "1" RequirementSpecifications
-CustomerManager --> "0...*" JobOpening
+
 @enduml
