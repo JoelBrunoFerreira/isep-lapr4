@@ -6,6 +6,7 @@
     -->
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+    <!-- Entities -->
     <class>eapli.framework.infrastructure.authz.domain.model.SystemUser</class>
     <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
     <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
