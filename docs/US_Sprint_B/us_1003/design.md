@@ -1,5 +1,5 @@
 # DESIGN #
-SD --> [us_1003_SD.puml](us_1003_SD.puml)
+
 ## Entities:
 - **Job Opening:**
     - Attributes:
@@ -39,3 +39,4 @@ SD --> [us_1003_SD.puml](us_1003_SD.puml)
 5. **System** applies the selected filters to the job openings list.
 6. **System** displays the filtered job openings list to the **Customer Manager**.
 
+![us_1003_SD.png](us_1003_SD.png)
