@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: backoffice.App_Backoffice
+Main-Class: backoffice.Jobs4uBackofficeApp

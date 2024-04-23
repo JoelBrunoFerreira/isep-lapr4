@@ -11,6 +11,4 @@ persistence.repositoryFactory=eapli.ecafeteria.persistence.inmemory.InMemoryRepo
 
 ui.menu.layout=horizontal
 
-HighCaloriesDishLimit=300
-
 UseEventfulControllers=true

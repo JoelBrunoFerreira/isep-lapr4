@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: customer.App_Customer
+Main-Class: customer.Jobs4uCustomerApp
