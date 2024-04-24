@@ -68,10 +68,9 @@ public class AppSettings {
 
     private void setDefaultProperties() {
         this.applicationProperties.setProperty(REPOSITORY_FACTORY_KEY,
-                "eapli.base.persistence.jpa.JpaRepositoryFactory");
+                "eapli.base.persistence.inmemory.InMemoryRepositoryFactory");
         this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
-        this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli"
-                + ".base");
+        this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli.base");
     }
 
     public Boolean isMenuLayoutHorizontal() {

@@ -20,13 +20,13 @@
  */
 package eapli.base.infrastructure.bootstrapers.demo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import eapli.base.infrastructure.bootstrapers.UsersBootstrapperBase;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Paulo Gandra Sousa
@@ -34,36 +34,47 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implements Action {
 
     @SuppressWarnings("squid:S2068")
-    private static final String PASSWORD1 = "Password1";
+    private static final String PASSWORD1 = "password1";
 
     @Override
     public boolean execute() {
-        registerCashier("cashier", PASSWORD1, "Johny", "Cash", "johny.doe@emai.l.com");
-        registerKitchenManager("kitchen", PASSWORD1, "Oven", "Stove", "Oven.and.stove@emai.l.com");
-        registerMenuManager("chef", PASSWORD1, "Master", "Chef", "master.chef@emai.l.com");
+        registerCustomerManager("cashier", PASSWORD1, "Johny", "Cash", "johny.doe@emai.l.com");
+        registerCustomer("joyce", PASSWORD1, "Billy", "Bob", "billybob@email.com");
+        registerCandidate("driver", PASSWORD1, "John", "Taxist", "jonh_taxist@emai.l.com");
+        registerCandidate("chef", PASSWORD1, "Master", "Chef", "master.chef@emai.l.com");
+        registerCandidate("developer", PASSWORD1, "Francis", "CodeMaster", "code_master@emai.l.com");
+        registerOperator("footballer", PASSWORD1, "Luís", "Figo", "luis.figo@emai.l.com");
         return true;
     }
 
-    private void registerCashier(final String username, final String password,
+    private void registerCustomer(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.CASHIER);
+        roles.add(BaseRoles.CUSTOMER_USER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerKitchenManager(final String username, final String password,
+    private void registerCandidate(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.KITCHEN_MANAGER);
+        roles.add(BaseRoles.CANDIDATE_USER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerMenuManager(final String username, final String password,
+    private void registerOperator(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.MENU_MANAGER);
+        roles.add(BaseRoles.OPERATOR);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    private void registerCustomerManager(final String username, final String password,
+                                         final String firstName, final String lastName, final String email) {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(BaseRoles.CUSTOMER_MANAGER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }

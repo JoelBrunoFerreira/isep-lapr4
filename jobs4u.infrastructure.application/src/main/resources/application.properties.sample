@@ -1,13 +1,13 @@
 #####################################################
 ##
-## eCafeteria
+## Jobs4u
 ##
 #####################################################
 
-persistence.persistenceUnit=eapli.eCafeteriaPU
+persistence.persistenceUnit=eapli.base
 
-#persistence.repositoryFactory=eapli.ecafeteria.persistence.jpa.JpaRepositoryFactory
-persistence.repositoryFactory=eapli.ecafeteria.persistence.inmemory.InMemoryRepositoryFactory
+#persistence.repositoryFactory=eapli.base.persistence.jpa.JpaRepositoryFactory
+persistence.repositoryFactory=eapli.base.persistence.inmemory.InMemoryRepositoryFactory
 
 ui.menu.layout=horizontal
 

@@ -30,30 +30,12 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
  *
  */
 public final class BaseRoles {
-    /**
-     * poweruser
-     */
     public static final Role POWER_USER = Role.valueOf("POWER_USER");
-    /**
-     * Utente
-     */
-    public static final Role CLIENT_USER = Role.valueOf("CLIENT_USER");
-    /**
-     * Base Administrator
-     */
     public static final Role ADMIN = Role.valueOf("ADMIN");
-    /**
-     *
-     */
-    public static final Role KITCHEN_MANAGER = Role.valueOf("KITCHEN_MANAGER");
-    /**
-     *
-     */
-    public static final Role MENU_MANAGER = Role.valueOf("MENU_MANAGER");
-    /**
-     *
-     */
-    public static final Role CASHIER = Role.valueOf("CASHIER");
+    public static final Role CANDIDATE_USER = Role.valueOf("CANDIDATE_USER");
+    public static final Role CUSTOMER_USER = Role.valueOf("CUSTOMER_USER");
+    public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER_MANAGER");
+    public static final Role OPERATOR = Role.valueOf("OPERATOR");
 
     /**
      * get available role types for adding new users
@@ -61,10 +43,7 @@ public final class BaseRoles {
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, KITCHEN_MANAGER, MENU_MANAGER, CASHIER };
+        return new Role[] { ADMIN, CANDIDATE_USER, CUSTOMER_USER, CUSTOMER_MANAGER, OPERATOR };
     }
 
-    public boolean isCollaborator(final Role role) {
-        return role != CLIENT_USER;
-    }
 }

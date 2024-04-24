@@ -30,16 +30,17 @@ final class InMemoryInitializer {
         private LazyHolder() {
         }
     }
+    private boolean initialized;
 
     private InMemoryInitializer() {
-        // to ensure some default test data is available, specially when using
-        // in memory persistence
-        new BaseBootstrapper().execute();
+        // private constructor to avoid instantiation
     }
 
     private void initialize() {
-        // nothing to do; data has already been initialized in the singleton
-        // constructor.
+        if (!initialized) {
+            new BaseBootstrapper().execute();
+            initialized = true;
+        }
     }
 
     public static void init() {
