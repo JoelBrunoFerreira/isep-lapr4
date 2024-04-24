@@ -23,9 +23,6 @@
  */
 package eapli.base.clientusermanagement.application;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import eapli.base.clientusermanagement.domain.ClientUserBuilder;
 import eapli.base.clientusermanagement.domain.SignupRequest;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
@@ -39,6 +36,9 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The transactional controller for the use case "accept/refuse a signup
@@ -114,7 +114,7 @@ public class AcceptRefuseSignupRequestControllerTxImpl
     //
     private SystemUser createSystemUserForClientUser(final SignupRequest theSignupRequest) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.CLIENT_USER);
+        roles.add(BaseRoles.CANDIDATE_USER);
         return userService.registerUser(theSignupRequest.username(), theSignupRequest.password(),
                 theSignupRequest.name(), theSignupRequest.email(), roles);
     }

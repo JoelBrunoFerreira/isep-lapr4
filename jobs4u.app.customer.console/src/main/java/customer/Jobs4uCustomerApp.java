@@ -1,6 +1,6 @@
 package customer;
 
-import customer.presentation.FrontMenu;
+import customer.presentation.CustomerFrontMenu;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
@@ -19,7 +19,7 @@ public class Jobs4uCustomerApp extends BaseApplication {
 
     @Override
     protected void doMain(String[] args) {
-        new FrontMenu().show();
+        new CustomerFrontMenu().show();
     }
 
     @Override

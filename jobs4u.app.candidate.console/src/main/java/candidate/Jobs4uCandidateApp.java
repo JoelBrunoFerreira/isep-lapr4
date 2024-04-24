@@ -1,6 +1,6 @@
 package candidate;
 
-import candidate.presentation.FrontMenu;
+import candidate.presentation.CandidateFrontMenu;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
@@ -19,7 +19,7 @@ public class Jobs4uCandidateApp extends BaseApplication {
 
     @Override
     protected void doMain(String[] args) {
-        new FrontMenu().show();
+        new CandidateFrontMenu().show();
     }
 
     @Override

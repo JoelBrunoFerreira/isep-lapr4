@@ -1,6 +1,6 @@
 package backoffice;
 
-import backoffice.presentation.FrontMenu;
+import backoffice.presentation.BackofficeFrontMenu;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
@@ -19,7 +19,7 @@ public class Jobs4uBackofficeApp extends BaseApplication {
 
     @Override
     protected void doMain(String[] args) {
-        new FrontMenu().show();
+        new BackofficeFrontMenu().show();
     }
 
     @Override

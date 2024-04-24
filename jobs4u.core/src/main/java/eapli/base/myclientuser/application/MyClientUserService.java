@@ -20,8 +20,6 @@
  */
 package eapli.base.myclientuser.application;
 
-import java.util.Optional;
-
 import eapli.base.clientusermanagement.domain.ClientUser;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -30,6 +28,8 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.util.Optional;
 
 /**
  *
@@ -49,7 +49,7 @@ public class MyClientUserService {
     }
 
     public ClientUser myUser() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CLIENT_USER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CANDIDATE_USER);
         final UserSession s = authz.session().orElseThrow(IllegalStateException::new);
         final SystemUser me = s.authenticatedUser();
         return repo.findByUsername(me.identity()).orElseThrow(IllegalStateException::new);
