@@ -93,6 +93,12 @@ public final class BaseBootstrap extends BaseApplication {
         return "Bootstrap data done.";
     }
 
+    @Override
+    protected void configureAuthz() {
+        AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
+                new PlainTextEncoder());
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     protected void doSetupEventHandlers(final EventDispatcher dispatcher) {

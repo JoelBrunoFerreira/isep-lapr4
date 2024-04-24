@@ -2,6 +2,10 @@ package candidate;
 
 import candidate.presentation.FrontMenu;
 import eapli.base.app.common.console.BaseApplication;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.domain.BasePasswordPolicy;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
 public class Jobs4uCandidateApp extends BaseApplication {
@@ -29,6 +33,12 @@ public class Jobs4uCandidateApp extends BaseApplication {
     @Override
     protected String appGoodbye() {
         return "    Thank you for using our App";
+    }
+
+    @Override
+    protected void configureAuthz() {
+        AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
+                new PlainTextEncoder());
     }
 
     @Override

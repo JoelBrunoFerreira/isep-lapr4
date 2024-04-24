@@ -20,12 +20,12 @@
  */
 package eapli.base.app.common.console;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import eapli.base.Application;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
+import eapli.framework.infrastructure.pubsub.PubSubRegistry;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -47,6 +47,7 @@ public abstract class BaseApplication {
      *            the command line arguments
      */
     public void run(final String[] args) {
+        configure();
         printHeader();
 
         try {
@@ -94,6 +95,27 @@ public abstract class BaseApplication {
     private final void setupEventHandlers() {
         doSetupEventHandlers(dispatcher);
     }
+
+    protected void configure() {
+        configureAuthz();
+
+        configurePubSub();
+    }
+    protected void configurePubSub() {
+        // TODO use a factory/registry to obtain the pub/sub engine
+        /*
+         * SimplePersistentPubSub.configure(PersistenceContext.repositories().
+         * eventRecord(), PersistenceContext.repositories().eventConsumption(),
+         * Application.settings().getProperty("eapli.framework.pubsub.instanceKey"),
+         * Integer.valueOf(Application.settings().getProperty(
+         * "eapli.framework.pubsub.poolInterval") ));
+         * PubSubRegistry.configure(SimplePersistentPubSub.dispatcher(),
+         * SimplePersistentPubSub.publisher());
+         */
+        PubSubRegistry.configure(InProcessPubSub.dispatcher(), InProcessPubSub.publisher());
+    }
+
+    protected abstract void configureAuthz();
 
     protected abstract void doMain(final String[] args);
 

@@ -34,14 +34,12 @@ import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryU
  */
 public class InMemoryRepositoryFactory implements RepositoryFactory {
 
-    static {
-        // only needed because of the in memory persistence
-        new BaseBootstrapper().execute();
-    }
-
+    //Initialize a power user so that we can login.
     @Override
     public UserRepository users(final TransactionalContext tx) {
-        return new InMemoryUserRepository();
+        final InMemoryUserRepository repo = new InMemoryUserRepository();
+        BaseBootstrapper.registerPowerUser(repo);
+        return repo;
     }
 
     @Override

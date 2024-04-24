@@ -63,7 +63,7 @@ public class BaseBootstrapper implements Action {
         // declare bootstrap actions
         final Action[] actions = { new MasterUsersBootstrapper(), };
 
-        registerPowerUser();
+        registerPowerUser(userRepository);
         authenticateForBootstrapping();
 
         // execute all bootstrapping
@@ -79,7 +79,7 @@ public class BaseBootstrapper implements Action {
      * register a power user directly in the persistence layer as we need to
      * circumvent authorisations in the Application Layer
      */
-    private boolean registerPowerUser() {
+    public static boolean registerPowerUser(final UserRepository userRepository) {
         final SystemUserBuilder userBuilder = UserBuilderHelper.builder();
         userBuilder.withUsername(POWERUSER).withPassword(POWERUSER_PWD).withName("joe", "power")
                 .withEmail("joe@email.org").withRoles(BaseRoles.POWER_USER);
