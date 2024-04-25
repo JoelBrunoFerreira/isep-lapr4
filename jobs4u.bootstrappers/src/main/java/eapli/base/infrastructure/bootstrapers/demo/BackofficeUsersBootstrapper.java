@@ -34,7 +34,7 @@ import java.util.Set;
 public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implements Action {
 
     @SuppressWarnings("squid:S2068")
-    private static final String PASSWORD1 = "password1";
+    private static final String PASSWORD1 = "Password1";
 
     @Override
     public boolean execute() {

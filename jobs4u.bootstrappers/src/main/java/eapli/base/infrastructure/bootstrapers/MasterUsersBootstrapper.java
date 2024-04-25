@@ -20,12 +20,12 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Paulo Gandra Sousa
@@ -34,7 +34,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
 
     @Override
     public boolean execute() {
-        registerAdmin("admin", TestDataConstants.PASSWORD1, "Jane", "Doe Admin",
+        registerAdmin("admin", "Password1", "Jane", "Doe Admin",
                 "jane.doe@email.local");
         return true;
     }

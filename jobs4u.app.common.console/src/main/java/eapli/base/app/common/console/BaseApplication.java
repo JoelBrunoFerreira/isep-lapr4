@@ -77,7 +77,7 @@ public abstract class BaseApplication {
 
     protected void printHeader() {
         System.out.println(SEPARATOR_HR);
-        System.out.println(appTitle() + " " + Application.VERSION);
+        System.out.println(appTitle() + Application.VERSION);
         System.out.println(Application.COPYRIGHT);
         System.out.println(SEPARATOR_HR);
     }

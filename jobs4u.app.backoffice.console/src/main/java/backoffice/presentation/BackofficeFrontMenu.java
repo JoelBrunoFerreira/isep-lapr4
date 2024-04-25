@@ -18,7 +18,7 @@ public class BackofficeFrontMenu extends AbstractUI {
 
     @Override
     public boolean show() {
-        drawFormTitle();
+        //drawFormTitle();
         return doShow();
     }
     /**

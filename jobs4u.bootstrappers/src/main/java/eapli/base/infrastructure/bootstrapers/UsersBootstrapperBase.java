@@ -34,7 +34,6 @@ import java.util.Set;
 
 public class UsersBootstrapperBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersBootstrapperBase.class);
-
     final AddUserController userController = new AddUserController();
     final ListUsersController listUserController = new ListUsersController();
 

@@ -28,8 +28,8 @@ package eapli.base;
  */
 public class Application {
 
-    public static final String VERSION = "Version - 1.4.0";
-    public static final String COPYRIGHT = "(C) 2016 - 2024, Code Warriors";
+    public static final String VERSION = "| Version - 1.4.0                   |";
+    public static final String COPYRIGHT = "| (C) 2024, by Code Warriors        |";
 
     private static final AppSettings SETTINGS = new AppSettings();
 

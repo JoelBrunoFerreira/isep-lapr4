@@ -20,17 +20,15 @@
  */
 package eapli.base.infrastructure.bootstrapers.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
 import eapli.base.clientusermanagement.domain.SignupRequest;
-import eapli.base.infrastructure.bootstrapers.TestDataConstants;
 import eapli.base.myclientuser.application.SignupController;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,8 +44,8 @@ public class ClientUserBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        signupAndApprove(TestDataConstants.USER_TEST1, "Password1", "John", "Smith",
-                "john@smith.com", TestDataConstants.USER_TEST1);
+        signupAndApprove("user1", "Password1", "John", "Smith",
+                "john@smith.com", "user1");
         signupAndApprove("isep959", "Password1", "Mary", "Smith", "mary@smith.com", "isep959");
         return true;
     }
