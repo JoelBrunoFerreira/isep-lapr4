@@ -18,7 +18,7 @@ public class CustomerFrontMenu extends AbstractUI {
 
     @Override
     public boolean show() {
-        drawFormTitle();
+        //drawFormTitle();
         return doShow();
     }
     @Override
