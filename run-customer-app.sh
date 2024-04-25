@@ -2,6 +2,6 @@
 
 # set the class path,
 # assumes the build was executed with maven copy-dependencies
-export CUSTOMER_APP=jobs4u.app2/target/jobs4u.app2-0.1.0.jar:jobs4u.app2/target/dependency/*
+export CUSTOMER_APP=jobs4u.app.customer.console/target/jobs4u.app.customer.console-0.1.0.jar:jobs4u.app.customer.console/target/dependency/*
 
-java -cp $CUSTOMER_APP customer.App_Customer
+java -cp $CUSTOMER_APP customer.Jobs4uCustomerApp
