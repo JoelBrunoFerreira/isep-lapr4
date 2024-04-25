@@ -26,7 +26,7 @@ public class CustomerFrontMenu extends AbstractUI {
         final var menu = new Menu();
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(
                 new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.CUSTOMER_USER)::show, () -> {
-            new CustomerMainMenu().sayHello();
+            new CustomerMainMenu().displayCustomerMenu();
             return true;
         }));
         // TODO: instead of leaving the app, return to the main menu again
