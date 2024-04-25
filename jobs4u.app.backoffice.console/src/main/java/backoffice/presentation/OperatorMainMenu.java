@@ -1,7 +1,7 @@
 package backoffice.presentation;
 
 public class OperatorMainMenu {
-    public void sayHello() {
+    public void displayOperatorMenu() {
         System.out.println("Hello Operator");
     }
 }
