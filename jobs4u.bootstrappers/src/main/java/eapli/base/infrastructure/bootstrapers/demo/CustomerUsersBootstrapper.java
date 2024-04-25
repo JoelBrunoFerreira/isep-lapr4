@@ -1,23 +1,3 @@
-/*
- * Copyright (c) 2013-2024 the original author or authors.
- *
- * MIT License
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or
- * substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 package eapli.base.infrastructure.bootstrapers.demo;
 
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
@@ -31,21 +11,16 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Paulo Gandra Sousa
- */
-public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implements Action {
-    private static final String PASSWORD1 = "Password1";
-    private static final Logger LOGGER = LoggerFactory.getLogger(BackofficeUsersBootstrapper.class);
+public class CustomerUsersBootstrapper extends UsersBootstrapperBase implements Action {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerUsersBootstrapper.class);
     private final SignupController signupController = new SignupController();
     private final AcceptRefuseSignupRequestController acceptController = AcceptRefuseSignupFactory.build();
-
     @Override
     public boolean execute() {
-        signupAndApprove("manager1", PASSWORD1, "Johnny", "Cash", "johnny@emai.com", "isep701");
-        signupAndApprove("manager2", PASSWORD1, "Rachel", "Walsh", "rachel@emai.com", "isep702");
-        signupAndApprove("operator1", PASSWORD1, "Luís", "Figo", "figo@emai.com", "isep703");
-        signupAndApprove("operator2", PASSWORD1, "Paolo", "Maldini", "maldini@emai.com", "isep704");
+        signupAndApprove("customer1", "Password1", "Billy", "Bob",
+                "billy@smith.com", "isep960");
+        signupAndApprove("customer2", "Password1", "Sponge", "Bob",
+                "sponge@smith.com", "isep961");
         return true;
     }
 

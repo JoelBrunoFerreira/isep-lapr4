@@ -23,6 +23,7 @@ package eapli.base.infrastructure.bootstrapers.demo;
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
 import eapli.base.clientusermanagement.domain.SignupRequest;
+import eapli.base.infrastructure.bootstrapers.UsersBootstrapperBase;
 import eapli.base.myclientuser.application.SignupController;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -34,25 +35,24 @@ import org.slf4j.LoggerFactory;
  *
  * @author Paulo Sousa
  */
-public class ClientUserBootstrapper implements Action {
-    private static final Logger LOGGER = LoggerFactory.getLogger(
-            ClientUserBootstrapper.class);
-
+public class CandidateUsersBootstrapper extends UsersBootstrapperBase implements Action {
+    private static final String PASSWORD1 = "Password1";
+    private static final Logger LOGGER = LoggerFactory.getLogger(CandidateUsersBootstrapper.class);
     private final SignupController signupController = new SignupController();
-    private final AcceptRefuseSignupRequestController acceptController = AcceptRefuseSignupFactory
-            .build();
+    private final AcceptRefuseSignupRequestController acceptController = AcceptRefuseSignupFactory.build();
 
     @Override
     public boolean execute() {
-        signupAndApprove("user1", "Password1", "John", "Smith",
-                "john@smith.com", "user1");
-        signupAndApprove("isep959", "Password1", "Mary", "Smith", "mary@smith.com", "isep959");
+        signupAndApprove("candidate1", PASSWORD1, "John", "Smith",
+                "john@smith.com", "isep958");
+        signupAndApprove("candidate2", PASSWORD1, "Mary", "Smith",
+                "mary@smith.com", "isep959");
         return true;
     }
 
     private SignupRequest signupAndApprove(final String username, final String password,
-            final String firstName, final String lastName, final String email,
-            final String mecanographicNumber) {
+                                           final String firstName, final String lastName, final String email,
+                                           final String mecanographicNumber) {
         SignupRequest request = null;
         try {
             request = signupController.signup(username, password, firstName, lastName, email,

@@ -24,8 +24,8 @@ import eapli.base.app.common.console.BaseApplication;
 import eapli.base.clientusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
 import eapli.base.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
 import eapli.base.clientusermanagement.domain.events.SignupAcceptedEvent;
-import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
-import eapli.base.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
+import eapli.base.infrastructure.bootstrapers.Jobs4uBootstrapper;
+import eapli.base.infrastructure.bootstrapers.demo.Jobs4uDemoBootstrapper;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.smoketests.BaseDemoSmokeTester;
 import eapli.base.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
@@ -51,9 +51,6 @@ public final class BaseBootstrap extends BaseApplication {
 
     public static void main(final String[] args) {
 
-        AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
-                new PlainTextEncoder());
-
         new BaseBootstrap().run(args);
     }
 
@@ -62,11 +59,11 @@ public final class BaseBootstrap extends BaseApplication {
         handleArgs(args);
 
         System.out.println("\n\n------- MASTER DATA -------");
-        new BaseBootstrapper().execute();
+        new Jobs4uBootstrapper().execute();
 
         if (isToBootstrapDemoData) {
             System.out.println("\n\n------- DEMO DATA -------");
-            new BaseDemoBootstrapper().execute();
+            new Jobs4uDemoBootstrapper().execute();
         }
         if (isToRunSampleE2E) {
             System.out.println("\n\n------- BASIC SCENARIO -------");
