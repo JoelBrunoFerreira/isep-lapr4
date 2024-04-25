@@ -22,7 +22,7 @@ package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
+import eapli.base.infrastructure.bootstrapers.Jobs4uBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -38,7 +38,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     @Override
     public UserRepository users(final TransactionalContext tx) {
         final InMemoryUserRepository repo = new InMemoryUserRepository();
-        BaseBootstrapper.registerPowerUser(repo);
+        Jobs4uBootstrapper.registerPowerUser(repo);
         return repo;
     }
 

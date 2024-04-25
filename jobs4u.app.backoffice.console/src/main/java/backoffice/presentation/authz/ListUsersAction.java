@@ -18,32 +18,18 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.base.persistence.impl.inmemory;
+package backoffice.presentation.authz;
 
-import eapli.base.infrastructure.bootstrapers.Jobs4uBootstrapper;
+import eapli.framework.actions.Action;
 
-final class InMemoryInitializer {
+/**
+ *
+ * @author losa
+ */
+public class ListUsersAction implements Action {
 
-    private static class LazyHolder {
-        private static final InMemoryInitializer INSTANCE = new InMemoryInitializer();
-
-        private LazyHolder() {
-        }
-    }
-    private boolean initialized;
-
-    private InMemoryInitializer() {
-        // private constructor to avoid instantiation
-    }
-
-    private void initialize() {
-        if (!initialized) {
-            new Jobs4uBootstrapper().execute();
-            initialized = true;
-        }
-    }
-
-    public static void init() {
-        LazyHolder.INSTANCE.initialize();
+    @Override
+    public boolean execute() {
+        return new backoffice.presentation.authz.ListUsersUI().show();
     }
 }

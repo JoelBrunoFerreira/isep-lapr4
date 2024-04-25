@@ -18,32 +18,22 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eapli.base.persistence.impl.inmemory;
+package backoffice.presentation.authz;
 
-import eapli.base.infrastructure.bootstrapers.Jobs4uBootstrapper;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.visitor.Visitor;
 
-final class InMemoryInitializer {
+/**
+ *
+ * @author Paulo Gandra de Sousa
+ *
+ */
+@SuppressWarnings({ "squid:S106" })
+public class SystemUserPrinter implements Visitor<SystemUser> {
 
-    private static class LazyHolder {
-        private static final InMemoryInitializer INSTANCE = new InMemoryInitializer();
-
-        private LazyHolder() {
-        }
-    }
-    private boolean initialized;
-
-    private InMemoryInitializer() {
-        // private constructor to avoid instantiation
-    }
-
-    private void initialize() {
-        if (!initialized) {
-            new Jobs4uBootstrapper().execute();
-            initialized = true;
-        }
-    }
-
-    public static void init() {
-        LazyHolder.INSTANCE.initialize();
+    @Override
+    public void visit(final SystemUser visitee) {
+        System.out.printf("%-10s%-30s%-30s", visitee.username(), visitee.name().firstName(),
+                visitee.name().lastName());
     }
 }
