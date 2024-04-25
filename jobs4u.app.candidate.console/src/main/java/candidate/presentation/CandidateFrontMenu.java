@@ -26,7 +26,7 @@ public class CandidateFrontMenu extends AbstractUI {
         final var menu = new Menu();
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(
                 new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.CANDIDATE_USER)::show, () -> {
-            new CandidateMainMenu().sayHello();
+            new CandidateMainMenu().displayCandidateMenu();
             return true;
         }));
         // TODO: instead of leaving the app, return to the main menu again
