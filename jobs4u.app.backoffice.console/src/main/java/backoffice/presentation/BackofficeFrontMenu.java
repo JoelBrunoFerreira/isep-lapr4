@@ -15,7 +15,8 @@ public class BackofficeFrontMenu extends AbstractUI {
     private static final int EXIT_OPTION = 0;
     private static final int LOGIN_OPTION_1 = 1;
     private static final int LOGIN_OPTION_2 = 2;
-    private static final int SIGNUP_OPTION = 3;
+    private static final int LOGIN_OPTION_3 = 3;
+    private static final int SIGNUP_OPTION = 4;
 
     @Override
     public boolean show() {
@@ -28,14 +29,19 @@ public class BackofficeFrontMenu extends AbstractUI {
     @Override
     public boolean doShow() {
         final var menu = new Menu();
-        menu.addItem(LOGIN_OPTION_1, "Login as Customer Manager", new ChainedAction(
-                new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.CUSTOMER_MANAGER)::show, () -> {
-            new ManagerMainMenu().sayHello();
+        menu.addItem(LOGIN_OPTION_1, "Login as Admin", new ChainedAction(
+                new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.ADMIN)::show, () -> {
+            new AdminMainMenu().displayAdminMenu();
             return true;
         }));
-        menu.addItem(LOGIN_OPTION_2, "Login as Operator", new ChainedAction(
+        menu.addItem(LOGIN_OPTION_2, "Login as Customer Manager", new ChainedAction(
+                new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.CUSTOMER_MANAGER)::show, () -> {
+            new CustomerManagerMainMenu().displayCustomerManagerMenu();
+            return true;
+        }));
+        menu.addItem(LOGIN_OPTION_3, "Login as Operator", new ChainedAction(
                 new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.OPERATOR)::show, () -> {
-            new OperatorMainMenu().sayHello();
+            new OperatorMainMenu().displayOperatorMenu();
             return true;
         }));
         // TODO: instead of leaving the app, return to the main menu again
