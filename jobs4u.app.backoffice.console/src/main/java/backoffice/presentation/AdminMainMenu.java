@@ -4,7 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AdminMainMenu {
-
     static Scanner read = new Scanner(System.in);
     private static final int EXIT_OPTION = 0;
     private static final int ADD_USER = 1;
@@ -13,6 +12,13 @@ public class AdminMainMenu {
     private static final int PREVIOUS_MENU = 4;
 
     public void displayAdminMenu() {
+
+        System.out.println("""
+                =====================================
+                |        Jobs4u - Admin Menu        |
+                =====================================
+                """);
+        System.out.println();
 
 
         int option = 0;
