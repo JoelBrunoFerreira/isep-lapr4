@@ -78,7 +78,7 @@ public class Jobs4uBootstrapper implements Action {
     public static boolean registerPowerUser(final UserRepository userRepository) {
         final SystemUserBuilder userBuilder = UserBuilderHelper.builder();
         userBuilder.withUsername(POWERUSER).withPassword(POWERUSER_PWD).withName("joe", "power")
-                .withEmail("joe@email.org").withRoles(BaseRoles.POWER_USER);
+                .withEmail("joe@email.com").withRoles(BaseRoles.POWER_USER);
         final SystemUser newUser = userBuilder.build();
 
         SystemUser poweruser;

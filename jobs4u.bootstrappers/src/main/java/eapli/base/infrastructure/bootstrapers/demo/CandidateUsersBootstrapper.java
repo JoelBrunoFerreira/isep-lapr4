@@ -44,9 +44,9 @@ public class CandidateUsersBootstrapper extends UsersBootstrapperBase implements
     @Override
     public boolean execute() {
         signupAndApprove("candidate1", PASSWORD1, "John", "Smith",
-                "john@smith.com", "isep958");
+                "john@email.com", "isep958");
         signupAndApprove("candidate2", PASSWORD1, "Mary", "Smith",
-                "mary@smith.com", "isep959");
+                "mary@email.com", "isep959");
         return true;
     }
 

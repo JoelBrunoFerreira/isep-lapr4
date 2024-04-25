@@ -37,14 +37,14 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     @Override
     public boolean execute() {
         registerAdmin("admin", "AdminBoss1", "Joel", "Ferreira", "joel@email.com");
-        registerCandidate("candidate1", PASSWORD1, "John", "Smith","john@smith.com");
-        registerCandidate("candidate2", PASSWORD1, "Mary", "Smith","mary@smith.com");
-        registerCustomer("customer1", "Password1", "Billy", "Bob","billy@smith.com");
-        registerCustomer("customer2", "Password1", "Sponge", "Bob","sponge@smith.com");
-        //registerCustomerManager("manager1", PASSWORD1, "Johnny", "Cash", "johnny@emai.com");
-        //registerCustomerManager("manager2", PASSWORD1, "Rachel", "Walsh", "rachek@emaicom");
-        registerOperator("operator1", PASSWORD1, "Luís", "Figo", "figo@emai.com");
-        registerOperator("operator2", PASSWORD1, "Paolo", "Maldini", "maldini@emai.com");
+        registerCandidate("candidate1", PASSWORD1, "John", "Smith","john@email.com");
+        registerCandidate("candidate2", PASSWORD1, "Mary", "Smith","mary@email.com");
+        registerCustomer("customer1", "Password1", "Billy", "Bob","billy@email.com");
+        registerCustomer("customer2", "Password1", "Sponge", "Bob","sponge@email.com");
+        registerCustomerManager("manager1", PASSWORD1, "Johnny", "Cash", "johnny@email.com");
+        registerCustomerManager("manager2", PASSWORD1, "Rachel", "Walsh", "rachek@email.com");
+        registerOperator("operator1", PASSWORD1, "Luís", "Figo", "figo@email.com");
+        registerOperator("operator2", PASSWORD1, "Paolo", "Maldini", "maldini@email.com");
         return true;
     }
 

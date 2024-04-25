@@ -1,7 +1,7 @@
 package backoffice.presentation;
 
-public class ManagerMainMenu {
-    public void sayHello() {
+public class CustomerManagerMainMenu {
+    public void displayCustomerManagerMenu() {
         System.out.println("Hello Customer Manager");
     }
 }
