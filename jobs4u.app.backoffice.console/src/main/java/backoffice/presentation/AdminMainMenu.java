@@ -1,64 +1,138 @@
 package backoffice.presentation;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import backoffice.presentation.authz.AddUserUI;
+import backoffice.presentation.authz.DeactivateUserAction;
+import backoffice.presentation.authz.ListUsersAction;
+import eapli.base.Application;
+import eapli.base.app.common.console.presentation.authz.MyUserMenu;
+import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.actions.Actions;
+import eapli.framework.actions.menu.Menu;
+import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.ExitWithMessageAction;
+import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
+import eapli.framework.presentation.console.menu.MenuItemRenderer;
+import eapli.framework.presentation.console.menu.MenuRenderer;
+import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-public class AdminMainMenu {
-    static Scanner read = new Scanner(System.in);
+public class AdminMainMenu extends AbstractUI {
+
+    private static final String RETURN_LABEL = "Return ";
+
     private static final int EXIT_OPTION = 0;
-    private static final int ADD_USER = 1;
-    private static final int ENABLE_DISABLE = 2;
-    private static final int LIST_USERS = 3;
+
+    // USERS
+    private static final int ADD_USER_OPTION = 1;
+    private static final int LIST_USERS_OPTION = 2;
+    private static final int DEACTIVATE_USER_OPTION = 3;
     private static final int PREVIOUS_MENU = 4;
 
-    public void displayAdminMenu() {
+    // MAIN MENU
+    private static final int MY_USER_OPTION = 1;
+    private static final int USERS_OPTION = 2;
+    private static final int JOB_OPENING_OPTION = 6;
 
-        System.out.println("""
-                =====================================
-                |        Jobs4u - Admin Menu        |
-                =====================================
-                """);
-        System.out.println();
+    private static final String SEPARATOR_LABEL = "--------------";
 
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-        int option = 0;
-        boolean validInput = false;
-
-        while (!validInput) {
-            System.out.print("Enter option number: ");
-
-            try {
-                option = read.nextInt();
-
-                if (option >= EXIT_OPTION && option <= PREVIOUS_MENU) {
-                    validInput = true;
-                } else {
-                    System.out.printf("Invalid option. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
-                }
-            } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
-                read.nextLine();
-            }
-        }
-        switch (option) {
-            case ADD_USER:
-                //addUser()
-                break;
-            case ENABLE_DISABLE:
-                //enableDisableUser()
-                break;
-            case LIST_USERS:
-                //listUsers()
-                break;
-            case PREVIOUS_MENU:
-                //previousMenu()
-                break;
-            case EXIT_OPTION:
-                System.exit(0);
-                break;
-            default:
-                System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, PREVIOUS_MENU);
-        }
+    @Override
+    public boolean show() {
+        drawFormTitle();
+        return doShow();
     }
+
+    /**
+     * @return true if the user selected the exit option
+     */
+    @Override
+    public boolean doShow() {
+        final Menu menu = buildMainMenu();
+        final MenuRenderer renderer;
+        if (Application.settings().isMenuLayoutHorizontal()) {
+            renderer = new HorizontalMenuRenderer(menu, MenuItemRenderer.DEFAULT);
+        } else {
+            renderer = new VerticalMenuRenderer(menu, MenuItemRenderer.DEFAULT);
+        }
+        return renderer.render();
+    }
+
+    @Override
+    public String headline() {
+
+        return authz.session().map(s -> "jobs4u [ @" + s.authenticatedUser().identity() + " ]")
+                .orElse("jobs4u [ ==Anonymous== ]");
+    }
+
+    private Menu buildMainMenu() {
+        final Menu mainMenu = new Menu();
+
+        final Menu myUserMenu = new MyUserMenu();
+        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        }
+
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.ADMIN,
+                BaseRoles.POWER_USER)) {
+            final Menu usersMenu = buildUsersMenu();
+            mainMenu.addSubMenu(USERS_OPTION, usersMenu);
+
+        }
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER,
+                BaseRoles.CUSTOMER_MANAGER)) {
+            final Menu jobOpeningMenu = buildJobOpeningMenu();
+            mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
+        }
+        if (authz.isAuthenticatedUserAuthorizedTo(CafeteriaRoles.POWER_USER,
+                CafeteriaRoles.MENU_MANAGER)) {
+            final Menu dishTypeMenu = buildDishMenu();
+            mainMenu.addSubMenu(DISH_OPTION, dishTypeMenu);
+            final Menu menusMenu = buildMealsMenu();
+            mainMenu.addSubMenu(MEALS_OPTION, menusMenu);
+            // reporting
+            final Menu reportingDishesMenu = buildReportingDishesMenu();
+            mainMenu.addSubMenu(REPORTING_DISHES_OPTION, reportingDishesMenu);
+        }
+
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        }
+
+        mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
+
+        return mainMenu;
+    }
+
+    private Menu buildJobOpeningMenu() {
+        final Menu menu = new Menu("Traceability >");
+
+        menu.addItem(MATERIAL_REGISTER_OPTION, "Register new material",
+                new RegisterMaterialAction());
+        menu.addItem(MATERIAL_LIST_OPTION, "List all materials", new ListMaterialAction());
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+
+    private Menu buildUsersMenu() {
+        final Menu menu = new Menu("Users >");
+
+        menu.addItem(ADD_USER_OPTION, "Add User", new AddUserUI()::show);
+        menu.addItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction());
+        menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
+//        menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
+//                new AcceptRefuseSignupRequestAction());
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
 }
 
