@@ -1,5 +1,7 @@
 package backoffice.presentation;
 
+import backoffice.Jobs4uBackofficeApp;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,6 +17,12 @@ public class CustomerManagerMainMenu {
         System.out.println("""
                 =====================================
                 |  Jobs4u - Customer Manager Menu   |
+                =====================================
+                1. Customer Manager Option 1
+                2. Customer Manager Option 2
+                3. Customer Manager Option 3
+                4. Back
+                0. Exit
                 =====================================
                 """);
         System.out.println();
@@ -50,9 +58,10 @@ public class CustomerManagerMainMenu {
                 System.out.println("Not implemented yet");
                 break;
             case PREVIOUS_MENU:
-                //previousMenu()
+                Jobs4uBackofficeApp.main(null);
                 break;
             case EXIT_OPTION:
+                System.out.println("Bye, Bye");
                 System.exit(0);
                 break;
             default:
