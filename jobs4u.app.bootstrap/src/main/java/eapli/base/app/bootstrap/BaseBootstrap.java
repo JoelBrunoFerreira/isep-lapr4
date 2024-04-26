@@ -82,7 +82,7 @@ public final class BaseBootstrap extends BaseApplication {
 
     @Override
     protected String appTitle() {
-        return "Bootstrapping Base data ";
+        return "Bootstrapping Base data...\n";
     }
 
     @Override
