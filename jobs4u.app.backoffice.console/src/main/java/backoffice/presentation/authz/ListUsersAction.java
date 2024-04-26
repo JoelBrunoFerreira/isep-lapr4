@@ -30,6 +30,6 @@ public class ListUsersAction implements Action {
 
     @Override
     public boolean execute() {
-        return new backoffice.presentation.authz.ListUsersUI().show();
+        return new ListUsersUI().show();
     }
 }

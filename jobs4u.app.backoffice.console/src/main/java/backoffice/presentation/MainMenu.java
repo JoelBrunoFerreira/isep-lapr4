@@ -18,7 +18,7 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-public class AdminMainMenu extends AbstractUI {
+public class MainMenu extends AbstractUI {
 
     private static final String RETURN_LABEL = "Return ";
 
@@ -34,6 +34,10 @@ public class AdminMainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int JOB_OPENING_OPTION = 6;
+
+    // JOB OPENING
+    private static final int CREATE_JOB_OPENING_OPTION = 1;
+    private static final int LIST_JOB_OPENING_OPTION = 2;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -83,21 +87,21 @@ public class AdminMainMenu extends AbstractUI {
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
 
         }
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER,
-                BaseRoles.CUSTOMER_MANAGER)) {
-            final Menu jobOpeningMenu = buildJobOpeningMenu();
-            mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
-        }
-        if (authz.isAuthenticatedUserAuthorizedTo(CafeteriaRoles.POWER_USER,
-                CafeteriaRoles.MENU_MANAGER)) {
-            final Menu dishTypeMenu = buildDishMenu();
-            mainMenu.addSubMenu(DISH_OPTION, dishTypeMenu);
-            final Menu menusMenu = buildMealsMenu();
-            mainMenu.addSubMenu(MEALS_OPTION, menusMenu);
-            // reporting
-            final Menu reportingDishesMenu = buildReportingDishesMenu();
-            mainMenu.addSubMenu(REPORTING_DISHES_OPTION, reportingDishesMenu);
-        }
+//        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER,
+//                BaseRoles.CUSTOMER_MANAGER)) {
+//            final Menu jobOpeningMenu = buildJobOpeningMenu();
+//            mainMenu.addSubMenu(JOB_OPENING_OPTION, jobOpeningMenu);
+//        }
+//        if (authz.isAuthenticatedUserAuthorizedTo(CafeteriaRoles.POWER_USER,
+//                CafeteriaRoles.MENU_MANAGER)) {
+//            final Menu dishTypeMenu = buildDishMenu();
+//            mainMenu.addSubMenu(DISH_OPTION, dishTypeMenu);
+//            final Menu menusMenu = buildMealsMenu();
+//            mainMenu.addSubMenu(MEALS_OPTION, menusMenu);
+//            // reporting
+//            final Menu reportingDishesMenu = buildReportingDishesMenu();
+//            mainMenu.addSubMenu(REPORTING_DISHES_OPTION, reportingDishesMenu);
+//        }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -107,19 +111,6 @@ public class AdminMainMenu extends AbstractUI {
 
         return mainMenu;
     }
-
-    private Menu buildJobOpeningMenu() {
-        final Menu menu = new Menu("Traceability >");
-
-        menu.addItem(MATERIAL_REGISTER_OPTION, "Register new material",
-                new RegisterMaterialAction());
-        menu.addItem(MATERIAL_LIST_OPTION, "List all materials", new ListMaterialAction());
-
-        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-
-        return menu;
-    }
-
 
     private Menu buildUsersMenu() {
         final Menu menu = new Menu("Users >");
@@ -133,6 +124,21 @@ public class AdminMainMenu extends AbstractUI {
 
         return menu;
     }
+
+
+//    private Menu buildJobOpeningMenu() {
+//        final Menu menu = new Menu("Job Opening >");
+//
+//        menu.addItem(CREATE_JOB_OPENING_OPTION, "Create Job Opening",
+//                new RegisterMaterialAction());
+//        menu.addItem(LIST_JOB_OPENING_OPTION, "List all Job Openings", new ListMaterialAction());
+//
+//        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+//
+//        return menu;
+//    }
+
+
 
 }
 
