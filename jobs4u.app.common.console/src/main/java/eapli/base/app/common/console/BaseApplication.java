@@ -65,7 +65,7 @@ public abstract class BaseApplication {
         }
 
         // exiting the application, closing all threads
-        System.exit(0);
+        //System.exit(0);
     }
 
     protected void printFooter() {
@@ -99,7 +99,7 @@ public abstract class BaseApplication {
     protected void configure() {
         configureAuthz();
 
-        configurePubSub();
+        //configurePubSub();
     }
     protected void configurePubSub() {
         // TODO use a factory/registry to obtain the pub/sub engine
@@ -126,6 +126,5 @@ public abstract class BaseApplication {
     protected void doClearEventHandlers(final EventDispatcher dispatcher) {
         // nothing to do
     }
-
     protected abstract void doSetupEventHandlers(EventDispatcher dispatcher);
 }

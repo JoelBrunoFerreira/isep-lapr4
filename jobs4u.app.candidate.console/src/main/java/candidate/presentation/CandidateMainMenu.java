@@ -1,5 +1,7 @@
 package candidate.presentation;
 
+import candidate.Jobs4uCandidateApp;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,6 +18,12 @@ public class CandidateMainMenu {
         System.out.println("""
                 =====================================
                 |      Jobs4u - Candidate Menu      |
+                =====================================
+                1. Candidate Option 1
+                2. Candidate Option 2
+                3. Candidate Option 3
+                4. Back
+                0. Exit
                 =====================================
                 """);
         System.out.println();
@@ -51,9 +59,10 @@ public class CandidateMainMenu {
                 System.out.println("Not implemented yet");
                 break;
             case PREVIOUS_MENU:
-                //previousMenu()
+                Jobs4uCandidateApp.main(null);
                 break;
             case EXIT_OPTION:
+                System.out.println("Bye, Bye");
                 System.exit(0);
                 break;
             default:

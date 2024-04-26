@@ -1,7 +1,11 @@
 package backoffice;
 
 import backoffice.presentation.BackofficeFrontMenu;
+<<<<<<< HEAD
 import backoffice.presentation.MainMenu;
+=======
+import eapli.base.app.bootstrap.BaseBootstrap;
+>>>>>>> origin/testing
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
@@ -17,6 +21,7 @@ public class Jobs4uBackofficeApp extends BaseApplication {
     }
 
     public static void main(String[] args) {
+        BaseBootstrap.main(args);
         new Jobs4uBackofficeApp().run(args);
     }
 
