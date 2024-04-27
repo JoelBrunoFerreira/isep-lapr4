@@ -1,4 +1,5 @@
 package eapli.base.JobOpeningManagement.domain;
 
-public class InterviewModel {
+public class JobTitle {
+
 }

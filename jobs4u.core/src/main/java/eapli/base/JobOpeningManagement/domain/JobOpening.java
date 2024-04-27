@@ -1,6 +1,8 @@
 package eapli.base.JobOpeningManagement.domain;
 
 
+import eapli.base.InterviewModelManagement.InterviewModel;
+import eapli.base.RecruitmentProcessManagement.RecruitmentProcess;
 import eapli.base.customermanagement.domain.Customer;
 import eapli.base.customermanagement.dto.CustomerDTO;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
@@ -26,23 +28,22 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     private JobReference jobReference;
     private NumberVacancies numberVacancies;
     private Description description;
-    private CompanyAddress companyAddress;
+    private JobOpeningAddress jobOpeningAddress;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Mode mode;
-    private Title title;
+    private WorkingMode mode;
+    private JobTitle jobTitle;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ContractType contractType;
-    @ManyToOne
+
     private Customer customer;
 
-    @OneToMany
-    private RecruitmenProcess recProc;
-    private List<JobOpeningPhase> jobOpeningPhases;
-    @ManyToOne
+
+    private RecruitmentProcess recProc;
+
     private JobRequirement jobRequirement;
-    @ManyToOne
+
     private InterviewModel interviewModel;
 
     //Adicionar referencia ao CustomerManager
@@ -78,10 +79,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         Preconditions.nonNull(customer);
         Preconditions.nonNegative(numberVacancies);
 
-        this.title = new Title(title);
+        this.jobTitle = new JobTitle(title);
         this.description = new Description(description);
         this.company = new Company(company);
-        this.companyAddress = new CompanyAddress(companyAddress);
+        this.jobOpeningAddress = new JobOpeningAddress(companyAddress);
         this.numberVacancies = new NumberVacancies(numberVacancies);
         this.mode = Mode.parse(mode);
         this.contractType = ContractType.parse(contractType);
@@ -124,8 +125,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             phases.add(phase.toString());
         }
         return new JobOpeningDTO(jobReference.getId(), phases,
-                numberVacancies.toString(), description.toString(), companyAddress.toString(), mode.toString(),
-                title.toString(), contractType.toString(), jobRequirement.toString(), interviewModel.toString());
+                numberVacancies.toString(), description.toString(), jobOpeningAddress.toString(), mode.toString(),
+                jobTitle.toString(), contractType.toString(), jobRequirement.toString(), interviewModel.toString());
     }
 
     @Override
