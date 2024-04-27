@@ -26,6 +26,8 @@ package eapli.base.usermanagement.domain;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import eapli.framework.strings.util.StringPredicates;
 
+import java.util.Random;
+
 /**
  * Enforces that passwords must be at least 6 characters long and have at least
  * one digit and one capital letter.
@@ -39,6 +41,7 @@ import eapli.framework.strings.util.StringPredicates;
  *
  */
 public class BasePasswordPolicy implements PasswordPolicy {
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#$";
 
     /*
      * (non-Javadoc)
@@ -91,6 +94,24 @@ public class BasePasswordPolicy implements PasswordPolicy {
             passwordStrength = PasswordStrength.WEAK;
         }
         return passwordStrength;
+    }
+
+    public String generatePassword() {
+        Random random = new Random();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            builder.append(CHARACTERS.charAt(random.nextInt(26))); // add 3 random uppercase letter
+        }
+        for (int i = 0; i < 2; i++) {
+            builder.append(CHARACTERS.charAt(random.nextInt(10) + 52)); // add 2 random number
+        }
+        for (int i = 0; i < 2; i++) {
+            builder.append(CHARACTERS.charAt(random.nextInt(26) + 26)); // add 2 random lowercase letter
+        }
+        for (int i = 0; i < 1; i++) {
+            builder.append(CHARACTERS.charAt(random.nextInt(2) + 62)); // add 1 special character
+        }
+        return builder.toString();
     }
 
     public enum PasswordStrength {
