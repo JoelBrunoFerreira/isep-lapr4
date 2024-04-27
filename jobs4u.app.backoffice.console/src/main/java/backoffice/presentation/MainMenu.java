@@ -32,7 +32,7 @@ public class MainMenu extends AbstractUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
-    private static final int USERS_OPTION = 2;
+    private static final int USERS_OPTION = 1;
     private static final int JOB_OPENING_OPTION = 6;
 
     // JOB OPENING
@@ -74,8 +74,8 @@ public class MainMenu extends AbstractUI {
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
 
-        final Menu myUserMenu = new MyUserMenu();
-        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+//        final Menu myUserMenu = new MyUserMenu();
+//        mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));

@@ -46,4 +46,8 @@ public final class BaseRoles {
         return new Role[] { ADMIN, CANDIDATE_USER, CUSTOMER_USER, CUSTOMER_MANAGER, OPERATOR };
     }
 
+    public static Role[] backofficeUserValues() {
+        return new Role[] { ADMIN, CUSTOMER_MANAGER, OPERATOR, CUSTOMER_USER };
+    }
+
 }

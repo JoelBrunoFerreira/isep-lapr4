@@ -51,6 +51,11 @@ public class AddUserController {
         return BaseRoles.nonUserValues();
     }
 
+    public Role[] getBackofficeRoleTypes() {
+        return BaseRoles.backofficeUserValues();
+    }
+  ;
+
     public SystemUser addUser(final String username, final String password, final String firstName,
             final String lastName,
             final String email, final Set<Role> roles, final Calendar createdOn) {

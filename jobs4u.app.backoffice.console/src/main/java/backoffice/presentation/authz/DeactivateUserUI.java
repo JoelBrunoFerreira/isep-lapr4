@@ -49,7 +49,7 @@ public class DeactivateUserUI extends AbstractUI {
             System.out.printf("%-6s%-10s%-30s%-30s%n", "Nº:", "Username", "Firstname", "Lastname");
             for (final SystemUser user : iterable) {
                 list.add(user);
-                System.out.printf("%-6d%-10s%-30s%-30s%n", cont, user.username(),
+                System.out.printf("%-6d%-10s%-30s%-30s%n", cont, user.email(),
                         user.name().firstName(),
                         user.name().lastName());
                 cont++;
