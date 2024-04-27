@@ -20,11 +20,27 @@
 ---
 #### Business rules: ####
 
-    * The Applications File Bot is continuously monitoring a folder for new applications to be processed.
-    processed. 
-    * The Bot should copy the files to a shared folder that is organized by job reference (top folders) and then by application(sub folder inside the job reference folder). 
-    * The Bot should produce a text report of all the processed applications (including applications for job references and files available).
-    * The file produced by the Applications File Bot are used to integrate candidates and applications into the system by the operator.
+    * The Operator is a company employee whose main responsibility is to monitor the automatic process that registers applications for job offers.
+    * The Operator will import the files produced by the Applications File Bot and register the applications, creating candidates that dot not exist in the system.
+    * Operator Application Registration and Verification:
+        - Rule: The Operator is responsible for registering the application.
+        - Process:
+            The Operator initiates the registration process.
+            The system automatically imports data from the Application File Bot.
+            The Operator generates a template file for validation.
+            After filling in specific data based on the template, the Operator submits the file to the system.
+            The system evaluates and verifies the application against predefined criteria.
+            If the criteria are not met, the application is rejected.
+    * Execution Flow for Application Registration and Files Import (US2002):
+        - Rule: The Operator initiates the process by selecting the shared folder. 
+        - Process: There are no specific UI requirements. 
+    * Handling of Files in the Shared Folder:
+        - Rule: No specific requirements are provided regarding the retention or deletion of files in the shared folder after being used by the Operator.
+        - Process: Assuming the files have already been imported into the system, no additional actions are required concerning the files in the shared folder.
+    * Recording in the System:
+        - Rule: The system must record that the candidate submitted the application, and all submitted files must be imported into the system.
+        - Process: The system must maintain a record of each application submitted by a candidate, including all files associated with the application.
+
 ---
 #### Unit Tests: ####
 
