@@ -21,8 +21,12 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
+import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.customer.repository.CustomerRepository;
+import eapli.base.customerManager.repository.CustomerManagerRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.operator.repository.OperatorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserRepository;
@@ -33,15 +37,9 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
  * Created by nuno on 21/03/16.
  */
 public class JpaRepositoryFactory implements RepositoryFactory {
-
     @Override
-    public UserRepository users(final TransactionalContext autoTx) {
-        return new JpaAutoTxUserRepository(autoTx);
-    }
-
-    @Override
-    public UserRepository users() {
-        return new JpaAutoTxUserRepository(Application.settings().getPersistenceUnitName(),
+    public TransactionalContext newTransactionalContext() {
+        return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
                 Application.settings().getExtendedPersistenceProperties());
     }
 
@@ -64,11 +62,63 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public SignupRequestRepository signupRequests() {
         return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
     }
+    // =======================================================================================================
 
     @Override
-    public TransactionalContext newTransactionalContext() {
-        return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
+    public UserRepository users(final TransactionalContext autoTx) {
+        return new JpaAutoTxUserRepository(autoTx);
+    }
+
+    @Override
+    public UserRepository users() {
+        return new JpaAutoTxUserRepository(Application.settings().getPersistenceUnitName(),
                 Application.settings().getExtendedPersistenceProperties());
     }
+
+    @Override
+    public CandidateRepository candidates() {
+        return new JpaCandidateRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public CandidateRepository candidates(TransactionalContext autoTx) {
+        return new JpaCandidateRepository(autoTx);
+    }
+
+    @Override
+    public CustomerRepository customers() {
+        return new JpaCustomerRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public CustomerRepository customers(TransactionalContext autoTx) {
+        return new JpaCustomerRepository(autoTx);
+    }
+
+    @Override
+    public OperatorRepository operators() {
+        return new JpaOperatorRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public OperatorRepository operators(TransactionalContext autoTx) {
+        return new JpaOperatorRepository(autoTx);
+    }
+
+    @Override
+    public CustomerManagerRepository customerManagers() {
+        return new JpaCustomerManagerRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public CustomerManagerRepository customerManagers(TransactionalContext autoTx) {
+        return new JpaCustomerManagerRepository(autoTx);
+    }
+
+
+
+
+
+
 
 }

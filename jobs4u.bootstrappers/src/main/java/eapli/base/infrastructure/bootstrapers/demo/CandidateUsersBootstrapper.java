@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * @author Paulo Sousa
  */
 public class CandidateUsersBootstrapper extends UsersBootstrapperBase implements Action {
-    private static final String PASSWORD1 = "Password1";
+    private static final String PASSWORD1 = "Pa$$word1";
     private static final Logger LOGGER = LoggerFactory.getLogger(CandidateUsersBootstrapper.class);
     private final SignupController signupController = new SignupController();
     private final AcceptRefuseSignupRequestController acceptController = AcceptRefuseSignupFactory.build();

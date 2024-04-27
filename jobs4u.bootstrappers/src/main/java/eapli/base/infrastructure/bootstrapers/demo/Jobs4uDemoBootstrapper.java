@@ -39,7 +39,7 @@ import eapli.framework.validations.Invariants;
  */
 @SuppressWarnings("squid:S106")
 public class Jobs4uDemoBootstrapper implements Action {
-    private static final String POWERUSER_A1 = "poweruserA1";
+    private static final String POWERUSER_A1 = "Pa$$word1";
     private static final String POWERUSER = "poweruser";
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
