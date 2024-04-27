@@ -1,6 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.registerjobopening.RegisterJobOpeningUI;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,14 +12,18 @@ public class CustomerManagerMainMenu {
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
     private static final int OPTION_3 = 3;
-    private static final int PREVIOUS_MENU = 4;
+    private static final int OPTION_4 = 4;
+    private static final int OPTION_5 = 5;
+    private static final int OPTION_6 = 6;
+    private static final int OPTION_7 = 7;
+    private static final int PREVIOUS_MENU = 8;
     public void displayCustomerManagerMenu() {
 
         System.out.println("""
                 =====================================
                 |  Jobs4u - Customer Manager Menu   |
                 =====================================
-                1. Customer Manager Option 1
+                1. Register a Job Opening
                 2. Customer Manager Option 2
                 3. Customer Manager Option 3
                 4. Back
@@ -50,11 +55,30 @@ public class CustomerManagerMainMenu {
         switch (option) {
             case OPTION_1:
                 System.out.println("Not implemented yet");
+                //new RegisterCustomerUI();
                 break;
             case OPTION_2:
+                //new registerJobOpeningUI();
                 System.out.println("Not implemented yet");
                 break;
             case OPTION_3:
+                //new ListJobOpeningsUI();
+                System.out.println("Not implemented yet");
+                break;
+            case OPTION_4:
+                //new SetupJobOpeningPhasesUI();
+                System.out.println("Not implemented yet");
+                break;
+            case OPTION_5:
+                //new SelectJobOpeningRequirementsUI();
+                System.out.println("Not implemented yet");
+                break;
+            case OPTION_6:
+                //new SelectJobOpeningInterviewModelUI();
+                System.out.println("Not implemented yet");
+                break;
+            case OPTION_7:
+                //new DisplayCandidatesUI();
                 System.out.println("Not implemented yet");
                 break;
             case PREVIOUS_MENU:
