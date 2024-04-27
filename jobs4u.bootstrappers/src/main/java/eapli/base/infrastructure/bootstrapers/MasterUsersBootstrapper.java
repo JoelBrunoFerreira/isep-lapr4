@@ -32,7 +32,7 @@ import java.util.Set;
  */
 public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Action {
 
-    private static final String PASSWORD1 = "Password1";
+    private static final String PASSWORD1 = "Pa$$word1";
 
     @Override
     public boolean execute() {

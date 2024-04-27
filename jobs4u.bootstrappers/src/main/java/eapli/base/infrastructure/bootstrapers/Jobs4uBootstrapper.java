@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("squid:S106")
 public class Jobs4uBootstrapper implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(Jobs4uBootstrapper.class);
-    private static final String POWERUSER_PWD = "poweruserA1";
+    private static final String POWERUSER_PWD = "Pa$$word1";
     private static final String POWERUSER = "poweruser";
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();

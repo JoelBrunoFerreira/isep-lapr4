@@ -17,9 +17,9 @@ public class CustomerUsersBootstrapper extends UsersBootstrapperBase implements 
     private final AcceptRefuseSignupRequestController acceptController = AcceptRefuseSignupFactory.build();
     @Override
     public boolean execute() {
-        signupAndApprove("customer1", "Password1", "Billy", "Bob",
+        signupAndApprove("customer1", "Pa$$word1", "Billy", "Bob",
                 "billy@email.com", "isep960");
-        signupAndApprove("customer2", "Password1", "Sponge", "Bob",
+        signupAndApprove("customer2", "Pa$$word1", "Sponge", "Bob",
                 "sponge@email.com", "isep961");
         return true;
     }
