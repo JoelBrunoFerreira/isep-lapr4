@@ -18,6 +18,10 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
     @OneToOne
     private SystemUser systemUser;
 
+    public SystemUser user(){
+        return systemUser;
+    }
+
     @Override
     public boolean sameAs(Object other) {
         if (other == null) {

@@ -1,6 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.candidates.DisplayCandidatesDataAction;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,8 +19,8 @@ public class CustomerManagerMainMenu {
                 =====================================
                 |  Jobs4u - Customer Manager Menu   |
                 =====================================
-                1. Customer Manager Option 1
-                2. Customer Manager Option 2
+                1. Display candidate's personal data
+                2. Display candidate'e personal data and applications
                 3. Customer Manager Option 3
                 4. Back
                 0. Exit
@@ -49,9 +50,11 @@ public class CustomerManagerMainMenu {
         }
         switch (option) {
             case OPTION_1:
-                System.out.println("Not implemented yet");
+                //Display Candidate data
+                new DisplayCandidatesDataAction().execute();
                 break;
             case OPTION_2:
+                //List candidates and its applications
                 System.out.println("Not implemented yet");
                 break;
             case OPTION_3:

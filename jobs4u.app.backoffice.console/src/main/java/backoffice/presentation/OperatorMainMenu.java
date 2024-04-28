@@ -1,6 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.candidates.ListCandidatesAction;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class OperatorMainMenu {
                 =====================================
                 |      Jobs4u - Operator Menu       |
                 =====================================
-                1. Operator Option 1
+                1. List All Candidates
                 2. Operator Option 2
                 3. Operator Option 3
                 4. Back
@@ -49,7 +50,8 @@ public class OperatorMainMenu {
         }
         switch (option) {
             case OPTION_1:
-                System.out.println("Not implemented yet");
+                //List all candidates
+                new ListCandidatesAction().execute();
                 break;
             case OPTION_2:
                 System.out.println("Not implemented yet");
