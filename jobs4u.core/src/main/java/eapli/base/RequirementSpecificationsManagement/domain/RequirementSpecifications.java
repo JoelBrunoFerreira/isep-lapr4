@@ -5,6 +5,7 @@ import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
 import eapli.framework.domain.model.DomainEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class RequirementSpecifications implements DomainEntity<RecruitmentProcess>, Serializable {
     private List<JobRequirement> jobRequirements;
     @Id
+    @Getter
     private Long id;
 
     protected RequirementSpecifications(){}
@@ -34,7 +36,5 @@ public class RequirementSpecifications implements DomainEntity<RecruitmentProces
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
+
 }

@@ -9,18 +9,17 @@ import lombok.Value;
 @Embeddable
 @Value
 public class JobReference implements ValueObject, Serializable, Comparable<JobReference> {
-    //TODO: o JobReference tem que ser um composto do code do cliente mais um número sequencial
     private String id;
 
+    protected JobReference() {
+        this.id = "";
+    }
     public JobReference(final String id) {
         Preconditions.nonNull(id);
         Preconditions.nonEmpty(id);
         this.id = id;
     }
 
-    protected JobReference() {
-        this.id = "";
-    }
 
     @Override
     public int compareTo(JobReference o) {

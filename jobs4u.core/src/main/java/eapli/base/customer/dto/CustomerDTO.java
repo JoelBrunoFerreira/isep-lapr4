@@ -13,6 +13,16 @@ public class CustomerDTO {
     private long id;
     private String name;
     private String acronym;
-    private String username;
+    private String email;
+
+    @Override
+    public String toString() {
+        return "CustomerDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", acronym='" + acronym + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
 

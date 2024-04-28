@@ -27,7 +27,7 @@ public class BackofficeFrontMenu extends AbstractUI {
      * @return true if the user selected the exit option
      */
     @Override
-    public boolean doShow() {
+    protected boolean doShow() {
         final var menu = new Menu();
         menu.addItem(LOGIN_OPTION_1, "Login as Admin", new ChainedAction(
                 new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.ADMIN)::show, () -> {

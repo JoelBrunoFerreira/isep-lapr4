@@ -6,16 +6,17 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"code"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"acronym"})})
 public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private CustomerName name;
 
-    //TODO: este código deve ser "curto" e único
+    @Getter
     private Acronym acronym;
 
     @OneToOne

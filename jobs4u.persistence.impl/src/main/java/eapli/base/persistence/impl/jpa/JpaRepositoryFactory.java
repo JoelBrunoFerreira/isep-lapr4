@@ -21,6 +21,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
+import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.customer.repository.CustomerRepository;
@@ -115,10 +116,10 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaCustomerManagerRepository(autoTx);
     }
 
-
-
-
-
+    @Override
+    public JobOpeningRepository jobOpenings() {
+        return null;
+    }
 
 
 }

@@ -60,6 +60,5 @@ public interface RepositoryFactory {
     CustomerManagerRepository customerManagers();
     CustomerManagerRepository customerManagers(TransactionalContext autoTx);
 
-
     JobOpeningRepository jobOpenings();
 }

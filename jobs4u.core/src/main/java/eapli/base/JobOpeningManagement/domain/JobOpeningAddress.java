@@ -7,21 +7,17 @@ import java.io.Serializable;
 
 @Embeddable
 public class JobOpeningAddress implements ValueObject, Serializable {
-    private String streetAddress;
-    private String city;
-    private String postalCode;
-    private String country;
+    private String address;
 
-    public JobOpeningAddress(String streetAddress, String city, String postalCode, String country) {
-        this.streetAddress = streetAddress;
-        this.city = city;
-        this.postalCode = postalCode;
-        this.country = country;
+    protected JobOpeningAddress(){}
+    public JobOpeningAddress(String address) {
+        this.address = address;
     }
 
-    // toString method to print address details
     @Override
     public String toString() {
-        return streetAddress + ", " + city + ", " + " " + postalCode + ", " + country;
+        return "JobOpeningAddress{" +
+                "address='" + address + '\'' +
+                '}';
     }
 }
