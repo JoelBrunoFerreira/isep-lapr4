@@ -81,7 +81,7 @@ public class AddUserUI extends AbstractUI {
     private Menu buildRolesMenu(final Set<Role> roleTypes) {
         final Menu rolesMenu = new Menu();
         int counter = 0;
-        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+//        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
         for (final Role roleType : theController.getBackofficeRoleTypes()) {
             rolesMenu.addItem(
                     MenuItem.of(counter++, roleType.toString(), () -> roleTypes.add(roleType)));
