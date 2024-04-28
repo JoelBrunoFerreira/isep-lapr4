@@ -20,6 +20,7 @@
  */
 package eapli.base.infrastructure.persistence;
 
+import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
@@ -60,11 +61,5 @@ public interface RepositoryFactory {
     CustomerManagerRepository customerManagers(TransactionalContext autoTx);
 
 
-
-
-
-
-
-
-
+    JobOpeningRepository jobOpenings();
 }

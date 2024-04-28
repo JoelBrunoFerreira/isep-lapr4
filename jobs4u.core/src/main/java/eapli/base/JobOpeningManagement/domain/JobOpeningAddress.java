@@ -1,9 +1,11 @@
 package eapli.base.JobOpeningManagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
+@Embeddable
 public class JobOpeningAddress implements ValueObject, Serializable {
     private String streetAddress;
     private String city;

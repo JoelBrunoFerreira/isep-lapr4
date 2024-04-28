@@ -1,7 +1,9 @@
 package eapli.base.JobOpeningManagement.domain;
 
 import eapli.framework.validations.Preconditions;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public class JobTitle {
     private String title;
     protected JobTitle() {

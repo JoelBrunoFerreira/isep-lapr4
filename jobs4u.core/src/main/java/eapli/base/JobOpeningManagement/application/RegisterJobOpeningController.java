@@ -1,11 +1,21 @@
+import eapli.base.JobOpeningManagement.domain.ContractType;
+import eapli.base.JobOpeningManagement.domain.JobOpening;
+import eapli.base.JobOpeningManagement.domain.WorkingMode;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.customer.domain.Customer;
+import eapli.base.customer.dto.CustomerDTO;
 import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @UseCaseController
 public class RegisterJobOpeningController {
@@ -22,7 +32,7 @@ public class RegisterJobOpeningController {
 
     public void registerJobOpening(final String title, final String description, final String company, final String companyAddress,
                                    final int numberVacancies, final String mode, final String contractType, Long customerID) {
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.ADMIN, Jobs4uRoles.CUSTOMER_MANAGER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
         Optional<Customer> customer = customerRepo.ofIdentity(customerID);
         if (customer.isEmpty()) {
@@ -35,7 +45,7 @@ public class RegisterJobOpeningController {
     }
 
     public Iterable<CustomerDTO> getCustomerList() {
-        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.ADMIN, Jobs4uRoles.CUSTOMER_MANAGER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
         Iterable<Customer> customers = customerRepo.findAll();
         List<CustomerDTO> customersDTO = new ArrayList<>();
@@ -47,8 +57,8 @@ public class RegisterJobOpeningController {
 
     public List<String> getModeList() {
         List<String> modeList = new ArrayList<>();
-        Mode[] modes = Mode.values();
-        for (Mode mode : modes) {
+        WorkingMode[] modes = WorkingMode.values();
+        for (WorkingMode mode : modes) {
             modeList.add(mode.toString());
         }
         return modeList;
