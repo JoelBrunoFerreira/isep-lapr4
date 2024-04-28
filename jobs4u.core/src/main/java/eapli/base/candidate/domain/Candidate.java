@@ -18,6 +18,17 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
     @OneToOne
     private SystemUser systemUser;
 
+    // Constructor
+    // -------------------------------
+    public Candidate(Name name, Email email, PhoneNumber phoneNumber) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+    public Candidate() {
+        // Empty constructor
+    }
+
     @Override
     public boolean sameAs(Object other) {
         if (other == null) {

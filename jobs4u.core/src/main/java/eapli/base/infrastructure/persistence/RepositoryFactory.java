@@ -37,13 +37,17 @@ public interface RepositoryFactory {
 
     TransactionalContext newTransactionalContext();
 
-    ClientUserRepository clientUsers();
-    ClientUserRepository clientUsers(TransactionalContext autoTx);
-
     SignupRequestRepository signupRequests();
     SignupRequestRepository signupRequests(TransactionalContext autoTx);
 
     // =========================================================================================================
+    UserRepository systemUsers();
+    UserRepository systemUsers(TransactionalContext autoTx);
+
+    ClientUserRepository clientUsers(TransactionalContext autoTx);
+
+    ClientUserRepository clientUsers();
+
     UserRepository users();
     UserRepository users(TransactionalContext autoTx);
 

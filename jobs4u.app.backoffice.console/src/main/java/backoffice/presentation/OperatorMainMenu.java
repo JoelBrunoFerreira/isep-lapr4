@@ -18,8 +18,8 @@ public class OperatorMainMenu {
                 =====================================
                 |      Jobs4u - Operator Menu       |
                 =====================================
-                1. Operator Option 1
-                2. Operator Option 2
+                1. Register new Candidate
+                2. List all Candidates
                 3. Operator Option 3
                 4. Back
                 0. Exit
@@ -49,7 +49,7 @@ public class OperatorMainMenu {
         }
         switch (option) {
             case OPTION_1:
-                System.out.println("Not implemented yet");
+                addCandidate();
                 break;
             case OPTION_2:
                 System.out.println("Not implemented yet");
@@ -68,4 +68,25 @@ public class OperatorMainMenu {
                 System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, PREVIOUS_MENU);
         }
     }
+
+    public static void addCandidate() {
+        System.out.println("========================");
+        System.out.println("Register New Candidate  ");
+        System.out.println("========================");
+
+        System.out.println("Name: ");
+        String nameValue = read.nextLine();
+        read.next();
+
+        System.out.println("Email: ");
+        String emailValue = read.nextLine();
+        read.next();
+
+        System.out.println("Phone-Number: ");
+        String phoneNumberValue = read.nextLine();
+        read.next();
+
+        System.out.println(nameValue + emailValue + phoneNumberValue);
+    }
+
 }

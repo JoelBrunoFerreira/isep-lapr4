@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
-  <persistence-unit name="eapli.base">
+  <persistence-unit name="jobs4uPU">
     <!--
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     -->
@@ -11,8 +11,6 @@
     <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
     <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
     <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
-    <class>eapli.base.clientusermanagement.domain.ClientUser</class>
-    <class>eapli.base.clientusermanagement.domain.SignupRequest</class>
     <!-- ===================================================================== -->
     <class>eapli.base.customer.domain.Customer</class>
     <class>eapli.base.candidate.domain.Candidate</class>
@@ -20,16 +18,28 @@
     <class>eapli.base.customerManager.domain.CustomerManager</class>
 
     <properties>
-      <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./db/jobs4uDB"/>
+      <!-- Local DB - JPA -->
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/.h2/jobs4uDB"/>
+
+      <!-- InMemory -->
+      <!-- <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./db/jobs4uDB"/> -->
 
       <property name="jakarta.persistence.jdbc.user" value="user"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>
+
+      <!-- Driver -->
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
-      <!-- <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/> -->
-      <!-- <property name="eclipselink.logging.level" value="FINE"/> -->
-      <!-- <property name = "hibernate.show_sql" value = "true" /> -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+      <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> -->
+
+      <!-- Hibernate C3PO Connection Pooling -->
+      <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider"/>
+      <property name="hibernate.c3p0.min_size" value="5"/>
+      <property name="hibernate.c3p0.max_size" value="20"/>
+      <property name="hibernate.c3p0.timeout" value="300"/>
+      <property name="hibernate.c3p0.max_statements" value="50"/>
+      <property name="hibernate.c3p0.idle_test_period" value="120"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
 
     </properties>
   </persistence-unit>
