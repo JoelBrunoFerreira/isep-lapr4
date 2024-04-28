@@ -3,6 +3,8 @@ package eapli.base.JobOpeningManagement.domain;
 
 import eapli.base.InterviewModelManagement.InterviewModel;
 import eapli.base.RecruitmentProcessManagement.RecruitmentProcess;
+import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
+import eapli.base.customerManager.domain.CustomerManager;
 import eapli.base.customermanagement.domain.Customer;
 import eapli.base.customermanagement.dto.CustomerDTO;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
@@ -27,6 +29,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @GenericGenerator(name = "code_id", type = JobOpeningIDGenerator.class)
     private JobReference jobReference;
     private NumberVacancies numberVacancies;
+    private CustomerManager customerManager;
     private Description description;
     private JobOpeningAddress jobOpeningAddress;
     @Enumerated(EnumType.STRING)
@@ -40,7 +43,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     private Customer customer;
 
 
-    private RecruitmentProcess recProc;
+    private RecruitmentProcess recruitmentProcess;
 
     private JobRequirement jobRequirement;
 
@@ -81,10 +84,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
         this.jobTitle = new JobTitle(title);
         this.description = new Description(description);
-        this.company = new Company(company);
+        this.customer = new Customer(company);
         this.jobOpeningAddress = new JobOpeningAddress(companyAddress);
         this.numberVacancies = new NumberVacancies(numberVacancies);
-        this.mode = Mode.parse(mode);
+        this.mode = WorkingMode.parse(mode);
         this.contractType = ContractType.parse(contractType);
         this.customer = customer;
     }

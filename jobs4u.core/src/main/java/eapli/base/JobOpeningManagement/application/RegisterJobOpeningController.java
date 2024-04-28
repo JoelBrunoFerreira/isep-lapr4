@@ -1,94 +1,65 @@
-/*
- * Copyright (c) 2013-2024 the original author or authors.
- *
- * MIT License
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-package eapli.base.JobOpeningManagement.application;
-
-import eapli.ecafeteria.dishmanagement.domain.*;
-import eapli.ecafeteria.dishmanagement.repositories.AllergenRepository;
-import eapli.ecafeteria.dishmanagement.repositories.DishRepository;
-import eapli.ecafeteria.dishmanagement.repositories.DishTypeRepository;
-import eapli.ecafeteria.usermanagement.domain.CafeteriaRoles;
+import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.customer.repository.CustomerRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.UseCaseController;
-import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.money.domain.model.Money;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
-import java.util.Set;
+import java.util.List;
 
-/**
- * The controller for the use case "register new dish" using the domain objects.
- *
- * @see eapli.ecafeteria.dishmanagement.application.viadto.RegisterDishViaDTOController
- *
- * @author Jorge Santos ajs@isep.ipp.pt
- */
 @UseCaseController
 public class RegisterJobOpeningController {
 
-    private final AuthorizationService authz;
-    private final DishRepository dishRepository;
+    AuthorizationService authz;
+    CustomerRepository customerRepo;
+    JobOpeningRepository jobOpeningRepo;
 
-    private final ListDishTypeService svcDishTypes;
-    private final ListAllergenService svcAllergens;
-
-    public RegisterJobOpeningController(final AuthorizationService authz, final DishRepository dishRepository,
-                                        final DishTypeRepository dishTypeRepo, final AllergenRepository allergenRepo) {
-        // dependency injection - to make this object more testable we don't create the
-        // infrastructure objects to avoid coupling to the implementation. This way, the controller
-        // can be used in different scenarios with different implementations of the repository. for
-        // instance, unit testing.
-        this.authz = authz;
-        this.dishRepository = dishRepository;
-
-        // dependency injection - only the external plugable dependencies are injected. it makes no
-        // sense to inject the ListDish and ListAllergen services as those are not supposed to be
-        // plugable/replaceable.
-        svcDishTypes = new ListDishTypeService(authz, dishTypeRepo);
-        svcAllergens = new ListAllergenService(authz, allergenRepo);
+    public RegisterJobOpeningController() {
+        this.authz = AuthzRegistry.authorizationService();
+        this.customerRepo = PersistenceContext.repositories().customers();
+        this.jobOpeningRepo = PersistenceContext.repositories().jobOpenings();
     }
 
-    public Dish registerDish(final DishType dishType, final String name, final Integer calories, final Integer salt,
-            final double price) {
-        return registerDish(dishType, name, calories, salt, price, null);
+    public void registerJobOpening(final String title, final String description, final String company, final String companyAddress,
+                                   final int numberVacancies, final String mode, final String contractType, Long customerID) {
+        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.ADMIN, Jobs4uRoles.CUSTOMER_MANAGER);
+
+        Optional<Customer> customer = customerRepo.ofIdentity(customerID);
+        if (customer.isEmpty()) {
+            throw new IllegalArgumentException("Customer ID not found");
+        } else {
+            JobOpening newJobOpening = new JobOpening(title, description, company, companyAddress,
+                    numberVacancies, mode, contractType, customer.get());
+            JobOpening savedJobOpening = jobOpeningRepo.save(newJobOpening);
+        }
     }
 
-    public Dish registerDish(final DishType dishType, final String name, final Integer calories, final Integer salt,
-            final double price, final Set<Allergen> allergens) {
+    public Iterable<CustomerDTO> getCustomerList() {
+        authz.ensureAuthenticatedUserHasAnyOf(Jobs4uRoles.ADMIN, Jobs4uRoles.CUSTOMER_MANAGER);
 
-        authz.ensureAuthenticatedUserHasAnyOf(CafeteriaRoles.POWER_USER, CafeteriaRoles.MENU_MANAGER);
-
-        final var newDish = new DishBuilder().ofType(dishType).named(Designation.valueOf(name))
-                .costing(Money.euros(price)).withNutricionalInfo(new NutricionalInfo(calories, salt))
-                .withAllergens(allergens).build();
-
-        return dishRepository.save(newDish);
+        Iterable<Customer> customers = customerRepo.findAll();
+        List<CustomerDTO> customersDTO = new ArrayList<>();
+        for (Customer customer : customers) {
+            customersDTO.add(customer.toDTO());
+        }
+        return customersDTO;
     }
 
-    public Iterable<Allergen> allAllergens() {
-        return svcAllergens.allAllergens();
+    public List<String> getModeList() {
+        List<String> modeList = new ArrayList<>();
+        Mode[] modes = Mode.values();
+        for (Mode mode : modes) {
+            modeList.add(mode.toString());
+        }
+        return modeList;
     }
 
-    public Iterable<DishType> dishTypes() {
-        return svcDishTypes.activeDishTypes();
+    public List<String> getContractTypeList() {
+        List<String> contractTypesList = new ArrayList<>();
+        ContractType[] contractTypes = ContractType.values();
+        for (ContractType contractType : contractTypes) {
+            contractTypesList.add(contractType.toString());
+        }
+        return contractTypesList;
     }
 }

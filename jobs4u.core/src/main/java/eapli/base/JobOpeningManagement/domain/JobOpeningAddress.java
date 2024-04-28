@@ -7,14 +7,12 @@ import java.io.Serializable;
 public class JobOpeningAddress implements ValueObject, Serializable {
     private String streetAddress;
     private String city;
-    private String state;
     private String postalCode;
     private String country;
 
-    public JobOpeningAddress(String streetAddress, String city, String state, String postalCode, String country) {
+    public JobOpeningAddress(String streetAddress, String city, String postalCode, String country) {
         this.streetAddress = streetAddress;
         this.city = city;
-        this.state = state;
         this.postalCode = postalCode;
         this.country = country;
     }
@@ -22,6 +20,6 @@ public class JobOpeningAddress implements ValueObject, Serializable {
     // toString method to print address details
     @Override
     public String toString() {
-        return streetAddress + ", " + city + ", " + state + " " + postalCode + ", " + country;
+        return streetAddress + ", " + city + ", " + " " + postalCode + ", " + country;
     }
 }
