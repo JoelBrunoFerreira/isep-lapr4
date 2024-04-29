@@ -5,7 +5,7 @@ import backoffice.presentation.authz.ListUsersUI;
 import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-public class ListManagersUI extends ListUsersUI {
+public class ListCustomerManagersUI extends ListUsersUI {
   private final ListUsersController controller = new ListUsersController();
 
   @Override
@@ -15,11 +15,11 @@ public class ListManagersUI extends ListUsersUI {
 
   @Override
   protected String elementName() {
-    return "Manager";
+    return "Customer Manager";
   }
 
   @Override
   protected Iterable<SystemUser> elements() {
-    return controller.allManagers();
+    return controller.allCustomerManagers();
   }
 }

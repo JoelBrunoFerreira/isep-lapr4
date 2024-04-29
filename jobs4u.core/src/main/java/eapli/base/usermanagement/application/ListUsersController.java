@@ -53,7 +53,7 @@ public class ListUsersController{
         return userSvc.userOfIdentity(u);
     }
 
-    public Iterable<SystemUser> allManagers() {
+    public Iterable<SystemUser> allCustomerManagers() {
         return null;
     }
 }

@@ -18,13 +18,13 @@ public class ListCustomersController {
   private final CustomerRepository repo = PersistenceContext.repositories().customers();
   private final CustomerService service = new CustomerService();
 
-  public Iterable<Customer> activeStudents() {
+  public Iterable<Customer> activeCustomers() {
     authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
     return this.repo.findAllActive();
   }
 
-  public Iterable<CustomerDTO> allStudents() {
+  public Iterable<CustomerDTO> allCustomers() {
     authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
     return service.findAll();

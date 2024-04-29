@@ -11,7 +11,7 @@ public class ListCustomersUI extends AbstractListUI<CustomerDTO> {
 
   @Override
   public String headline() {
-    return "List Students";
+    return "List Customers";
   }
 
   @Override
@@ -21,7 +21,7 @@ public class ListCustomersUI extends AbstractListUI<CustomerDTO> {
 
   @Override
   protected Iterable<CustomerDTO> elements() {
-    return controller.allStudents();
+    return controller.allCustomers();
   }
 
   @Override
@@ -31,7 +31,7 @@ public class ListCustomersUI extends AbstractListUI<CustomerDTO> {
 
   @Override
   protected String elementName() {
-    return "Student";
+    return "Customer";
   }
 
   @Override

@@ -31,10 +31,10 @@ public class UsersMenu {
 
     final Menu listUsersMenu = new Menu("List Users >");
 
-    listUsersMenu.addItem(LIST_CUSTOMER_MANAGER_OPTION, "List Customer Managers", new ListManagersUI()::show);
-    listUsersMenu.addItem(LIST_OPERATORS_OPTION, "List Operators", new ListManagersUI()::show);
+    listUsersMenu.addItem(LIST_CUSTOMER_MANAGER_OPTION, "List Customer Managers", new ListCustomerManagersUI()::show);
+    listUsersMenu.addItem(LIST_OPERATORS_OPTION, "List Operators", new ListCustomerManagersUI()::show);
     listUsersMenu.addItem(LIST_CUSTOMERS_OPTION, "List Customers", new ListCustomersUI()::show);
-    listUsersMenu.addItem(LIST_CANDIDATES_OPTION, "List Candidates", new ListManagersUI()::show);
+    listUsersMenu.addItem(LIST_CANDIDATES_OPTION, "List Candidates", new ListCustomerManagersUI()::show);
     listUsersMenu.addItem(LIST_ALL_OPTION, "List All", new ListUsersAction());
 
     if (!Application.settings().isMenuLayoutHorizontal())
