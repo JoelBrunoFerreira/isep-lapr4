@@ -23,7 +23,7 @@ package eapli.base.infrastructure.persistence;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.customer.repository.CustomerRepository;
+import eapli.base.customermanagement.repository.CustomerRepository;
 import eapli.base.customerManager.repository.CustomerManagerRepository;
 import eapli.base.operator.repository.OperatorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;

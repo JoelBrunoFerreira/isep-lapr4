@@ -1,0 +1,41 @@
+package backoffice.presentation.customer;
+
+import eapli.base.app.common.console.presentation.customer.CustomerPrinter;
+import eapli.base.customermanagement.application.ListCustomersController;
+import eapli.base.customermanagement.dto.CustomerDTO;
+import eapli.framework.presentation.console.AbstractListUI;
+import eapli.framework.visitor.Visitor;
+
+public class ListCustomersUI extends AbstractListUI<CustomerDTO> {
+  private final ListCustomersController controller = new ListCustomersController();
+
+  @Override
+  public String headline() {
+    return "List Students";
+  }
+
+  @Override
+  protected String emptyMessage() {
+    return "No data.";
+  }
+
+  @Override
+  protected Iterable<CustomerDTO> elements() {
+    return controller.allStudents();
+  }
+
+  @Override
+  protected Visitor<CustomerDTO> elementPrinter() {
+    return new CustomerPrinter();
+  }
+
+  @Override
+  protected String elementName() {
+    return "Student";
+  }
+
+  @Override
+  protected String listHeader() {
+    return String.format("#  %-15s%-20s%-30s%-30s", "Mec. Number", "Username", "F. Name", "L. Name");
+  }
+}

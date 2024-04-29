@@ -14,7 +14,7 @@
     <class>eapli.base.clientusermanagement.domain.ClientUser</class>
     <class>eapli.base.clientusermanagement.domain.SignupRequest</class>
     <!-- ===================================================================== -->
-    <class>eapli.base.customer.domain.Customer</class>
+    <class>eapli.base.customermanagement.domain.Customer</class>
     <class>eapli.base.candidate.domain.Candidate</class>
     <class>eapli.base.operator.domain.Operator</class>
     <class>eapli.base.customerManager.domain.CustomerManager</class>

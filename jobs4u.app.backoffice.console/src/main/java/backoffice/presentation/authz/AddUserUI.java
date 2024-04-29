@@ -20,7 +20,9 @@
  */
 package backoffice.presentation.authz;
 
+import eapli.base.app.common.console.presentation.customer.CustomerDataWidget;
 import eapli.base.usermanagement.application.AddUserController;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -47,14 +49,6 @@ public class AddUserUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
-        // UtenteApp
-        final String email = Console.readLine("E-Mail");
-        final String username = email;
-        final String password = Console.readLine("Password");
-        final String firstName = Console.readLine("First Name");
-        final String lastName = Console.readLine("Last Name");
-
 
         final Set<Role> roleTypes = new HashSet<>();
         boolean show;
@@ -63,12 +57,50 @@ public class AddUserUI extends AbstractUI {
         } while (!show);
 
         try {
-            this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
+            for (Role role : roleTypes) {
+                if (role.equals(BaseRoles.CUSTOMER_MANAGER) || role.equals(BaseRoles.OPERATOR)) {
+                    final SystemUserDataWidget userData = new SystemUserDataWidget();
+                    userData.show();
+                    theController.addUser(userData.username(), userData.password(), userData.firstName(),
+                            userData.lastName(), userData.email(), roleTypes);
+                } else{
+                    final CustomerDataWidget userData = new CustomerDataWidget();
+                    userData.show();
+                    theController.addCustomer(userData.username(), userData.password(), userData.firstName(),
+                            userData.lastName(), userData.email(), userData.address(),
+                            userData.code());
+                }
+            }
         } catch (@SuppressWarnings("unused") final IntegrityViolationException e) {
             System.out.println("That username is already in use.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error creating the account: " + e.getMessage() + ". Please try again.\n");
+            return true;
         }
 
         return false;
+//        // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
+//        // UtenteApp
+//        final String email = Console.readLine("E-Mail");
+//        final String username = email;
+//        final String password = Console.readLine("Password");
+//        final String firstName = Console.readLine("First Name");
+//        final String lastName = Console.readLine("Last Name");
+//
+//
+//        final Set<Role> roleTypes = new HashSet<>();
+//        boolean show;
+//        do {
+//            show = showRoles(roleTypes);
+//        } while (!show);
+//
+//        try {
+//            this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
+//        } catch (@SuppressWarnings("unused") final IntegrityViolationException e) {
+//            System.out.println("That username is already in use.");
+//        }
+//
+//        return false;
     }
 
     private boolean showRoles(final Set<Role> roleTypes) {
@@ -80,7 +112,7 @@ public class AddUserUI extends AbstractUI {
 
     private Menu buildRolesMenu(final Set<Role> roleTypes) {
         final Menu rolesMenu = new Menu();
-        int counter = 0;
+        int counter = 1;
 //        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
         for (final Role roleType : theController.getBackofficeRoleTypes()) {
             rolesMenu.addItem(

@@ -52,4 +52,8 @@ public class ListUsersController{
     public Optional<SystemUser> find(final Username u) {
         return userSvc.userOfIdentity(u);
     }
+
+    public Iterable<SystemUser> allManagers() {
+        return null;
+    }
 }

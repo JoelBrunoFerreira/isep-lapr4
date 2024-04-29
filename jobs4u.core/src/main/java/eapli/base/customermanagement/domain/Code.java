@@ -1,4 +1,4 @@
-package eapli.base.customer.domain;
+package eapli.base.customermanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
@@ -17,6 +17,10 @@ public class Code implements ValueObject, Serializable {
 
     protected Code() {
         this.code = "";
+    }
+
+    public static Code valueOf(String code) {
+        return new Code(code);
     }
 
     @Override

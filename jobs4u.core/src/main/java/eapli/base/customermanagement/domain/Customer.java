@@ -1,6 +1,6 @@
-package eapli.base.customer.domain;
+package eapli.base.customermanagement.domain;
 
-import eapli.base.customer.dto.CustomerDTO;
+import eapli.base.customermanagement.dto.CustomerDTO;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
@@ -37,6 +37,15 @@ public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
         this.code = new Code(code);
     }
 
+    public Customer(final SystemUser systemUser, final Address address, final Code code) {
+        Preconditions.nonNull(systemUser);
+        Preconditions.nonNull(address);
+        Preconditions.nonNull(code);
+        this.systemUser = systemUser;
+        this.address = address;
+        this.code = code;
+    }
+
     protected Customer() {
     }
 
@@ -58,6 +67,10 @@ public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
 
     @Override
     public CustomerDTO toDTO() {
-        return new CustomerDTO(id, name.toString(), address.toString(), code.toString(), systemUser.username().toString());
+        return new CustomerDTO();
+    }
+
+    public CustomerDTO toDto() {
+        return new CustomerDTO();
     }
 }

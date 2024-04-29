@@ -23,7 +23,7 @@ package eapli.base.persistence.impl.jpa;
 import eapli.base.Application;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.customer.repository.CustomerRepository;
+import eapli.base.customermanagement.repository.CustomerRepository;
 import eapli.base.customerManager.repository.CustomerManagerRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.operator.repository.OperatorRepository;

@@ -21,8 +21,13 @@
 package eapli.base.usermanagement.application;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
+import eapli.base.customermanagement.domain.Customer;
+import eapli.base.customermanagement.domain.CustomerBuilder;
+import eapli.base.customermanagement.repository.CustomerRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -41,6 +46,8 @@ public class AddUserController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
+    private final CustomerRepository customerRepository = PersistenceContext.repositories().customers();
+
 
     /**
      * Get existing RoleTypes available to the user.
@@ -69,5 +76,19 @@ public class AddUserController {
             final String lastName,
             final String email, final Set<Role> roles) {
         return addUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());
+    }
+
+    public Customer addCustomer(final String username, final String password, final String firstName,
+                               final String lastName, final String email, final String address,
+                               final String code) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(BaseRoles.CUSTOMER_USER);
+
+        SystemUser u = addUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());
+        Customer s = new CustomerBuilder().withSystemUser(u).withAddress(address).withCode(code).build();
+
+        return customerRepository.save(s);
+
     }
 }

@@ -1,4 +1,4 @@
-package eapli.base.customer.dto;
+package eapli.base.customermanagement.dto;
 
 import eapli.framework.representations.dto.DTO;
 import lombok.AllArgsConstructor;
