@@ -2,7 +2,7 @@ package eapli.base.candidate.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 

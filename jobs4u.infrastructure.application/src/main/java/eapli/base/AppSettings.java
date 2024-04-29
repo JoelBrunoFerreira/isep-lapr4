@@ -37,13 +37,11 @@ import java.util.Properties;
  */
 public class AppSettings {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppSettings.class);
-
     private static final String PROPERTIES_RESOURCE = "application.properties";
     private static final String REPOSITORY_FACTORY_KEY = "persistence.repositoryFactory";
     private static final String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
     private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private static final String SCHEMA_GENERATION_KEY = "jakarta.persistence.schema-generation.database.action";
-
     private final Properties applicationProperties = new Properties();
 
     public AppSettings() {
@@ -68,9 +66,9 @@ public class AppSettings {
 
     private void setDefaultProperties() {
         this.applicationProperties.setProperty(REPOSITORY_FACTORY_KEY,
-                "eapli.base.persistence.inmemory.InMemoryRepositoryFactory");
+                "eapli.base.persistence.jpa.JpaRepositoryFactory");
         this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
-        this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli.base");
+        this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "jobs4uPU");
     }
 
     public Boolean isMenuLayoutHorizontal() {

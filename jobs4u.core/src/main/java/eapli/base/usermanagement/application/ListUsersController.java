@@ -23,8 +23,9 @@
  */
 package eapli.base.usermanagement.application;
 
-import java.util.Optional;
-
+import eapli.base.candidate.domain.Candidate;
+import eapli.base.candidate.repository.CandidateRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -32,6 +33,8 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+
+import java.util.Optional;
 
 /**
  *
@@ -42,6 +45,7 @@ public class ListUsersController{
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
+    private final CandidateRepository repo = PersistenceContext.repositories().candidates();
 
     public Iterable<SystemUser> allUsers() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
@@ -51,5 +55,11 @@ public class ListUsersController{
 
     public Optional<SystemUser> find(final Username u) {
         return userSvc.userOfIdentity(u);
+    }
+
+    public Iterable<Candidate> listAllCandidates() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR);
+
+        return repo.findAll();
     }
 }

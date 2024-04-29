@@ -20,13 +20,12 @@
  */
 package eapli.base.infrastructure.persistence;
 
-import java.lang.reflect.InvocationTargetException;
-
+import eapli.base.Application;
+import eapli.framework.util.Utility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eapli.base.Application;
-import eapli.framework.util.Utility;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * provides easy access to the persistence layer. works as a factory of

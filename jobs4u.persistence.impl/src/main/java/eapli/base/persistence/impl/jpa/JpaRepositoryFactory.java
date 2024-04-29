@@ -44,16 +44,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public JpaClientUserRepository clientUsers(final TransactionalContext autoTx) {
-        return new JpaClientUserRepository(autoTx);
-    }
-
-    @Override
-    public JpaClientUserRepository clientUsers() {
-        return new JpaClientUserRepository(Application.settings().getPersistenceUnitName());
-    }
-
-    @Override
     public SignupRequestRepository signupRequests(final TransactionalContext autoTx) {
         return new JpaSignupRequestRepository(autoTx);
     }
@@ -73,6 +63,26 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public UserRepository users() {
         return new JpaAutoTxUserRepository(Application.settings().getPersistenceUnitName(),
                 Application.settings().getExtendedPersistenceProperties());
+    }
+
+    @Override
+    public JpaClientUserRepository clientUsers(final TransactionalContext autoTx) {
+        return new JpaClientUserRepository(autoTx);
+    }
+
+    @Override
+    public JpaClientUserRepository clientUsers() {
+        return new JpaClientUserRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public UserRepository systemUsers() {
+        return new JpaUserRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public UserRepository systemUsers(final TransactionalContext ctx) {
+        return new JpaUserRepository(ctx);
     }
 
     @Override
@@ -114,11 +124,5 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     public CustomerManagerRepository customerManagers(TransactionalContext autoTx) {
         return new JpaCustomerManagerRepository(autoTx);
     }
-
-
-
-
-
-
 
 }
