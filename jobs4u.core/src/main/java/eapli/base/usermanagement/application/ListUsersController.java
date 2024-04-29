@@ -31,6 +31,7 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 

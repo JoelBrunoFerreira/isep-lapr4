@@ -30,6 +30,8 @@ public class OperatorMainMenu {
                 =====================================
                 
                 """);
+        System.out.println();
+
 
         int option = 0;
         boolean validInput = false;
