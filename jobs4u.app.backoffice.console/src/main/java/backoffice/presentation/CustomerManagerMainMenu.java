@@ -1,7 +1,8 @@
 package backoffice.presentation;
 
 import backoffice.Jobs4uBackofficeApp;
-import backoffice.presentation.candidates.DisplayCandidatesDataAction;
+import backoffice.presentation.JobOpeningManagement.ListJobOpeningsUI;
+import backoffice.presentation.JobOpeningManagement.RegisterJobOpeningUI;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
