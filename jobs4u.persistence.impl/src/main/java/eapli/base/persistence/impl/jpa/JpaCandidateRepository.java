@@ -7,6 +7,8 @@ import eapli.base.candidate.repository.CandidateRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import java.util.Optional;
+
 public class JpaCandidateRepository
         extends JpaAutoTxRepository<Candidate, Long, Long>
         implements CandidateRepository {

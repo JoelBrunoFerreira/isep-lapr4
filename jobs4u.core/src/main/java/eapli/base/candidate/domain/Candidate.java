@@ -6,7 +6,9 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
@@ -18,6 +20,7 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
     private PhoneNumber phoneNumber;
     @OneToOne
     private SystemUser systemUser;
+
 
     // Constructor
     // -------------------------------
@@ -37,6 +40,10 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
     }
     public Candidate() {
         // Empty constructor
+    }
+
+    public SystemUser user() {
+        return this.systemUser;
     }
 
     @Override

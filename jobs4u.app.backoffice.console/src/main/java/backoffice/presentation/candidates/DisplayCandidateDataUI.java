@@ -4,7 +4,6 @@ import backoffice.presentation.authz.SystemUserPrinter;
 import eapli.base.candidate.application.GetCandidateController;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
-import eapli.base.candidate.dto.CandidateDTO;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
