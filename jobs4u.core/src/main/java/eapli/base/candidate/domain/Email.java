@@ -19,4 +19,9 @@ public class Email implements ValueObject, Serializable {
     protected Email() {
         this.email = "";
     }
+
+    @Override
+    public String toString() {
+        return email;
+    }
 }

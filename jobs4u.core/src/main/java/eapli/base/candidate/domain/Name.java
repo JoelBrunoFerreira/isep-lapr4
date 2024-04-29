@@ -19,4 +19,9 @@ public class Name implements ValueObject, Serializable {
     protected Name() {
         this.name = "";
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

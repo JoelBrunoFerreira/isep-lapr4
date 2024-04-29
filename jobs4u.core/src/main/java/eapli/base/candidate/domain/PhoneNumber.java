@@ -19,4 +19,9 @@ public class PhoneNumber implements ValueObject, Serializable {
     protected PhoneNumber() {
         this.phoneNumber = "";
     }
+
+    @Override
+    public String toString() {
+        return phoneNumber;
+    }
 }

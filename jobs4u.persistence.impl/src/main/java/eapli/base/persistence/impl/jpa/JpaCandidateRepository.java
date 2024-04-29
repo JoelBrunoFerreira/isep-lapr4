@@ -11,11 +11,10 @@ public class JpaCandidateRepository
         implements CandidateRepository {
 
     public JpaCandidateRepository(final TransactionalContext autoTx) {
-        super("jobs4uPU", "id");
+        super(autoTx, "id");
     }
 
     public JpaCandidateRepository(final String puname) {
-        super(Application.settings().getRepositoryFactory(), "id");
+        super(puname, Application.settings().getExtendedPersistenceProperties(), "id");
     }
-
 }
