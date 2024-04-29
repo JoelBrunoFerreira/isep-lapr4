@@ -55,15 +55,14 @@ public class CustomerManagerMainMenu {
         switch (option) {
             case OPTION_1:
                 System.out.println("Not implemented yet");
-                //new RegisterJobOpeningUI().show();
+                new RegisterJobOpeningUI().show();
                 //new RegisterCustomerUI();
                 break;
             case OPTION_2:
-                //new registerJobOpeningUI();
-                System.out.println("Not implemented yet");
+                new RegisterJobOpeningUI().show();
                 break;
             case OPTION_3:
-                //new ListJobOpeningsUI();
+                new ListJobOpeningsUI().show();
                 System.out.println("Not implemented yet");
                 break;
             case OPTION_4:

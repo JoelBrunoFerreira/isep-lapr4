@@ -6,36 +6,35 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
+import lombok.Getter;
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"code"})})
+@Getter
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"acronym"})})
 public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Name name;
-    private Address address;
+    private CustomerName name;
 
-    //TODO: este código deve ser "curto" e único
-    private Code code;
+    private Acronym acronym;
+    private Address address;
 
     @OneToOne
     private SystemUser systemUser;
 
-    public Customer(final String name, final String address, final String code, final SystemUser systemUser) {
-        this(name, address, code);
+    public Customer(final String name, final String address, final String acronym, final SystemUser systemUser) {
+        Preconditions.nonEmpty(name);
+        Preconditions.nonEmpty(address);
+        Preconditions.nonEmpty(acronym);
         Preconditions.nonNull(systemUser);
+        this.name = new CustomerName(name);
+        this.acronym = new Acronym(acronym);
+        this.address = new Address(address);
         this.systemUser = systemUser;
     }
 
-    public Customer(final String name, final String address, final String code) {
-        Preconditions.nonEmpty(name);
-        Preconditions.nonEmpty(address);
-        Preconditions.nonEmpty(code);
-        this.name = new Name(name);
-        this.address = new Address(address);
-        this.code = new Code(code);
-    }
 
     protected Customer() {
     }
@@ -58,6 +57,7 @@ public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
 
     @Override
     public CustomerDTO toDTO() {
-        return new CustomerDTO(id, name.toString(), address.toString(), code.toString(), systemUser.username().toString());
+        return new CustomerDTO(id, name.toString(), acronym.toString(), systemUser.username().toString());
     }
+
 }

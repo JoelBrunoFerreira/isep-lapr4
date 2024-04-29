@@ -9,18 +9,16 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class FileName implements ValueObject, Serializable {
-    /**
-     * full path of jar file
-     */
-    private final String jar;
+
+    private final String fileName;
 
     public FileName(final String jar) {
         Preconditions.nonNull(jar);
         Preconditions.nonEmpty(jar);
-        this.jar = jar;
+        this.fileName = jar;
     }
 
     protected FileName() {
-        this.jar = "";
+        this.fileName = null;
     }
 }

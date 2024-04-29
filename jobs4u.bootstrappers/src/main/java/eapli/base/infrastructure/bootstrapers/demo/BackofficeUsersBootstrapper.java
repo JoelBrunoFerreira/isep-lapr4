@@ -42,7 +42,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
 
     @Override
     public boolean execute() {
-        signupAndApprove("manager1", PASSWORD1, "Johnny", "Cash", "johnny@email.com", "isep701");
+        //signupAndApprove("manager1", PASSWORD1, "Johnny", "Cash", "johnny@email.com", "isep701");
         signupAndApprove("manager2", PASSWORD1, "Rachel", "Walsh", "rachel@email.com", "isep702");
         signupAndApprove("operator1", PASSWORD1, "Luís", "Figo", "figo@email.com", "isep703");
         signupAndApprove("operator2", PASSWORD1, "Paolo", "Maldini", "maldini@email.com", "isep704");

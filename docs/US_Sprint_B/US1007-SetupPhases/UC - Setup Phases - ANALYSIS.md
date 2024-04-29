@@ -27,7 +27,7 @@
    screen; interviews; analysis; result.
 >* The phases in the recruitment process are defined by the Customer Manager.
 >* Interview phase is not mandatory.
->* Each phase has a period (dates)
+>* Each phase has a phasePeriod (dates)
 
 ## 3. Unit Tests
 

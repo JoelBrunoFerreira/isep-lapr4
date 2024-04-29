@@ -1,4 +1,4 @@
-package eapli.base.RecruitmentProcessManagement;
+package eapli.base.RecruitmentProcessManagement.domain;
 
 import eapli.framework.domain.model.DomainEntity;
 import jakarta.persistence.*;

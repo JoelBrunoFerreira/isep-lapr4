@@ -4,10 +4,7 @@ package eapli.base.RequirementSpecificationsManagement.domain;
 import eapli.base.RequirementSpecificationsManagement.dto.JobRequirementDTO;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
