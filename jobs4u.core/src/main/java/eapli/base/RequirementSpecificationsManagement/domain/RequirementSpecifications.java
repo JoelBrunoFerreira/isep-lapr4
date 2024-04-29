@@ -1,7 +1,6 @@
 package eapli.base.RequirementSpecificationsManagement.domain;
 
-import eapli.base.RecruitmentProcessManagement.RecruitmentProcess;
-import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
+import eapli.base.RecruitmentProcessManagement.domain.RecruitmentProcess;
 import eapli.framework.domain.model.DomainEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,6 +11,7 @@ import java.util.List;
 
 @Entity
 public class RequirementSpecifications implements DomainEntity<RecruitmentProcess>, Serializable {
+
     private List<JobRequirement> jobRequirements;
     @Id
     @Getter

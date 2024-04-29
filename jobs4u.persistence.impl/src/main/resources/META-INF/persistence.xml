@@ -20,8 +20,8 @@
     <class>eapli.base.customerManager.domain.CustomerManager</class>
 
     <properties>
-      <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./db/jobs4uDB"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>
+      <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./db/jobs4uDB"/>-->
 
       <property name="jakarta.persistence.jdbc.user" value="user"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>

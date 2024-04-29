@@ -6,7 +6,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
 
-@Embeddable
+@Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequirementDTO> {
     @Id

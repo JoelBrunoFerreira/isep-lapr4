@@ -1,4 +1,4 @@
-package eapli.base.RecruitmentProcessManagement;
+package eapli.base.RecruitmentProcessManagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 
@@ -6,13 +6,13 @@ import java.io.Serializable;
 
 public class Phase implements ValueObject, Serializable {
     private final Phases phase;
-    private Period period;
+    private PhasePeriod phasePeriod;
 
     protected Phase(){
         this.phase = null;
     }
-    public Phase(Phases phase, Period period) {
+    public Phase(Phases phase, PhasePeriod phasePeriod) {
         this.phase = phase;
-        this.period = period;
+        this.phasePeriod = phasePeriod;
     }
 }

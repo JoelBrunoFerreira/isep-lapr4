@@ -30,5 +30,21 @@ public class JobOpeningDTO {
         this.interviewModel = interviewModel;
         this.recruitmentProcess = recruitmentProcess;
     }
+
+    @Override
+    public String toString() {
+        return "JobOpeningDTO{" +
+                "jobReference='" + jobReference + '\'' +
+                ", description='" + description + '\'' +
+                ", numberVacancies='" + numberVacancies + '\'' +
+                ", jobOpeningAddress='" + jobOpeningAddress + '\'' +
+                ", mode='" + mode + '\'' +
+                ", contractType='" + contractType + '\'' +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", recruitmentProcess='" + recruitmentProcess + '\'' +
+                ", jobRequirement='" + jobRequirement + '\'' +
+                ", interviewModel='" + interviewModel + '\'' +
+                '}';
+    }
 }
 

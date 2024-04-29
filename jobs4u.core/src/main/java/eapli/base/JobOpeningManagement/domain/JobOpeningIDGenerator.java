@@ -17,7 +17,7 @@ public class JobOpeningIDGenerator implements IdentifierGenerator {
         JobReference resultJobReference = null;
         if (o instanceof JobOpening) {
             JobOpening newJobOpening = (JobOpening) o;
-            String customerAcronym = newJobOpening.getCustomerAcronym();
+            String customerAcronym = newJobOpening.getCustomer().getAcronym().toString();
             try {
                 EntityManager em = getEntityManager();
                 int leftSize = customerAcronym.length() + 1;

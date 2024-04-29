@@ -92,7 +92,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public CustomerRepository customers() {
-        return null;
+        return  new inMemoryCustomerRepository();
     }
 
     @Override

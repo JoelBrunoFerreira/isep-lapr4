@@ -8,7 +8,13 @@ import eapli.framework.domain.repositories.DomainRepository;
 import java.time.LocalDate;
 
 public interface JobOpeningRepository extends DomainRepository<JobReference, JobOpening> {
-    //Iterable<JobOpeningDTO> findAllDTO();
+    Iterable<JobOpeningDTO> findAllDTO();
+
+    Iterable<JobOpeningDTO> findAllActive(LocalDate startDate, LocalDate endDate);
+
+    Iterable<JobOpeningDTO> findAllByCustomerIDAndDate(long customerID, LocalDate startDate, LocalDate endDate);
+
+    Iterable<JobOpeningDTO> findAllByCustomerID(String acronym);
     //Iterable<JobOpeningDTO> findAllByCustomerIDAndDate(long customerID, LocalDate startDate, LocalDate endDate);
-    //Iterable<JobOpeningDTO> findAllActive(LocalDate stardDate, LocalDate endDate);
+    //Iterable<JobOpeningDTO> findAllActive(LocalDate startDate, LocalDate endDate);
 }

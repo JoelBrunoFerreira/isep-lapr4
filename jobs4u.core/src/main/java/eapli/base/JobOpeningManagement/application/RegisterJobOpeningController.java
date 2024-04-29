@@ -5,46 +5,39 @@ import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.WorkingMode;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.base.customer.application.GetCustomerListController;
 import eapli.base.customer.domain.Customer;
-import eapli.base.customer.dto.CustomerDTO;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @UseCaseController
 public class RegisterJobOpeningController {
 
     AuthorizationService authz;
-    Iterable<CustomerDTO> customers;
-    JobOpeningRepository jobOpeningRepo;
-    private String manager;
+    JobOpeningRepository jobOpeningRepository;
+    private SystemUser manager;
 
     public RegisterJobOpeningController() {
         this.authz = AuthzRegistry.authorizationService();
-        this.manager = authz.session().get().authenticatedUser().toString();
-        this.jobOpeningRepo = PersistenceContext.repositories().jobOpenings();
-        this.customers = new GetCustomerListController().getCustomerList();
+        this.manager = authz.session().get().authenticatedUser();
+        this.jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     }
 
     public JobOpeningDTO registerJobOpening(final String title, final String description, final String address,
-                                            final int numberVacancies, final String mode, final String contractType, Long customerID) {
+                                            final int numberVacancies, final String mode, final String contractType, Customer customer) {
 
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
-        Optional<Customer> customer = new GetCustomerListController().getCustomer(customerID);
-        if (customer.isEmpty()) {
-            throw new IllegalArgumentException("Customer ID not found");
-        } else {
-            JobOpening newJobOpening = new JobOpening(description,numberVacancies,address,mode,contractType,title,customer.get().getAcronym().toString(),manager);
-            return jobOpeningRepo.save(newJobOpening).toDTO();
-        }
+        JobOpening newJobOpening = new JobOpening(description, numberVacancies, address, mode, contractType, title, customer, manager);
+
+        return jobOpeningRepository.save(newJobOpening).toDTO();
+
     }
 
     public List<String> getModeList() {
