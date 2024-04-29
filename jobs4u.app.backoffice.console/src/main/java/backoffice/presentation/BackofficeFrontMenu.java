@@ -31,7 +31,7 @@ public class BackofficeFrontMenu extends AbstractUI {
         final var menu = new Menu();
         menu.addItem(LOGIN_OPTION_1, "Login as Admin", new ChainedAction(
                 new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.ADMIN)::show, () -> {
-            new AdminMainMenu().displayAdminMenu();
+//            new AdminMainMenu().displayAdminMenu();
             return true;
         }));
         menu.addItem(LOGIN_OPTION_2, "Login as Customer Manager", new ChainedAction(

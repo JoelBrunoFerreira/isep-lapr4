@@ -1,4 +1,4 @@
-package eapli.base.customer.domain;
+package eapli.base.customermanagement.domain;
 
 
 import eapli.framework.domain.model.ValueObject;

@@ -1,0 +1,36 @@
+package eapli.base.app.common.console.presentation.util;
+
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+
+public class TableFormatPrinter {
+  // workaround for LinkedHashMap not working as expected
+  private final ArrayList<Entry<String, Integer>> columns;
+
+  public TableFormatPrinter() {
+    columns = new ArrayList<>();
+  }
+
+  public void addColumn(String column, Integer width) {
+    Entry<String, Integer> entry = new AbstractMap.SimpleEntry<>(column, width);
+    columns.add(entry);
+  }
+
+  public String getWord(Entry<String, Integer> entry) {
+    if (entry.getKey().length() > entry.getValue() - 1)
+      return entry.getKey().substring(0, entry.getValue() - 2) + "…";
+    return entry.getKey();
+  }
+
+  public String format() {
+    StringBuilder expression = new StringBuilder();
+
+    for (Entry<String, Integer> entry : columns) {
+      String s = String.format("%-" + entry.getValue() + "s", getWord(entry));
+      expression.append(s);
+    }
+
+    return expression.toString();
+  }
+}

@@ -24,7 +24,7 @@ import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.customer.repository.CustomerRepository;
+import eapli.base.customermanagement.repository.CustomerRepository;
 import eapli.base.customerManager.repository.CustomerManagerRepository;
 import eapli.base.infrastructure.bootstrapers.Jobs4uBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;

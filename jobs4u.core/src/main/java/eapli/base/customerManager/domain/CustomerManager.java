@@ -36,4 +36,8 @@ public class CustomerManager implements AggregateRoot<Long>, DTOable<CustomerMan
     public CustomerManagerDTO toDTO() {
         return new CustomerManagerDTO(id, name.toString());
     }
+
+    public Object toDto() {
+        return null;
+    }
 }

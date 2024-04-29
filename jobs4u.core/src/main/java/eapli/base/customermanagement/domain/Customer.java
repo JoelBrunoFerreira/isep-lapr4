@@ -32,6 +32,13 @@ public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
         this.name = new CustomerName(name);
         this.acronym = new Acronym(acronym);
         this.address = new Address(address);
+    }
+
+    public Customer(final SystemUser systemUser, final Address address, final Code code) {
+        Preconditions.nonNull(systemUser);
+        this.name = new CustomerName(name);
+        this.acronym = new Acronym(acronym);
+        this.address = new Address(address);
         this.systemUser = systemUser;
     }
 
