@@ -29,6 +29,7 @@ dependency-reduced-pom.xml
 *.ipr
 *.iws
 *.idea
+/jobs4u.persistence.impl/src/main/resources/META-INF/persistence.xml
 
 README.html
 
