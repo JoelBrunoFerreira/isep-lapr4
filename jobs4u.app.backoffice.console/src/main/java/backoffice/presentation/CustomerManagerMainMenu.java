@@ -1,7 +1,6 @@
 package backoffice.presentation;
 
 import backoffice.Jobs4uBackofficeApp;
-import backoffice.presentation.registerjobopening.RegisterJobOpeningUI;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -55,7 +54,7 @@ public class CustomerManagerMainMenu {
         switch (option) {
             case OPTION_1:
                 System.out.println("Not implemented yet");
-                new RegisterJobOpeningUI().show();
+                //new RegisterJobOpeningUI().show();
                 //new RegisterCustomerUI();
                 break;
             case OPTION_2:
