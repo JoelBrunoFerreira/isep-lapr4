@@ -96,7 +96,7 @@ public class BasePasswordPolicy implements PasswordPolicy {
         return passwordStrength;
     }
 
-    public String generatePassword() {
+    public static String generatePassword() {
         Random random = new Random();
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 3; i++) {

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-class JpaClientUserRepository
+public class JpaClientUserRepository
         extends JpaAutoTxRepository<ClientUser, MecanographicNumber, MecanographicNumber>
         implements ClientUserRepository {
 

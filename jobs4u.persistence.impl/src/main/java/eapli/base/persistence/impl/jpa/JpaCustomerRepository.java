@@ -6,7 +6,8 @@ import eapli.base.customer.repository.CustomerRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-public class JpaCustomerRepository extends JpaAutoTxRepository<Customer, Long, Long>
+public class JpaCustomerRepository
+        extends JpaAutoTxRepository<Customer, Long, Long>
         implements CustomerRepository {
 
     public JpaCustomerRepository(final TransactionalContext autoTx) {

@@ -4,8 +4,10 @@ import eapli.base.Application;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-public class JpaCandidateRepository extends eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalRepository<Candidate, Long, Long>
+public class JpaCandidateRepository
+        extends JpaAutoTxRepository<Candidate, Long, Long>
         implements CandidateRepository {
 
     public JpaCandidateRepository(final TransactionalContext autoTx) {
@@ -15,4 +17,5 @@ public class JpaCandidateRepository extends eapli.framework.infrastructure.repos
     public JpaCandidateRepository(final String puname) {
         super(Application.settings().getRepositoryFactory(), "id");
     }
+
 }
