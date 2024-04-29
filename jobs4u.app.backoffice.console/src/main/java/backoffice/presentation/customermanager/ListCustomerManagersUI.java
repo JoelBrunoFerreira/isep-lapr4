@@ -1,12 +1,14 @@
-package backoffice.presentation.users;
+package backoffice.presentation.customermanager;
 
 
 import backoffice.presentation.authz.ListUsersUI;
+import eapli.base.customerManager.application.ListCustomerManagerController;
+import eapli.base.customerManager.domain.CustomerManager;
 import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 public class ListCustomerManagersUI extends ListUsersUI {
-  private final ListUsersController controller = new ListUsersController();
+  private final ListCustomerManagerController controller = new ListCustomerManagerController();
 
   @Override
   public String headline() {
@@ -19,7 +21,7 @@ public class ListCustomerManagersUI extends ListUsersUI {
   }
 
   @Override
-  protected Iterable<SystemUser> elements() {
+  protected Iterable<CustomerManager> elements() {
     return controller.allCustomerManagers();
   }
 }
