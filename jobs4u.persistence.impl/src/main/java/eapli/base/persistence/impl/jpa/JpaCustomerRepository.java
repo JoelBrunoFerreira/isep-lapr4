@@ -2,7 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.customer.domain.Customer;
-import eapli.base.customer.repository.CustomerRepository;
+import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class JpaCustomerRepository extends JpaAutoTxRepository<Customer, Long, Long>
-        implements CustomerRepository {
+        implements DomainRepository<Long, Customer> {
 
     public JpaCustomerRepository(final TransactionalContext autoTx) {
         super(autoTx, "id");

@@ -24,9 +24,9 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import eapli.base.customermanagement.domain.Customer;
-import eapli.base.customermanagement.domain.CustomerBuilder;
-import eapli.base.customermanagement.repository.CustomerRepository;
+import eapli.base.customer.domain.Customer;
+import eapli.base.customer.domain.CustomerBuilder;
+import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;

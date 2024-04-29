@@ -1,4 +1,4 @@
-package eapli.base.customermanagement.domain;
+package eapli.base.customer.domain;
 
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Embeddable;

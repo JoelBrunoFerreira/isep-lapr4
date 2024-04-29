@@ -1,4 +1,4 @@
-package eapli.base.customermanagement.domain;
+package eapli.base.customer.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -35,6 +35,6 @@ public class CustomerBuilder implements DomainFactory<Customer> {
 
   @Override
   public Customer build() {
-    return new Customer(this.systemUser,this.address, this.code);
+    return null;
   }
 }

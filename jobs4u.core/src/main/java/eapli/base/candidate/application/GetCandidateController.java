@@ -2,13 +2,9 @@ package eapli.base.candidate.application;
 
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
-import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import org.hibernate.internal.util.collections.CaseInsensitiveDictionary;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class GetCandidateController {

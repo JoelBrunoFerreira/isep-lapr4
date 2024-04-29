@@ -1,8 +1,8 @@
-package eapli.base.customermanagement.application;
+package eapli.base.customer.application;
 
-import eapli.base.customermanagement.domain.Customer;
-import eapli.base.customermanagement.dto.CustomerDTO;
-import eapli.base.customermanagement.repository.CustomerRepository;
+import eapli.base.customer.domain.Customer;
+import eapli.base.customer.dto.CustomerDTO;
+import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -27,6 +27,7 @@ public class ListCustomersController {
   public Iterable<CustomerDTO> allCustomers() {
     authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
-    return service.findAll();
+    //return service.findAll();
+    return null;
   }
 }

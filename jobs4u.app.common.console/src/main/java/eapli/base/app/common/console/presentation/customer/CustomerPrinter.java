@@ -1,7 +1,7 @@
 package eapli.base.app.common.console.presentation.customer;
 
 import eapli.base.app.common.console.presentation.util.TableFormatPrinter;
-import eapli.base.customermanagement.dto.CustomerDTO;
+import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.visitor.Visitor;
 
 public class CustomerPrinter implements Visitor<CustomerDTO> {

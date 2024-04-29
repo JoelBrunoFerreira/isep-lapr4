@@ -1,8 +1,8 @@
 package backoffice.presentation.customer;
 
 import eapli.base.app.common.console.presentation.customer.CustomerPrinter;
-import eapli.base.customermanagement.application.ListCustomersController;
-import eapli.base.customermanagement.dto.CustomerDTO;
+import eapli.base.customer.application.ListCustomersController;
+import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 

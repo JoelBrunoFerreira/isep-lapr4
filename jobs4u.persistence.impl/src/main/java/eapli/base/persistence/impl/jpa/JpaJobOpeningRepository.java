@@ -6,11 +6,8 @@ import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.base.customer.domain.Acronym;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
