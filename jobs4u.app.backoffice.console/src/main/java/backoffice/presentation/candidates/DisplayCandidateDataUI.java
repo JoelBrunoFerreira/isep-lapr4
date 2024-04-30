@@ -1,16 +1,19 @@
 package backoffice.presentation.candidates;
 
-import backoffice.presentation.authz.SystemUserPrinter;
-import eapli.base.candidate.application.GetCandidateController;
-import eapli.base.candidate.domain.Candidate;
-import eapli.base.candidate.domain.Email;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.util.Optional;
-
 public class DisplayCandidateDataUI extends AbstractUI {
+    @Override
+    protected boolean doShow() {
+        return false;
+    }
 
+    @Override
+    public String headline() {
+        return null;
+    }
+
+    /*
     GetCandidateController theController = new GetCandidateController();
     SystemUserPrinter printer = new SystemUserPrinter();
 
@@ -36,4 +39,6 @@ public class DisplayCandidateDataUI extends AbstractUI {
     public String headline() {
         return "Candidate data:";
     }
+
+     */
 }

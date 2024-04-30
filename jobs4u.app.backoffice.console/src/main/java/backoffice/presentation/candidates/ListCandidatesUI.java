@@ -1,12 +1,19 @@
 package backoffice.presentation.candidates;
 
-import backoffice.presentation.authz.SystemUserPrinter;
-import eapli.base.candidate.application.GetCandidateController;
-import eapli.base.candidate.domain.Candidate;
 import eapli.framework.presentation.console.AbstractUI;
 
 public class ListCandidatesUI extends AbstractUI {
+    @Override
+    protected boolean doShow() {
+        return false;
+    }
 
+    @Override
+    public String headline() {
+        return null;
+    }
+
+    /*
     GetCandidateController theController = new GetCandidateController();
     SystemUserPrinter printer = new SystemUserPrinter();
 
@@ -25,4 +32,6 @@ public class ListCandidatesUI extends AbstractUI {
     public String headline() {
         return "ALL CANDIDATES";
     }
+
+     */
 }
