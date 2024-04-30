@@ -20,6 +20,7 @@
  */
 package eapli.base.infrastructure.persistence;
 
+import eapli.base.JobApplication.repository.JobApplicationRepository;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
@@ -32,17 +33,18 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
 /**
  * @author Paulo Gandra Sousa
- *
  */
 public interface RepositoryFactory {
 
     TransactionalContext newTransactionalContext();
 
     SignupRequestRepository signupRequests();
+
     SignupRequestRepository signupRequests(TransactionalContext autoTx);
 
     // =========================================================================================================
     UserRepository systemUsers();
+
     UserRepository systemUsers(TransactionalContext autoTx);
 
     ClientUserRepository clientUsers(TransactionalContext autoTx);
@@ -50,19 +52,31 @@ public interface RepositoryFactory {
     ClientUserRepository clientUsers();
 
     UserRepository users();
+
     UserRepository users(TransactionalContext autoTx);
 
     CandidateRepository candidates();
+
     CandidateRepository candidates(TransactionalContext autoTx);
 
     CustomerRepository customers();
+
     CustomerRepository customers(TransactionalContext autoTx);
 
     OperatorRepository operators();
+
     OperatorRepository operators(TransactionalContext autoTx);
 
     CustomerManagerRepository customerManagers();
+
     CustomerManagerRepository customerManagers(TransactionalContext autoTx);
 
     JobOpeningRepository jobOpenings();
+
+    JobOpeningRepository jobOpenings(TransactionalContext autoTx);
+
+    JobApplicationRepository jobApplications();
+
+    JobApplicationRepository jobApplications(TransactionalContext autoTx);
+
 }

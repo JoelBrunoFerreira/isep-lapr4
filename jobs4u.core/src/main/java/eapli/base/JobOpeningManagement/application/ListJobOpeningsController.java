@@ -1,8 +1,11 @@
 package eapli.base.JobOpeningManagement.application;
 
+import eapli.base.JobOpeningManagement.domain.Active;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.customer.application.CustomerService;
 import eapli.base.customer.domain.Customer;
+import eapli.base.customer.dto.CustomerDTO;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -13,30 +16,22 @@ import java.time.LocalDate;
 
 @UseCaseController
 public class ListJobOpeningsController {
-    final JobOpeningRepository repository = PersistenceContext.repositories().jobOpenings();
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpenings();
+    private final CustomerService customerService = new CustomerService();
 
-    public Iterable<JobOpeningDTO> listJobOpeningWithFilters(boolean allJobOpening, long customerID, LocalDate startDate, LocalDate endDate){
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN,BaseRoles.CUSTOMER_MANAGER);
-        try {
-            if(allJobOpening){
-                return repository.findAllActive(startDate,endDate);
-            }else {
 
-                return repository.findAllByCustomerIDAndDate(customerID, startDate,endDate);
-            }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
 
-        return null;
-    }
-
-    public Iterable<JobOpeningDTO> listJobOpeningsByCustomers(String acronym){
-        return repository.findAllByCustomerID(acronym);
+    public Iterable<JobOpeningDTO> listJobOpeningsByCustomers(String email){
+        return repository.findAllByCustomerID(email);
     }
     public Iterable<JobOpeningDTO> listJobOpenings(){
         return repository.findAllDTO();
     }
+    public Iterable<CustomerDTO> getCustomersDTO(){
+        return customerService.findAllDTO();
+    }
 
+    public Iterable<JobOpeningDTO> listJobOpeningsByStatus(Active active) {
+        return repository.findAllByStatus(active);
+    }
 }

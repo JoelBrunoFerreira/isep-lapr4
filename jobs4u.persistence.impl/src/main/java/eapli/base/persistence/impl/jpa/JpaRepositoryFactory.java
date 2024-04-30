@@ -21,6 +21,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
+import eapli.base.JobApplication.repository.JobApplicationRepository;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
@@ -128,6 +129,21 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobOpeningRepository jobOpenings() {
+        return null;
+    }
+
+    @Override
+    public JobOpeningRepository jobOpenings(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobApplicationRepository jobApplications() {
+        return null;
+    }
+
+    @Override
+    public JobApplicationRepository jobApplications(TransactionalContext autoTx) {
         return null;
     }
 

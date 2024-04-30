@@ -39,8 +39,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     private ContractType contractType;
 
     private JobTitle jobTitle;
-@OneToMany
-@JoinColumn(name = "jobOpening_id", referencedColumnName = "id")
+    @Getter
+    private Active status;
+    @OneToMany
+    @JoinColumn(name = "jobOpening_id", referencedColumnName = "id")
     private List<RecruitmentProcess> recruitmentProcess;
     @ManyToOne
     private JobRequirement jobRequirement;
@@ -55,12 +57,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @ManyToOne
     private SystemUser customerManager;
 
-    //Adicionar referencia ao CustomerManager
-
-
-    //Construtor
-
-    protected JobOpening(){}
+    protected JobOpening() {
+    }
 
     public JobOpening(String description, int numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle, Customer customer, SystemUser customerManager) {
         this.description = Description.valueOf(description);
@@ -74,6 +72,11 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.interviewModel = null;
         this.customer = customer;
         this.customerManager = customerManager;
+        this.status = Active.PENDING;
+    }
+
+    public void changeStatus(Active status) {
+        this.status = status;
     }
 
     @Override
@@ -93,10 +96,21 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     @Override
     public JobOpeningDTO toDTO() {
-        return new JobOpeningDTO(jobReference.getId(),description.toString(), numberVacancies.toString(),jobOpeningAddress.toString(),
-                mode.toString(), jobTitle.toString(),contractType.toString(),
+        return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(),
+                mode.toString(), jobTitle.toString(), contractType.toString(),
                 jobRequirement == null ? "" : jobRequirement.toString(),
-                interviewModel == null? "": interviewModel.toString(),
+                interviewModel == null ? "" : interviewModel.toString(),
                 recruitmentProcess == null ? "" : recruitmentProcess.toString());
+    }
+
+    public boolean isActive() {
+        return this.status.equals(Active.ACTIVE);
+    }
+    public boolean isPending() {
+        return this.status.equals(Active.PENDING);
+    }
+
+    public boolean isCompleted() {
+        return this.status.equals(Active.COMPLETED);
     }
 }

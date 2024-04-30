@@ -1,13 +1,10 @@
 package backoffice.presentation;
 
-import backoffice.presentation.authz.AddUserUI;
-import backoffice.presentation.authz.DeactivateUserAction;
-import backoffice.presentation.authz.ListUsersAction;
+import backoffice.presentation.customermanager.CustomerManagerMainMenu;
 import backoffice.presentation.users.UsersMenu;
 import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.usermanagement.domain.BaseRoles;
-import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -76,7 +73,12 @@ public class MainMenu extends AbstractUI {
             final Menu myUserMenu = new MyUserMenu();
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
         }
-
+        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CUSTOMER_MANAGER)){
+            final Menu customerManagerMenu = new CustomerManagerMainMenu().buildUsersMenu();
+            mainMenu.addSubMenu(USERS_OPTION, customerManagerMenu);
+            final Menu myUserMenu = new MyUserMenu();
+            mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+        }
         if (!Application.settings().isMenuLayoutHorizontal())
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 

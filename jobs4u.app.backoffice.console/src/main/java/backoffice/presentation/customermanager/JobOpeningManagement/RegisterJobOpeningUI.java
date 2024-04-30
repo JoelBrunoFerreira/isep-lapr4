@@ -1,24 +1,24 @@
-package backoffice.presentation.JobOpeningManagement;
+package backoffice.presentation.customermanager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.application.RegisterJobOpeningController;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.customer.application.GetCustomerListController;
-import eapli.base.customer.domain.Customer;
+import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.io.util.Console;
+import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import eapli.framework.visitor.Visitor;
 
 public class RegisterJobOpeningUI extends AbstractUI {
     private final RegisterJobOpeningController registerJobOpeningController = new RegisterJobOpeningController();
-    private final GetCustomerListController customerController = new GetCustomerListController();
 
     @Override
     protected boolean doShow() {
         try {
-            Iterable<Customer> customers = customerController.getCustomerList();
-            SelectWidget<Customer> customerSelector = new SelectWidget<>("Select the customer corresponding to the job opening:", customers);
+            Iterable<CustomerDTO> customers = registerJobOpeningController.getCustomersDTO();
+            SelectWidget<CustomerDTO> customerSelector = new SelectWidget<>("Select the customer corresponding to the job opening:", customers);
             customerSelector.show();
-            Customer customer = customerSelector.selectedElement();
+            CustomerDTO customer = customerSelector.selectedElement();
 
             if (customer != null) {
                 final String title = Console.readLine("Title:");
@@ -35,7 +35,7 @@ public class RegisterJobOpeningUI extends AbstractUI {
                 final String contractType = contractTypeSelector.selectedElement();
 
                 JobOpeningDTO resultDTO = registerJobOpeningController.registerJobOpening(title, description,
-                        address, numberVacancies, mode, contractType, customer);
+                        address, numberVacancies, mode, contractType, customer.getEmail());
 
                 System.out.println("Registered Job Opening:");
                 System.out.println("\tJob reference: " + resultDTO.jobReference);
