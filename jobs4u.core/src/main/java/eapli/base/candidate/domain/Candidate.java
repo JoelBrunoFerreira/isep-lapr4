@@ -42,10 +42,6 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
         // Empty constructor
     }
 
-    public SystemUser user() {
-        return this.systemUser;
-    }
-
     @Override
     public boolean sameAs(Object other) {
         if (other == null) {
@@ -65,5 +61,16 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
     @Override
     public CandidateDTO toDTO() {
         return new CandidateDTO(id, name.toString(), email.toString(), phoneNumber.toString(), systemUser.username().toString());
+    }
+
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "id=" + id +
+                ", name=" + name.toString() +
+                ", email=" + email.toString() +
+                ", phoneNumber=" + phoneNumber.toString() +
+                ", systemUser=" + systemUser.username().toString() +
+                '}';
     }
 }
