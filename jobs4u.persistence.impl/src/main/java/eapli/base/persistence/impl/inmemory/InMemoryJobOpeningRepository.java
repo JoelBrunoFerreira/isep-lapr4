@@ -1,52 +1,34 @@
-package eapli.base.persistence.impl.jpa;
+package eapli.base.persistence.impl.inmemory;
 
-
-import eapli.base.Application;
 import eapli.base.JobOpeningManagement.domain.Status;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReference, JobReference>
-        implements JobOpeningRepository {
-    public JpaJobOpeningRepository(final TransactionalContext autoTx) {
-        super(autoTx, "id");
-    }
-
-    public JpaJobOpeningRepository(final String puname) {
-        super(puname, Application.settings().extendedPersistenceProperties(), "id");
-    }
-
-    public JpaJobOpeningRepository(String persistenceUnitName, String identityFieldName) {
-        super(persistenceUnitName, identityFieldName);
-    }
-
+public class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOpening, JobReference> implements JobOpeningRepository {
+static {
+    InMemoryInitializer.init();
+}
+    @Override
     public Iterable<JobOpeningDTO> findAllDTO() {
-        Iterable<JobOpening> jobOpenings = findAll();
-        List<JobOpeningDTO> jobOpeningsDTO = new ArrayList<>();
-        for (JobOpening jobOpening : jobOpenings) {
-            jobOpeningsDTO.add(jobOpening.toDTO());
-        }
-        return jobOpeningsDTO;
+        return null;
     }
 
     @Override
     public Iterable<JobOpening> findAllActive(LocalDate startDate, LocalDate endDate) {
-        return null;
+        return match(JobOpening::isActive);
     }
 
     @Override
     public Iterable<JobOpeningDTO> findAllByCustomerIDAndDate(long customerID, LocalDate startDate, LocalDate endDate) {
         return null;
     }
-
 
     @Override
     public Iterable<JobOpeningDTO> findAllByCustomerID(String email) {

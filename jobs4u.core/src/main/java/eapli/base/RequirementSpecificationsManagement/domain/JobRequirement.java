@@ -14,7 +14,7 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
 
     private RequirementTitle requirementTitle;
 
-    private FileName fileName;
+    private FileName fileName; //path
 
     @Override
     public boolean sameAs(Object other) {

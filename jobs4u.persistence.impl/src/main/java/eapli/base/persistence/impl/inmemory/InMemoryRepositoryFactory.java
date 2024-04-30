@@ -20,6 +20,7 @@
  */
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.JobApplication.repository.JobApplicationRepository;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
@@ -102,7 +103,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public CustomerRepository customers() {
-        return  new inMemoryCustomerRepository();
+        return null;
     }
 
     @Override
@@ -132,6 +133,21 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobOpeningRepository jobOpenings() {
+        return null;
+    }
+
+    @Override
+    public JobOpeningRepository jobOpenings(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public JobApplicationRepository jobApplications() {
+        return null;
+    }
+
+    @Override
+    public JobApplicationRepository jobApplications(TransactionalContext autoTx) {
         return null;
     }
 

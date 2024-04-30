@@ -3,7 +3,7 @@ package backoffice.presentation.users;
 import backoffice.presentation.authz.AddUserUI;
 import backoffice.presentation.authz.DeactivateUserAction;
 import backoffice.presentation.authz.ListUsersAction;
-import backoffice.presentation.customer.ListCustomersUI;
+import backoffice.presentation.customermanager.customer.ListCustomersUI;
 import backoffice.presentation.customermanager.ListCustomerManagersUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;

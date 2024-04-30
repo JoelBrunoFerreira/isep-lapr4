@@ -2,7 +2,9 @@ package eapli.base.JobOpeningManagement.domain;
 
 import eapli.framework.validations.Preconditions;
 
-public enum WorkingMode {
+import java.io.Serializable;
+
+public enum WorkingMode implements Serializable {
     ONSITE("onsite"),
     REMOTE("remote"),
     HYBRID("hybrid");

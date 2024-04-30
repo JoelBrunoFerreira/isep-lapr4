@@ -25,38 +25,39 @@ public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
     @OneToOne
     private SystemUser systemUser;
 
-    public Customer(final CustomerName name, final Address address, final Acronym acronym, final SystemUser systemUser) {
-        Preconditions.nonNull(name);
-        Preconditions.nonNull(address);
-        Preconditions.nonNull(acronym);
-        Preconditions.nonNull(systemUser);
-        this.systemUser = systemUser;
-    }
-
-    public Customer() {
+    protected Customer() {
         // Empty constructor
     }
 
-    @Override
-        public boolean sameAs (Object other){
-            if (other == null) {
-                return false;
-            }
-            if (!(other instanceof Customer)) {
-                return false;
-            }
-            return id == ((Customer) other).id;
-        }
-
-        @Override
-        public Long identity () {
-            return id;
-        }
-
-        @Override
-        public CustomerDTO toDTO () {
-            return new CustomerDTO(id, name.toString(), acronym.toString(), systemUser.username().toString());
-        }
-
+    public Customer(SystemUser systemUser, String address) {
+        Preconditions.nonNull(systemUser);
+        Preconditions.nonEmpty(address);
+        this.systemUser = systemUser;
+        this.name = new CustomerName(systemUser.name().firstName());
+        this.acronym = new Acronym(systemUser.name().lastName().toString());
+        this.address = new Address(address);
     }
+
+    @Override
+    public boolean sameAs(Object other) {
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof Customer)) {
+            return false;
+        }
+        return id == ((Customer) other).id;
+    }
+
+    @Override
+    public Long identity() {
+        return id;
+    }
+
+    @Override
+    public CustomerDTO toDTO() {
+        return new CustomerDTO(name.toString(), acronym.toString(), systemUser.email().toString(), address.toString());
+    }
+
+}
 

@@ -25,7 +25,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import eapli.base.customer.domain.Customer;
-import eapli.base.customer.domain.CustomerBuilder;
 import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -80,13 +79,13 @@ public class AddUserController {
 
     public Customer addCustomer(final String username, final String password, final String firstName,
                                final String lastName, final String email, final String address,
-                               final String code) {
+                               final String acronym) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
         Set<Role> roles = new HashSet<Role>();
         roles.add(BaseRoles.CUSTOMER_USER);
 
-        SystemUser u = addUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());
-        Customer s = new CustomerBuilder().withSystemUser(u).withAddress(address).withCode(code).build();
+        SystemUser u = addUser(username, password, firstName, acronym, email, roles, CurrentTimeCalendars.now());
+        Customer s = new Customer(u, address);
 
         return customerRepository.save(s);
 

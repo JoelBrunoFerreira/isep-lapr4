@@ -4,6 +4,8 @@ import eapli.base.customer.domain.Customer;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public interface CustomerRepository extends DomainRepository<Long, Customer> {
@@ -15,4 +17,5 @@ public interface CustomerRepository extends DomainRepository<Long, Customer> {
      * @return
      */
     Iterable<Customer> findAllActive();
+
 }

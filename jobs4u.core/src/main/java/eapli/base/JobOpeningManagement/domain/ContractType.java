@@ -3,7 +3,9 @@ package eapli.base.JobOpeningManagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 
-public enum ContractType {
+import java.io.Serializable;
+
+public enum ContractType implements Serializable {
     FULL_TIME("Full-time"),
     PART_TIME("Part-time"),
     INTERNSHIP("Internship");

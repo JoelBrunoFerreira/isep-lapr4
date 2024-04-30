@@ -27,7 +27,7 @@
     1. Verify that job openings can be listed by filtering based on Customer, date, and activity status.
     2. Test filtering by Customer name, customer code, and other relevant details.
     3. Test filtering by a specific date and date range.
-    4. Test filtering by activity status (active or inactive).
+    4. Test filtering by activity status (status or inactive).
 - **Expected Result**: Job openings should be accurately listed based on the specified criteria, providing flexibility and ease of management for the users.
 
 ### 4. Customer Manager Access Rights

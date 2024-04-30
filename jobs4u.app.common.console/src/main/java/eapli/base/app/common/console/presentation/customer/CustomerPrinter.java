@@ -9,9 +9,9 @@ public class CustomerPrinter implements Visitor<CustomerDTO> {
   public void visit(final CustomerDTO visitee) {
     TableFormatPrinter printer = new TableFormatPrinter();
 
-    printer.addColumn(visitee.getUsername().toString(), 20);
-    printer.addColumn(visitee.getAddress().toString(), 20);
-    printer.addColumn(visitee.getCode().toString(), 30);
+    printer.addColumn(visitee.getEmail(), 20);
+    printer.addColumn(visitee.getAddress(), 20);
+    printer.addColumn(visitee.getAcronym(), 20);
 
     System.out.print(printer.format());
   }

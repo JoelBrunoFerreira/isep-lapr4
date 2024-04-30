@@ -5,7 +5,9 @@ import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.WorkingMode;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.customer.application.CustomerService;
 import eapli.base.customer.domain.Customer;
+import eapli.base.customer.dto.CustomerDTO;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -15,27 +17,28 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @UseCaseController
 public class RegisterJobOpeningController {
 
     AuthorizationService authz;
     JobOpeningRepository jobOpeningRepository;
-    private SystemUser manager;
+
+    CustomerService customerService;
 
     public RegisterJobOpeningController() {
         this.authz = AuthzRegistry.authorizationService();
-        this.manager = authz.session().get().authenticatedUser();
+        customerService = new CustomerService();
         this.jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     }
 
     public JobOpeningDTO registerJobOpening(final String title, final String description, final String address,
-                                            final int numberVacancies, final String mode, final String contractType, Customer customer) {
+                                            final int numberVacancies, final String mode, final String contractType, final String customerEmail) {
 
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
-
-        JobOpening newJobOpening = new JobOpening(description, numberVacancies, address, mode, contractType, title, customer, manager);
-
+        Optional<Customer> customer = customerService.findCustomerByUsername(customerEmail);
+        JobOpening newJobOpening = new JobOpening(description, numberVacancies, address, mode, contractType, title, customer.get(), authz.session().get().authenticatedUser());
         return jobOpeningRepository.save(newJobOpening).toDTO();
 
     }
@@ -56,5 +59,10 @@ public class RegisterJobOpeningController {
             contractTypesList.add(contractType.toString());
         }
         return contractTypesList;
+    }
+
+
+    public Iterable<CustomerDTO> getCustomersDTO(){
+        return customerService.findAllDTO();
     }
 }
