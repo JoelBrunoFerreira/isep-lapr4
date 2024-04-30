@@ -3,6 +3,7 @@ package eapli.base.JobOpeningManagement.domain;
 
 import eapli.base.InterviewModelManagement.domain.InterviewModel;
 import eapli.base.RecruitmentProcessManagement.domain.RecruitmentProcess;
+import eapli.base.RecruitmentProcessManagement.domain2.RecruitmentProcessPhase;
 import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.domain.Customer;
@@ -40,10 +41,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     private JobTitle jobTitle;
     @Getter
-    private Active status;
+    private Status status;
     @OneToMany
     @JoinColumn(name = "jobOpening_id", referencedColumnName = "id")
-    private List<RecruitmentProcess> recruitmentProcess;
+    private List<RecruitmentProcessPhase> recruitmentProcess;
     @ManyToOne
     private JobRequirement jobRequirement;
 
@@ -72,10 +73,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.interviewModel = null;
         this.customer = customer;
         this.customerManager = customerManager;
-        this.status = Active.PENDING;
+        this.status = Status.PENDING;
     }
 
-    public void changeStatus(Active status) {
+    public void changeStatus(Status status) {
         this.status = status;
     }
 
@@ -104,13 +105,13 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public boolean isActive() {
-        return this.status.equals(Active.ACTIVE);
+        return this.status.equals(Status.ACTIVE);
     }
     public boolean isPending() {
-        return this.status.equals(Active.PENDING);
+        return this.status.equals(Status.PENDING);
     }
 
     public boolean isCompleted() {
-        return this.status.equals(Active.COMPLETED);
+        return this.status.equals(Status.COMPLETED);
     }
 }

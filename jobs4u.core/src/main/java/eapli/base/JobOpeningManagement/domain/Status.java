@@ -2,7 +2,7 @@ package eapli.base.JobOpeningManagement.domain;
 
 import java.io.Serializable;
 
-public enum Active implements Serializable {
+public enum Status implements Serializable {
     ACTIVE,
     PENDING,
     COMPLETED;

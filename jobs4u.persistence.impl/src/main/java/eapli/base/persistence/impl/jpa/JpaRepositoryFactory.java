@@ -129,12 +129,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobOpeningRepository jobOpenings() {
-        return null;
+        return new JpaJobOpeningRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override
     public JobOpeningRepository jobOpenings(TransactionalContext autoTx) {
-        return null;
+        return new JpaJobOpeningRepository(autoTx);
     }
 
     @Override

@@ -2,7 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 
 import eapli.base.Application;
-import eapli.base.JobOpeningManagement.domain.Active;
+import eapli.base.JobOpeningManagement.domain.Status;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
@@ -62,12 +62,12 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     }
 
     @Override
-    public Iterable<JobOpeningDTO> findAllByStatus(Active active) {
+    public Iterable<JobOpeningDTO> findAllByStatus(Status status) {
         Iterable<JobOpening> jobOpenings = findAll();
         List<JobOpeningDTO> result = new ArrayList<>();
 
         for (JobOpening jo : jobOpenings) {
-            if (jo.getStatus().equals(active)) {
+            if (jo.getStatus().equals(status)) {
                 result.add(jo.toDTO());
             }
         }

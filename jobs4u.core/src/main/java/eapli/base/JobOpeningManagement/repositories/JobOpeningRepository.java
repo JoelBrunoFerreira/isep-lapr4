@@ -1,6 +1,6 @@
 package eapli.base.JobOpeningManagement.repositories;
 
-import eapli.base.JobOpeningManagement.domain.Active;
+import eapli.base.JobOpeningManagement.domain.Status;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
@@ -17,5 +17,5 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
 
     Iterable<JobOpeningDTO> findAllByCustomerID(String email);
 
-    Iterable<JobOpeningDTO> findAllByStatus(Active active);
+    Iterable<JobOpeningDTO> findAllByStatus(Status status);
 }

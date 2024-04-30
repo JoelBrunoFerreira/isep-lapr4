@@ -1,18 +1,12 @@
 package eapli.base.JobOpeningManagement.application;
 
-import eapli.base.JobOpeningManagement.domain.Active;
+import eapli.base.JobOpeningManagement.domain.Status;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.customer.application.CustomerService;
-import eapli.base.customer.domain.Customer;
 import eapli.base.customer.dto.CustomerDTO;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-
-import java.time.LocalDate;
 
 @UseCaseController
 public class ListJobOpeningsController {
@@ -31,7 +25,7 @@ public class ListJobOpeningsController {
         return customerService.findAllDTO();
     }
 
-    public Iterable<JobOpeningDTO> listJobOpeningsByStatus(Active active) {
-        return repository.findAllByStatus(active);
+    public Iterable<JobOpeningDTO> listJobOpeningsByStatus(Status status) {
+        return repository.findAllByStatus(status);
     }
 }

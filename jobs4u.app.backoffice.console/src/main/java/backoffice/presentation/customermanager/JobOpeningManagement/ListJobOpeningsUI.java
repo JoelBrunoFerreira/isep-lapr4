@@ -1,7 +1,7 @@
 package backoffice.presentation.customermanager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.application.ListJobOpeningsController;
-import eapli.base.JobOpeningManagement.domain.Active;
+import eapli.base.JobOpeningManagement.domain.Status;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.io.util.Console;
@@ -77,18 +77,18 @@ public class ListJobOpeningsUI extends AbstractUI {
         selectJobOpeningDTO.show();
     }
     private void filterByActive() {
-        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Active.ACTIVE);
+        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Status.ACTIVE);
         SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
         selectJobOpeningDTO.show();
     }
     private void filterByPending() {
-        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Active.PENDING);
+        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Status.PENDING);
         SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
         selectJobOpeningDTO.show();
     }
 
     private void filterByCompleted() {
-        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Active.COMPLETED);
+        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Status.COMPLETED);
         SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
         selectJobOpeningDTO.show();
     }
