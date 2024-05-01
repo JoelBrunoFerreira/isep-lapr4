@@ -63,12 +63,12 @@ public class AddUserUI extends AbstractUI {
                     userData.show();
                     theController.addUser(userData.username(), userData.password(), userData.firstName(),
                             userData.lastName(), userData.email(), roleTypes);
-                } else{
+                } else if (role.equals(BaseRoles.CUSTOMER_USER)){
                     final CustomerDataWidget userData = new CustomerDataWidget();
                     userData.show();
                     theController.addCustomer(userData.username(), userData.password(), userData.firstName(),
                             userData.lastName(), userData.email(), userData.address(),
-                            userData.code());
+                            userData.acronym());
                 }
             }
         } catch (@SuppressWarnings("unused") final IntegrityViolationException e) {

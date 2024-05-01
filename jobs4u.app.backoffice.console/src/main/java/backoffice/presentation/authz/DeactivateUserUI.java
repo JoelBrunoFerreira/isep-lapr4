@@ -46,14 +46,15 @@ public class DeactivateUserUI extends AbstractUI {
             var cont = 1;
             System.out.println("SELECT User to deactivate\n");
             // TODO use select widget, see, ChangeDishTypeUI
-            System.out.printf("%-6s%-10s%-30s%-30s%n", "Nº:", "Username", "Firstname", "Lastname");
+            System.out.printf("%-6s%-30s%-30s%-30s%n", "Nº:", "Username", "Firstname", "Lastname/Acronym\n");
             for (final SystemUser user : iterable) {
                 list.add(user);
-                System.out.printf("%-6d%-10s%-30s%-30s%n", cont, user.email(),
+                       System.out.printf("%-6d%-30s%-30s%-30s%n", cont, user.email(),
                         user.name().firstName(),
                         user.name().lastName());
                 cont++;
             }
+            System.out.println();
             final var option = Console.readInteger("Enter user nº to deactivate or 0 to finish ");
             if (option == 0) {
                 System.out.println("No user selected");
