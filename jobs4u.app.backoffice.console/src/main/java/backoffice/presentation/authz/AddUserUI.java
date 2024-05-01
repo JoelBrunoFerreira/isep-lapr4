@@ -20,7 +20,10 @@
  */
 package backoffice.presentation.authz;
 
+import backoffice.presentation.backofficeUser.AddCustomerManagerUI;
+import backoffice.presentation.customermanager.CustomerManagerDataWidget;
 import eapli.base.app.common.console.presentation.customer.CustomerDataWidget;
+import eapli.base.customerManager.application.AddCustomerManagerController;
 import eapli.base.usermanagement.application.AddUserController;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
@@ -39,13 +42,15 @@ import java.util.Set;
 
 /**
  * UI for adding a user to the application.
- *
+ * <p>
  * Created by nuno on 22/03/16.
  */
 @SuppressWarnings("java:S106")
 public class AddUserUI extends AbstractUI {
 
     private final AddUserController theController = new AddUserController();
+    private final AddCustomerManagerController customerManagerController = new AddCustomerManagerController();
+
 
     @Override
     protected boolean doShow() {
@@ -58,12 +63,19 @@ public class AddUserUI extends AbstractUI {
 
         try {
             for (Role role : roleTypes) {
-                if (role.equals(BaseRoles.CUSTOMER_MANAGER) || role.equals(BaseRoles.OPERATOR)) {
+                if (role.equals(BaseRoles.CUSTOMER_MANAGER)) {
+                    final CustomerManagerDataWidget userData = new CustomerManagerDataWidget();
+                    userData.show();
+                    customerManagerController.addCustomerManager(userData.firstName(),
+                            userData.lastName(), userData.email());
+
+                } else if (role.equals(BaseRoles.OPERATOR)) {
                     final SystemUserDataWidget userData = new SystemUserDataWidget();
                     userData.show();
                     theController.addUser(userData.username(), userData.password(), userData.firstName(),
                             userData.lastName(), userData.email(), roleTypes);
-                } else if (role.equals(BaseRoles.CUSTOMER_USER)){
+
+                } else if (role.equals(BaseRoles.CUSTOMER_USER)) {
                     final CustomerDataWidget userData = new CustomerDataWidget();
                     userData.show();
                     theController.addCustomer(userData.username(), userData.password(), userData.firstName(),
