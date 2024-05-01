@@ -24,10 +24,13 @@
 package eapli.base.usermanagement.application;
 
 import eapli.base.candidate.domain.Candidate;
+import eapli.base.candidate.domain.Email;
+import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
+import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
@@ -44,8 +47,10 @@ import java.util.Optional;
 public class ListUsersController{
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    //private final TransactionalContext autoTx = PersistenceContext.repositories().newTransactionalContext();
     private final UserManagementService userSvc = AuthzRegistry.userService();
     private final CandidateRepository repo = PersistenceContext.repositories().candidates();
+
 
     public Iterable<SystemUser> allUsers() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
@@ -62,4 +67,15 @@ public class ListUsersController{
 
         return repo.findAll();
     }
+
+    public Optional<CandidateDTO> findCandidateByEmail(String email){
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.CUSTOMER_MANAGER);
+        Optional<Candidate> candidate = repo.findByEmail(new Email(email));
+        if(!candidate.isPresent()){
+            return Optional.empty();
+        }else{
+            return Optional.of(candidate.get().toDTO());
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package backoffice;
 
 import backoffice.presentation.BackofficeFrontMenu;
+import eapli.base.app.bootstrap.BaseBootstrap;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;

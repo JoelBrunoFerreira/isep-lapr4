@@ -1,12 +1,16 @@
 package backoffice.presentation.customermanager;
 
+import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.ListJobOpeningsUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.RegisterJobOpeningUI;
+import backoffice.presentation.customermanager.customer.AddCustomerUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CustomerManagerMainMenu {
@@ -33,17 +37,19 @@ public class CustomerManagerMainMenu {
     private static final int OPTION_5 = 5;
     private static final int OPTION_6 = 6;
     private static final int OPTION_7 = 7;
-    private static final int PREVIOUS_MENU = 8;
+    private static final int OPTION_8 = 8;
+    private static final int OPTION_9 = 9;
+    private static final int PREVIOUS_MENU = 10;
 
-    /*public void displayCustomerManagerMenu() {
+    public void displayCustomerManagerMenu() {
 
         System.out.println("""
                 =====================================
                 |  Jobs4u - Customer Manager Menu   |
                 =====================================
-                1. Display candidate's personal data
+                1. Register a new Customer
                 2. Display candidate'e personal data and applications
-                3. Customer Manager Option 3
+                8. Display Candidate data
                 4. Back
                 0. Exit
                 =====================================
@@ -72,9 +78,7 @@ public class CustomerManagerMainMenu {
         }
         switch (option) {
             case OPTION_1:
-                System.out.println("Not implemented yet");
-                new RegisterJobOpeningUI().show();
-                //new RegisterCustomerUI();
+                new AddCustomerUI().doShow();
                 break;
             case OPTION_2:
                 new RegisterJobOpeningUI().show();
@@ -99,6 +103,13 @@ public class CustomerManagerMainMenu {
                 //new DisplayCandidatesUI();
                 System.out.println("Not implemented yet");
                 break;
+            case OPTION_8:
+                new DisplayCandidateDataUI().show();
+                break;
+            case OPTION_9:
+                //new DisplayCandidateDataAndJobApplicationsUI();
+                System.out.println("Not implemented yet");
+                break;
             case PREVIOUS_MENU:
                 Jobs4uBackofficeApp.main(null);
                 break;
@@ -109,7 +120,7 @@ public class CustomerManagerMainMenu {
             default:
                 System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, PREVIOUS_MENU);
         }
-    }*/
+    }
 
     public Menu buildUsersMenu() {
         final Menu menu = new Menu("Actions >");
