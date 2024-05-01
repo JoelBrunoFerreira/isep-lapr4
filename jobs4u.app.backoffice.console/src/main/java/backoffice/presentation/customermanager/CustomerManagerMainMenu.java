@@ -29,7 +29,6 @@ public class CustomerManagerMainMenu {
 
     private static final int CUSTOMER_MENU = 1;
     private static final int JOB_OPENING_MENU = 2;
-    private static final int DEACTIVATE_USER_OPTION = 3;
     private static final int EXIT_OPTION = 0;
 
     // LIST USERS SUBMENU
@@ -64,7 +63,7 @@ public class CustomerManagerMainMenu {
                     2. List Customers
                     3. Register Job Opening
                     4. List Job Openings
-                    5. Select Recruitment Process
+                    5. Setup Recruitment Process Phases
                     6. Select Job Requirements
                     7. Select Interview Model
                     8. Display candidate's personal data
