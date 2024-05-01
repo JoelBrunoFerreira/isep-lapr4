@@ -19,11 +19,11 @@ public class UsersMenu {
   private static final int EXIT_OPTION = 0;
 
   // LIST USERS SUBMENU
-  private static final int LIST_CUSTOMER_MANAGER_OPTION = 1;
-  private static final int LIST_OPERATORS_OPTION = 2;
-  private static final int LIST_CUSTOMERS_OPTION = 3;
-  private static final int LIST_CANDIDATES_OPTION = 4;
-  private static final int LIST_ALL_OPTION = 5;
+//  private static final int LIST_CUSTOMER_MANAGER_OPTION = 1;
+//  private static final int LIST_OPERATORS_OPTION = 2;
+//  private static final int LIST_CUSTOMERS_OPTION = 3;
+//  private static final int LIST_CANDIDATES_OPTION = 4;
+//  private static final int LIST_ALL_OPTION = 5;
 
   private static final String RETURN_LABEL = "Return ";
 
@@ -32,23 +32,14 @@ public class UsersMenu {
 
     final Menu listUsersMenu = new Menu("List Users >");
 
-    listUsersMenu.addItem(LIST_CUSTOMER_MANAGER_OPTION, "List Customer Managers", new ListCustomerManagersUI()::show);
-    listUsersMenu.addItem(LIST_OPERATORS_OPTION, "List Operators", new ListCustomerManagersUI()::show);
-    listUsersMenu.addItem(LIST_CUSTOMERS_OPTION, "List Customers", new ListCustomersUI()::show);
-    listUsersMenu.addItem(LIST_CANDIDATES_OPTION, "List Candidates", new ListCustomerManagersUI()::show);
-    listUsersMenu.addItem(LIST_ALL_OPTION, "List All", new ListUsersAction());
-
     if (!Application.settings().isMenuLayoutHorizontal())
       listUsersMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 
     listUsersMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
     menu.addItem(ADD_USER_OPTION, "Add User", new AddUserUI()::show);
-    menu.addSubMenu(LIST_USERS_OPTION, listUsersMenu);
+    menu.addItem(LIST_USERS_OPTION, "List Users",new ListUsersAction());
     menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
-//    menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
-//        new AcceptRefuseSignupRequestAction());
-//    menu.addItem(SCHEDULE_MEETING, "Schedule Meeting", new ScheduleMeetingUI()::show);
 
     if (!Application.settings().isMenuLayoutHorizontal())
       menu.addItem(MenuItem.separator(SEPARATOR_LABEL));

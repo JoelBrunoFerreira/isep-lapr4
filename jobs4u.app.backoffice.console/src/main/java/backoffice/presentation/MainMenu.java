@@ -64,7 +64,6 @@ public class MainMenu extends AbstractUI {
         final Menu mainMenu = new Menu();
 
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {
-//            mainMenu.addItem(CREATE_BOARD_OPTION, "Create Board", new CreateBoardUI()::show);
 
             final Menu usersMenu = new UsersMenu().buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
@@ -78,6 +77,12 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(USERS_OPTION, customerManagerMenu);
             final Menu myUserMenu = new MyUserMenu();
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
+        }
+        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
+            new BackofficeFrontMenu().show();
+        }
+        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CANDIDATE_USER)){
+            new BackofficeFrontMenu().show();
         }
         if (!Application.settings().isMenuLayoutHorizontal())
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
