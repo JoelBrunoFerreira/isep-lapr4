@@ -15,7 +15,7 @@ public class CustomerDataWidget {
     public void show() {
         username = Console.readLine("Username (E-mail)");
         password = Console.readLine("Password");
-        firstName = Console.readLine("Full Name");
+        firstName = Console.readLine("Company Name");
         lastName = firstName;
         email = username;
         address = Console.readLine("Address");
