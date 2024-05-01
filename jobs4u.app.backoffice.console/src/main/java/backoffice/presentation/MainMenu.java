@@ -26,7 +26,7 @@ public class MainMenu extends AbstractUI {
     // MAIN MENU
     private static final int USERS_OPTION = 1;
 
-    private static final int MY_USER_OPTION = 6;
+    private static final int MY_USER_OPTION = 2;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -64,7 +64,6 @@ public class MainMenu extends AbstractUI {
         final Menu mainMenu = new Menu();
 
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {
-//            mainMenu.addItem(CREATE_BOARD_OPTION, "Create Board", new CreateBoardUI()::show);
 
             final Menu usersMenu = new UsersMenu().buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
@@ -73,12 +72,18 @@ public class MainMenu extends AbstractUI {
             final Menu myUserMenu = new MyUserMenu();
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
         }
-        /*else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CUSTOMER_MANAGER)){
+        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CUSTOMER_MANAGER)){
             final Menu customerManagerMenu = new CustomerManagerMainMenu().buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, customerManagerMenu);
             final Menu myUserMenu = new MyUserMenu();
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
-        }*/
+        }
+        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
+            new OperatorMainMenu();
+        }
+        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CANDIDATE_USER)){
+            new BackofficeFrontMenu().show();
+        }
         if (!Application.settings().isMenuLayoutHorizontal())
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 

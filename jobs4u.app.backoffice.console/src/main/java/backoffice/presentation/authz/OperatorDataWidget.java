@@ -2,16 +2,14 @@ package backoffice.presentation.authz;
 
 import eapli.framework.io.util.Console;
 
-public class SystemUserDataWidget {
+public class OperatorDataWidget {
   private String username;
-  private String password;
-  private String firstName;
+   private String firstName;
   private String lastName;
   private String email;
 
   public void show() {
     username = Console.readLine("Username (E-mail)");
-    password = Console.readLine("Password");
     firstName = Console.readLine("First Name");
     lastName = Console.readLine("Last Name");
     email = username;
@@ -19,10 +17,6 @@ public class SystemUserDataWidget {
 
   public String username() {
     return this.username;
-  }
-
-  public String password() {
-    return this.password;
   }
 
   public String firstName() {

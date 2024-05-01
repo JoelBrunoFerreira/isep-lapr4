@@ -1,9 +1,13 @@
 package eapli.base.customerManager.domain;
 
+import eapli.base.customer.domain.Acronym;
+import eapli.base.customer.domain.Address;
+import eapli.base.customer.domain.CustomerName;
 import eapli.base.customerManager.dto.CustomerManagerDTO;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +19,18 @@ public class CustomerManager implements AggregateRoot<Long>, DTOable<CustomerMan
     private Name name;
     @OneToOne
     private SystemUser systemUser;
+
+    protected CustomerManager() {
+        // Empty constructor
+    }
+
+    public CustomerManager(SystemUser systemUser, String fName, String lName) {
+        Preconditions.nonNull(systemUser);
+        Preconditions.nonEmpty(fName);
+        Preconditions.nonEmpty(lName);
+        this.systemUser = systemUser;
+        this.name = new Name(systemUser.name().firstName()+ " " + systemUser.name().lastName());
+    }
 
     @Override
     public boolean sameAs(Object other) {
@@ -37,7 +53,4 @@ public class CustomerManager implements AggregateRoot<Long>, DTOable<CustomerMan
         return new CustomerManagerDTO(id, name.toString());
     }
 
-    public Object toDto() {
-        return null;
-    }
 }

@@ -30,11 +30,11 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
  *
  */
 public final class BaseRoles {
-    public static final Role POWER_USER = Role.valueOf("POWER_USER");
+    public static final Role POWER_USER = Role.valueOf("POWER USER");
     public static final Role ADMIN = Role.valueOf("ADMIN");
-    public static final Role CANDIDATE_USER = Role.valueOf("CANDIDATE_USER");
-    public static final Role CUSTOMER_USER = Role.valueOf("CUSTOMER_USER");
-    public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER_MANAGER");
+    public static final Role CANDIDATE_USER = Role.valueOf("CANDIDATE");
+    public static final Role CUSTOMER_USER = Role.valueOf("CUSTOMER");
+    public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER MANAGER");
     public static final Role OPERATOR = Role.valueOf("OPERATOR");
 
     /**
@@ -51,7 +51,7 @@ public final class BaseRoles {
     }
 
     public static Role[] backofficeUserValues() {
-        return new Role[] { CUSTOMER_MANAGER, OPERATOR};
+        return new Role[] { CUSTOMER_MANAGER, OPERATOR, CUSTOMER_USER};
     }
 
 }

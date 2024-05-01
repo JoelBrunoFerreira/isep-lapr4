@@ -10,16 +10,16 @@ public class CustomerDataWidget {
     private String lastName;
     private String email;
     private String address;
-    private String code;
+    private String acronym;
 
     public void show() {
         username = Console.readLine("Username (E-mail)");
         password = Console.readLine("Password");
-        firstName = Console.readLine("First Name");
-        lastName = Console.readLine("Last Name");
+        firstName = Console.readLine("Company Name");
+        lastName = firstName;
         email = username;
         address = Console.readLine("Address");
-        code = Console.readLine("Code");
+        acronym = Console.readLine("Acronym");
     }
 
     public String username() {
@@ -44,8 +44,8 @@ public class CustomerDataWidget {
 
     public String address() { return this.address;}
 
-    public String code() {
-        return this.code;
+    public String acronym() {
+        return this.acronym;
     }
 
 }

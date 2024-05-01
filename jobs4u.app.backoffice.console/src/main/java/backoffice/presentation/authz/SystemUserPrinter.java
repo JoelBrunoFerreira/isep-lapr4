@@ -20,6 +20,7 @@
  */
 package backoffice.presentation.authz;
 
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.visitor.Visitor;
 
@@ -33,7 +34,7 @@ public class SystemUserPrinter implements Visitor<SystemUser> {
 
     @Override
     public void visit(final SystemUser visitee) {
-        System.out.printf("%-30s%-30s%-30s\n", visitee.email(), visitee.name().firstName(),
-                visitee.name().lastName());
+        System.out.printf("%-30s%-20s%-20s%-20s\n", visitee.email(), visitee.name().firstName(),
+                visitee.name().lastName(), visitee.roleTypes().toString());
     }
 }
