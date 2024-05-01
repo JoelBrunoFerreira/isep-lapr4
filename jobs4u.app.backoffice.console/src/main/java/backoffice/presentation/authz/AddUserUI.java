@@ -20,18 +20,16 @@
  */
 package backoffice.presentation.authz;
 
-import backoffice.presentation.backofficeUser.AddCustomerManagerUI;
 import backoffice.presentation.customermanager.CustomerManagerDataWidget;
 import eapli.base.app.common.console.presentation.customer.CustomerDataWidget;
 import eapli.base.customerManager.application.AddCustomerManagerController;
+import eapli.base.operator.application.AddOperatorController;
 import eapli.base.usermanagement.application.AddUserController;
 import eapli.base.usermanagement.domain.BaseRoles;
-import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.Role;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
@@ -50,6 +48,8 @@ public class AddUserUI extends AbstractUI {
 
     private final AddUserController theController = new AddUserController();
     private final AddCustomerManagerController customerManagerController = new AddCustomerManagerController();
+    private final AddOperatorController operatorController = new AddOperatorController();
+
 
 
     @Override
@@ -70,10 +70,10 @@ public class AddUserUI extends AbstractUI {
                             userData.lastName(), userData.email());
 
                 } else if (role.equals(BaseRoles.OPERATOR)) {
-                    final SystemUserDataWidget userData = new SystemUserDataWidget();
+                    final OperatorDataWidget userData = new OperatorDataWidget();
                     userData.show();
-                    theController.addUser(userData.username(), userData.password(), userData.firstName(),
-                            userData.lastName(), userData.email(), roleTypes);
+                    operatorController.addOperator(userData.firstName(),
+                            userData.lastName(), userData.email());
 
                 } else if (role.equals(BaseRoles.CUSTOMER_USER)) {
                     final CustomerDataWidget userData = new CustomerDataWidget();
