@@ -2,6 +2,8 @@ package eapli.base.JobOpeningManagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import java.io.Serializable;
+import java.util.Objects;
+
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Embeddable;
 import lombok.Value;
@@ -9,6 +11,8 @@ import lombok.Value;
 @Embeddable
 @Value
 public class JobReference implements ValueObject, Serializable, Comparable<JobReference> {
+
+
     private String id;
 
     protected JobReference() {
@@ -25,8 +29,17 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
     public int compareTo(JobReference o) {
         return id.compareTo(o.getId());
     }
-
-    public boolean equals(JobReference o) {
-        return id.equals(o.getId());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JobReference that = (JobReference) o;
+        return Objects.equals(id, that.id);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }

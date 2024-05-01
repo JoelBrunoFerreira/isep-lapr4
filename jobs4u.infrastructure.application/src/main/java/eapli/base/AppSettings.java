@@ -101,6 +101,8 @@ public class AppSettings {
     }
 
     public Map extendedPersistenceProperties() {
-        return null;
+        final Map ret = new HashMap();
+        ret.put(SCHEMA_GENERATION_KEY, applicationProperties.getProperty(SCHEMA_GENERATION_KEY));
+        return ret;
     }
 }

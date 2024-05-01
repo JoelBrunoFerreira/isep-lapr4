@@ -25,6 +25,9 @@ package eapli.base.usermanagement.application;
 
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.repository.CandidateRepository;
+import eapli.base.customer.domain.Customer;
+import eapli.base.customer.dto.CustomerDTO;
+import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -34,6 +37,8 @@ import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -46,6 +51,8 @@ public class ListUsersController{
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
     private final CandidateRepository repo = PersistenceContext.repositories().candidates();
+
+    private final CustomerRepository repo2 = PersistenceContext.repositories().customers();
 
     public Iterable<SystemUser> allUsers() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
@@ -61,5 +68,14 @@ public class ListUsersController{
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.OPERATOR);
 
         return repo.findAll();
+    }
+    public Iterable<CustomerDTO> listAllCustomersDTO() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.CUSTOMER_MANAGER);
+        Iterable<Customer> list = repo2.findAll();
+        List<CustomerDTO> result = new ArrayList<>();
+        for (Customer c : list){
+            result.add(c.toDTO());
+        }
+        return result;
     }
 }

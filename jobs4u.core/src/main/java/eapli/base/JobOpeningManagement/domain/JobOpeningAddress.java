@@ -16,8 +16,6 @@ public class JobOpeningAddress implements ValueObject, Serializable {
 
     @Override
     public String toString() {
-        return "JobOpeningAddress{" +
-                "address='" + address + '\'' +
-                '}';
+        return this.address;
     }
 }

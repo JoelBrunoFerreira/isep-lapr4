@@ -1,6 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.presentation.backofficeUser.SignupRequestAction;
+import backoffice.presentation.customermanager.CustomerManagerMainMenu;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -34,14 +35,14 @@ public class BackofficeFrontMenu extends AbstractUI {
 //            new AdminMainMenu().displayAdminMenu();
             return true;
         }));
-        /*
+
         menu.addItem(LOGIN_OPTION_2, "Login as Customer Manager", new ChainedAction(
                 new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.CUSTOMER_MANAGER)::show, () -> {
             new CustomerManagerMainMenu().displayCustomerManagerMenu();
             return true;
         }));
 
-         */
+
         menu.addItem(LOGIN_OPTION_3, "Login as Operator", new ChainedAction(
                 new LoginUI(new AuthenticationCredentialHandler(), BaseRoles.OPERATOR)::show, () -> {
             new OperatorMainMenu().displayOperatorMenu();

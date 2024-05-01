@@ -1,5 +1,6 @@
 package eapli.base.RecruitmentProcessManagement.domain;
 
+import eapli.base.RecruitmentProcessManagement.domain2.PhasePeriod;
 import eapli.framework.domain.model.ValueObject;
 
 import java.io.Serializable;

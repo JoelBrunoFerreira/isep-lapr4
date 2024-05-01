@@ -41,6 +41,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     private JobTitle jobTitle;
     @Getter
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
     @OneToMany
     @JoinColumn(name = "jobOpening_id", referencedColumnName = "id")
@@ -65,8 +67,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.description = Description.valueOf(description);
         this.numberVacancies = new NumberVacancies(numberVacancies);
         this.jobOpeningAddress = new JobOpeningAddress(jobOpeningAddress);
-        this.mode = WorkingMode.valueOf(mode);
-        this.contractType = ContractType.valueOf(contractType);
+        this.mode = WorkingMode.parse(mode);
+        this.contractType = ContractType.parse(contractType);
         this.jobTitle = new JobTitle(jobTitle);
         this.recruitmentProcess = null;
         this.jobRequirement = null;
@@ -98,10 +100,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Override
     public JobOpeningDTO toDTO() {
         return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(),
-                mode.toString(), jobTitle.toString(), contractType.toString(),
+                mode.toString(), contractType.toString(), jobTitle.toString(),
+                recruitmentProcess == null ? "" : recruitmentProcess.toString(),
                 jobRequirement == null ? "" : jobRequirement.toString(),
-                interviewModel == null ? "" : interviewModel.toString(),
-                recruitmentProcess == null ? "" : recruitmentProcess.toString());
+                interviewModel == null ? "" : interviewModel.toString(), this.status.toString());
     }
 
     public boolean isActive() {

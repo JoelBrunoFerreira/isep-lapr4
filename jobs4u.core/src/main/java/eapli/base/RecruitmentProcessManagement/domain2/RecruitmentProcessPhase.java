@@ -1,12 +1,10 @@
 package eapli.base.RecruitmentProcessManagement.domain2;
 
-import eapli.base.RecruitmentProcessManagement.domain.PhasePeriod;
 import eapli.framework.domain.model.DomainEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.time.Period;
 
 @Entity
 @Getter

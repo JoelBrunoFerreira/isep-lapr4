@@ -1,15 +1,30 @@
 package backoffice.presentation.customermanager;
 
+import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.customermanager.JobOpeningManagement.ListJobOpeningsUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.RegisterJobOpeningUI;
 import eapli.base.Application;
+import eapli.base.JobOpeningManagement.application.RegisterJobOpeningController;
+import eapli.base.JobOpeningManagement.domain.WorkingMode;
+import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.customer.dto.CustomerDTO;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.presentation.console.SelectWidget;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class CustomerManagerMainMenu {
+    RegisterJobOpeningController tester = new RegisterJobOpeningController();
+
+    private JobOpeningRepository jobOpeningRepository;
+    ListUsersController listUsersController = new ListUsersController();
     private static final String SEPARATOR_LABEL = "--------------";
 
     private static final int CUSTOMER_MENU = 1;
@@ -35,82 +50,87 @@ public class CustomerManagerMainMenu {
     private static final int OPTION_7 = 7;
     private static final int PREVIOUS_MENU = 8;
 
-    /*public void displayCustomerManagerMenu() {
+    public CustomerManagerMainMenu() {
+        //this.jobOpeningRepository = PersistenceContext.repositories().jobOpenings();;
+    }
 
-        System.out.println("""
-                =====================================
-                |  Jobs4u - Customer Manager Menu   |
-                =====================================
-                1. Display candidate's personal data
-                2. Display candidate'e personal data and applications
-                3. Customer Manager Option 3
-                4. Back
-                0. Exit
-                =====================================
-                """);
-        System.out.println();
+    public void displayCustomerManagerMenu() {
+        while (true) {
+            System.out.println("""
+                    =====================================
+                    |  Jobs4u - Customer Manager Menu   |
+                    =====================================
+                    1. Register Customer
+                    2. List Customers
+                    3. Register Job Opening
+                    4. List Job Openings
+                    5. Select Recruitment Process
+                    6. Select Job Requirements
+                    7. Select Interview Model
+                    8. Display candidate's personal data
+                    9. Display candidate's personal data and applications
+                    0. Exit
+                    =====================================
+                    """);
+            System.out.println();
 
 
-        int option = 0;
-        boolean validInput = false;
+            int option = 0;
+            boolean validInput = false;
 
-        while (!validInput) {
-            System.out.print("Enter option number: ");
+            while (!validInput) {
+                System.out.print("Enter option number: ");
 
-            try {
-                option = read.nextInt();
+                try {
+                    option = read.nextInt();
 
-                if (option >= EXIT_OPTION && option <= PREVIOUS_MENU) {
-                    validInput = true;
-                } else {
-                    System.out.printf("Invalid option. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
+                    if (option >= EXIT_OPTION && option <= PREVIOUS_MENU) {
+                        validInput = true;
+                    } else {
+                        System.out.printf("Invalid option. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
+                    read.nextLine();
                 }
-            } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
-                read.nextLine();
+            }
+            switch (option) {
+                case OPTION_1:
+                    System.out.println("Not implemented yet");
+                    break;
+                case OPTION_2:
+                    System.out.println("Not implemented yet");
+                    break;
+                case OPTION_3:
+                    new RegisterJobOpeningUI().show();
+                    break;
+                case OPTION_4:
+                    new ListJobOpeningsUI().show();
+                    break;
+                case OPTION_5:
+                    //new SelectJobOpeningRequirementsUI();
+                    System.out.println("Not implemented yet");
+                    break;
+                case OPTION_6:
+                    //new SelectJobOpeningInterviewModelUI();
+                    System.out.println("Not implemented yet");
+                    break;
+                case OPTION_7:
+                    //new DisplayCandidatesUI();
+                    System.out.println("Not implemented yet");
+                    break;
+                case PREVIOUS_MENU:
+                    Jobs4uBackofficeApp.main(null);
+                    break;
+                case EXIT_OPTION:
+                    System.out.println("Bye, Bye");
+                    System.exit(0);
+                    return;
+                default:
+                    System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, PREVIOUS_MENU);
             }
         }
-        switch (option) {
-            case OPTION_1:
-                System.out.println("Not implemented yet");
-                new RegisterJobOpeningUI().show();
-                //new RegisterCustomerUI();
-                break;
-            case OPTION_2:
-                new RegisterJobOpeningUI().show();
-                break;
-            case OPTION_3:
-                new ListJobOpeningsUI().show();
-                System.out.println("Not implemented yet");
-                break;
-            case OPTION_4:
-                //new SetupJobOpeningPhasesUI();
-                System.out.println("Not implemented yet");
-                break;
-            case OPTION_5:
-                //new SelectJobOpeningRequirementsUI();
-                System.out.println("Not implemented yet");
-                break;
-            case OPTION_6:
-                //new SelectJobOpeningInterviewModelUI();
-                System.out.println("Not implemented yet");
-                break;
-            case OPTION_7:
-                //new DisplayCandidatesUI();
-                System.out.println("Not implemented yet");
-                break;
-            case PREVIOUS_MENU:
-                Jobs4uBackofficeApp.main(null);
-                break;
-            case EXIT_OPTION:
-                System.out.println("Bye, Bye");
-                System.exit(0);
-                break;
-            default:
-                System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, PREVIOUS_MENU);
-        }
-    }*/
-
+    }
     public Menu buildUsersMenu() {
         final Menu menu = new Menu("Actions >");
         final Menu customersMenu = new Menu("Customers >");

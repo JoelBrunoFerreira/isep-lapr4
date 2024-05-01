@@ -8,12 +8,13 @@ import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.customer.application.CustomerService;
 import eapli.base.customer.domain.Customer;
 import eapli.base.customer.dto.CustomerDTO;
+import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +22,14 @@ import java.util.Optional;
 
 @UseCaseController
 public class RegisterJobOpeningController {
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final UserManagementService userSvc = AuthzRegistry.userService();
+    private final CustomerRepository repo = PersistenceContext.repositories().customers();
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
-    AuthorizationService authz;
-    JobOpeningRepository jobOpeningRepository;
-
-    CustomerService customerService;
+    private final CustomerService customerService = new CustomerService();
 
     public RegisterJobOpeningController() {
-        this.authz = AuthzRegistry.authorizationService();
-        customerService = new CustomerService();
-        this.jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     }
 
     public JobOpeningDTO registerJobOpening(final String title, final String description, final String address,
@@ -61,6 +60,14 @@ public class RegisterJobOpeningController {
         return contractTypesList;
     }
 
+    public Iterable<CustomerDTO> listAllCustomersDTO() {
+        Iterable<Customer> list = repo.findAll();
+        List<CustomerDTO> result = new ArrayList<>();
+        for (Customer c : list){
+            result.add(c.toDTO());
+        }
+        return result;
+    }
 
     public Iterable<CustomerDTO> getCustomersDTO(){
         return customerService.findAllDTO();

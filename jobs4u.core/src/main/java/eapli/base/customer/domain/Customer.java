@@ -7,9 +7,11 @@ import eapli.framework.representations.dto.DTOable;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.ToString;
 
 @Entity
 @Getter
+@ToString
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"acronym"})})
 public class Customer implements AggregateRoot<Long>, DTOable<CustomerDTO> {
     @Id

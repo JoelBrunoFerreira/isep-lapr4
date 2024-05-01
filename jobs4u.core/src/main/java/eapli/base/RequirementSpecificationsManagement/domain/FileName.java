@@ -21,4 +21,9 @@ public class FileName implements ValueObject, Serializable {
     protected FileName() {
         this.fileName = null;
     }
+
+    @Override
+    public String toString() {
+        return fileName;
+    }
 }

@@ -10,7 +10,7 @@ import eapli.framework.presentation.console.SelectWidget;
 import eapli.framework.visitor.Visitor;
 
 public class RegisterJobOpeningUI extends AbstractUI {
-    private final RegisterJobOpeningController registerJobOpeningController = new RegisterJobOpeningController();
+    RegisterJobOpeningController registerJobOpeningController = new RegisterJobOpeningController();
 
     @Override
     protected boolean doShow() {

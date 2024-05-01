@@ -20,4 +20,9 @@ public class RequirementTitle implements ValueObject, Serializable {
     protected RequirementTitle() {
         this.name = "";
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

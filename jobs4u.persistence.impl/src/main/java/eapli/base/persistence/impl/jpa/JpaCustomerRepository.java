@@ -32,6 +32,6 @@ public class JpaCustomerRepository extends JpaAutoTxRepository<Customer, Long, L
 
 
     public Iterable<Customer> findAllActive() {
-        return null;
+        return repo.findAll();
     }
 }

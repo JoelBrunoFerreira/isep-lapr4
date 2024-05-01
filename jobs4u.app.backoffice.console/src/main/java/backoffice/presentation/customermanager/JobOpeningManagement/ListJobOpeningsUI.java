@@ -7,6 +7,7 @@ import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.ExitWithMessageAction;
+import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
 
 public class ListJobOpeningsUI extends AbstractUI {
@@ -44,11 +45,13 @@ public class ListJobOpeningsUI extends AbstractUI {
                 case FILTER_COMPLETED:
                     filterByCompleted();
                     break;
+                case FILTER_ALL:
+                    showAllJobOpenings();
+                    break;
                 case EXIT_OPTION:
                     new ExitWithMessageAction("Goodbye");
                     break;
             }
-
         }
         else {
             showAllJobOpenings();
@@ -60,12 +63,16 @@ public class ListJobOpeningsUI extends AbstractUI {
 
     private void showAllJobOpenings() {
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpenings();
-        SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
+        ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Job Openings:", jobOpeningDTOS);
         selectJobOpeningDTO.show();
     }
 
     private String filterMenu() {
-        return String.format("%d - By customer;\n%d - Active;\n%d - Pending;\n%d - Completed;\n%d - All.\n", FILTER_CUSTOMER, FILTER_ACTIVE,FILTER_PENDING,FILTER_COMPLETED, FILTER_ALL);
+        return String.format("%d - By customer;\n" +
+                "%d - Active;\n%d - Pending;\n" +
+                "%d - Completed;\n" +
+                "%d - All.\n",
+                FILTER_CUSTOMER, FILTER_ACTIVE,FILTER_PENDING,FILTER_COMPLETED, FILTER_ALL);
     }
 
     private void filterByCustomer() {
@@ -73,24 +80,37 @@ public class ListJobOpeningsUI extends AbstractUI {
         SelectWidget<CustomerDTO> selectCustomer = new SelectWidget<>("Select Customer:", customer);
         selectCustomer.show();
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByCustomers(selectCustomer.selectedElement().getEmail());
-        SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
+        ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Job Openings From Customer: "+selectCustomer.selectedElement().getAcronym(), jobOpeningDTOS);
         selectJobOpeningDTO.show();
     }
     private void filterByActive() {
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Status.ACTIVE);
-        SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
-        selectJobOpeningDTO.show();
+        if (jobOpeningDTOS.iterator().hasNext()){
+            ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Active job openings:", jobOpeningDTOS);
+            selectJobOpeningDTO.show();
+        }else {
+            System.out.println("No active job openings found!\n");
+        }
+
     }
     private void filterByPending() {
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Status.PENDING);
-        SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
-        selectJobOpeningDTO.show();
+        if (jobOpeningDTOS.iterator().hasNext()){
+            ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Pending Job Openings:", jobOpeningDTOS);
+            selectJobOpeningDTO.show();
+        }else{
+            System.out.println("No pending job openings found!\n");
+        }
     }
 
     private void filterByCompleted() {
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByStatus(Status.COMPLETED);
-        SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Select Customer:", jobOpeningDTOS);
-        selectJobOpeningDTO.show();
+        if (jobOpeningDTOS.iterator().hasNext()){
+            ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Completed job openings:", jobOpeningDTOS);
+            selectJobOpeningDTO.show();
+        }else {
+            System.out.println("No completed job openings found!\n");
+        }
     }
 
     @Override

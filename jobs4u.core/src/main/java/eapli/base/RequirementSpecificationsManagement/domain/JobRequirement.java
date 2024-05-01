@@ -36,4 +36,9 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     public JobRequirementDTO toDTO() {
         return new JobRequirementDTO(id, requirementTitle.toString(), fileName.toString());
     }
+
+    @Override
+    public String toString() {
+        return this.fileName.toString();
+    }
 }

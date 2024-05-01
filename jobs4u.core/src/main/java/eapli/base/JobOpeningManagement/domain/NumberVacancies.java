@@ -15,4 +15,8 @@ public class NumberVacancies {
         this.numberVacancies = numberVacancies;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(numberVacancies);
+    }
 }

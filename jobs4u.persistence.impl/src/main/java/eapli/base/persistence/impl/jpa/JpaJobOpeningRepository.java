@@ -24,9 +24,6 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
         super(puname, Application.settings().extendedPersistenceProperties(), "id");
     }
 
-    public JpaJobOpeningRepository(String persistenceUnitName, String identityFieldName) {
-        super(persistenceUnitName, identityFieldName);
-    }
 
     public Iterable<JobOpeningDTO> findAllDTO() {
         Iterable<JobOpening> jobOpenings = findAll();
@@ -50,7 +47,7 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
 
     @Override
     public Iterable<JobOpeningDTO> findAllByCustomerID(String email) {
-        Iterable<JobOpening> jobOpenings = findAll();
+        Iterable<JobOpening> jobOpenings = repo.findAll();
         List<JobOpeningDTO> result = new ArrayList<>();
 
         for (JobOpening jo : jobOpenings) {
