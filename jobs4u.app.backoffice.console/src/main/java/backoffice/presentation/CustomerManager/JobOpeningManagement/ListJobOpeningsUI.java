@@ -1,4 +1,4 @@
-package backoffice.presentation.customermanager.JobOpeningManagement;
+package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.application.ListJobOpeningsController;
 import eapli.base.JobOpeningManagement.domain.Status;
@@ -10,7 +10,6 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.ExitWithMessageAction;
 import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
-import org.eclipse.persistence.internal.sessions.DirectCollectionChangeRecord;
 
 public class ListJobOpeningsUI extends AbstractUI {
     private static final int EXIT_OPTION = 0;

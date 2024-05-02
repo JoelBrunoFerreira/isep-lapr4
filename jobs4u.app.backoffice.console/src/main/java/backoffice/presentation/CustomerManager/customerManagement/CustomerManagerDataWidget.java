@@ -1,4 +1,4 @@
-package backoffice.presentation.customermanager.customerManagement;
+package backoffice.presentation.CustomerManager.customerManagement;
 
 import eapli.framework.io.util.Console;
 

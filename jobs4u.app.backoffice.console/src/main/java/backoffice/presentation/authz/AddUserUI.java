@@ -20,7 +20,7 @@
  */
 package backoffice.presentation.authz;
 
-import backoffice.presentation.customermanager.customerManagement.CustomerManagerDataWidget;
+import backoffice.presentation.CustomerManager.customerManagement.CustomerManagerDataWidget;
 import eapli.base.app.common.console.presentation.customer.CustomerDataWidget;
 import eapli.base.customerManager.application.AddCustomerManagerController;
 import eapli.base.operator.application.AddOperatorController;

@@ -1,11 +1,11 @@
-package backoffice.presentation.customermanager;
+package backoffice.presentation.CustomerManager;
 
 import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
-import backoffice.presentation.customermanager.JobOpeningManagement.ListJobOpeningsUI;
-import backoffice.presentation.customermanager.JobOpeningManagement.RegisterJobOpeningUI;
-import backoffice.presentation.customermanager.JobOpeningManagement.SetupRecruitmentPhasesUI;
-import backoffice.presentation.customermanager.customer.AddCustomerUI;
+import backoffice.presentation.CustomerManager.JobOpeningManagement.ListJobOpeningsUI;
+import backoffice.presentation.CustomerManager.JobOpeningManagement.RegisterJobOpeningUI;
+import backoffice.presentation.CustomerManager.JobOpeningManagement.SetupRecruitmentPhasesUI;
+import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;

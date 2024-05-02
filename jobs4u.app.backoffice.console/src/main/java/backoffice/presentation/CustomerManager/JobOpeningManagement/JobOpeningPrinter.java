@@ -1,7 +1,6 @@
-package backoffice.presentation.customermanager.JobOpeningManagement;
+package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.app.common.console.presentation.util.TableFormatPrinter;
 import eapli.framework.visitor.Visitor;
 
 public class JobOpeningPrinter implements Visitor<JobOpeningDTO> {

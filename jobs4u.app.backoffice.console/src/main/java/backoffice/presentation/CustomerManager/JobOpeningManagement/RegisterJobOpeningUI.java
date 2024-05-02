@@ -1,13 +1,11 @@
-package backoffice.presentation.customermanager.JobOpeningManagement;
+package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.application.RegisterJobOpeningController;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.io.util.Console;
-import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import eapli.framework.visitor.Visitor;
 
 public class RegisterJobOpeningUI extends AbstractUI {
     RegisterJobOpeningController registerJobOpeningController = new RegisterJobOpeningController();

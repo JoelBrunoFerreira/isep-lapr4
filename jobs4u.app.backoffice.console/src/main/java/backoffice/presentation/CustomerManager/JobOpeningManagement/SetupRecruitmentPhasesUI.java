@@ -1,14 +1,11 @@
-package backoffice.presentation.customermanager.JobOpeningManagement;
+package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
-import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class SetupRecruitmentPhasesUI extends AbstractUI {
 

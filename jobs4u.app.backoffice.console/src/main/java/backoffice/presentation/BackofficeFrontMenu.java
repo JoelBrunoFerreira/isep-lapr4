@@ -1,7 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.presentation.backofficeUser.SignupRequestAction;
-import backoffice.presentation.customermanager.CustomerManagerMainMenu;
+import backoffice.presentation.CustomerManager.CustomerManagerMainMenu;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.usermanagement.domain.BaseRoles;
