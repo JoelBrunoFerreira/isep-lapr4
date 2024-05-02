@@ -1,6 +1,7 @@
 package backoffice.presentation.customermanager;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.ListJobOpeningsUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.RegisterJobOpeningUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.SetupRecruitmentPhasesUI;
@@ -29,7 +30,9 @@ public class CustomerManagerMainMenu {
     private static final int OPTION_5 = 5;
     private static final int OPTION_6 = 6;
     private static final int OPTION_7 = 7;
-    private static final int PREVIOUS_MENU = 8;
+    private static final int OPTION_8 = 8;
+    private static final int OPTION_9 = 9;
+    private static final int PREVIOUS_MENU = 10;
 
 
     public void displayCustomerManagerMenu() {
@@ -95,6 +98,13 @@ public class CustomerManagerMainMenu {
                     break;
                 case OPTION_7:
                     //new DisplayCandidatesUI();
+                    System.out.println("Not implemented yet");
+                    break;
+                case OPTION_8:
+                    new DisplayCandidateDataUI().show();
+                    break;
+                case OPTION_9:
+                    //new DisplayCandidateDataAndJobApplicationsUI();
                     System.out.println("Not implemented yet");
                     break;
                 case PREVIOUS_MENU:
