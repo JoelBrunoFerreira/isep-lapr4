@@ -65,12 +65,11 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
 
     @Override
     public String toString() {
-        return "Candidate{" +
-                "id=" + id +
-                ", name=" + name.toString() +
-                ", email=" + email.toString() +
-                ", phoneNumber=" + phoneNumber.toString() +
-                ", systemUser=" + systemUser.username().toString() +
-                '}';
+        return "Candidate: " +
+                "id= " + id +
+                " name= " + name.toString() +
+                " email= " + email.toString() +
+                " phoneNumber= " + phoneNumber.toString() +
+                " systemUser= " + systemUser.username().toString()+ "\n";
     }
 }

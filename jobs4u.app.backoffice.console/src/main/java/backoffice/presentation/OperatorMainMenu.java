@@ -57,7 +57,10 @@ public class OperatorMainMenu {
                 addCandidateUI.doShow();
                 break;
             case OPTION_2:
-                System.out.println(listUsersController.listAllCandidates());
+                System.out.println(listUsersController.listAllCandidates().toString()
+                        .replace("[", "")
+                        .replace("]", "")
+                        .replace(",", ""));
                 break;
             case OPTION_3:
                 System.out.println("Not implemented yet");
