@@ -9,8 +9,11 @@ import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
+import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalContext;
+import jakarta.transaction.Transaction;
 
 import java.util.List;
 
@@ -18,10 +21,11 @@ import java.util.List;
 public class SetupRecruitmentProcessController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
+    private final JobOpeningRepository jobOpeningRepository;
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
     public SetupRecruitmentProcessController() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+        jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     }
 
     public Iterable<JobOpeningDTO> listJobOpeningsDTO() {

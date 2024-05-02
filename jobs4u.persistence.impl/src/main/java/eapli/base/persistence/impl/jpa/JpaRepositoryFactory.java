@@ -139,13 +139,14 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobApplicationRepository jobApplications() {
-        return null;
+        return new JpaJobApplicationRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override
     public JobApplicationRepository jobApplications(TransactionalContext autoTx) {
-        return null;
+        return new JpaJobApplicationRepository(autoTx);
     }
+
 
 
 }

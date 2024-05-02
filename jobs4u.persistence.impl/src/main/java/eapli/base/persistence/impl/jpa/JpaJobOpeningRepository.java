@@ -82,6 +82,6 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     @Override
     public JobOpeningDTO findByJobReference(String jobReference) {
         JobReference jr = new JobReference(jobReference);
-        return repo.findById(jr).orElse(null).toDTO();
+        return ofIdentity(jr).get().toDTO();
     }
 }

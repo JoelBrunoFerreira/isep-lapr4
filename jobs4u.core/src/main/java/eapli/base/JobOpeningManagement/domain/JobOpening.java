@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeningDTO>, Representationable {
+public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeningDTO> {
 
     @EmbeddedId
     @GeneratedValue(generator = "code_id", strategy = GenerationType.IDENTITY)
@@ -96,10 +96,6 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         return null;
     }
 
-    @Override
-    public <R> R buildRepresentation(RepresentationBuilder<R> builder) {
-        return null;
-    }
 
     @Override
     public JobOpeningDTO toDTO() {
