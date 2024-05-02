@@ -1,4 +1,4 @@
-package eapli.base.RecruitmentProcessManagement.domain2;
+package eapli.base.RecruitmentProcessManagement.domain;
 
 import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.domain.model.DomainEntity;
