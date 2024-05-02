@@ -9,9 +9,9 @@ skinparam shadowing false
 actor CustomerManager as Actor
 participant AddCustomerUI as UI <<presentation>>
 participant AddCustomerController as Controller <<application>>
-participant CustomerBuilder as Builder <<builder>>
-participant GeneratePassword as Service <<service>>
-participant "user:User" as Domain <<domain>>
+participant "user:SystemUser" as Domain <<domain>>
+participant BasePasswordPolicy as PassService
+
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
 database UserRepository as Repository <<repository>>
@@ -25,18 +25,21 @@ activate UI
 
     UI -> Controller: addCustomer(name, email)
     activate Controller
-        note right of Builder:UserBuilder é usado para criar uma entidade do tipo User num estado válido
-        Controller -> Builder: create
-        Controller -> Builder:setName(name)
-        Controller -> Builder:setEmail(email)
-        Controller -> Builder:setRole(role)
+
 
         note right of Controller: Role = Customer
 
+        Controller -> Domain: registerUser()
+            activate Domain
+                Domain-> PassService: generatePasssword()
+                activate PassService
+                    PassService -> Domain: validPassword
+                deactivate PassService
+            Domain -> Controller: SystemUser
+            deactivate Domain
 
 
-        Controller -> Builder:createUser()
-        activate Builder
+
         Builder -> Service: generatePasssword()
             activate Service
             Service -> Builder: password

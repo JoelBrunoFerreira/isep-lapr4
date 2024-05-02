@@ -20,9 +20,11 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
+import eapli.base.candidate.domain.Candidate;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,43 +53,43 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     /**
         Register Jobs4u Users
      */
-    private void registerAdmin(final String username, final String password, final String firstName,
-            final String lastName, final String email) {
+    public SystemUser registerAdmin(final String username, final String password, final String firstName,
+                                    final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.ADMIN);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        return registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerCandidate(final String username, final String password,
+    public SystemUser registerCandidate(final String username, final String password,
                                   final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CANDIDATE_USER);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        return registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerCustomer(final String username, final String password,
+    public SystemUser registerCustomer(final String username, final String password,
                                   final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CUSTOMER_USER);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        return registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerOperator(final String username, final String password,
+    public SystemUser registerOperator(final String username, final String password,
                                   final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.OPERATOR);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        return registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerCustomerManager(final String username, final String password,
+    public SystemUser registerCustomerManager(final String username, final String password,
                                          final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CUSTOMER_MANAGER);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        return registerUser(username, password, firstName, lastName, email, roles);
     }
 }
