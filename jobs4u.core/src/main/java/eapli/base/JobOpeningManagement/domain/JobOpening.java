@@ -142,4 +142,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     public boolean isCompleted() {
         return this.status.equals(Status.COMPLETED);
     }
+
+    public boolean isManagedBy(SystemUser user) {
+        return this.customerManager.equals(user);
+    }
 }

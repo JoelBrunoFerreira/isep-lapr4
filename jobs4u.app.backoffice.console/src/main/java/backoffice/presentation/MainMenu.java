@@ -20,9 +20,6 @@ public class MainMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
 
-    // SETTINGS
-    // private static final int <something> = 1;
-
     // MAIN MENU
     private static final int USERS_OPTION = 1;
 
@@ -67,7 +64,6 @@ public class MainMenu extends AbstractUI {
 
             final Menu usersMenu = new UsersMenu().buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
-
 
             final Menu myUserMenu = new MyUserMenu();
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);

@@ -60,19 +60,17 @@ public class ListJobOpeningsUI extends AbstractUI {
         return false;
     }
 
-
-
     private void showAllJobOpenings() {
-        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpenings();
+        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByUSer();
         ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Job Openings:", jobOpeningDTOS, new JobOpeningPrinter());
         selectJobOpeningDTO.show();
     }
 
     private String filterMenu() {
         return String.format("%d - By customer;\n" +
-                "%d - Active;\n%d - Pending;\n" +
-                "%d - Completed;\n" +
-                "%d - All.\n",
+                        "%d - Active;\n%d - Pending;\n" +
+                        "%d - Completed;\n" +
+                        "%d - All.\n",
                 FILTER_CUSTOMER, FILTER_ACTIVE,FILTER_PENDING,FILTER_COMPLETED, FILTER_ALL);
     }
 

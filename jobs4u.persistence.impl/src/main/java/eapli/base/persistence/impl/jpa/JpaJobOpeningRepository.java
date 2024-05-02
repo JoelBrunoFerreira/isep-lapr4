@@ -8,6 +8,7 @@ import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.lang.reflect.Method;
@@ -26,6 +27,18 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     }
 
 
+    public Iterable<JobOpeningDTO> findAllByUser(SystemUser user) {
+        Iterable<JobOpening> jobOpenings = findAll();
+        List<JobOpeningDTO> jobOpeningsDTO = new ArrayList<>();
+        for (JobOpening jobOpening : jobOpenings) {
+            if (jobOpening.isManagedBy(user)) {
+                jobOpeningsDTO.add(jobOpening.toDTO());
+            }
+        }
+        return jobOpeningsDTO;
+    }
+
+    @Override
     public Iterable<JobOpeningDTO> findAllDTO() {
         Iterable<JobOpening> jobOpenings = findAll();
         List<JobOpeningDTO> jobOpeningsDTO = new ArrayList<>();
@@ -37,12 +50,12 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
 
 
     @Override
-    public Iterable<JobOpeningDTO> findAllByCustomerID(String email) {
+    public Iterable<JobOpeningDTO> findAllByCustomerID(String email, SystemUser user) {
         Iterable<JobOpening> jobOpenings = repo.findAll();
         List<JobOpeningDTO> result = new ArrayList<>();
 
         for (JobOpening jo : jobOpenings) {
-            if (jo.getCustomer().getSystemUser().email().toString().equals(email)) {
+            if (jo.getCustomer().getSystemUser().email().toString().equals(email) && jo.isManagedBy(user)) {
                 result.add(jo.toDTO());
             }
         }
@@ -50,7 +63,7 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     }
 
     @Override
-    public Iterable<JobOpeningDTO> findAllByStatus(Status status) {
+    public Iterable<JobOpeningDTO> findAllByStatus(Status status, SystemUser user) {
         Iterable<JobOpening> jobOpenings = findAll();
         List<JobOpeningDTO> result = new ArrayList<>();
         Method method = null;
@@ -69,7 +82,7 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
                     break;
             }
             for (JobOpening jo : jobOpenings) {
-                if ((boolean) method.invoke(jo)) {
+                if ((boolean) method.invoke(jo) && jo.isManagedBy(user)) {
                     result.add(jo.toDTO());
                 }
             }

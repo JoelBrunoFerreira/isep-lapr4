@@ -12,6 +12,7 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalContext;
 import jakarta.transaction.Transaction;
 
@@ -21,18 +22,20 @@ import java.util.List;
 public class SetupRecruitmentProcessController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final JobOpeningRepository jobOpeningRepository;
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
+    private final SystemUser user;
+
     public SetupRecruitmentProcessController() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
-        jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
+        user = authz.session().get().authenticatedUser();
     }
 
     public Iterable<JobOpeningDTO> listJobOpeningsDTO() {
-        return jobOpeningSvc.listJobOpeningsByStatus(Status.PENDING);
+        return jobOpeningSvc.listJobOpeningsByStatus(Status.PENDING, user);
     }
 
-    public JobOpeningDTO getJO(String jobReference){
+    public JobOpeningDTO getJO(String jobReference) {
         return jobOpeningRepository.findByJobReference(jobReference);
     }
     /*public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
