@@ -18,4 +18,6 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
     Iterable<JobOpeningDTO> findAllByCustomerID(String email);
 
     Iterable<JobOpeningDTO> findAllByStatus(Status status);
+
+    JobOpening findByJobReference(String jobReference);
 }

@@ -23,8 +23,6 @@ import java.util.Optional;
 @UseCaseController
 public class RegisterJobOpeningController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final UserManagementService userSvc = AuthzRegistry.userService();
-    private final CustomerRepository repo = PersistenceContext.repositories().customers();
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
     private final CustomerService customerService = new CustomerService();
@@ -60,14 +58,6 @@ public class RegisterJobOpeningController {
         return contractTypesList;
     }
 
-    public Iterable<CustomerDTO> listAllCustomersDTO() {
-        Iterable<Customer> list = repo.findAll();
-        List<CustomerDTO> result = new ArrayList<>();
-        for (Customer c : list){
-            result.add(c.toDTO());
-        }
-        return result;
-    }
 
     public Iterable<CustomerDTO> getCustomersDTO(){
         return customerService.findAllDTO();

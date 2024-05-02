@@ -4,8 +4,6 @@ import backoffice.presentation.authz.ActivateUserAction;
 import backoffice.presentation.authz.AddUserUI;
 import backoffice.presentation.authz.DeactivateUserAction;
 import backoffice.presentation.authz.ListUsersAction;
-import backoffice.presentation.customermanager.customer.ListCustomersUI;
-import backoffice.presentation.customermanager.ListCustomerManagersUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;

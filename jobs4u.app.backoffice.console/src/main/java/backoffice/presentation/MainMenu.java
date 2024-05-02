@@ -73,7 +73,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
         }
         else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CUSTOMER_MANAGER)){
-            final Menu customerManagerMenu = new CustomerManagerMainMenu().buildUsersMenu();
+            final Menu customerManagerMenu = new CustomerManagerMainMenu().buildCustomerManagerMenu();
             mainMenu.addSubMenu(USERS_OPTION, customerManagerMenu);
             final Menu myUserMenu = new MyUserMenu();
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);

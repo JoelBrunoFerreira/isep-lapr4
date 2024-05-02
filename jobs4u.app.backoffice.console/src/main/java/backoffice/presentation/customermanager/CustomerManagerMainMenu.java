@@ -3,43 +3,25 @@ package backoffice.presentation.customermanager;
 import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.customermanager.JobOpeningManagement.ListJobOpeningsUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.RegisterJobOpeningUI;
+import backoffice.presentation.customermanager.JobOpeningManagement.SetupRecruitmentPhasesUI;
 import eapli.base.Application;
 import eapli.base.JobOpeningManagement.application.RegisterJobOpeningController;
-import eapli.base.JobOpeningManagement.domain.WorkingMode;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.base.customer.dto.CustomerDTO;
-import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
-import eapli.framework.presentation.console.SelectWidget;
+import eapli.framework.io.util.Console;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class CustomerManagerMainMenu {
-    RegisterJobOpeningController tester = new RegisterJobOpeningController();
 
-    private JobOpeningRepository jobOpeningRepository;
-    ListUsersController listUsersController = new ListUsersController();
     private static final String SEPARATOR_LABEL = "--------------";
 
-    private static final int CUSTOMER_MENU = 1;
-    private static final int JOB_OPENING_MENU = 2;
-    private static final int EXIT_OPTION = 0;
-
-    // LIST USERS SUBMENU
-    private static final int LIST_CUSTOMER_MANAGER_OPTION = 1;
-    private static final int LIST_OPERATORS_OPTION = 2;
-    private static final int LIST_CUSTOMERS_OPTION = 3;
-    private static final int LIST_CANDIDATES_OPTION = 4;
-    private static final int LIST_ALL_OPTION = 5;
-
     private static final String RETURN_LABEL = "Return ";
-    static Scanner read = new Scanner(System.in);
+    private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
     private static final int OPTION_3 = 3;
@@ -49,9 +31,6 @@ public class CustomerManagerMainMenu {
     private static final int OPTION_7 = 7;
     private static final int PREVIOUS_MENU = 8;
 
-    public CustomerManagerMainMenu() {
-        //this.jobOpeningRepository = PersistenceContext.repositories().jobOpenings();;
-    }
 
     public void displayCustomerManagerMenu() {
         while (true) {
@@ -81,7 +60,7 @@ public class CustomerManagerMainMenu {
                 System.out.print("Enter option number: ");
 
                 try {
-                    option = read.nextInt();
+                    option = Console.readInteger("");
 
                     if (option >= EXIT_OPTION && option <= PREVIOUS_MENU) {
                         validInput = true;
@@ -90,7 +69,7 @@ public class CustomerManagerMainMenu {
                     }
                 } catch (InputMismatchException e) {
                     System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
-                    read.nextLine();
+                    Console.readLine("");
                 }
             }
             switch (option) {
@@ -130,24 +109,25 @@ public class CustomerManagerMainMenu {
             }
         }
     }
-    public Menu buildUsersMenu() {
+    public Menu buildCustomerManagerMenu() {
         final Menu menu = new Menu("Actions >");
         final Menu customersMenu = new Menu("Customers >");
-        customersMenu.addItem(LIST_CUSTOMER_MANAGER_OPTION, "List Customers", new ListJobOpeningsUI()::show);
-        customersMenu.addItem(LIST_OPERATORS_OPTION, "Register Customer", new RegisterJobOpeningUI()::show);
+        customersMenu.addItem(OPTION_1, "List Customers", new ListJobOpeningsUI()::show);
+        customersMenu.addItem(OPTION_2, "Register Customer", new RegisterJobOpeningUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             customersMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         customersMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
-        final Menu jobOpeningMenu = new Menu("Job Openings >");
-        jobOpeningMenu.addItem(LIST_CUSTOMER_MANAGER_OPTION, "List Job Openings", new ListJobOpeningsUI()::show);
-        jobOpeningMenu.addItem(LIST_OPERATORS_OPTION, "Register Job Openings", new RegisterJobOpeningUI()::show);
+        final Menu jobOpeningMenu = new Menu("Job Opening Management >");
+        jobOpeningMenu.addItem(OPTION_1, "List Job Openings", new ListJobOpeningsUI()::show);
+        jobOpeningMenu.addItem(OPTION_2, "Register Job Openings", new RegisterJobOpeningUI()::show);
+        jobOpeningMenu.addItem(OPTION_3, "Setup Recruitment Process Phases", new SetupRecruitmentPhasesUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobOpeningMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
-        menu.addSubMenu(CUSTOMER_MENU, customersMenu);
-        menu.addSubMenu(JOB_OPENING_MENU, jobOpeningMenu);
+        menu.addSubMenu(OPTION_1, customersMenu);
+        menu.addSubMenu(OPTION_2, jobOpeningMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal())
             menu.addItem(MenuItem.separator(SEPARATOR_LABEL));

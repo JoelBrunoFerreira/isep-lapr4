@@ -10,22 +10,24 @@ import eapli.framework.application.UseCaseController;
 
 @UseCaseController
 public class ListJobOpeningsController {
-    private final JobOpeningRepository repository = PersistenceContext.repositories().jobOpenings();
     private final CustomerService customerService = new CustomerService();
 
+    private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
 
 
-    public Iterable<JobOpeningDTO> listJobOpeningsByCustomers(String email){
-        return repository.findAllByCustomerID(email);
-    }
-    public Iterable<JobOpeningDTO> listJobOpenings(){
-        return repository.findAllDTO();
-    }
     public Iterable<CustomerDTO> getCustomersDTO(){
         return customerService.findAllDTO();
     }
 
+    public Iterable<JobOpeningDTO> listJobOpenings() {
+        return jobOpeningSvc.listJobOpenings();
+    }
+
+    public Iterable<JobOpeningDTO> listJobOpeningsByCustomers(String email) {
+        return jobOpeningSvc.listJobOpeningsByCustomers(email);
+    }
+
     public Iterable<JobOpeningDTO> listJobOpeningsByStatus(Status status) {
-        return repository.findAllByStatus(status);
+        return jobOpeningSvc.listJobOpeningsByStatus(status);
     }
 }

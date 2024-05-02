@@ -7,12 +7,6 @@ import eapli.framework.visitor.Visitor;
 public class CustomerPrinter implements Visitor<CustomerDTO> {
   @Override
   public void visit(final CustomerDTO visitee) {
-    TableFormatPrinter printer = new TableFormatPrinter();
-
-    printer.addColumn(visitee.getEmail(), 20);
-    printer.addColumn(visitee.getAddress(), 20);
-    printer.addColumn(visitee.getAcronym(), 20);
-
-    System.out.print(printer.format());
+    System.out.print(visitee);
   }
 }

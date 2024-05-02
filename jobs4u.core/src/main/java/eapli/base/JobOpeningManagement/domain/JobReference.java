@@ -24,6 +24,9 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
         this.id = id;
     }
 
+    public static JobReference valueOf(String jobReference) {
+        return new JobReference(jobReference);
+    }
 
     @Override
     public int compareTo(JobReference o) {

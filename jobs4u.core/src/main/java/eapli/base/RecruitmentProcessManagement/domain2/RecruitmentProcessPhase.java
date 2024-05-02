@@ -1,5 +1,6 @@
 package eapli.base.RecruitmentProcessManagement.domain2;
 
+import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.domain.model.DomainEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -61,5 +62,9 @@ public class RecruitmentProcessPhase implements DomainEntity<Phase>{
                 ", period=" + period +
                 ", jobOpening_id='" + jobOpening_id + '\'' +
                 '}';
+    }
+
+    public RecruitmentProcessPhaseDTO toDTO(){
+        return new RecruitmentProcessPhaseDTO(getPhase().toString());
     }
 }

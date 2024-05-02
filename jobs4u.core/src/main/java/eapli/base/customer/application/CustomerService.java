@@ -22,9 +22,11 @@ public class CustomerService {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CustomerRepository repo = PersistenceContext.repositories().customers();
 
+    public CustomerService() {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+    }
 
     public Optional<Customer> findCustomerByUsername(String user) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
         return repo.findByUsername(Username.valueOf(user));
     }
 

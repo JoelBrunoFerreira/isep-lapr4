@@ -81,19 +81,6 @@ Class InterviewModelGrade <<Value Object>> {}
 }
 
 
-'=== RequirmentProcess Aggregate ===
-package RecruitmentProcess_Aggregate{
-    Entity RecruitmentProcess <<Aggregate Root>>{
-    }
-    Enum Phases<<ValueObject>>{}
-    Class Phase <<Value Object>> {}
-    Class Period <<Value Object>> {}
-    RecruitmentProcess --> "4...5" Phase
-    Phase -->  "1" Phases
-    Phase  --> "1" Period
-}
-
-
 
 '=== JobOpening Aggregate ===
 package JobOpening_Aggregate{
@@ -105,7 +92,14 @@ package JobOpening_Aggregate{
     Class Address <<Value Object>>{}
     Class NumberVacancies <<Value Object>>{}
     Class Description <<Value Object>> {}
-
+    Entity RecruitmentProcess <<Aggregate Root>>{
+    }
+    Enum Phases<<ValueObject>>{}
+    Class Phase <<Value Object>> {}
+    Class Period <<Value Object>> {}
+    RecruitmentProcess --> "4...5" Phase
+    Phase -->  "1" Phases
+    Phase  --> "1" Period
     JobOpening --> "1" JobReference
     JobOpening --> "1" JobTitle
     JobOpening --> "1" ContractType

@@ -2,8 +2,11 @@ package eapli.base.JobOpeningManagement.domain;
 
 
 import eapli.base.InterviewModelManagement.domain.InterviewModel;
-import eapli.base.RecruitmentProcessManagement.domain.RecruitmentProcess;
+import eapli.base.RecruitmentProcessManagement.domain.Phases;
+import eapli.base.RecruitmentProcessManagement.domain2.Phase;
+import eapli.base.RecruitmentProcessManagement.domain2.PhasePeriod;
 import eapli.base.RecruitmentProcessManagement.domain2.RecruitmentProcessPhase;
+import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.domain.Customer;
@@ -17,6 +20,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,6 +29,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @EmbeddedId
     @GeneratedValue(generator = "code_id", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "code_id", type = JobOpeningIDGenerator.class)
+    @Getter
     private JobReference jobReference;
 
     private Description description;
@@ -40,7 +45,6 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     private ContractType contractType;
 
     private JobTitle jobTitle;
-    @Getter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
@@ -106,9 +110,38 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                 interviewModel == null ? "" : interviewModel.toString(), this.status.toString());
     }
 
+    public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(boolean interview) {
+        List<RecruitmentProcessPhaseDTO> result = new ArrayList<>();
+        Phase[] phases = Phase.values();
+        if (interview) {
+            for (Phase phase : phases) {
+                result.add(new RecruitmentProcessPhaseDTO(phase.toString()));
+            }
+        } else {
+            for (Phase phase : phases) {
+                if (phase != Phase.INTERVIEWS) {
+                    result.add(new RecruitmentProcessPhaseDTO(phase.toString()));
+                }
+            }
+        }
+        return result;
+    }
+
+    public void setupRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> dtoList){
+        recruitmentProcess = new ArrayList<>();
+        for (RecruitmentProcessPhaseDTO dto : dtoList){
+            recruitmentProcess.add(new RecruitmentProcessPhase(Phase.valueOf(dto.getPhase()),
+                    new PhasePeriod(dto.getStartDate(),dto.getEndDate()), jobReference.toString()));
+        }
+        //if (jobRequirement!=null && interviewModel!=null){
+            this.status = Status.ACTIVE;
+        //}
+    }
+
     public boolean isActive() {
         return this.status.equals(Status.ACTIVE);
     }
+
     public boolean isPending() {
         return this.status.equals(Status.PENDING);
     }

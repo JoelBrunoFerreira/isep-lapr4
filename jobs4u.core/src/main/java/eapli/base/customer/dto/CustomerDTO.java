@@ -19,12 +19,7 @@ public class CustomerDTO {
 
     @Override
     public String toString() {
-        return "CustomerDTO{" +
-                "name='" + name + '\'' +
-                ", acronym='" + acronym + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return String.format("%s | %s | %s | %s", acronym, name, email, address);
     }
 }
 

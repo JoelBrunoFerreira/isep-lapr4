@@ -17,4 +17,9 @@ public class Address implements ValueObject, Serializable {
         Preconditions.nonEmpty(address);
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return address;
+    }
 }

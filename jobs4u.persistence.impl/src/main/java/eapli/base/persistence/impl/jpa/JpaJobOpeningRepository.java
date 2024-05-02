@@ -10,6 +10,7 @@ import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +63,34 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     public Iterable<JobOpeningDTO> findAllByStatus(Status status) {
         Iterable<JobOpening> jobOpenings = findAll();
         List<JobOpeningDTO> result = new ArrayList<>();
-
-        for (JobOpening jo : jobOpenings) {
-            if (jo.getStatus().equals(status)) {
-                result.add(jo.toDTO());
+        Method method = null;
+        try {
+            switch (status) {
+                case PENDING:
+                    method = JobOpening.class.getDeclaredMethod("isPending");
+                    break;
+                case ACTIVE:
+                    method = JobOpening.class.getDeclaredMethod("isActive");
+                    break;
+                case COMPLETED:
+                    method = JobOpening.class.getDeclaredMethod("isCompleted");
+                    break;
+                default:
+                    break;
             }
+            for (JobOpening jo : jobOpenings) {
+                if ((boolean) method.invoke(jo)) {
+                    result.add(jo.toDTO());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return result;
+    }
+
+    @Override
+    public JobOpening findByJobReference(String jobReference) {
+
     }
 }

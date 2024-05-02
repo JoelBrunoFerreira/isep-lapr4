@@ -1,4 +1,4 @@
-package backoffice.presentation.customermanager.customer;
+package backoffice.presentation.customermanager.customerManagement;
 
 import eapli.base.app.common.console.presentation.customer.CustomerPrinter;
 import eapli.base.customer.application.ListCustomersController;
