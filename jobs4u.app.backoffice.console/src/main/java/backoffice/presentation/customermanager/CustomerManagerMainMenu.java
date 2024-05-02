@@ -5,17 +5,14 @@ import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.ListJobOpeningsUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.RegisterJobOpeningUI;
 import backoffice.presentation.customermanager.JobOpeningManagement.SetupRecruitmentPhasesUI;
+import backoffice.presentation.customermanager.customer.AddCustomerUI;
 import eapli.base.Application;
-import eapli.base.JobOpeningManagement.application.RegisterJobOpeningController;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.io.util.Console;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class CustomerManagerMainMenu {
 
@@ -122,8 +119,8 @@ public class CustomerManagerMainMenu {
     public Menu buildCustomerManagerMenu() {
         final Menu menu = new Menu("Actions >");
         final Menu customersMenu = new Menu("Customers >");
-        customersMenu.addItem(OPTION_1, "List Customers", new ListJobOpeningsUI()::show);
-        customersMenu.addItem(OPTION_2, "Register Customer", new RegisterJobOpeningUI()::show);
+        //TODO customersMenu.addItem(OPTION_1, "List Customers", new ListJobOpeningsUI()::show);
+        customersMenu.addItem(OPTION_2, "Register Customer", new AddCustomerUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             customersMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         customersMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
@@ -136,8 +133,16 @@ public class CustomerManagerMainMenu {
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobOpeningMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
+        final Menu candidatesMenu = new Menu("Candidates >");
+        candidatesMenu.addItem(OPTION_1, "Display Candidates", new DisplayCandidateDataUI()::show);
+        //TODO candidatesMenu.addItem(OPTION_2, "Display Candidates Applications Customer", new RegisterJobOpeningUI()::show);
+        if (!Application.settings().isMenuLayoutHorizontal())
+            candidatesMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        candidatesMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
         menu.addSubMenu(OPTION_1, customersMenu);
         menu.addSubMenu(OPTION_2, jobOpeningMenu);
+        menu.addSubMenu(OPTION_3, candidatesMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal())
             menu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -146,3 +151,4 @@ public class CustomerManagerMainMenu {
         return menu;
     }
 }
+

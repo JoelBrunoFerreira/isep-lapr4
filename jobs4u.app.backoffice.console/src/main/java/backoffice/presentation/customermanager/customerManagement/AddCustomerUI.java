@@ -20,13 +20,14 @@ public class AddCustomerUI extends AbstractUI {
         final String name = Console.readLine("Name");
         final String email = Console.readLine("Email");
         final String address = Console.readLine("Address");
+        final String acronym = Console.readLine("Acronym");
 
         try {
-            GeneralDTO registeredUser = controller.addCustomer(name, email, address);
+            GeneralDTO registeredUser = controller.addCustomer(name, email, address, acronym);
             System.out.println("Customer registered successfully");
+            System.out.println("Acronym: " + registeredUser.get("acronym"));
             System.out.println("Name: " + registeredUser.get("name"));
             System.out.println("Email: " + registeredUser.get("email"));
-            System.out.println("PhoneNumber: " + registeredUser.get("phoneNumber"));
             System.out.println("Password: " + registeredUser.get("password"));
             System.out.println("Role(s): " + registeredUser.get("roles").toString());
         } catch (IntegrityViolationException | ConstraintViolationException e) { //PersistenceException

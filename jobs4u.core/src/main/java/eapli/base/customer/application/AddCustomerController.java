@@ -25,14 +25,14 @@ public class AddCustomerController {
         customerRepository = PersistenceContext.repositories().customers(autoTx);
     }
 
-    public GeneralDTO addCustomer(final String name, final String email, final String address) {
+    public GeneralDTO addCustomer(final String name, final String email, final String address, final String acronym) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
 
         GeneralDTO returnValue = null;
         try {
             autoTx.beginTransaction();
             RegisterUserService registerUserService = new RegisterUserService(autoTx);
-            registerUserService.registerUser(email, name, name, email, Set.of(BaseRoles.CUSTOMER_USER));
+            registerUserService.registerUser(email, name, acronym, email, Set.of(BaseRoles.CUSTOMER_USER));
             SystemUser user = registerUserService.getRegisteredSystemUser();
             customerRepository.save(new Customer(user, address));
             autoTx.commit();
