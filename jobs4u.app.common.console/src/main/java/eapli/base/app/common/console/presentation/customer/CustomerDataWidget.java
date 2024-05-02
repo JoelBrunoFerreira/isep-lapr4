@@ -1,5 +1,6 @@
 package eapli.base.app.common.console.presentation.customer;
 
+import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.io.util.Console;
 
 public class CustomerDataWidget {
@@ -13,13 +14,13 @@ public class CustomerDataWidget {
     private String acronym;
 
     public void show() {
-        username = Console.readLine("Username (E-mail)");
-        password = Console.readLine("Password");
-        firstName = Console.readLine("Company Name");
+        username = Console.readLine("Username (E-mail):");
+        password = BasePasswordPolicy.generatePassword();
+        firstName = Console.readLine("Company Name:");
         lastName = firstName;
         email = username;
-        address = Console.readLine("Address");
-        acronym = Console.readLine("Acronym");
+        address = Console.readLine("Address:");
+        acronym = Console.readLine("Acronym:");
     }
 
     public String username() {
