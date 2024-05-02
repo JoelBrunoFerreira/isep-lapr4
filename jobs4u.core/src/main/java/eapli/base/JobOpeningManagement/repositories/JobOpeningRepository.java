@@ -10,14 +10,9 @@ import java.time.LocalDate;
 
 public interface JobOpeningRepository extends DomainRepository<JobReference, JobOpening> {
     Iterable<JobOpeningDTO> findAllDTO();
-
-    Iterable<JobOpening> findAllActive(LocalDate startDate, LocalDate endDate);
-
-    Iterable<JobOpeningDTO> findAllByCustomerIDAndDate(long customerID, LocalDate startDate, LocalDate endDate);
-
     Iterable<JobOpeningDTO> findAllByCustomerID(String email);
 
     Iterable<JobOpeningDTO> findAllByStatus(Status status);
 
-    JobOpening findByJobReference(String jobReference);
+    JobOpeningDTO findByJobReference(String jobReference);
 }

@@ -28,11 +28,10 @@ public class SetupRecruitmentProcessController {
         return jobOpeningSvc.listJobOpeningsByStatus(Status.PENDING);
     }
 
-    public JobOpening getJO(String jobReference){
+    public JobOpeningDTO getJO(String jobReference){
         return jobOpeningRepository.findByJobReference(jobReference);
     }
-    public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
-        JobOpening jo = jobOpeningRepository.findByJobReference(jobReference);
-        return jo.getRecruitmentProcessPhases(withInterview);
-    }
+    /*public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
+        //TODO
+    }*/
 }

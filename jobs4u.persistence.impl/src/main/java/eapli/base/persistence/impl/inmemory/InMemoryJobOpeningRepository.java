@@ -22,16 +22,6 @@ static {
     }
 
     @Override
-    public Iterable<JobOpening> findAllActive(LocalDate startDate, LocalDate endDate) {
-        return match(JobOpening::isActive);
-    }
-
-    @Override
-    public Iterable<JobOpeningDTO> findAllByCustomerIDAndDate(long customerID, LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
-
-    @Override
     public Iterable<JobOpeningDTO> findAllByCustomerID(String email) {
         Iterable<JobOpening> jobOpenings = findAll();
         List<JobOpeningDTO> result = new ArrayList<>();
@@ -75,7 +65,7 @@ static {
     }
 
     @Override
-    public JobOpening findByJobReference(String jobReference) {
+    public JobOpeningDTO findByJobReference(String jobReference) {
         return null;
     }
 }

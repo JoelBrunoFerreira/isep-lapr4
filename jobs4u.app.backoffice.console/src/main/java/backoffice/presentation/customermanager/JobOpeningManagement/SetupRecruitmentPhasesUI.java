@@ -39,6 +39,7 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
         JobOpeningDTO dto = getJobOpening();
         System.out.println(dto);
         System.out.println(dto.jobReference);
+        //TODO, ERRO a partir daqui:
         System.out.println(controller.getJO(dto.jobReference));
       // List<RecruitmentProcessPhaseDTO> list = controller.getRecruitmentProcessPhases(showAllJobOpenings().jobReference,true);
         //System.out.println(list);

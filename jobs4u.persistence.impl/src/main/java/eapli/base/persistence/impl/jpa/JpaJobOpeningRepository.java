@@ -35,16 +35,6 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
         return jobOpeningsDTO;
     }
 
-    @Override
-    public Iterable<JobOpening> findAllActive(LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
-
-    @Override
-    public Iterable<JobOpeningDTO> findAllByCustomerIDAndDate(long customerID, LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
-
 
     @Override
     public Iterable<JobOpeningDTO> findAllByCustomerID(String email) {
@@ -90,7 +80,8 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     }
 
     @Override
-    public JobOpening findByJobReference(String jobReference) {
-
+    public JobOpeningDTO findByJobReference(String jobReference) {
+        JobReference jr = new JobReference(jobReference);
+        return repo.findById(jr).orElse(null).toDTO();
     }
 }
