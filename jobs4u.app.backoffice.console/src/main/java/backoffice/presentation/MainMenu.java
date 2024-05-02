@@ -79,7 +79,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
         }
         else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
-            new OperatorMainMenu();
+            new OperatorMainMenu().displayOperatorMenu();
         }
         else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CANDIDATE_USER)){
             new BackofficeFrontMenu().show();

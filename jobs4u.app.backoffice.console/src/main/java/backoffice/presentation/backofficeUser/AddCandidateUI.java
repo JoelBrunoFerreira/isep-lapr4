@@ -24,13 +24,12 @@ public class AddCandidateUI extends AbstractUI {
         try {
             GeneralDTO registeredUser = controller.addCandidate(name, email, phoneNumber);
             System.out.println("Customer registered successfully");
-            //System.out.println("Username: "+registeredUser.get("username"));
             System.out.println("Name: " + registeredUser.get("name"));
             System.out.println("Email: " + registeredUser.get("email"));
             System.out.println("PhoneNumber: " + registeredUser.get("phoneNumber"));
             System.out.println("Password: " + registeredUser.get("password"));
             System.out.println("Role(s): " + registeredUser.get("roles").toString());
-        } catch (IntegrityViolationException | ConstraintViolationException e) { //PersistenceException
+        } catch (IntegrityViolationException | ConstraintViolationException e) {
             System.out.println("Error registering candidate.\nCode already in use.\n");
         } catch (Exception e) {
             System.out.println("Error registering candidate." + "\n" + e.getMessage());
