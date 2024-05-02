@@ -2,6 +2,7 @@ package eapli.base.RecruitmentProcessManagement.application;
 
 import eapli.base.JobOpeningManagement.application.JobOpeningSvc;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
+import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.domain.Status;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
@@ -38,7 +39,8 @@ public class SetupRecruitmentProcessController {
     public JobOpeningDTO getJO(String jobReference) {
         return jobOpeningRepository.findByJobReference(jobReference);
     }
-    /*public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
-        //TODO
-    }*/
+
+    public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
+        return jobOpeningRepository.ofIdentity(new JobReference(jobReference)).get().getRecruitmentProcessPhases(withInterview);
+    }
 }

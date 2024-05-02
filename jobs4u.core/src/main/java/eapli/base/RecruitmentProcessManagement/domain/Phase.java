@@ -7,7 +7,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 @Getter
-@ToString
+
 public enum Phase implements Serializable {
     APPLICATION("Application"),
     SCREENING("Screening"),
@@ -24,5 +24,10 @@ public enum Phase implements Serializable {
     }
     public static Phase parse(String phase) {
         return Phase.valueOf(phase.trim().toUpperCase());
+    }
+
+    @Override
+    public String toString() {
+        return designation;
     }
 }

@@ -2,16 +2,21 @@ package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
+import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
+import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class SetupRecruitmentPhasesUI extends AbstractUI {
 
     private LocalDate startDate;
     private LocalDate endDate;
     SetupRecruitmentProcessController controller = new SetupRecruitmentProcessController();
+
     @Override
     protected boolean doShow() {
         mainMenu();
@@ -32,17 +37,43 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
         selectJobOpeningDTO.show();
         return selectJobOpeningDTO.selectedElement();
     }
-    private void mainMenu(){
+
+    private void mainMenu() {
         JobOpeningDTO dto = getJobOpening();
         System.out.println(dto);
         System.out.println(dto.jobReference);
         //TODO, ERRO a partir daqui:
         System.out.println(controller.getJO(dto.jobReference));
-      // List<RecruitmentProcessPhaseDTO> list = controller.getRecruitmentProcessPhases(showAllJobOpenings().jobReference,true);
-        //System.out.println(list);
+
+        boolean withInterview = false;
+        System.out.println();
+        String answerInterviewPhase = Console.readLine("Do you want to setup the interview phase? (y/n):");
+
+        if (answerInterviewPhase == "y"){
+            withInterview = true;
+        } else if (answerInterviewPhase == "n"){
+        }else {
+            System.out.println("Please enter a valid interview phase (y/n)");
+        }
+
+        List<RecruitmentProcessPhaseDTO> list = controller.getRecruitmentProcessPhases(dto.jobReference, withInterview);
+        System.out.println(list);
+        setRecruitmentProcessPhasesData(list);
     }
+
+    public void setRecruitmentProcessPhasesData(List<RecruitmentProcessPhaseDTO> list) {
+        for (RecruitmentProcessPhaseDTO phase : list) {
+            System.out.println(phase);
+            LocalDate startDate = LocalDate.parse(Console.readLine("Start Date: "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate endDate = LocalDate.parse(Console.readLine("End Date: "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            ;
+            phase.setRecruitmentProcessPhaseDates(startDate, endDate);
+        }
+    }
+
     @Override
     public String headline() {
         return "Setup Recruitment Process Phases";
     }
 }
+
