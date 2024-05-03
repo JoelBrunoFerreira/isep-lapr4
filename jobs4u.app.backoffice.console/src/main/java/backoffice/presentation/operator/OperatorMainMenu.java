@@ -1,7 +1,6 @@
-package backoffice.presentation;
+package backoffice.presentation.operator;
 
 import backoffice.Jobs4uBackofficeApp;
-import backoffice.presentation.operator.AddCandidateUI;
 import eapli.base.usermanagement.application.ListUsersController;
 
 import java.util.InputMismatchException;
@@ -14,7 +13,7 @@ public class OperatorMainMenu {
     private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
-    private static final int PREVIOUS_MENU = 3;
+    private static final int LOGOUT = 3;
     public void displayOperatorMenu() {
 
         System.out.println("""
@@ -23,7 +22,7 @@ public class OperatorMainMenu {
                 =====================================
                 1. Register new Candidate
                 2. List all Candidates
-                3. Back
+                3. Logout
                 0. Exit
                 =====================================
                 
@@ -40,19 +39,20 @@ public class OperatorMainMenu {
             try {
                 option = read.nextInt();
 
-                if (option >= EXIT_OPTION && option <= PREVIOUS_MENU) {
+                if (option >= EXIT_OPTION && option <= LOGOUT) {
                     validInput = true;
                 } else {
-                    System.out.printf("Invalid option. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
+                    System.out.printf("Invalid option. Please enter a number between %d and %d \n", EXIT_OPTION, LOGOUT);
                 }
             } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, PREVIOUS_MENU);
+                System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, LOGOUT);
                 read.nextLine();
             }
         }
         switch (option) {
             case OPTION_1:
                 addCandidateUI.doShow();
+                // do you want to register another candidate
                 break;
             case OPTION_2:
                 System.out.println(listUsersController.listAllCandidates().toString()
@@ -60,7 +60,7 @@ public class OperatorMainMenu {
                         .replace("]", "")
                         .replace(",", ""));
                 break;
-            case PREVIOUS_MENU:
+            case LOGOUT:
                 Jobs4uBackofficeApp.main(null);
                 break;
             case EXIT_OPTION:
@@ -68,7 +68,13 @@ public class OperatorMainMenu {
                 System.exit(0);
                 break;
             default:
-                System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, PREVIOUS_MENU);
+                System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, LOGOUT);
         }
+    }
+
+    public void reRun() {
+        System.out.println("==========================================");
+        System.out.println("Do you want to register another Candidate?");
+        // TODO .....
     }
 }
