@@ -1,0 +1,13 @@
+	
+
+	TEST PLAN
+
+	_______________________________
+	List Candidate Data
+	_______________________________
+
+	1. Fazer login como Customer Manager
+	2. Escolher a opão listar dados de candidato
+	3. Indicar o email do candidato
+	4. Verificar os dados
+	5. Terminar a aplicação

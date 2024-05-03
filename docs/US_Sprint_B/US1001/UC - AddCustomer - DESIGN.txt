@@ -1,0 +1,11 @@
+	_________
+
+	DESIGN
+	_________
+
+	* Utilizar a estrutura base standard da aplicação baseada em camadas
+	* Este caso de uso é muito semelhante ao da US2000a - Register Candidates
+
+   	Classes do dom�nio:  Customer e suas classes associadas
+   	Controlador: AddCustomercomtroller
+   	Repository: CustomerRepository

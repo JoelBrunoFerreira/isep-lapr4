@@ -17,15 +17,15 @@
 	_____________________
 
 
-	* Não � possivel alterar informa��o sensivel do prato como o seu nome (Name) e o seu tipo (DishType)
+	* Não é possivel alterar informação sensivel do utilizador como o seu nome e o seu email (Identificador único).
 
 
 	______________________
 		
-	TESTES UNIT�RIOS
+	TESTES UNITÁRIOS
 	_____________________
 
 
-	* testchangeNutricionalInfoToMustNotBeNull
-	* testchangePriceToMustNotBeNull
-	* testchangePriceToCanNotBeNegative
+	* ensureCustomerUserHasEmail
+	* ensureCustomerUserHasName
+	* ensureSystemUserIsCreated
