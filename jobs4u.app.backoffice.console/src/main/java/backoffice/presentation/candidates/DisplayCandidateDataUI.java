@@ -1,7 +1,5 @@
 package backoffice.presentation.candidates;
 
-import eapli.base.candidate.domain.Candidate;
-import eapli.base.candidate.domain.Email;
 import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.io.util.Console;
@@ -12,7 +10,7 @@ import java.util.Optional;
 public class DisplayCandidateDataUI extends AbstractUI {
 
     ListUsersController theController = new ListUsersController();
-    CanidateDTOPrinter printer = new CanidateDTOPrinter();
+    CandidatePrinter printer = new CandidatePrinter();
 
     @Override
     protected boolean doShow() {
@@ -25,7 +23,7 @@ public class DisplayCandidateDataUI extends AbstractUI {
         }
         else{
             System.out.println("Found");
-            printer.print(candidateDTO.get());
+            printer.visit(candidateDTO.get());
         }
 
         return true;

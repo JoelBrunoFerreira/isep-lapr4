@@ -15,7 +15,8 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Name name;
+    private FirstName firstName;
+    private LastName lastName;
     private Email email;
     private PhoneNumber phoneNumber;
     @OneToOne
@@ -24,17 +25,19 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
 
     // Constructor
     // -------------------------------
-    public Candidate(String name, String email, String phoneNumber, final SystemUser systemUser) {
-        this(name, email, phoneNumber);
+    public Candidate(String firstName, String lastName,String email, String phoneNumber, final SystemUser systemUser) {
+        this(firstName, lastName, email, phoneNumber);
         Preconditions.nonNull(systemUser);
         this.systemUser = systemUser;
     }
 
-    public Candidate(final String name, final String email, final String phoneNumber) {
-        Preconditions.nonEmpty(name);
+    public Candidate(final String firstName, final String lastName, final String email, final String phoneNumber) {
+        Preconditions.nonEmpty(firstName);
+        Preconditions.nonEmpty(lastName);
         Preconditions.nonEmpty(email);
         Preconditions.nonEmpty(phoneNumber);
-        this.name = new Name(name);
+        this.firstName = new FirstName(firstName);
+        this.lastName = new LastName(lastName);
         this.email = new Email(email);
         this.phoneNumber = new PhoneNumber(phoneNumber);
     }
@@ -60,16 +63,17 @@ public class Candidate implements AggregateRoot<Long>, DTOable<CandidateDTO> {
 
     @Override
     public CandidateDTO toDTO() {
-        return new CandidateDTO(id, name.toString(), email.toString(), phoneNumber.toString(), systemUser.username().toString());
+        return new CandidateDTO(id, firstName.toString(), lastName.toString(), email.toString(), phoneNumber.toString(), systemUser.username().toString());
     }
 
     @Override
     public String toString() {
         return "Candidate: " +
                 "id= " + id +
-                " name= " + name.toString() +
-                " email= " + email.toString() +
-                " phoneNumber= " + phoneNumber.toString() +
-                " systemUser= " + systemUser.username().toString()+ "\n";
+                " First name= " + firstName +
+                " Last name= " + lastName +
+                " Email= " + email +
+                " Phone Number= " + phoneNumber +
+                " System User= " + systemUser.username().toString()+ "\n";
     }
 }

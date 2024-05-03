@@ -1,7 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.Jobs4uBackofficeApp;
-import backoffice.presentation.backofficeUser.AddCandidateUI;
+import backoffice.presentation.operator.AddCandidateUI;
 import eapli.base.usermanagement.application.ListUsersController;
 
 import java.util.InputMismatchException;
@@ -14,8 +14,7 @@ public class OperatorMainMenu {
     private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
-    private static final int OPTION_3 = 3;
-    private static final int PREVIOUS_MENU = 4;
+    private static final int PREVIOUS_MENU = 3;
     public void displayOperatorMenu() {
 
         System.out.println("""
@@ -24,8 +23,7 @@ public class OperatorMainMenu {
                 =====================================
                 1. Register new Candidate
                 2. List all Candidates
-                3. Operator Option 3
-                4. Back
+                3. Back
                 0. Exit
                 =====================================
                 
@@ -61,9 +59,6 @@ public class OperatorMainMenu {
                         .replace("[", "")
                         .replace("]", "")
                         .replace(",", ""));
-                break;
-            case OPTION_3:
-                System.out.println("Not implemented yet");
                 break;
             case PREVIOUS_MENU:
                 Jobs4uBackofficeApp.main(null);
