@@ -2,10 +2,9 @@ package eapli.base.JobOpeningManagement.domain;
 
 
 import eapli.base.InterviewModelManagement.domain.InterviewModel;
-import eapli.base.RecruitmentProcessManagement.domain.Phases;
-import eapli.base.RecruitmentProcessManagement.domain2.Phase;
-import eapli.base.RecruitmentProcessManagement.domain2.PhasePeriod;
-import eapli.base.RecruitmentProcessManagement.domain2.RecruitmentProcessPhase;
+import eapli.base.RecruitmentProcessManagement.domain.Phase;
+import eapli.base.RecruitmentProcessManagement.domain.PhasePeriod;
+import eapli.base.RecruitmentProcessManagement.domain.RecruitmentProcessPhase;
 import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
@@ -13,8 +12,6 @@ import eapli.base.customer.domain.Customer;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.representations.RepresentationBuilder;
-import eapli.framework.representations.Representationable;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
 import lombok.Getter;

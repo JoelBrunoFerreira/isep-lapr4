@@ -14,7 +14,7 @@
     <!-- ===================================================================== -->
     <class>eapli.base.InterviewModelManagement.domain.InterviewModel</class>
     <class>eapli.base.RequirementSpecificationsManagement.domain.JobRequirement</class>
-    <class>eapli.base.RecruitmentProcessManagement.domain2.RecruitmentProcessPhase</class>
+    <class>eapli.base.RecruitmentProcessManagement.domain.RecruitmentProcessPhase</class>
     <class>eapli.base.JobOpeningManagement.domain.JobOpening</class>
     <class>eapli.base.customer.domain.Customer</class>
     <class>eapli.base.candidate.domain.Candidate</class>
