@@ -10,11 +10,12 @@ actor CustomerManager as Actor
 participant AddCustomerUI as UI <<presentation>>
 participant AddCustomerController as Controller <<application>>
 participant "user:SystemUser" as Domain <<domain>>
+participant "Customer" as CustomerDomain <<domain>>
 participant BasePasswordPolicy as PassService
 
-participant PersistenceContext as Persistence <<persistence>>
-participant RepositoryFactory as Factory <<factory>>
-database UserRepository as Repository <<repository>>
+
+database UserRepository as UserRepository <<repository>>
+database CustomerRepository as CustomerRepository <<repository>>
 
 Actor --> UI: Add Customer
 activate UI
@@ -38,32 +39,19 @@ activate UI
             Domain -> Controller: SystemUser
             deactivate Domain
 
+        Controller -> UserRepository: addUser()
+
+        Controller -> CustomerDomain: new Customer()
+        activate CustomerDomain
+        CustomerDomain -> Controller: "Customer"
+        deactivate CustomerDomain
+
+        Controller -> CustomerRepository: save()
 
 
-        Builder -> Service: generatePasssword()
-            activate Service
-            Service -> Builder: password
-            deactivate Service
-            Builder -> Domain: create (name, email, role, password)
-            Domain->Builder: user
-            Builder -> Controller:user
-        deactivate Builder
 
-        Controller -> Persistence: repositories()
-        activate Persistence
 
-            Persistence -> Factory: create
-            Persistence -> Controller: factory
-        deactivate Persistence
-
-        Controller -> Factory: users()
-        activate Factory
-            Factory -> Repository: create
-            Factory -> Controller: userRepository
-        deactivate Factory
-
-        Controller->Repository:save(user)
-        Controller->UI: user
+        Controller->UI: customer
     deactivate Controller
 
         UI-->Actor: displayUserInfo

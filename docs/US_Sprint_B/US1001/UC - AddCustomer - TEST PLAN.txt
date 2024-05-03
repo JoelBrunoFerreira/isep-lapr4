@@ -1,0 +1,12 @@
+	
+
+	TEST PLAN
+
+	_______________________________
+	Add Customer as Customer Manager
+	_______________________________
+
+	1. Fazer o login como Customer Manager
+	2. Escolher a opção Register Customer
+	3. Indicar os dados do Customer
+	4. Terminar a aplicação.

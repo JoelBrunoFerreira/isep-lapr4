@@ -17,7 +17,7 @@
 	_____________________
 
 
-	* Não � possivel alterar informa��o sensivel do prato como o seu nome (Name) e o seu tipo (DishType)
+	* É obrigatório mostrar o email, nome e contacto do candidato
 
 
 	______________________
@@ -26,6 +26,5 @@
 	_____________________
 
 
-	* testchangeNutricionalInfoToMustNotBeNull
-	* testchangePriceToMustNotBeNull
-	* testchangePriceToCanNotBeNegative
+	* ensureCandidateIsNotNull
+	* ensureNameEmailAndPhoneNumberAreNotNull

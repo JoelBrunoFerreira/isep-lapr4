@@ -1,0 +1,10 @@
+	_________
+
+	DESIGN
+	_________
+
+	* Utilizar a estrutura base standard da aplicação baseada em camadas
+
+   	Classes do dom�nio:  Candidate e suas classes associadas
+   	Controlador: GetCandidateController
+   	Repository: CandidateRepository
