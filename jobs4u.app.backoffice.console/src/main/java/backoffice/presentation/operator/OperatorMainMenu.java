@@ -10,10 +10,12 @@ public class OperatorMainMenu {
     static Scanner read = new Scanner(System.in);
     ListUsersController listUsersController = new ListUsersController();
     AddCandidateUI addCandidateUI = new AddCandidateUI();
+    RegisterJobApplicationUI registerJobApplicationUI = new RegisterJobApplicationUI();
     private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
-    private static final int LOGOUT = 3;
+    private static final int OPTION_3 = 3;
+    private static final int LOGOUT = 4;
     public void displayOperatorMenu() {
 
         System.out.println("""
@@ -22,6 +24,7 @@ public class OperatorMainMenu {
                 =====================================
                 1. Register new Candidate
                 2. List all Candidates
+                3. Register Job Application
                 3. Logout
                 0. Exit
                 =====================================
@@ -59,6 +62,9 @@ public class OperatorMainMenu {
                         .replace("[", "")
                         .replace("]", "")
                         .replace(",", ""));
+                break;
+            case OPTION_3:
+                registerJobApplicationUI.doShow();
                 break;
             case LOGOUT:
                 Jobs4uBackofficeApp.main(null);
