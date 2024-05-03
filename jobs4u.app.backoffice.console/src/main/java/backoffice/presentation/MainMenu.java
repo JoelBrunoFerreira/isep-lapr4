@@ -1,6 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.presentation.CustomerManager.CustomerManagerMainMenu;
+import backoffice.presentation.Operator.OperatorMainMenu;
 import backoffice.presentation.users.UsersMenu;
 import eapli.base.Application;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;

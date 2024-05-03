@@ -22,4 +22,8 @@ public class InterviewGrade implements ValueObject, Serializable {
         return new InterviewGrade(grade);
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(grade);
+    }
 }

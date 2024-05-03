@@ -1,9 +1,6 @@
 package eapli.base.RecruitmentProcessManagement.dto;
 
-import eapli.base.RecruitmentProcessManagement.domain2.Phase;
-import eapli.base.RecruitmentProcessManagement.domain2.PhasePeriod;
 import eapli.framework.representations.dto.DTO;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -22,5 +19,12 @@ public class RecruitmentProcessPhaseDTO {
     public void setRecruitmentProcessPhaseDates(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "RecruitmentProcessPhaseDTO{" +
+                "phase='" + phase + '\'' +
+                '}';
     }
 }

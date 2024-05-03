@@ -1,6 +1,6 @@
-package backoffice.presentation;
-
+package backoffice.presentation.Operator;
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.Operator.JobApplicationManagement.RegisterJobApplicationUI;
 import backoffice.presentation.backofficeUser.AddCandidateUI;
 import eapli.base.usermanagement.application.ListUsersController;
 
@@ -16,6 +16,7 @@ public class OperatorMainMenu {
     private static final int OPTION_2 = 2;
     private static final int OPTION_3 = 3;
     private static final int PREVIOUS_MENU = 4;
+
     public void displayOperatorMenu() {
 
         System.out.println("""
@@ -24,11 +25,11 @@ public class OperatorMainMenu {
                 =====================================
                 1. Register new Candidate
                 2. List all Candidates
-                3. Operator Option 3
+                3. Register Job Application
                 4. Back
                 0. Exit
                 =====================================
-                
+                                
                 """);
         System.out.println();
 
@@ -63,7 +64,7 @@ public class OperatorMainMenu {
                         .replace(",", ""));
                 break;
             case OPTION_3:
-                System.out.println("Not implemented yet");
+                new RegisterJobApplicationUI().doShow();
                 break;
             case PREVIOUS_MENU:
                 Jobs4uBackofficeApp.main(null);

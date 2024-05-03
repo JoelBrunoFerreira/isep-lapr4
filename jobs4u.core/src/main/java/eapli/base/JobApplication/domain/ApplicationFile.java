@@ -22,4 +22,9 @@ public class ApplicationFile implements ValueObject, Serializable {
     public ApplicationFile valueOf(String path) {
         return new ApplicationFile(path);
     }
+
+    @Override
+    public String toString() {
+        return path;
+    }
 }

@@ -3,10 +3,12 @@ package eapli.base.JobApplication.domain;
 
 import eapli.base.JobApplication.dto.JobApplicationDTO;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
+import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.candidate.domain.Candidate;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +22,24 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     @ElementCollection
     private List<ApplicationFile> applicationFiles;
     private Rank rank;
-    private State state;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private JobApplicationState jobApplicationState;
+
     private InterviewGrade interviewGrade;
     @OneToOne
     private Candidate candidate;
     @OneToOne
     private JobOpening jobOpening;
+
+    protected JobApplication(){}
+
+    public JobApplication(List<ApplicationFile> applicationFiles, Candidate candidate, JobOpening jobOpening) {
+        this.applicationFiles = applicationFiles;
+        this.candidate = candidate;
+        this.jobOpening = jobOpening;
+        this.jobApplicationState = JobApplicationState.RECEIVED;
+    }
 
     @Override
     public boolean sameAs(Object other) {
@@ -49,6 +63,21 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         for (ApplicationFile file : applicationFiles) {
             files.add(file.toString());
         }
-        return new JobApplicationDTO(id,files,rank.valueOf(),state.toString(),Integer.parseInt(interviewGrade.toString()));
+        return new JobApplicationDTO(id, files,rank==null? 0 : rank.valueOf(), jobApplicationState.toString(),interviewGrade==null? 0 :Integer.parseInt(interviewGrade.toString()), candidate.getEmail().toString(),jobOpening.getJobReference().toString());
+    }
+
+    public void setInterviewGrade(int interviewGrade) {
+        this.interviewGrade = new InterviewGrade();
+    }
+
+    public void setRanking(int ranking){
+        this.rank = new Rank(ranking);
+    }
+
+    public boolean hasJobOpeningReference(String jobRefrence){
+        return this.jobOpening.getJobReference().equals(new JobReference(jobRefrence));
+    }
+    public boolean hasCandidateEmail(String jobRefrence){
+        return this.jobOpening.getJobReference().equals(new JobReference(jobRefrence));
     }
 }

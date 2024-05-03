@@ -30,7 +30,7 @@ public class ListApplicationController {
     }
     public Iterable<JobApplicationDTO> listApplicationsByJobOpeningId(String jobOpeningId) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
-        return applicationRepository.findApplicationsByJobOpeningId(jobOpeningId);
+        return applicationRepository.findApplicationsByJobOpeningReference(jobOpeningId);
     }
 
 }

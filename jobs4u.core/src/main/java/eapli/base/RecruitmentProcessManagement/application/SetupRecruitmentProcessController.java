@@ -22,7 +22,6 @@ import java.util.List;
 public class SetupRecruitmentProcessController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
     private final SystemUser user;
 
@@ -36,9 +35,6 @@ public class SetupRecruitmentProcessController {
     }
 
     public JobOpeningDTO getJO(String jobReference) {
-        return jobOpeningRepository.findByJobReference(jobReference);
+        return jobOpeningSvc.getJobOpeningByReference(jobReference);
     }
-    /*public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
-        //TODO
-    }*/
 }
