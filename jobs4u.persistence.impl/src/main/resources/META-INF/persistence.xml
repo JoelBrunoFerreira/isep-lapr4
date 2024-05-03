@@ -20,6 +20,7 @@
     <class>eapli.base.candidate.domain.Candidate</class>
     <class>eapli.base.operator.domain.Operator</class>
     <class>eapli.base.customerManager.domain.CustomerManager</class>
+    <class>eapli.base.JobApplication.domain.JobApplication</class>
 
     <properties>
       <!-- Local DB - JPA -->

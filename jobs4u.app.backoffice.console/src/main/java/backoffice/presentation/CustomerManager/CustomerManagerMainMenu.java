@@ -1,10 +1,8 @@
 package backoffice.presentation.CustomerManager;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
-import backoffice.presentation.CustomerManager.JobOpeningManagement.ListJobOpeningsUI;
-import backoffice.presentation.CustomerManager.JobOpeningManagement.RegisterJobOpeningUI;
-import backoffice.presentation.CustomerManager.JobOpeningManagement.SetupRecruitmentPhasesUI;
 import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;
@@ -129,6 +127,8 @@ public class CustomerManagerMainMenu {
         jobOpeningMenu.addItem(OPTION_1, "List Job Openings", new ListJobOpeningsUI()::show);
         jobOpeningMenu.addItem(OPTION_2, "Register Job Openings", new RegisterJobOpeningUI()::show);
         jobOpeningMenu.addItem(OPTION_3, "Setup Recruitment Process Phases", new SetupRecruitmentPhasesUI()::show);
+        jobOpeningMenu.addItem(OPTION_4, "Select Requirement Specifications", new SelectRequirementsSpecificationsUI()::show);
+        jobOpeningMenu.addItem(OPTION_5, "Select Interview Model", new SelectInterviewModelUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobOpeningMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);

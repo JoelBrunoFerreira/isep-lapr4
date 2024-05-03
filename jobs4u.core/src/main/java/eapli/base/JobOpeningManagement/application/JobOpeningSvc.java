@@ -1,5 +1,7 @@
 package eapli.base.JobOpeningManagement.application;
 
+import eapli.base.JobOpeningManagement.domain.JobOpening;
+import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.domain.Status;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
@@ -9,6 +11,8 @@ import eapli.framework.application.ApplicationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.util.Optional;
 
 @ApplicationService
 public class JobOpeningSvc {
@@ -27,4 +31,13 @@ public class JobOpeningSvc {
     public Iterable<JobOpeningDTO> listJobOpeningsByUser(SystemUser user){
         return repository.findAllByUser(user);
     }
+
+    public JobOpeningDTO getJobOpeningByReference(String jobReference) {
+        return repository.findByJobReference(jobReference);
+    }
+
+    public Optional<JobOpening> getJobOpening(String jobReference){
+        return repository.ofIdentity(new JobReference(jobReference));
+    }
+
 }

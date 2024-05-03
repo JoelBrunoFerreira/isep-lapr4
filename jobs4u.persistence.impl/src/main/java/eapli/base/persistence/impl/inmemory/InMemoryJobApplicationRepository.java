@@ -1,27 +1,23 @@
-package eapli.base.persistence.impl.jpa;
+package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.Application;
 import eapli.base.JobApplication.domain.JobApplication;
 import eapli.base.JobApplication.dto.JobApplicationDTO;
 import eapli.base.JobApplication.repository.JobApplicationRepository;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.JobReference;
+import eapli.base.JobOpeningManagement.domain.Status;
+import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplication, Long, Long >
-        implements JobApplicationRepository {
-    public JpaJobApplicationRepository(final TransactionalContext autoTx) {
-        super(autoTx, "id");
-    }
-
-    public JpaJobApplicationRepository(final String puname) {
-        super(puname, Application.settings().extendedPersistenceProperties(), "id");
+public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<JobApplication, Long> implements JobApplicationRepository {
+    static {
+        InMemoryInitializer.init();
     }
 
     @Override
@@ -44,10 +40,5 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
             }
         }
         return result;
-    }
-
-    @Override
-    public <S extends JobApplication> S save(S entity) {
-        return super.save(entity);
     }
 }

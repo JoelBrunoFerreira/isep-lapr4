@@ -1,30 +1,48 @@
 @startuml
-title Application Registration and File Import Process
+title US 2002 :: As Operator, I want to register an application of a candidate for a job opening and import all files received.
+actor Operator
+participant RegisterApplicationUI
+participant RegisterApplicationController
+participant JobOpeningRepository
+participant Application
+participant ApplicationRepository
 
-participant Operator
-participant System
-participant "Application File Bot" as Bot
 
-== Operator Initiated Registration ==
-Operator -> System: Initiate registration process
-System -> Operator: Prompt to select shared folder
+Operator->RegisterApplicationUI: asks to create an Application
+activate RegisterApplicationUI
+RegisterApplicationUI->RegisterApplicationController: List job openings
 
-== Automatic Data Import ==
-System -> Bot: Import data
-Bot --> System: Imported data
+activate RegisterApplicationController
+RegisterApplicationController->JobOpeningRepository: List job openings
+activate JobOpeningRepository
+JobOpeningRepository->RegisterApplicationController: Returns a list of job openings
+deactivate JobOpeningRepository
 
-== Template File Generation and Submission ==
-System -> Operator: Generate template file
-Operator -> Operator: Fill in required data
-Operator -> System: Submit template file
+RegisterApplicationController->RegisterApplicationUI: Returns a list of job openings
+deactivate RegisterApplicationController
+RegisterApplicationUI->Operator: Displays the list of job openings \n and asks to select one
+deactivate RegisterApplicationUI
 
-== Evaluation and Verification ==
-System -> System: Evaluate application
-System --> Operator: Application status
+Operator->RegisterApplicationUI: Selects a job opening
+activate RegisterApplicationUI
+RegisterApplicationUI->Operator: Asks for application data and files
+deactivate RegisterApplicationUI
 
-== Recording in the System ==
-System -> System: Record application submission
-System -> System: Import and store files
-System --> Operator: Confirmation
+Operator->RegisterApplicationUI: Submits data
+activate RegisterApplicationUI
+RegisterApplicationUI->RegisterApplicationController: registerApplication()
+activate RegisterApplicationController
+
+RegisterApplicationController->Application: create()
+RegisterApplicationController->ApplicationRepository: save()
+activate ApplicationRepository
+
+ApplicationRepository->RegisterApplicationController: returns created application
+deactivate ApplicationRepository
+RegisterApplicationController->RegisterApplicationUI: returns success
+deactivate RegisterApplicationController
+
+RegisterApplicationUI->Operator: Displays success message
+deactivate RegisterApplicationUI
 
 @enduml
