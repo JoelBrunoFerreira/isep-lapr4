@@ -43,4 +43,8 @@ public class SetupRecruitmentProcessController {
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
         return jobOpeningRepository.ofIdentity(new JobReference(jobReference)).get().getRecruitmentProcessPhases(withInterview);
     }
+
+    public void setRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> recruitmentProcessPhasesDTO){
+
+    }
 }
