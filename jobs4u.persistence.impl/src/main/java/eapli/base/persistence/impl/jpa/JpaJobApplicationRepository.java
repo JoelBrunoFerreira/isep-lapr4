@@ -45,4 +45,9 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
         }
         return result;
     }
+
+    @Override
+    public <S extends JobApplication> S save(S entity) {
+        return super.save(entity);
+    }
 }

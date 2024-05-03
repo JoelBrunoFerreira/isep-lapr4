@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"candidateID","jobReference"})})
 public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicationDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +27,11 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     private JobApplicationState jobApplicationState;
 
     private InterviewGrade interviewGrade;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "candidateID")
     private Candidate candidate;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "jobReference")
     private JobOpening jobOpening;
 
     protected JobApplication(){}
