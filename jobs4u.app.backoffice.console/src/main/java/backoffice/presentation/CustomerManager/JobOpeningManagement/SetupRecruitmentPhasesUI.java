@@ -44,45 +44,49 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
 
     private void mainMenu() {
         JobOpeningDTO dto = getJobOpening();
-        System.out.println(dto);
-        System.out.println(dto.jobReference);
-        //TODO, ERRO a partir daqui:
-        System.out.println(controller.getJO(dto.jobReference));
+        if (dto == null) {
+            System.out.println("No job openings are pending.");
+        } else {
+            System.out.println(dto);
+            System.out.println(dto.jobReference);
+            //TODO, ERRO a partir daqui:
+            System.out.println(controller.getJO(dto.jobReference));
 
-        boolean withInterview = false;
-        System.out.println();
+            boolean withInterview = false;
+            System.out.println();
 
-        String answerInterviewPhase;
+            String answerInterviewPhase;
 
-        boolean validInput = false;
+            boolean validInput = false;
 
 
-        while (!validInput) {
+            while (!validInput) {
 
-            try {
-                answerInterviewPhase = readLine("Do you want to setup the interview phase? (y/n):").trim();
+                try {
+                    answerInterviewPhase = readLine("Do you want to setup the interview phase? (y/n):").trim();
 
-                if (answerInterviewPhase.equals("y")) {
-                    withInterview = true;
-                    validInput = true;
-                } else if (answerInterviewPhase.equals("n")) {
-                    validInput = true;
-                } else {
-                    System.out.println("Invalid option.");
+                    if (answerInterviewPhase.equals("y")) {
+                        withInterview = true;
+                        validInput = true;
+                    } else if (answerInterviewPhase.equals("n")) {
+                        validInput = true;
+                    } else {
+                        System.out.println("Invalid option.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println();
+                    readLine("Invalid input.");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println();
-                readLine("Invalid input.");
             }
+
+            List<RecruitmentProcessPhaseDTO> list = controller.getRecruitmentProcessPhases(dto.jobReference, withInterview);
+            System.out.println(list);
+
+            controller.setRecruitmentProcessPhases(setRecruitmentProcessPhasesData(list));
+
+            String sucessfull = "";
+            System.out.println("Phases sucessfully created!" + sucessfull);
         }
-
-        List<RecruitmentProcessPhaseDTO> list = controller.getRecruitmentProcessPhases(dto.jobReference, withInterview);
-        System.out.println(list);
-
-        controller.setRecruitmentProcessPhases(setRecruitmentProcessPhasesData(list));
-
-        String sucessfull = "";
-        System.out.println("Phases sucessfully created!" + sucessfull);
     }
 
     public List<RecruitmentProcessPhaseDTO> setRecruitmentProcessPhasesData(List<RecruitmentProcessPhaseDTO> list) {

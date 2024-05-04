@@ -21,6 +21,8 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Column(nullable = false)
     private Status status;
     @OneToMany
+    @Cascade(value = CascadeType.ALL)
     @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
     private List<RecruitmentProcessPhase> recruitmentProcess;
     @ManyToOne
@@ -129,8 +132,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     public void setupRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> dtoList){
         recruitmentProcess = new ArrayList<>();
         for (RecruitmentProcessPhaseDTO dto : dtoList){
-            recruitmentProcess.add(new RecruitmentProcessPhase(Phase.parse(dto.getPhase()),
-                    new PhasePeriod(dto.getStartDate(),dto.getEndDate()), this.jobReference.toString()));
+            Phase phase = Phase.parse(dto.getPhase());
+            PhasePeriod phasePeriod = new PhasePeriod(dto.getStartDate(), dto.getEndDate());
+            RecruitmentProcessPhase recruitmentProcessPhase = new RecruitmentProcessPhase(phase,phasePeriod, this.jobReference.getId());
+            recruitmentProcess.add(recruitmentProcessPhase);
         }
         //if (jobRequirement!=null && interviewModel!=null){
             this.status = Status.ACTIVE;
