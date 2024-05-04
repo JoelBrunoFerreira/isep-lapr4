@@ -17,10 +17,14 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.presentation.console.SelectWidget;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @UseCaseController
 public class RegisterJobApplicationController {
@@ -33,24 +37,41 @@ public class RegisterJobApplicationController {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.OPERATOR);
     }
 
-    public Iterable<CandidateDTO> getCandidateDTO() {
-        return candidateRepository.findAllDTO();
+    public boolean candidateExists(String email){
+        return candidateRepository.findByEmail(new Email(email)).isPresent();
     }
-
-    public JobApplicationDTO registerJobApplication(List<String> fileList, String candidateEmail, String jobReference) {
+    public boolean checkIfApplicationExists(String email){
+        return applicationRepository.findApplicationsByJCandidateEmail(email).iterator().hasNext();
+    }
+    public JobApplicationDTO registerJobApplication(String path, String candidateEmail, String jobReference) {
         //authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.OPERATOR);
-        List<ApplicationFile> files = getApplicationFiles(fileList);
+        List<ApplicationFile> files = getApplicationFiles(path);
         Optional<Candidate> candidate = candidateRepository.findByEmail(new Email(candidateEmail));
         Optional<JobOpening> jobOpening = jobOpeningSvc.getJobOpening(jobReference);
-        JobApplication jobApplication = new JobApplication(files,candidate.get(),jobOpening.get());
+        JobApplication jobApplication = new JobApplication(files, candidate.get(), jobOpening.get());
         return applicationRepository.save(jobApplication).toDTO();
 
     }
-    private List<ApplicationFile> getApplicationFiles(List<String> list){
-        List<ApplicationFile> result = new ArrayList<>();
-        for (String s : list){
-            result.add(new ApplicationFile(s));
+
+
+    private List<ApplicationFile> getApplicationFiles(String directoryPath) {
+        List<ApplicationFile> applicationFiles = new ArrayList<>();
+        File directory = new File(directoryPath);
+
+        // Check if the provided path is a directory
+        if (!directory.isDirectory()) {
+            System.out.println("Error: Provided path is not a directory.");
+            return applicationFiles;
         }
-        return result;
+
+        // Get list of files in the directory
+        File[] files = directory.listFiles();
+
+        applicationFiles = Arrays.stream(files)
+                .map(file -> new ApplicationFile(file.getPath()))
+                .collect(Collectors.toList());
+
+        return applicationFiles;
     }
+
 }

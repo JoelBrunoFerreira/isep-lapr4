@@ -1,48 +1,48 @@
 @startuml
 title US 2002 :: As Operator, I want to register an application of a candidate for a job opening and import all files received.
 actor Operator
-participant RegisterApplicationUI
-participant RegisterApplicationController
+participant RegisterJobApplicationUI
+participant RegisterJobApplicationController
 participant JobOpeningRepository
-participant Application
-participant ApplicationRepository
+participant JobApplication
+participant JobApplicationRepository
 
 
-Operator->RegisterApplicationUI: asks to create an Application
-activate RegisterApplicationUI
-RegisterApplicationUI->RegisterApplicationController: List job openings
+Operator->RegisterJobApplicationUI: asks to create an JobApplication
+activate RegisterJobApplicationUI
+RegisterJobApplicationUI->RegisterJobApplicationController: List job openings
 
-activate RegisterApplicationController
-RegisterApplicationController->JobOpeningRepository: List job openings
+activate RegisterJobApplicationController
+RegisterJobApplicationController->JobOpeningRepository: List job openings
 activate JobOpeningRepository
-JobOpeningRepository->RegisterApplicationController: Returns a list of job openings
+JobOpeningRepository->RegisterJobApplicationController: Returns a list of job openings
 deactivate JobOpeningRepository
 
-RegisterApplicationController->RegisterApplicationUI: Returns a list of job openings
-deactivate RegisterApplicationController
-RegisterApplicationUI->Operator: Displays the list of job openings \n and asks to select one
-deactivate RegisterApplicationUI
+RegisterJobApplicationController->RegisterJobApplicationUI: Returns a list of job openings
+deactivate RegisterJobApplicationController
+RegisterJobApplicationUI->Operator: Displays the list of job openings \n and asks to select one
+deactivate RegisterJobApplicationUI
 
-Operator->RegisterApplicationUI: Selects a job opening
-activate RegisterApplicationUI
-RegisterApplicationUI->Operator: Asks for application data and files
-deactivate RegisterApplicationUI
+Operator->RegisterJobApplicationUI: Selects a job opening
+activate RegisterJobApplicationUI
+RegisterJobApplicationUI->Operator: Asks for application data and files
+deactivate RegisterJobApplicationUI
 
-Operator->RegisterApplicationUI: Submits data
-activate RegisterApplicationUI
-RegisterApplicationUI->RegisterApplicationController: registerApplication()
-activate RegisterApplicationController
+Operator->RegisterJobApplicationUI: Submits data
+activate RegisterJobApplicationUI
+RegisterJobApplicationUI->RegisterJobApplicationController: registerApplication()
+activate RegisterJobApplicationController
 
-RegisterApplicationController->Application: create()
-RegisterApplicationController->ApplicationRepository: save()
-activate ApplicationRepository
+RegisterJobApplicationController->JobApplication: create()
+RegisterJobApplicationController->JobApplicationRepository: save()
+activate JobApplicationRepository
 
-ApplicationRepository->RegisterApplicationController: returns created application
-deactivate ApplicationRepository
-RegisterApplicationController->RegisterApplicationUI: returns success
-deactivate RegisterApplicationController
+JobApplicationRepository->RegisterJobApplicationController: returns created application
+deactivate JobApplicationRepository
+RegisterJobApplicationController->RegisterJobApplicationUI: returns success
+deactivate RegisterJobApplicationController
 
-RegisterApplicationUI->Operator: Displays success message
-deactivate RegisterApplicationUI
+RegisterJobApplicationUI->Operator: Displays success message
+deactivate RegisterJobApplicationUI
 
 @enduml

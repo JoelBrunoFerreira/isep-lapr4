@@ -5,6 +5,7 @@ import eapli.base.JobApplication.dto.JobApplicationDTO;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.candidate.domain.Candidate;
+import eapli.base.candidate.domain.Email;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -79,7 +80,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     public boolean hasJobOpeningReference(String jobRefrence){
         return this.jobOpening.getJobReference().equals(new JobReference(jobRefrence));
     }
-    public boolean hasCandidateEmail(String jobRefrence){
-        return this.jobOpening.getJobReference().equals(new JobReference(jobRefrence));
+    public boolean hasCandidateEmail(String email){
+        return this.candidate.getEmail().equals(new Email(email));
     }
 }

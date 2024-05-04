@@ -20,6 +20,7 @@
  */
 package eapli.base.app.common.console.presentation.authz;
 
+import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.presentation.console.AbstractUI;
@@ -39,6 +40,7 @@ public class LogoutUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         authz.clearSession();
+        final boolean authenticated = new LoginUI(new AuthenticationCredentialHandler()).show();
         return true;
     }
 }

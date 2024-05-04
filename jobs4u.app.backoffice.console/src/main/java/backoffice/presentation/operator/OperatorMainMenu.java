@@ -1,6 +1,7 @@
 package backoffice.presentation.operator;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.operator.jobapplicationmanagement.RegisterJobApplicationUI;
 import eapli.base.usermanagement.application.ListUsersController;
 
 import java.util.InputMismatchException;
