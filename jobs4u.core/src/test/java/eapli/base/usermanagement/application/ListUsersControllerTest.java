@@ -7,12 +7,12 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class ListUsersControllerTest {
+public class ListUsersControllerTest {
 
     ListUsersController listUsersController = new ListUsersController();
-    @Test
-    void findCandidateByEmail() {
 
+    @Test
+    public void findCandidateByEmail() {
 
         Optional<CandidateDTO> candidate = listUsersController.findCandidateByEmail("john@isep.pt");
 

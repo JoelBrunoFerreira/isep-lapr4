@@ -1,14 +1,13 @@
 package backoffice.presentation.operator;
 
 import backoffice.Jobs4uBackofficeApp;
-import eapli.base.usermanagement.application.ListUsersController;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OperatorMainMenu {
     static Scanner read = new Scanner(System.in);
-    ListUsersController listUsersController = new ListUsersController();
+    ListCandidateUI listCandidateUI = new ListCandidateUI();
     AddCandidateUI addCandidateUI = new AddCandidateUI();
     RegisterJobApplicationUI registerJobApplicationUI = new RegisterJobApplicationUI();
     private static final int EXIT_OPTION = 0;
@@ -55,13 +54,9 @@ public class OperatorMainMenu {
         switch (option) {
             case OPTION_1:
                 addCandidateUI.doShow();
-                // do you want to register another candidate
                 break;
             case OPTION_2:
-                System.out.println(listUsersController.listAllCandidates().toString()
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace(",", ""));
+                listCandidateUI.doShow();
                 break;
             case OPTION_3:
                 registerJobApplicationUI.doShow();
@@ -76,11 +71,5 @@ public class OperatorMainMenu {
             default:
                 System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, LOGOUT);
         }
-    }
-
-    public void reRun() {
-        System.out.println("==========================================");
-        System.out.println("Do you want to register another Candidate?");
-        // TODO .....
     }
 }
