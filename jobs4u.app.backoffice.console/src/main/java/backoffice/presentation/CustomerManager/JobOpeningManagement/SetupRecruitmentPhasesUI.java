@@ -80,6 +80,7 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
         System.out.println(list);
 
         controller.setRecruitmentProcessPhases(setRecruitmentProcessPhasesData(list));
+
         String sucessfull = "";
         System.out.println("Phases sucessfully created!" + sucessfull);
     }

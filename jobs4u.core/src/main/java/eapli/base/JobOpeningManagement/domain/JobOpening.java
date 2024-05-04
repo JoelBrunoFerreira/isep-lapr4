@@ -52,7 +52,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Column(nullable = false)
     private Status status;
     @OneToMany
-    @JoinColumn(name = "jobOpening_id", referencedColumnName = "id")
+    @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
     private List<RecruitmentProcessPhase> recruitmentProcess;
     @ManyToOne
     private JobRequirement jobRequirement;
@@ -129,8 +129,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     public void setupRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> dtoList){
         recruitmentProcess = new ArrayList<>();
         for (RecruitmentProcessPhaseDTO dto : dtoList){
-            recruitmentProcess.add(new RecruitmentProcessPhase(Phase.valueOf(dto.getPhase()),
-                    new PhasePeriod(dto.getStartDate(),dto.getEndDate()), jobReference.toString()));
+            recruitmentProcess.add(new RecruitmentProcessPhase(Phase.parse(dto.getPhase()),
+                    new PhasePeriod(dto.getStartDate(),dto.getEndDate()), this.jobReference.toString()));
         }
         //if (jobRequirement!=null && interviewModel!=null){
             this.status = Status.ACTIVE;
