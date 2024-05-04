@@ -22,6 +22,8 @@ import java.util.List;
 @UseCaseController
 public class SetupRecruitmentProcessController {
 
+    private JobOpening jobOpening;
+
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
@@ -41,11 +43,14 @@ public class SetupRecruitmentProcessController {
     }
 
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
-        return jobOpeningRepository.ofIdentity(new JobReference(jobReference)).get().getRecruitmentProcessPhases(withInterview);
+        jobOpening = jobOpeningRepository.ofIdentity(new JobReference(jobReference)).get(); //Gets object
+        return jobOpening.getRecruitmentProcessPhases(withInterview);
     }
 
     public void setRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> recruitmentProcessPhasesDTO){
 
+        jobOpening.setupRecruitmentProcessPhases(recruitmentProcessPhasesDTO);
+        jobOpeningRepository.save(jobOpening);
 
     }
 }

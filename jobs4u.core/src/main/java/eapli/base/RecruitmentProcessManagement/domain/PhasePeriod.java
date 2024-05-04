@@ -1,6 +1,7 @@
 package eapli.base.RecruitmentProcessManagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @Getter
 @ToString
+@Embeddable
 public class PhasePeriod implements ValueObject, Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
