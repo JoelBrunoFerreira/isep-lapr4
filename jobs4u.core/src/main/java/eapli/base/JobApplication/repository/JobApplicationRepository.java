@@ -7,5 +7,6 @@ import eapli.framework.domain.repositories.DomainRepository;
 
 public interface JobApplicationRepository extends DomainRepository<Long, JobApplication> {
 
-    public Iterable<JobApplicationDTO> findApplicationsByJobOpeningId(String jobOpeningId);
+    public Iterable<JobApplicationDTO> findApplicationsByJobOpeningReference(String jobReference);
+    public Iterable<JobApplicationDTO> findApplicationsByJCandidateEmail(String candidateEmail);
 }

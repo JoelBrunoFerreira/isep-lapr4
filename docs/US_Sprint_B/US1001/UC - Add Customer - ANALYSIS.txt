@@ -1,0 +1,31 @@
+	___________
+
+	ANÁLISE
+	____________
+
+
+	Reunião com o cliente  em 2024.03.21
+
+	* Garantir que é usado o email para identificar qualquer utilizador do sistema. (Customer manager, Candidate, Customer)
+	* É importante para cada utilizador termos o nome completo. (Customer manager, Candidate)
+	* Necessário nome e endereço para empresa (Customer)
+
+
+	______________________
+
+	REGRAS DE NEGÓCIO
+	_____________________
+
+
+	* Não é possivel alterar informação sensivel do utilizador como o seu nome e o seu email (Identificador único).
+
+
+	______________________
+		
+	TESTES UNITÁRIOS
+	_____________________
+
+
+	* ensureCustomerUserHasEmail
+	* ensureCustomerUserHasName
+	* ensureSystemUserIsCreated

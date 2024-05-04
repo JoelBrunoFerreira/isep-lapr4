@@ -1,0 +1,5 @@
+Input directory: input_dir
+Output directory: output_dir
+Number of children: 2
+Time interval: 5
+Buffer size: 10

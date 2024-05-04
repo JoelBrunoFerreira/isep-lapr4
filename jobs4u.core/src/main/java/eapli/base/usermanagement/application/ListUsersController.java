@@ -58,6 +58,8 @@ public class ListUsersController{
 
     private final CustomerRepository repo2 = PersistenceContext.repositories().customers();
 
+    public ListUsersController(){}
+
     public Iterable<SystemUser> allUsers() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 

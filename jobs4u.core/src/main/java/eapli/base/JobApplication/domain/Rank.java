@@ -22,4 +22,9 @@ public class Rank implements ValueObject, Serializable {
     protected Rank() {
         this.rank = 0;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(rank);
+    }
 }

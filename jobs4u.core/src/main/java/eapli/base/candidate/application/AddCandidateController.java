@@ -25,15 +25,15 @@ public class AddCandidateController {
         candidateRepository = PersistenceContext.repositories().candidates(autoTx);
     }
 
-    public GeneralDTO addCandidate(final String name, final String email, final String phoneNumber) {
+    public GeneralDTO addCandidate(final String firstName, final String lastName, final String email, final String phoneNumber) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.OPERATOR);
 
         GeneralDTO returnValue = null;
         try {
             autoTx.beginTransaction();
             RegisterUserService registerUserService = new RegisterUserService(autoTx);
-            registerUserService.registerUser(email, name, name, email, Set.of(BaseRoles.CANDIDATE_USER));
-            candidateRepository.save(new Candidate(name, email, phoneNumber, registerUserService.getRegisteredSystemUser()));
+            registerUserService.registerUser(email, firstName, lastName, email, Set.of(BaseRoles.CANDIDATE_USER));
+            candidateRepository.save(new Candidate(firstName, lastName, email, phoneNumber, registerUserService.getRegisteredSystemUser()));
             autoTx.commit();
             returnValue = registerUserService.getRegisteredSystemUserDTO();
         } catch (Exception e) {

@@ -33,7 +33,7 @@ public class RegisterJobOpeningController {
     public JobOpeningDTO registerJobOpening(final String title, final String description, final String address,
                                             final int numberVacancies, final String mode, final String contractType, final String customerEmail) {
 
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
         Optional<Customer> customer = customerService.findCustomerByUsername(customerEmail);
         JobOpening newJobOpening = new JobOpening(description, numberVacancies, address, mode, contractType, title, customer.get(), authz.session().get().authenticatedUser());
         return jobOpeningRepository.save(newJobOpening).toDTO();

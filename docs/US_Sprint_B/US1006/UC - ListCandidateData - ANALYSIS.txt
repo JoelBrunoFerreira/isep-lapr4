@@ -1,0 +1,30 @@
+	___________
+
+	ANÁLISE
+	____________
+
+
+	Reunião com o cliente  em 2024.03.21
+
+	* Garantir que é usado o email para identificar qualquer utilizador do sistema. (Customer manager, Candidate, Customer)
+	* É importante para cada utilizador termos o nome completo. (Customer manager, Candidate)
+	* Necessário nome e endereço para empresa (Customer)
+
+
+	______________________
+
+	REGRAS DE NEGÓCIO
+	_____________________
+
+
+	* É obrigatório mostrar o email, nome e contacto do candidato
+
+
+	______________________
+		
+	TESTES UNIT�RIOS
+	_____________________
+
+
+	* ensureCandidateIsNotNull
+	* ensureNameEmailAndPhoneNumberAreNotNull

@@ -10,41 +10,37 @@ actor CustomerManager as Actor
 participant DisplayCandidateDataUI as UI <<presentation>>
 participant GetCandidateController as Controller <<application>>
 database CandidateRepository as Repository <<repository>>
-participant CandidateMapper as Mapper <<mapper>>
-participant "user:User" as Domain <<domain>>
+participant Candidate as Domain <<domain>>
 participant CandidateDTO as DTO <<DTO>>
 
 Actor --> UI: Display candidate data
 activate UI
-    UI --> Actor: Ask Candidate Id
-    Actor --> UI: Candidate Id
+    UI --> Actor: Ask Candidate Email
+    Actor --> UI: Candidate Email
 
-    UI -> Controller: getCandidateData(id)
+    UI -> Controller: getCandidateData(Email)
 
     activate Controller
-        Controller -> Repository: getCandidateByID(id)
+        Controller -> Repository: getCandidateByID(Email)
 
         activate Repository
             Repository -> Controller: candidate
         deactivate Repository
 
-            Controller -> Mapper: MapToCandidateDTO(id)
 
-        activate Mapper
-            Mapper -> Domain: getInfo(id)
-            activate Domain
-                Domain -> Mapper: candidateInfo
-            deactivate Domain
+            Controller -> Domain: toDTO()
 
-            Mapper -> DTO: create(candidateInfo)
+            Domain -> DTO: toDto()
+            activate DTO
+            DTO -> Controller: CandidateDTO
+            deactivate DTO
 
 
-        activate DTO
-            DTO -> Mapper: candidateDTO
-        deactivate DTO
 
-        Mapper -> Controller: candidateDTO
-        deactivate Mapper
+
+
+
+
         Controller -> UI: candidateDTO
     deactivate Controller
 

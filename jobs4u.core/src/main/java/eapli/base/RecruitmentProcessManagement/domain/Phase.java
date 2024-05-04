@@ -7,7 +7,6 @@ import lombok.ToString;
 import java.io.Serializable;
 
 @Getter
-
 public enum Phase implements Serializable {
     APPLICATION("Application"),
     SCREENING("Screening"),

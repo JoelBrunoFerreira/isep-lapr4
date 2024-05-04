@@ -1,30 +1,48 @@
 @startuml
-title Application Registration and File Import Process
+title US 2002 :: As Operator, I want to register an application of a candidate for a job opening and import all files received.
+actor Operator
+participant RegisterJobApplicationUI
+participant RegisterJobApplicationController
+participant JobOpeningRepository
+participant JobApplication
+participant JobApplicationRepository
 
-participant Operator
-participant System
-participant "Application File Bot" as Bot
 
-== Operator Initiated Registration ==
-Operator -> System: Initiate registration process
-System -> Operator: Prompt to select shared folder
+Operator->RegisterJobApplicationUI: asks to create an JobApplication
+activate RegisterJobApplicationUI
+RegisterJobApplicationUI->RegisterJobApplicationController: List job openings
 
-== Automatic Data Import ==
-System -> Bot: Import data
-Bot --> System: Imported data
+activate RegisterJobApplicationController
+RegisterJobApplicationController->JobOpeningRepository: List job openings
+activate JobOpeningRepository
+JobOpeningRepository->RegisterJobApplicationController: Returns a list of job openings
+deactivate JobOpeningRepository
 
-== Template File Generation and Submission ==
-System -> Operator: Generate template file
-Operator -> Operator: Fill in required data
-Operator -> System: Submit template file
+RegisterJobApplicationController->RegisterJobApplicationUI: Returns a list of job openings
+deactivate RegisterJobApplicationController
+RegisterJobApplicationUI->Operator: Displays the list of job openings \n and asks to select one
+deactivate RegisterJobApplicationUI
 
-== Evaluation and Verification ==
-System -> System: Evaluate application
-System --> Operator: Application status
+Operator->RegisterJobApplicationUI: Selects a job opening
+activate RegisterJobApplicationUI
+RegisterJobApplicationUI->Operator: Asks for application data and files
+deactivate RegisterJobApplicationUI
 
-== Recording in the System ==
-System -> System: Record application submission
-System -> System: Import and store files
-System --> Operator: Confirmation
+Operator->RegisterJobApplicationUI: Submits data
+activate RegisterJobApplicationUI
+RegisterJobApplicationUI->RegisterJobApplicationController: registerApplication()
+activate RegisterJobApplicationController
+
+RegisterJobApplicationController->JobApplication: create()
+RegisterJobApplicationController->JobApplicationRepository: save()
+activate JobApplicationRepository
+
+JobApplicationRepository->RegisterJobApplicationController: returns created application
+deactivate JobApplicationRepository
+RegisterJobApplicationController->RegisterJobApplicationUI: returns success
+deactivate RegisterJobApplicationController
+
+RegisterJobApplicationUI->Operator: Displays success message
+deactivate RegisterJobApplicationUI
 
 @enduml

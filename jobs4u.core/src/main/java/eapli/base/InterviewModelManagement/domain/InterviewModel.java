@@ -14,7 +14,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     @Id
     private long id;
 
-    private InterviewModelFileName fileName; //jar
+    private InterviewModelFilePath filePath; //jar
 
     private InterviewModelTitle title;
 
@@ -36,6 +36,6 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
 
     @Override
     public InterviewModelDTO toDTO() {
-        return new InterviewModelDTO(id, title.toString(), fileName.toString());
+        return new InterviewModelDTO(id, title.toString(), filePath.toString());
     }
 }

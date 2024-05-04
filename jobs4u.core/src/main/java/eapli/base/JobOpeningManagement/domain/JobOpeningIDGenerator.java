@@ -31,9 +31,10 @@ public class JobOpeningIDGenerator implements IdentifierGenerator {
                         stringID = stringID.substring(leftSize);
                         int newID = Integer.parseInt(stringID);
                         newID++;
-                        resultJobReference = new JobReference(customerAcronym + "-" + newID);
+                        String paddedID = String.format("%06d", newID); // Pad the ID with zeros
+                        resultJobReference = new JobReference(customerAcronym + "-" + paddedID);
                     } else {
-                        resultJobReference = new JobReference(customerAcronym + "-1");
+                        resultJobReference = new JobReference(customerAcronym + "-000001"); // Initial job reference
                     }
                 }
             } catch (Exception e) {

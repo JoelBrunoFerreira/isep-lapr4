@@ -1,6 +1,7 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.application.RegisterJobOpeningController;
+import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.io.util.Console;
@@ -14,21 +15,23 @@ public class RegisterJobOpeningUI extends AbstractUI {
     protected boolean doShow() {
         try {
             Iterable<CustomerDTO> customers = registerJobOpeningController.getCustomersDTO();
-            SelectWidget<CustomerDTO> customerSelector = new SelectWidget<>("Select the customer corresponding to the job opening:", customers);
+            SelectWidget<CustomerDTO> customerSelector = new SelectWidget<>("Select the customer corresponding to the job opening:", customers, visitee -> System.out.print(visitee) );
             customerSelector.show();
             CustomerDTO customer = customerSelector.selectedElement();
-
-            if (customer != null) {
+            if (customer == null){
+                new AddCustomerUI().doShow();
+            }
+            else{
                 final String title = Console.readLine("Title:");
                 final String description = Console.readLine("Description:");
                 final String address = Console.readLine("Company address:");
                 final int numberVacancies = Console.readInteger("Number of vacancies:");
 
-                SelectWidget<String> modeSelector = new SelectWidget<>("Mode:", registerJobOpeningController.getModeList());
+                SelectWidget<String> modeSelector = new SelectWidget<>("Mode:", registerJobOpeningController.getModeList(), visitee -> System.out.print(visitee));
                 modeSelector.show();
                 final String mode = modeSelector.selectedElement();
 
-                SelectWidget<String> contractTypeSelector = new SelectWidget<>("Contract type:", registerJobOpeningController.getContractTypeList());
+                SelectWidget<String> contractTypeSelector = new SelectWidget<>("Contract type:", registerJobOpeningController.getContractTypeList(), visitee -> System.out.print(visitee));
                 contractTypeSelector.show();
                 final String contractType = contractTypeSelector.selectedElement();
 
