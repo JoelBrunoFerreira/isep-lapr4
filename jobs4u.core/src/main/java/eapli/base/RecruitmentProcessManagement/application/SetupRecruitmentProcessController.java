@@ -46,5 +46,6 @@ public class SetupRecruitmentProcessController {
 
     public void setRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> recruitmentProcessPhasesDTO){
 
+
     }
 }
