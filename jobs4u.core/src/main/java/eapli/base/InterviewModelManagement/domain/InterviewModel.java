@@ -29,6 +29,14 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
         return id == ((InterviewModel) other).id;
     }
 
+    protected InterviewModel() {
+    }
+
+    public InterviewModel(InterviewModelFilePath filePath, InterviewModelTitle title) {
+        this.filePath = filePath;
+        this.title = title;
+    }
+
     @Override
     public Long identity() {
         return id;
