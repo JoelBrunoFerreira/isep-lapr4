@@ -2,6 +2,7 @@ package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
+import eapli.base.RecruitmentProcessManagement.domain.Phase;
 import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
@@ -81,18 +82,17 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
     }
 
     public void setRecruitmentProcessPhasesData(List<RecruitmentProcessPhaseDTO> list) {
+
         LocalDate maxDate = LocalDate.now();
-
-
-        boolean validInput = false;
-        boolean dateControl =false;
+        boolean validInput;
+        boolean dateControl;
 
 
         for (RecruitmentProcessPhaseDTO phase : list) {
             System.out.println(phase);
             validInput = false;
 
-            if (phase.getPhase().equals("APPLICATION")) {
+            if (phase.getPhase().equals(Phase.APPLICATION.getDesignation())) {
 
                 while (!validInput){
 
@@ -110,7 +110,7 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
                     }
                 }
 
-            } else if (phase.getPhase().equals("SCREENING")) {
+            } else if (phase.getPhase().equals(Phase.SCREENING.getDesignation())) {
 
                 while (!validInput){
 
@@ -127,7 +127,7 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
                         System.out.println("Invalid date format.");
                     }
                 }
-            } else if (phase.getPhase().equals("INTERVIEWS")) {
+            } else if (phase.getPhase().equals(Phase.INTERVIEWS.getDesignation())) {
                 while (!validInput){
 
                     try {
@@ -144,7 +144,7 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
                     }
                 }
 
-            } else if (phase.getPhase().equals("ANALYSIS")) {
+            } else if (phase.getPhase().equals(Phase.ANALYSIS.getDesignation())) {
                 while (!validInput){
 
                     try {
@@ -161,7 +161,7 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
                     }
                 }
 
-            }else if (phase.getPhase().equals("RESULT")) {
+            }else if (phase.getPhase().equals(Phase.RESULT.getDesignation())) {
                 while (!validInput){
 
                     try {
@@ -178,8 +178,6 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
                     }
                 }
             }
-
-
         }
     }
 
@@ -195,7 +193,7 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
             return false;
         }
 
-        if (startDate.isBefore(endDate)) {
+        if (startDate.isBefore(endDate) || startDate.equals(maxDate)) {
             return true;
         }
 
