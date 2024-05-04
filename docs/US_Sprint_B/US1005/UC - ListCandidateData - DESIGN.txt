@@ -1,0 +1,13 @@
+	_________
+
+	DESIGN
+	_________
+
+	* Utilizar a estrutura base standard da aplicação baseada em camadas
+	* Caso de uso muito semelhante ao da US1006 -> utilizar a mesma estrutura com as seguitnes alterações:
+	    - remover a chamada ao repositório de Candidates;
+	    - utilizar o método findApplicationsByJobOpeningReference() (em vez de findByEmail).
+
+   	Classes do dom�nio:  Job Application e suas classes associadas
+   	Controlador: ListApplicationsController
+   	Repository: JobApplicationRepository
