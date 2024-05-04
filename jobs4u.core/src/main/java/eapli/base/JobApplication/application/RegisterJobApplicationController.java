@@ -6,18 +6,14 @@ import eapli.base.JobApplication.dto.JobApplicationDTO;
 import eapli.base.JobApplication.repository.JobApplicationRepository;
 import eapli.base.JobOpeningManagement.application.JobOpeningSvc;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
-import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
-import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.candidate.repository.CandidateRepository;
-import eapli.base.customer.domain.Customer;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.presentation.console.SelectWidget;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +28,7 @@ public class RegisterJobApplicationController {
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
     private final JobApplicationRepository applicationRepository = PersistenceContext.repositories().jobApplications();
     private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidates();
+    private final ImportCandidatesFilePathsSvc importCandidatesFilePathsSvc = new ImportCandidatesFilePathsSvc();
 
     public RegisterJobApplicationController() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.OPERATOR);
@@ -74,4 +71,7 @@ public class RegisterJobApplicationController {
         return applicationFiles;
     }
 
+    public String getFolderName(String directoryPath){
+       return importCandidatesFilePathsSvc.getFolderName(directoryPath);
+    }
 }
