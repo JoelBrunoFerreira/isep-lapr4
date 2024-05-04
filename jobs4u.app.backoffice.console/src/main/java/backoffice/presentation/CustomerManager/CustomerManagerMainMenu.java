@@ -1,6 +1,7 @@
 package backoffice.presentation.CustomerManager;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJobApplicationsUI;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
@@ -44,7 +45,7 @@ public class CustomerManagerMainMenu {
                     6. Select Job Requirements
                     7. Select Interview Model
                     8. Display candidate's personal data
-                    9. Display candidate's personal data and applications
+                    9. List Job Applications
                     0. Exit
                     =====================================
                     """);
@@ -99,7 +100,7 @@ public class CustomerManagerMainMenu {
                     new DisplayCandidateDataUI().show();
                     break;
                 case OPTION_9:
-                    //new DisplayCandidateDataAndJobApplicationsUI();
+                    new ListJobOpeningsUI().show();
                     System.out.println("Not implemented yet");
                     break;
                 case PREVIOUS_MENU:
@@ -133,16 +134,22 @@ public class CustomerManagerMainMenu {
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobOpeningMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
+        final Menu jobApplicationMenu = new Menu("Job Application Management >");
+        jobApplicationMenu.addItem(OPTION_1, "List Job Applications", new ListJobApplicationsUI():: show);
+        if (!Application.settings().isMenuLayoutHorizontal())
+            jobApplicationMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        jobApplicationMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
         final Menu candidatesMenu = new Menu("Candidates >");
         candidatesMenu.addItem(OPTION_1, "Display Candidates", new DisplayCandidateDataUI()::show);
-        //TODO candidatesMenu.addItem(OPTION_2, "Display Candidates Applications Customer", new RegisterJobOpeningUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             candidatesMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         candidatesMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         menu.addSubMenu(OPTION_1, customersMenu);
         menu.addSubMenu(OPTION_2, jobOpeningMenu);
-        menu.addSubMenu(OPTION_3, candidatesMenu);
+        menu.addSubMenu(OPTION_3, jobApplicationMenu);
+        menu.addSubMenu(OPTION_4, candidatesMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal())
             menu.addItem(MenuItem.separator(SEPARATOR_LABEL));

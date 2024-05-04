@@ -12,11 +12,11 @@ import java.util.List;
 public class JobApplicationDTO {
     private long id;
     private List<String> files;
-    private int rank;
-    private String state;
-    private int interviewGrade;
-    private String candidateEmail;
-    private String JobOpeningReference;
+    public int rank;
+    public String state;
+    public int interviewGrade;
+    public String candidateEmail;
+    public String JobOpeningReference;
 
     public JobApplicationDTO(List<String> files, String candidateEmail, String jobOpeningReference) {
         this.files = files;
