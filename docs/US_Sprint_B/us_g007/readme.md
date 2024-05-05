@@ -3,6 +3,7 @@
 ## 1. Requirements Engineering
 * As a Project Manager, I want to the system to support and apply authentication and authorization 
 for all its users and functionalities.
+* Priority: 1
 
 ## 2. Customer Specifications and Clarifications
 * From the client clarifications:
@@ -28,7 +29,7 @@ Input Data:
         a password (String; mandatory)
 
 ## 6. System Sequence Diagram (SSD)
-![US_g007_SSD]()
+![US_g007_SSD](US_g007_SSD.svg)
 
 ## 7. Tests
 

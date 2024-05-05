@@ -2,6 +2,7 @@
 
 ## 1. Requirements Engineering
 * As Operator, I want to register a candidate and create a corresponding user.
+* Priority: 1
 
 ## 2. Customer Specifications and Clarifications
 + From the client clarifications:
@@ -79,7 +80,7 @@ Output Data:
 
 
 ## 6. System Sequence Diagram (SSD)
-![US_2000a_SSD]()
+[US_2000a_SSD.puml](US_2000a_SSD.puml)
 
 ## 7. Tests
 
