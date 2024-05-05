@@ -34,7 +34,7 @@ public class LogoutUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Logout sucessful!!\n Make a new Login";
+        return "Logout successful!! Make a new Login";
     }
 
     @Override

@@ -37,19 +37,24 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
 
     private JobOpeningDTO getJobOpening() {
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsDTO();
-        SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Job Openings:", jobOpeningDTOS, new JobOpeningPrinter());
-        selectJobOpeningDTO.show();
-        return selectJobOpeningDTO.selectedElement();
+        if (!jobOpeningDTOS.iterator().hasNext()){
+            System.out.println("No job openings are pending.");
+            return null;
+        } else {
+            SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Job Openings:", jobOpeningDTOS, new JobOpeningPrinter());
+            selectJobOpeningDTO.show();
+            return selectJobOpeningDTO.selectedElement();
+        }
+
     }
 
     private void mainMenu() {
         JobOpeningDTO dto = getJobOpening();
         if (dto == null) {
-            System.out.println("No job openings are pending.");
+            System.out.println("Returning to main menu...");
         } else {
-            System.out.println(dto);
-            System.out.println(dto.jobReference);
-            //TODO, ERRO a partir daqui:
+//            System.out.println(dto);
+//            System.out.println(dto.jobReference);
             System.out.println(controller.getJO(dto.jobReference));
 
             boolean withInterview = false;
