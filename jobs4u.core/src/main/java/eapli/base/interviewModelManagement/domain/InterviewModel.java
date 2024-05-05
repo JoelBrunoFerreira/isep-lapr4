@@ -4,20 +4,29 @@ import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewModelDTO> {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private InterviewModelTitle title;
     private InterviewModelClass className;
 
-    private InterviewModelTitle title;
+    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
+        this.id = id;
+        this.className = className;
+        this.title = title;
+    }
+
+    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
+        this.className = className;
+        this.title = title;
+    }
+
 
     @Override
     public String toString() {
@@ -27,8 +36,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     protected InterviewModel() {
     }
 
-    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle title) {
-        this.id = id;
+    public InterviewModel(InterviewModelTitle title, InterviewModelClass className) {
         this.className = className;
         this.title = title;
     }

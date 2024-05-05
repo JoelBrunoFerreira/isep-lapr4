@@ -1,5 +1,7 @@
 package backoffice.presentation.CustomerManager;
 
+import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJobApplicationsUI;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
@@ -7,6 +9,9 @@ import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.io.util.Console;
+
+import java.util.InputMismatchException;
 
 public class CustomerManagerMainMenu {
 
@@ -45,6 +50,12 @@ public class CustomerManagerMainMenu {
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobOpeningMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
+        final Menu jobApplicationMenu = new Menu("Job Application Management >");
+        jobApplicationMenu.addItem(OPTION_1, "List Job Applications", new ListJobApplicationsUI():: show);
+        if (!Application.settings().isMenuLayoutHorizontal())
+            jobApplicationMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        jobApplicationMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
         final Menu candidatesMenu = new Menu("Candidates >");
         candidatesMenu.addItem(OPTION_1, "Display Candidates", new DisplayCandidateDataUI()::show);
         //TODO candidatesMenu.addItem(OPTION_2, "Display Candidates Applications Customer", new RegisterJobOpeningUI()::show);
@@ -54,7 +65,8 @@ public class CustomerManagerMainMenu {
 
         menu.addSubMenu(OPTION_1, customersMenu);
         menu.addSubMenu(OPTION_2, jobOpeningMenu);
-        menu.addSubMenu(OPTION_3, candidatesMenu);
+        menu.addSubMenu(OPTION_3, jobApplicationMenu);
+        menu.addSubMenu(OPTION_4, candidatesMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal())
             menu.addItem(MenuItem.separator(SEPARATOR_LABEL));

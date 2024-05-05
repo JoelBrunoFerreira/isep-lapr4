@@ -47,6 +47,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
         registerCustomerManager("manager2", PASSWORD1, "Rachel", "Walsh", "rachek@email.com");
         registerOperator("operator1", PASSWORD1, "Luís", "Figo", "figo@email.com");
         registerOperator("operator2", PASSWORD1, "Paolo", "Maldini", "maldini@email.com");
+        registerLanguageEngineer("l_engineer1" , PASSWORD1, "Jorge", "Costa", "jorge_costa@bicho.com");
         return true;
     }
 
@@ -89,6 +90,14 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
                                          final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(BaseRoles.CUSTOMER_MANAGER);
+
+        return registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    public SystemUser registerLanguageEngineer(final String username, final String password,
+                                              final String firstName, final String lastName, final String email) {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(BaseRoles.LANGUAGE_ENGINEER);
 
         return registerUser(username, password, firstName, lastName, email, roles);
     }
