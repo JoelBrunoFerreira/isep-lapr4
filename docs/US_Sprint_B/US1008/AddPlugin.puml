@@ -1,0 +1,44 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor LanguageEngineer as Actor
+participant AddPluginUI as UI <<presentation>>
+participant AddJobRequirementController as Controller <<application>>
+participant JobRequirement as Domain <<domain>>
+database JobRequirementRepository as CustomerRepository <<repository>>
+
+Actor --> UI: Add Plugin
+activate UI
+    UI -> Controller: create
+
+
+
+    UI -> Controller: addJobRequirement(name, className)
+    activate Controller
+
+
+        note right of Controller: Role = Language Engineer
+
+        Controller -> Domain: newJobRequirement()
+
+
+
+
+
+
+        Controller -> CustomerRepository: save()
+
+
+
+
+        Controller->UI: plugin
+    deactivate Controller
+
+        UI-->Actor: displaySuccessMessage
+deactivate UI
+@enduml

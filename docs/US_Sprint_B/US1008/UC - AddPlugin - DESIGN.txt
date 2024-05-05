@@ -1,0 +1,11 @@
+	_________
+
+	DESIGN
+	_________
+
+	* Utilizar a estrutura base standard da aplicação baseada em camadas
+	* O diagrama apresentado reflete o caso de uso de adicionar JobRequirements. A estrutura é a mesma para o caso de adicionar InterviewModels.
+
+   	Classes do dom�nio:  JobRequirement e InterviewModel e suas classes associadas
+   	Controlador: AddJobRequirementController; AddInterviewModelController
+   	Repository: JobRequirementRepository; InterviewModelRepository
