@@ -33,4 +33,9 @@ public class ListApplicationController {
         return applicationRepository.findApplicationsByJobOpeningReference(jobOpeningId);
     }
 
+    public Iterable<JobApplicationDTO> listApplicationsByCandidate(String candidateEmail) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+        return applicationRepository.findApplicationsByJCandidateEmail(candidateEmail);
+    }
+
 }

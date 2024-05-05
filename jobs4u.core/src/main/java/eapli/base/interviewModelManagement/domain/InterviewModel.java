@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewModelDTO> {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "Class")
@@ -18,18 +19,25 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
 
     private InterviewModelTitle title;
 
+
+    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
+        this.id = id;
+        this.className = className;
+        this.title = title;
+    }
+
+    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
+        this.className = className;
+        this.title = title;
+    }
+
+
     @Override
     public String toString() {
         return "%ID: " + String.valueOf(id) + " Tilte: " + title;
     }
 
     protected InterviewModel() {
-    }
-
-    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle title) {
-        this.id = id;
-        this.className = className;
-        this.title = title;
     }
 
     @Override

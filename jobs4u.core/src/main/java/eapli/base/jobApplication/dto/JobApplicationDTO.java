@@ -10,16 +10,16 @@ import java.util.List;
 public class JobApplicationDTO {
     private long id;
     private List<String> files;
-    private int rank;
-    private String state;
-    private int interviewGrade;
-    private String candidateEmail;
-    private String jobOpeningReference;
+    public int rank;
+    public String state;
+    public int interviewGrade;
+    public String candidateEmail;
+    public String JobOpeningReference;
 
     public JobApplicationDTO(List<String> files, String candidateEmail, String jobOpeningReference) {
         this.files = files;
         this.candidateEmail = candidateEmail;
-        this.jobOpeningReference = jobOpeningReference;
+        this.JobOpeningReference = jobOpeningReference;
     }
 
     public JobApplicationDTO(long id, List<String> files, int rank, String state, int interviewGrade, String candidateEmail, String jobOpeningReference) {
@@ -29,7 +29,7 @@ public class JobApplicationDTO {
         this.state = state;
         this.interviewGrade = interviewGrade;
         this.candidateEmail = candidateEmail;
-        this.jobOpeningReference = jobOpeningReference;
+        this.JobOpeningReference = jobOpeningReference;
     }
 
     public String getCandidateEmail() {
@@ -37,6 +37,6 @@ public class JobApplicationDTO {
     }
 
     public String getJobOpeningReference() {
-        return jobOpeningReference;
+        return JobOpeningReference;
     }
 }

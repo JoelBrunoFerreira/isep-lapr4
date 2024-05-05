@@ -1,6 +1,7 @@
 package backoffice.presentation;
 
 import backoffice.presentation.CustomerManager.CustomerManagerMainMenu;
+import backoffice.presentation.LanguageEnginner.LanguageEngineerMainMenu;
 import backoffice.presentation.operator.OperatorMainMenu;
 import backoffice.presentation.users.UsersMenu;
 import eapli.base.Application;
@@ -77,6 +78,9 @@ public class MainMenu extends AbstractUI {
         }
         else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
             new OperatorMainMenu().displayOperatorMenu();
+        }
+        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.LANGUAGE_ENGINEER)){
+            new LanguageEngineerMainMenu().buildLanguageEngineerManagerMenu();
         }
         if (!Application.settings().isMenuLayoutHorizontal())
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));

@@ -10,20 +10,18 @@ actor CustomerManager as Actor
 participant DisplayCandidateDataUI as UI <<presentation>>
 participant GetCandidateController as CandidateController <<application>>
 
-participant GetJobApplicationController as Controller <<application>>
+participant ListJobApplicationController as Controller <<application>>
 database JobApplicationRepository as Repository <<repository>>
-participant JobApplicationMapper as Mapper <<mapper>>
-participant "jobApplication:JobApplication" as Domain <<domain>>
-participant JobApplicationDTO as DTO <<DTO>>
+
 
 
 
 Actor --> UI: Display candidate data
 activate UI
-    UI --> Actor: Ask Candidate Id
-    Actor --> UI: CandidateController Id
+    UI --> Actor: Ask Candidate Email
+    Actor --> UI: CandidateController Email
 
-    UI -> CandidateController: getCandidateData(id)
+    UI -> CandidateController: getCandidateData(Email)
 
     activate CandidateController
 
@@ -32,32 +30,19 @@ activate UI
 
     deactivate CandidateController
 
-UI -> Controller: getJobApplicationsByCandidateId(id)
+UI -> Controller: getJobApplicationsByCandidateEmail(email)
 
     activate Controller
-        Controller -> Repository: getJobApplicationsByCandidateId(id)
+        Controller -> Repository: getJobApplicationsByCandidateEmail(email)
 
         activate Repository
             Repository -> Controller: job applications
         deactivate Repository
 
-            Controller -> Mapper: MapToJobApplicationDTO(id)
-
-        activate Mapper
-            Mapper -> Domain: getInfo(id)
-            activate Domain
-                Domain -> Mapper: jobApplicationInfo
-            deactivate Domain
-
-            Mapper -> DTO: create(jobApplicationInfo)
 
 
-        activate DTO
-            DTO -> Mapper: jobApplicationDTO
-        deactivate DTO
 
-        Mapper -> Controller: jobApplicationDTO
-        deactivate Mapper
+
         Controller -> UI: jobApplicationDTO
     deactivate Controller
 

@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequirementDTO> {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "Title")
@@ -19,6 +20,11 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     private JobRequirementClass jobRequirementClass;
 
     protected JobRequirement() {
+    }
+
+    public JobRequirement(JobRequirementTitle requirementTitle, JobRequirementClass className) {
+        this.jobRequirementTitle = requirementTitle;
+        this.jobRequirementClass = className;
     }
 
     public JobRequirement(Long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass) {
@@ -45,7 +51,7 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
 
     @Override
     public JobRequirementDTO toDTO() {
-        return new JobRequirementDTO(id, jobRequirementTitle.toString(), jobRequirementClass.toString());
+     return new JobRequirementDTO(id, jobRequirementTitle.toString(), jobRequirementClass.toString());
     }
 
     @Override
