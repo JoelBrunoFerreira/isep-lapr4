@@ -21,6 +21,7 @@
     <class>eapli.base.operator.domain.Operator</class>
     <class>eapli.base.customerManager.domain.CustomerManager</class>
     <class>eapli.base.jobApplication.domain.JobApplication</class>
+    <class>eapli.base.languageEngineer.domain.LanguageEngineer</class>
 
     <properties>
       <!-- Local DB - JPA -->

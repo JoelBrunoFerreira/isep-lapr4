@@ -30,6 +30,7 @@ import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.customerManager.repository.CustomerManagerRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.languageEngineer.repository.LanguageEngineerRepository;
 import eapli.base.operator.repository.OperatorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -37,7 +38,6 @@ import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserR
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 /**
- *
  * Created by nuno on 21/03/16.
  */
 public class JpaRepositoryFactory implements RepositoryFactory {
@@ -119,6 +119,15 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaOperatorRepository(autoTx);
     }
 
+    public LanguageEngineerRepository languageEngineers() {
+        return new JpaLanguageEngineerRepository(Application.settings().getPersistenceUnitName());
+    }
+
+
+    public LanguageEngineerRepository languageEngineers(TransactionalContext autoTx) {
+        return new JpaLanguageEngineerRepository(autoTx);
+    }
+
     @Override
     public CustomerManagerRepository customerManagers() {
         return new JpaCustomerManagerRepository(Application.settings().getPersistenceUnitName());
@@ -158,10 +167,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaJobRequirementRepository(autoTx);
     }
 
-    public InterviewModelRepository interviewModelRepository(){
+    public InterviewModelRepository interviewModelRepository() {
         return new JpaInterviewModelRepository(Application.settings().getPersistenceUnitName());
     }
-    public InterviewModelRepository interviewModelRepository(TransactionalContext autoTx){
+
+    public InterviewModelRepository interviewModelRepository(TransactionalContext autoTx) {
         return new JpaInterviewModelRepository(autoTx);
     }
 

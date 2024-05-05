@@ -31,6 +31,7 @@ import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.customerManager.repository.CustomerManagerRepository;
 import eapli.base.infrastructure.bootstrapers.Jobs4uBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.languageEngineer.repository.LanguageEngineerRepository;
 import eapli.base.operator.repository.OperatorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -120,6 +121,15 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public OperatorRepository operators(TransactionalContext autoTx) {
+        return null;
+    }
+    @Override
+    public LanguageEngineerRepository languageEngineers() {
+        return null;
+    }
+
+    @Override
+    public LanguageEngineerRepository languageEngineers(TransactionalContext autoTx) {
         return null;
     }
 
