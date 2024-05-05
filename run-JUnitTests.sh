@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-mvn test
+
+mvn test dependency:copy-dependencies

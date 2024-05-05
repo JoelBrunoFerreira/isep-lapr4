@@ -1,34 +1,38 @@
-# US g007
+# US g007 - Apply authentication and authorization for all users
 
-## 1. Context
+## 1. Requirements Engineering
+* As a Project Manager, I want to the system to support and apply authentication and authorization 
+for all its users and functionalities.
+* Priority: 1
 
-*As a Project Manager, I want the system to support and apply authentication and
-authorization for all its users and functionalities.*
+## 2. Customer Specifications and Clarifications
+* From the client clarifications:
 
-## 2. Requirements
+>Question: n/a
+>Answer: n/a
 
+## 3. Acceptance Criteria
 
-## 3. Analysis
+    AC1: All system users should be registered in the application in order to be able to use it.
+    AC2: All system users should log in with an username and a password.
+    AC3: Every system user has a specific role with that comes with it's own authorization level.
 
+## 4. Found out Dependencies
+* n/a
 
-## 4. Design
+## 5 Input and Output Data
 
-### 4.1. Realization
+Input Data:
 
+    Typed data:
+        a username (String; mandatory)
+        a password (String; mandatory)
 
-### 4.2. Class Diagram
+## 6. System Sequence Diagram (SSD)
+![US_g007_SSD](US_g007_SSD.svg)
 
+## 7. Tests
 
-### 4.3. Applied Patterns
+## 8. Observations
+* n/a
 
-
-### 4.4. Tests
-
-
-## 5. Implementation
-
-
-## 6. Integration/Demonstration
-
-
-## 7. Observations

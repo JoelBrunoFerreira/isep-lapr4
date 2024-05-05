@@ -24,7 +24,7 @@
 
     <properties>
       <!-- Local DB - JPA -->
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/h2/jobs4uDB"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/.h2/jobs4uDB"/>
 
       <!-- InMemory -->
       <!-- <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./db/jobs4uDB"/>-->

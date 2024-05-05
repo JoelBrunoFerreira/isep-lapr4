@@ -35,6 +35,7 @@ public class AddCandidateUI extends AbstractUI {
             System.out.println("Role(s): " + registeredUser.get("roles").toString());
             System.out.println("================================");
             System.out.println();
+            reRunMenu();
         } catch (IntegrityViolationException | ConstraintViolationException e) {
             System.out.println("Error registering candidate.\nCode already in use.\n");
         } catch (Exception e) {
@@ -47,5 +48,26 @@ public class AddCandidateUI extends AbstractUI {
     @Override
     public String headline() {
         return "Register New Candidate";
+    }
+
+    public void reRunMenu() {
+        System.out.println("========================================");
+        System.out.println("Do you want to register a new Candidate?");
+        System.out.println("========================================");
+        System.out.println();
+        String anwser = Console.readLine("Enter an option: (y/n)");
+
+        while(anwser.trim().isEmpty()) {
+            anwser = Console.readLine("Enter an option: (y/n)");
+        }
+        if (anwser.equalsIgnoreCase("y")) {
+            doShow();
+        } else if (anwser.equalsIgnoreCase("n")) {
+            new OperatorMainMenu();
+        } else {
+            System.out.println("Please choose a valid option! (y/n)");
+            reRunMenu();
+        }
+
     }
 }
