@@ -1,9 +1,9 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
-import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
-import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.Phase;
-import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
+import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
+import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
+import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.domain.Phase;
+import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 

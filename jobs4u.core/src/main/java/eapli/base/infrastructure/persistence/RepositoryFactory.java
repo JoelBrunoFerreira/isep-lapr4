@@ -20,9 +20,9 @@
  */
 package eapli.base.infrastructure.persistence;
 
-import eapli.base.InterviewModelManagement.repository.InterviewModelRepository;
-import eapli.base.JobApplication.repository.JobApplicationRepository;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
+import eapli.base.jobApplication.repository.JobApplicationRepository;
+import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.jobRequirementsManagement.repository.JobRequirementRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
@@ -84,6 +84,8 @@ public interface RepositoryFactory {
 //    RequirementsSpecificationImporterPluginRepository requirementsSpecificationImporterPlugins();
 
     JobRequirementRepository jobRequirements();
+
+    JobRequirementRepository jobRequirements(TransactionalContext autoTx);
 
     InterviewModelRepository interviewModelRepository();
 }

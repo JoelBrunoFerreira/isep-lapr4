@@ -2,17 +2,16 @@ package eapli.base.persistence.impl.jpa;
 
 
 import eapli.base.Application;
-import eapli.base.JobOpeningManagement.domain.Status;
-import eapli.base.JobOpeningManagement.domain.JobOpening;
-import eapli.base.JobOpeningManagement.domain.JobReference;
-import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.jobOpeningManagement.domain.Status;
+import eapli.base.jobOpeningManagement.domain.JobOpening;
+import eapli.base.jobOpeningManagement.domain.JobReference;
+import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
+import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.lang.reflect.Method;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

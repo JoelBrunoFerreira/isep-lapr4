@@ -1,0 +1,12 @@
+package eapli.base.jobApplication.repository;
+
+
+import eapli.base.jobApplication.domain.JobApplication;
+import eapli.base.jobApplication.dto.JobApplicationDTO;
+import eapli.framework.domain.repositories.DomainRepository;
+
+public interface JobApplicationRepository extends DomainRepository<Long, JobApplication> {
+
+    public Iterable<JobApplicationDTO> findApplicationsByJobOpeningReference(String jobReference);
+    public Iterable<JobApplicationDTO> findApplicationsByJCandidateEmail(String candidateEmail);
+}

@@ -1,8 +1,7 @@
 package eapli.base.infrastructure.bootstrapers;
 
-import eapli.base.JobOpeningManagement.domain.JobOpening;
-import eapli.base.JobOpeningManagement.domain.JobTitle;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.jobOpeningManagement.domain.JobOpening;
+import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.customer.domain.Customer;
 import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -11,10 +10,8 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import java.util.Calendar;
 import java.util.Set;
 
 public class JobsDataBootstrapService {

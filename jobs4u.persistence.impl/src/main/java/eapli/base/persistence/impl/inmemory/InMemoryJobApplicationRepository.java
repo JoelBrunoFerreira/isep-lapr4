@@ -1,17 +1,10 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.JobApplication.domain.JobApplication;
-import eapli.base.JobApplication.dto.JobApplicationDTO;
-import eapli.base.JobApplication.repository.JobApplicationRepository;
-import eapli.base.JobOpeningManagement.domain.JobOpening;
-import eapli.base.JobOpeningManagement.domain.JobReference;
-import eapli.base.JobOpeningManagement.domain.Status;
-import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.base.jobApplication.domain.JobApplication;
+import eapli.base.jobApplication.dto.JobApplicationDTO;
+import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -21,9 +21,9 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.InterviewModelManagement.repository.InterviewModelRepository;
-import eapli.base.JobApplication.repository.JobApplicationRepository;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
+import eapli.base.jobApplication.repository.JobApplicationRepository;
+import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.jobRequirementsManagement.repository.JobRequirementRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
@@ -149,9 +149,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaJobApplicationRepository(autoTx);
     }
 
-    @Override
+
     public JobRequirementRepository jobRequirements() {
-        return null;
+        return new JpaJobRequirementRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    public JobRequirementRepository jobRequirements(TransactionalContext autoTx) {
+        return new JpaJobRequirementRepository(autoTx);
     }
 
     public InterviewModelRepository interviewModelRepository(){

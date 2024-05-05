@@ -1,8 +1,8 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
-import eapli.base.JobOpeningManagement.application.ListJobOpeningsController;
-import eapli.base.JobOpeningManagement.domain.Status;
-import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
+import eapli.base.jobOpeningManagement.application.ListJobOpeningsController;
+import eapli.base.jobOpeningManagement.domain.Status;
+import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.app.common.console.presentation.customer.CustomerPrinter;
 import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.io.util.Console;

@@ -1,18 +1,14 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.JobApplication.domain.JobApplication;
-import eapli.base.JobApplication.dto.JobApplicationDTO;
-import eapli.base.JobApplication.repository.JobApplicationRepository;
-import eapli.base.JobOpeningManagement.domain.JobOpening;
-import eapli.base.JobOpeningManagement.domain.JobReference;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.jobApplication.domain.JobApplication;
+import eapli.base.jobApplication.dto.JobApplicationDTO;
+import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplication, Long, Long >
         implements JobApplicationRepository {

@@ -1,7 +1,7 @@
 package eapli.base.infrastructure.bootstrapers;
 
 
-import eapli.base.JobOpeningManagement.domain.JobOpening;
+import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.customer.domain.Customer;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;

@@ -7,10 +7,19 @@ import lombok.NoArgsConstructor;
 
 @DTO
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class JobRequirementDTO {
     private long id;
-    private String requirementTitle;
-    private String fileName;
+    private String title;
+    private String className;
+
+    public JobRequirementDTO(long id, String title, String className) {
+        this.id = id;
+        this.title = title;
+        this.className = className;
+    }
+
+    @Override
+    public String toString() {
+        return "Job Requirement ID: " + id + " Title: " + title;
+    }
 }

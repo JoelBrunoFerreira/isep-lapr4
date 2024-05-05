@@ -1,6 +1,5 @@
 package backoffice.presentation.CustomerManager;
 
-import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
@@ -8,9 +7,6 @@ import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
-import eapli.framework.io.util.Console;
-
-import java.util.InputMismatchException;
 
 public class CustomerManagerMainMenu {
 
@@ -42,7 +38,7 @@ public class CustomerManagerMainMenu {
         jobOpeningMenu.addItem(OPTION_1, "List Job Openings", new ListJobOpeningsUI()::show);
         jobOpeningMenu.addItem(OPTION_2, "Register Job Openings", new RegisterJobOpeningUI()::show);
         jobOpeningMenu.addItem(OPTION_3, "Setup Recruitment Process Phases", new SetupRecruitmentPhasesUI()::show);
-        jobOpeningMenu.addItem(OPTION_4, "Select Requirement Specifications", new SelectRequirementsSpecificationsUI()::show);
+        jobOpeningMenu.addItem(OPTION_4, "Select Requirement Specifications", new SelectJobRequirementsUI()::show);
         jobOpeningMenu.addItem(OPTION_5, "Select an Interview Model", new SelectInterviewModelUI()::show);
         //TODO jobOpeningMenu.addItem(OPTION_6, "Generate interview template", new SelectInterviewModelUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())

@@ -12,16 +12,19 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     @Id
     private long id;
 
-    private RequirementTitle requirementTitle;
+    @Column(name = "Title")
+    private JobRequirementTitle jobRequirementTitle;
 
-    private FileName fileName; //path
+    @Column(name = "Class")
+    private JobRequirementClass jobRequirementClass;
 
     protected JobRequirement() {
     }
 
-    public JobRequirement(RequirementTitle requirementTitle, FileName fileName) {
-        this.requirementTitle = requirementTitle;
-        this.fileName = fileName;
+    public JobRequirement(Long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass) {
+        this.id = id;
+        this.jobRequirementTitle = jobRequirementTitle;
+        this.jobRequirementClass = jobRequirementClass;
     }
 
     @Override
@@ -42,11 +45,11 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
 
     @Override
     public JobRequirementDTO toDTO() {
-        return new JobRequirementDTO(id, requirementTitle.toString(), fileName.toString());
+        return new JobRequirementDTO(id, jobRequirementTitle.toString(), jobRequirementClass.toString());
     }
 
     @Override
     public String toString() {
-        return this.fileName.toString();
+        return this.jobRequirementClass.toString();
     }
 }

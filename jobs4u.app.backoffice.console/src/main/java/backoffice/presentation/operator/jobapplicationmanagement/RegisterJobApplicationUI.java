@@ -1,19 +1,10 @@
 package backoffice.presentation.operator.jobapplicationmanagement;
 
-import backoffice.presentation.candidates.CandidatePrinter;
 import backoffice.presentation.operator.AddCandidateUI;
-import eapli.base.JobApplication.application.RegisterJobApplicationController;
-import eapli.base.JobApplication.dto.JobApplicationDTO;
-import eapli.base.candidate.dto.CandidateDTO;
+import eapli.base.jobApplication.application.RegisterJobApplicationController;
+import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.SelectWidget;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RegisterJobApplicationUI extends AbstractUI {
 

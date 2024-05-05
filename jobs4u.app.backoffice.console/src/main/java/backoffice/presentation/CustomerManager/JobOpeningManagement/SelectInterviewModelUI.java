@@ -1,8 +1,8 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
-import eapli.base.InterviewModelManagement.application.SelectInterviewModelController;
-import eapli.base.InterviewModelManagement.dto.InterviewModelDTO;
-import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
+import eapli.base.interviewModelManagement.application.SelectInterviewModelController;
+import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
+import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 

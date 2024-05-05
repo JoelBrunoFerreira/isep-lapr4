@@ -20,9 +20,9 @@
  */
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.InterviewModelManagement.repository.InterviewModelRepository;
-import eapli.base.JobApplication.repository.JobApplicationRepository;
-import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
+import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
+import eapli.base.jobApplication.repository.JobApplicationRepository;
+import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.jobRequirementsManagement.repository.JobRequirementRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
@@ -155,6 +155,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
     @Override
     public JobRequirementRepository jobRequirements() {
+        return null;
+    }
+
+    @Override
+    public JobRequirementRepository jobRequirements(TransactionalContext autoTx) {
         return null;
     }
 
