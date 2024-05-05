@@ -4,10 +4,7 @@ import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
@@ -15,7 +12,9 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     @Id
     private long id;
 
+    @Column(name = "Class")
     private InterviewModelClass className;
+    @Column(name = "Title")
 
     private InterviewModelTitle title;
 
@@ -52,7 +51,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     public Long identity() {
         return null;
     }
-    public InterviewModelPlugin buildPThelugin(){
+    public InterviewModelPlugin buildThePlugin(){
         try{
             return (InterviewModelPlugin) java.lang.Class.forName(className.toString()).getDeclaredConstructor().newInstance();
         }catch (Exception e){

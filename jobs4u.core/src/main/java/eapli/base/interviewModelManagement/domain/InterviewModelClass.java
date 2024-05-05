@@ -9,19 +9,19 @@ import java.io.Serializable;
 @Embeddable
 public class InterviewModelClass implements ValueObject, Serializable {
 
-    private final String fileName;
+    private final String className;
 
     protected InterviewModelClass(){
-        this.fileName=null;
+        this.className =null;
     }
-    public InterviewModelClass(final String fileName){
-        Preconditions.nonNull(fileName);
-        Preconditions.nonEmpty(fileName);
-        this.fileName=fileName;
+    public InterviewModelClass(final String className){
+        Preconditions.nonNull(className);
+        Preconditions.nonEmpty(className);
+        this.className = className;
     }
 
     @Override
     public String toString() {
-        return fileName;
+        return className;
     }
 }
