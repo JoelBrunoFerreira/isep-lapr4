@@ -22,7 +22,7 @@ public class JobApplicationDTO {
     public JobApplicationDTO(List<String> files, String candidateEmail, String jobOpeningReference) {
         this.files = files;
         this.candidateEmail = candidateEmail;
-        this.jobOpeningReference = jobOpeningReference;
+        this.JobOpeningReference = jobOpeningReference;
     }
 
     public JobApplicationDTO(long id, List<String> files, int rank, String state, int interviewGrade, String candidateEmail, String jobOpeningReference) {
@@ -32,7 +32,7 @@ public class JobApplicationDTO {
         this.state = state;
         this.interviewGrade = interviewGrade;
         this.candidateEmail = candidateEmail;
-        this.jobOpeningReference = jobOpeningReference;
+        this.JobOpeningReference = jobOpeningReference;
     }
 
     public String getCandidateEmail() {
@@ -40,6 +40,6 @@ public class JobApplicationDTO {
     }
 
     public String getJobOpeningReference() {
-        return jobOpeningReference;
+        return JobOpeningReference;
     }
 }

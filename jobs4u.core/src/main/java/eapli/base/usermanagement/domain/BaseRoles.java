@@ -36,6 +36,7 @@ public final class BaseRoles {
     public static final Role CUSTOMER_USER = Role.valueOf("CUSTOMER");
     public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER MANAGER");
     public static final Role OPERATOR = Role.valueOf("OPERATOR");
+    public static final Role LANGUAGE_ENGINEER = Role.valueOf("LANGUAGE ENGINEER");
 
     /**
      * get available role types for adding new users

@@ -93,7 +93,7 @@ public class ListJobApplicationsUI extends AbstractUI {
                     break;
                 case "0":
                     valid = true;
-                    new CustomerManagerMainMenu().displayCustomerManagerMenu();
+                    new CustomerManagerMainMenu().buildCustomerManagerMenu();
                     break;
 
                 default:
