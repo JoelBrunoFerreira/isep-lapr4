@@ -23,12 +23,12 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.id = id;
         this.className = className;
-        this.title = title;
+        this.title = interviewModelTitle;
     }
 
     public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.className = className;
-        this.title = title;
+        this.title = interviewModelTitle;
     }
 
 

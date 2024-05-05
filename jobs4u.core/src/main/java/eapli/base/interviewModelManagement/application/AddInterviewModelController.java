@@ -1,10 +1,9 @@
-package eapli.base.InterviewModelManagement.application;
-
-import eapli.base.InterviewModelManagement.domain.InterviewModel;
-import eapli.base.InterviewModelManagement.domain.InterviewModelClass;
-import eapli.base.InterviewModelManagement.domain.InterviewModelTitle;
-import eapli.base.InterviewModelManagement.repository.InterviewModelRepository;
+package eapli.base.interviewModelManagement.application;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.interviewModelManagement.domain.InterviewModel;
+import eapli.base.interviewModelManagement.domain.InterviewModelClass;
+import eapli.base.interviewModelManagement.domain.InterviewModelTitle;
+import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -25,7 +24,7 @@ public class AddInterviewModelController {
     public Optional<InterviewModel> addInterviewModel(final String name, final String className) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.LANGUAGE_ENGINEER);
 
-        InterviewModel interviewModel = new InterviewModel(new InterviewModelTitle(name), new InterviewModelClass(className));
+        InterviewModel interviewModel = new InterviewModel(new InterviewModelClass(className),new InterviewModelTitle(name));
 
         return Optional.of(interviewModelRepository.save(interviewModel));
     }

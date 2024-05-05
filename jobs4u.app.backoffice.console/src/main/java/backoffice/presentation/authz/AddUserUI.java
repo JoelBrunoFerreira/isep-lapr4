@@ -75,6 +75,12 @@ public class AddUserUI extends AbstractUI {
                     operatorController.addOperator(userData.firstName(),
                             userData.lastName(), userData.email());
 
+                } else if (role.equals(BaseRoles.LANGUAGE_ENGINEER)) {
+                    final OperatorDataWidget userData = new OperatorDataWidget();
+                    userData.show();
+                    operatorController.addOperator(userData.firstName(),
+                            userData.lastName(), userData.email());
+
                 } else if (role.equals(BaseRoles.CUSTOMER_USER)) {
                     final CustomerDataWidget userData = new CustomerDataWidget();
                     userData.show();

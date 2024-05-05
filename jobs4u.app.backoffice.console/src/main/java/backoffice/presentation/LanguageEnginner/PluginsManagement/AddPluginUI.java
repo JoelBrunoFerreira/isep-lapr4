@@ -2,10 +2,8 @@ package backoffice.presentation.LanguageEnginner.PluginsManagement;
 
 import backoffice.presentation.CustomerManager.CustomerManagerMainMenu;
 import backoffice.presentation.LanguageEnginner.LanguageEngineerMainMenu;
-import eapli.base.InterviewModelManagement.application.AddInterviewModelController;
-import eapli.base.InterviewModelManagement.domain.InterviewModel;
-import eapli.base.JobApplication.dto.JobApplicationDTO;
-import eapli.base.candidate.dto.CandidateDTO;
+import eapli.base.interviewModelManagement.application.AddInterviewModelController;
+import eapli.base.interviewModelManagement.domain.InterviewModel;
 import eapli.base.jobRequirementsManagement.application.AddJobRequirementController;
 import eapli.base.jobRequirementsManagement.domain.JobRequirement;
 import eapli.framework.io.util.Console;
