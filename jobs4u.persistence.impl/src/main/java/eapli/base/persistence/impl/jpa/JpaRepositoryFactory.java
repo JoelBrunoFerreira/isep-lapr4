@@ -24,7 +24,7 @@ import eapli.base.Application;
 import eapli.base.InterviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.JobApplication.repository.JobApplicationRepository;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.base.RequirementSpecificationsManagement.repository.JobRequirementRepository;
+import eapli.base.jobRequirementsManagement.repository.JobRequirementRepository;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.customer.repository.CustomerRepository;

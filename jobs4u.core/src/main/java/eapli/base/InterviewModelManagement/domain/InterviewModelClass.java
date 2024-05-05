@@ -19,4 +19,9 @@ public class InterviewModelClass implements ValueObject, Serializable {
         Preconditions.nonEmpty(fileName);
         this.fileName=fileName;
     }
+
+    @Override
+    public String toString() {
+        return fileName;
+    }
 }

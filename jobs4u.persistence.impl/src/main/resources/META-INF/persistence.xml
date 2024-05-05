@@ -13,7 +13,7 @@
     <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
     <!-- ===================================================================== -->
     <class>eapli.base.InterviewModelManagement.domain.InterviewModel</class>
-    <class>eapli.base.RequirementSpecificationsManagement.domain.JobRequirement</class>
+    <class>eapli.base.jobRequirementsManagement.domain.JobRequirement</class>
     <class>eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.RecruitmentProcessPhase</class>
     <class>eapli.base.JobOpeningManagement.domain.JobOpening</class>
     <class>eapli.base.customer.domain.Customer</class>

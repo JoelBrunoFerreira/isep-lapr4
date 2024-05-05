@@ -1,4 +1,4 @@
-package eapli.base.RequirementSpecificationsManagement.domain;
+package eapli.base.jobRequirementsManagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 

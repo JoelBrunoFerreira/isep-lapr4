@@ -9,7 +9,7 @@ import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.Phase
 import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.PhasePeriod;
 import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.RecruitmentProcessPhase;
 import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
-import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
+import eapli.base.jobRequirementsManagement.domain.JobRequirement;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.domain.Customer;
 import eapli.framework.domain.model.AggregateRoot;

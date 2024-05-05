@@ -1,7 +1,7 @@
-package eapli.base.RequirementSpecificationsManagement.domain;
+package eapli.base.jobRequirementsManagement.domain;
 
 
-import eapli.base.RequirementSpecificationsManagement.dto.JobRequirementDTO;
+import eapli.base.jobRequirementsManagement.dto.JobRequirementDTO;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;

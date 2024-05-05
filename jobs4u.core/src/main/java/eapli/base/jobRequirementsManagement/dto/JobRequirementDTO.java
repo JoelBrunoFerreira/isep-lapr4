@@ -1,4 +1,4 @@
-package eapli.base.RequirementSpecificationsManagement.dto;
+package eapli.base.jobRequirementsManagement.dto;
 
 import eapli.framework.representations.dto.DTO;
 import lombok.AllArgsConstructor;

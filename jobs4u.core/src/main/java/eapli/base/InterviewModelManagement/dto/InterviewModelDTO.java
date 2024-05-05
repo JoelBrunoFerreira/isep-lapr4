@@ -16,6 +16,6 @@ public class InterviewModelDTO {
 
     @Override
     public String toString() {
-        return String.format("Interview Model ID: %d, Title: %s\n", id, title);
+        return String.format("Interview Model ID: %d, Title: %s\n", id, title.toString());
     }
 }

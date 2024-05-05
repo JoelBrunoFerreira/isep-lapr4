@@ -18,5 +18,8 @@ public class InterviewModelTitle implements ValueObject, Serializable {
         this.title = title;
     }
 
-
+    @Override
+    public String toString() {
+        return title;
+    }
 }

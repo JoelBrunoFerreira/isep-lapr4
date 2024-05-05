@@ -21,11 +21,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
 
     @Override
     public String toString() {
-        return "InterviewModel{" +
-                "id=" + id +
-                ", title=" + title +
-                ", className=" + className +
-                '}';
+        return String.format("%ID: d, Tilte: %s", id, title );
     }
 
     protected InterviewModel() {
@@ -39,7 +35,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
 
     @Override
     public InterviewModelDTO toDTO() {
-        return new InterviewModelDTO(id, title.toString(), className.toString());
+        return new InterviewModelDTO(id, className.toString(), title.toString());
     }
 
     @Override

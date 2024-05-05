@@ -29,7 +29,7 @@ public class SelectInterviewModelController {
     public Iterable<JobOpeningDTO> getJobOpeningPendingInterviewModel(){
         List<JobOpeningDTO> result = new ArrayList<>();
         for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser())){
-            if (jO.getInterviewModel()==null){
+            if (jO.getInterviewModel().isEmpty()){
                 result.add(jO);
             }
         }
