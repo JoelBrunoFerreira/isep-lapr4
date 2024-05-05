@@ -51,7 +51,7 @@ public class RegisterJobApplicationController {
         //authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.OPERATOR);
         List<ApplicationFile> files = getApplicationFiles(path);
         Optional<Candidate> candidate = candidateRepository.findByEmail(new Email(candidateEmail));
-        Optional<JobOpening> jobOpening = jobOpeningSvc.getJobOpening(jobReference);
+        Optional<JobOpening> jobOpening = jobOpeningSvc.getJobOpeningByReference(jobReference);
         JobApplication jobApplication = new JobApplication(files, candidate.get(), jobOpening.get());
         return applicationRepository.save(jobApplication).toDTO();
 

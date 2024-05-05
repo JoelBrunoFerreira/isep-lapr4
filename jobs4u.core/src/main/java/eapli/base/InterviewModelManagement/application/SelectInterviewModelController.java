@@ -4,6 +4,7 @@ import eapli.base.InterviewModelManagement.domain.InterviewModel;
 import eapli.base.InterviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.InterviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.JobOpeningManagement.application.JobOpeningSvc;
+import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -39,7 +40,9 @@ public class SelectInterviewModelController {
         return interviewModelRepository.findAllDTOs();
     }
 
-    public JobOpeningDTO updateJobOpeningInterviewModel(String jobReference, InterviewModelDTO interviewModelID) {
-        return null;
+    public JobOpeningDTO updateJobOpeningInterviewModel(String jobReference, InterviewModelDTO interviewModelDTO) {
+        JobOpening result = jobOpeningSvc.getJobOpeningByReference(jobReference).get();
+        result.updateInterviewModel(interviewModelDTO);
+        return jobOpeningSvc.saveJobOpening(result);
     }
 }

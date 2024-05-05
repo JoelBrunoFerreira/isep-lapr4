@@ -22,7 +22,6 @@ public class SetupRecruitmentProcessController {
     private JobOpening jobOpening;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
     private final SystemUser user;
 
@@ -36,18 +35,18 @@ public class SetupRecruitmentProcessController {
     }
 
     public JobOpeningDTO getJO(String jobReference) {
-        return jobOpeningRepository.findByJobReference(jobReference);
+        return jobOpeningSvc.getJobOpeningDTOByReference(jobReference);
     }
 
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(String jobReference, boolean withInterview){
-        jobOpening = jobOpeningRepository.ofIdentity(new JobReference(jobReference)).get(); //Gets object
+        jobOpening = jobOpeningSvc.getJobOpeningByReference(jobReference).get(); //Gets object
         return jobOpening.getRecruitmentProcessPhases(withInterview);
     }
 
     public void setRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> recruitmentProcessPhasesDTO){
 
         jobOpening.setupRecruitmentProcessPhases(recruitmentProcessPhasesDTO);
-        jobOpeningRepository.save(jobOpening);
+        jobOpeningSvc.saveJobOpening(jobOpening);
 
     }
 }

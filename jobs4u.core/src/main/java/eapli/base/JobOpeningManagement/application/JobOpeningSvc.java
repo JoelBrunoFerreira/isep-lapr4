@@ -26,9 +26,6 @@ public class JobOpeningSvc {
     public Iterable<JobOpeningDTO> listJobOpeningsByManager(SystemUser user) {
         return repository.findAllByManager(user);
     }
-    public Iterable<JobOpeningDTO> jobOpeningsDTOList(){
-        return repository.findAllDTO();
-    }
     public Iterable<JobOpeningDTO> listJobOpeningsByCustomers(String email, SystemUser user){
         return repository.findAllByCustomerID(email, user);
     }
@@ -36,15 +33,15 @@ public class JobOpeningSvc {
         return repository.findAllByUser(user);
     }
 
-    public JobOpeningDTO getJobOpeningByReference(String jobReference) {
+    public JobOpeningDTO getJobOpeningDTOByReference(String jobReference) {
         return repository.findByJobReference(jobReference);
     }
 
-    public Optional<JobOpening> getJobOpening(String jobReference){
+    public Optional<JobOpening> getJobOpeningByReference(String jobReference){
         return repository.ofIdentity(new JobReference(jobReference));
     }
 
-
-    public void saveWithInterviewModel(InterviewModel interviewModel) {
+    public JobOpeningDTO saveJobOpening(JobOpening jobOpening) {
+       return repository.save(jobOpening).toDTO();
     }
 }
