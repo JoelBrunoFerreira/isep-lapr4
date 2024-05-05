@@ -1,4 +1,4 @@
-package eapli.base.RecruitmentProcessManagement.domain;
+package eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain;
 
 import jakarta.persistence.Embeddable;
 

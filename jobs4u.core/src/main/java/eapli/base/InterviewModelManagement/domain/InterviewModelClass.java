@@ -7,14 +7,14 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class InterviewModelFilePath implements ValueObject, Serializable {
+public class InterviewModelClass implements ValueObject, Serializable {
 
     private final String fileName;
 
-    protected InterviewModelFilePath(){
+    protected InterviewModelClass(){
         this.fileName=null;
     }
-    public InterviewModelFilePath(final String fileName){
+    public InterviewModelClass(final String fileName){
         Preconditions.nonNull(fileName);
         Preconditions.nonEmpty(fileName);
         this.fileName=fileName;

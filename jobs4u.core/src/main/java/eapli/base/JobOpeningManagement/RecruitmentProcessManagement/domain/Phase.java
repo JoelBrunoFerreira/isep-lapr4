@@ -1,9 +1,7 @@
-package eapli.base.RecruitmentProcessManagement.domain;
+package eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain;
 
 import eapli.framework.validations.Preconditions;
-import jakarta.persistence.Embeddable;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.io.Serializable;
 

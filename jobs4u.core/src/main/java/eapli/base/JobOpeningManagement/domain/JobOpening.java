@@ -2,18 +2,15 @@ package eapli.base.JobOpeningManagement.domain;
 
 
 import eapli.base.InterviewModelManagement.domain.InterviewModel;
-import eapli.base.InterviewModelManagement.domain.InterviewModelFilePath;
+import eapli.base.InterviewModelManagement.domain.InterviewModelClass;
 import eapli.base.InterviewModelManagement.domain.InterviewModelTitle;
 import eapli.base.InterviewModelManagement.dto.InterviewModelDTO;
-import eapli.base.RecruitmentProcessManagement.domain.Phase;
-import eapli.base.RecruitmentProcessManagement.domain.PhasePeriod;
-import eapli.base.RecruitmentProcessManagement.domain.RecruitmentProcessPhase;
-import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
-import eapli.base.RequirementSpecificationsManagement.domain.FileName;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.Phase;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.PhasePeriod;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.RecruitmentProcessPhase;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.RequirementSpecificationsManagement.domain.RequirementTitle;
-import eapli.base.RequirementSpecificationsManagement.dto.JobRequirementDTO;
 import eapli.base.customer.domain.Customer;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
@@ -141,14 +138,14 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             this.status = Status.ACTIVE;
         //}
     }
-    public void setInterviewModel(InterviewModelDTO dto){
-        this.interviewModel = new InterviewModel(new InterviewModelFilePath(dto.getFileName()), new InterviewModelTitle(dto.getTitle()));
+   public void updateInterviewModel(InterviewModelDTO dto){
+        this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()));
         //TODO phase triggered and job application status update
     }
-    public void setJobRequirement(JobRequirementDTO dto){
+    /*public void setJobRequirement(JobRequirementDTO dto){
         this.jobRequirement = new JobRequirement(new RequirementTitle(dto.getRequirementTitle()),new FileName(dto.getRequirementTitle()));
         //TODO phase triggered and job application status update
-    }
+    }*/
     public boolean isActive() {
         return this.status.equals(Status.ACTIVE);
     }
@@ -163,5 +160,11 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     public boolean isManagedBy(SystemUser user) {
         return this.customerManager.equals(user);
+    }
+    public boolean hasInterviewModel(){
+        return this.interviewModel != null;
+    }
+    public boolean hasRequirementSpecification(){
+        return this.jobRequirement != null;
     }
 }

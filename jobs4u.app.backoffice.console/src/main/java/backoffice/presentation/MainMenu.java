@@ -78,9 +78,6 @@ public class MainMenu extends AbstractUI {
         else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.OPERATOR)){
             new OperatorMainMenu().displayOperatorMenu();
         }
-        else if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CANDIDATE_USER)){
-            new BackofficeFrontMenu().show();
-        }
         if (!Application.settings().isMenuLayoutHorizontal())
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 

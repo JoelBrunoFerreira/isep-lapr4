@@ -1,17 +1,14 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
-import eapli.base.RecruitmentProcessManagement.domain.Phase;
-import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
-import eapli.framework.io.util.Console;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.Phase;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 

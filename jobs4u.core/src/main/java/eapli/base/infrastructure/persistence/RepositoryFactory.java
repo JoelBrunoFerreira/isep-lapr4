@@ -20,6 +20,7 @@
  */
 package eapli.base.infrastructure.persistence;
 
+import eapli.base.InterviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.JobApplication.repository.JobApplicationRepository;
 import eapli.base.JobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.RequirementSpecificationsManagement.repository.JobRequirementRepository;
@@ -84,4 +85,5 @@ public interface RepositoryFactory {
 
     JobRequirementRepository jobRequirements();
 
+    InterviewModelRepository interviewModelRepository();
 }

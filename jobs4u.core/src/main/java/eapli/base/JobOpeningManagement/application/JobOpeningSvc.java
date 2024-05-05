@@ -1,5 +1,6 @@
 package eapli.base.JobOpeningManagement.application;
 
+import eapli.base.InterviewModelManagement.domain.InterviewModel;
 import eapli.base.JobOpeningManagement.domain.JobOpening;
 import eapli.base.JobOpeningManagement.domain.JobReference;
 import eapli.base.JobOpeningManagement.domain.Status;
@@ -22,6 +23,9 @@ public class JobOpeningSvc {
     public Iterable<JobOpeningDTO> listJobOpeningsByStatus(Status status, SystemUser user) {
         return repository.findAllByStatus(status, user);
     }
+    public Iterable<JobOpeningDTO> listJobOpeningsByManager(SystemUser user) {
+        return repository.findAllByManager(user);
+    }
     public Iterable<JobOpeningDTO> jobOpeningsDTOList(){
         return repository.findAllDTO();
     }
@@ -40,4 +44,7 @@ public class JobOpeningSvc {
         return repository.ofIdentity(new JobReference(jobReference));
     }
 
+
+    public void saveWithInterviewModel(InterviewModel interviewModel) {
+    }
 }

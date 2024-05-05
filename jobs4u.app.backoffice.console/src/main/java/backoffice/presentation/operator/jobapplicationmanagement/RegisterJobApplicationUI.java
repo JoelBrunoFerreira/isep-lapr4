@@ -25,9 +25,9 @@ public class RegisterJobApplicationUI extends AbstractUI {
         String jobReference = controller.getFolderName(directoryPath);
         directoryPath = directoryPath.concat("\\").concat(jobReference);
         String candidateEmail = controller.getFolderName(directoryPath);
-        if (controller.checkIfApplicationExists(candidateEmail)){
+        if (controller.checkIfApplicationExists(candidateEmail, jobReference)){
             System.out.println("Application already registered!");
-            return false;
+            return true;
         }
         if (!controller.candidateExists(candidateEmail)) {
             new AddCandidateUI().doShow();
@@ -35,7 +35,7 @@ public class RegisterJobApplicationUI extends AbstractUI {
         directoryPath = directoryPath.concat("\\").concat(candidateEmail);
         JobApplicationDTO result = controller.registerJobApplication(directoryPath,candidateEmail,jobReference);
         System.out.println("Job application for " + result.getJobOpeningReference() +" and candidate "+ result.getCandidateEmail()+ " registered successfully!");
-        return true;
+        return false;
     }
 
 

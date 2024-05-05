@@ -97,4 +97,15 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
         JobReference jr = new JobReference(jobReference);
         return ofIdentity(jr).get().toDTO();
     }
+
+    @Override
+    public Iterable<JobOpeningDTO> findAllByManager(SystemUser user) {
+        List<JobOpeningDTO> result = new ArrayList<>();
+        for (JobOpening jo : findAll()){
+            if (jo.isManagedBy(user)){
+                result.add(jo.toDTO());
+            }
+        }
+        return result;
+    }
 }

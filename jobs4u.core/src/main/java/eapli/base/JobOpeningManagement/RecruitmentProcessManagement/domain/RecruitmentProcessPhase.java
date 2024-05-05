@@ -1,6 +1,6 @@
-package eapli.base.RecruitmentProcessManagement.domain;
+package eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain;
 
-import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.domain.model.DomainEntity;
 import jakarta.persistence.*;
 import lombok.Getter;

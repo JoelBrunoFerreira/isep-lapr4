@@ -11,6 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InterviewModelDTO {
     private long id;
-    private String fileName;
+    private String className;
     private String title;
+
+    @Override
+    public String toString() {
+        return String.format("Interview Model ID: %d, Title: %s\n", id, title);
+    }
 }
