@@ -11,6 +11,6 @@
 
 
 
-## 2. Example of a template text file with requirements
+## 2. Example of a template text file with interview model
 
-![img.png](SpecificationModelANTLR.png)
+![interviewmodelQuestions.png](interviewmodelQuestions.png)
