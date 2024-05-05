@@ -4,7 +4,7 @@
 ## 1. Design
 
 >* Use layer structure architecture
->  * Domain class: 
+>  * Domain class: RequirementsSpecification
 >  * Controller: RequirementSpecificationController
 >  * Repository: RequirementSpecificationRepository
 

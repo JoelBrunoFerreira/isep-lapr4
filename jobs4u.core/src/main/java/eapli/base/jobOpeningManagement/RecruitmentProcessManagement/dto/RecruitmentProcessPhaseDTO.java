@@ -25,4 +25,9 @@ public class RecruitmentProcessPhaseDTO {
     public String toString() {
         return phase;
     }
+
+    public String toStringComplete() {
+        return "Phase: " + phase + ", Start Date: " + startDate +
+                ", End Date: " + endDate ;
+    }
 }

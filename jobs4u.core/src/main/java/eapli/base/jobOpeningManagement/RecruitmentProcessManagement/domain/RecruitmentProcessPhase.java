@@ -57,8 +57,8 @@ public class RecruitmentProcessPhase implements DomainEntity<Phase> {
     public String toString() {
         return "RecruitmentProcessPhase{" +
                 "phase=" + phase +
-                ", period=" + period +
-                ", jobOpening_id='" + id + '\'' +
+                ", period=" + period.getStartDate().toString() + period.getEndDate().toString() +
+                ", jobOpening_id='" + id.toString() + '\'' +
                 '}';
     }
 
