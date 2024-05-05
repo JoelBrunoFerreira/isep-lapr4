@@ -23,6 +23,7 @@ package backoffice.presentation.authz;
 import backoffice.presentation.CustomerManager.customerManagement.CustomerManagerDataWidget;
 import eapli.base.app.common.console.presentation.customer.CustomerDataWidget;
 import eapli.base.customerManager.application.AddCustomerManagerController;
+import eapli.base.languageEngineer.application.AddLanguageEngineerController;
 import eapli.base.operator.application.AddOperatorController;
 import eapli.base.usermanagement.application.AddUserController;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -49,6 +50,7 @@ public class AddUserUI extends AbstractUI {
     private final AddUserController theController = new AddUserController();
     private final AddCustomerManagerController customerManagerController = new AddCustomerManagerController();
     private final AddOperatorController operatorController = new AddOperatorController();
+    private final AddLanguageEngineerController languageEngineerController = new AddLanguageEngineerController();
 
 
 
@@ -73,6 +75,12 @@ public class AddUserUI extends AbstractUI {
                     final OperatorDataWidget userData = new OperatorDataWidget();
                     userData.show();
                     operatorController.addOperator(userData.firstName(),
+                            userData.lastName(), userData.email());
+
+                } else if (role.equals(BaseRoles.LANGUAGE_ENGINEER)) {
+                    final OperatorDataWidget userData = new OperatorDataWidget();
+                    userData.show();
+                    languageEngineerController.addLanguageEngineer(userData.firstName(),
                             userData.lastName(), userData.email());
 
                 } else if (role.equals(BaseRoles.CUSTOMER_USER)) {

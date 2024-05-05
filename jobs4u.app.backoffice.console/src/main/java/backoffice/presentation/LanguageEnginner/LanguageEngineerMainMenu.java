@@ -19,17 +19,21 @@ public class LanguageEngineerMainMenu {
 
 
     public void buildLanguageEngineerManagerMenu() {
-        System.out.println("Actions >");
-        System.out.println("1. Deploy new plugin");
-        String option = null;
-        option = Console.readLine("");
+
+        while (true) {
+            System.out.println("Actions >");
+
+            System.out.println("1. Deploy new plugin");
+            String option = null;
+            option = Console.readLine("");
 
 
-        if(option.equals("1")){
-            new AddPluginUI().show();
-        }else{
-            System.out.println("Bye, Bye");
-            System.exit(0);
+            if (option.equals("1")) {
+                new AddPluginUI().show();
+            } else {
+                System.out.println("Bye, Bye");
+                System.exit(0);
+            }
         }
     }
 }

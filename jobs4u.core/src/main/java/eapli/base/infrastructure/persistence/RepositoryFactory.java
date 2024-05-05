@@ -29,6 +29,8 @@ import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.customer.repository.CustomerRepository;
 import eapli.base.customerManager.repository.CustomerManagerRepository;
+import eapli.base.languageEngineer.domain.LanguageEngineer;
+import eapli.base.languageEngineer.repository.LanguageEngineerRepository;
 import eapli.base.operator.repository.OperatorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -68,6 +70,9 @@ public interface RepositoryFactory {
     OperatorRepository operators();
 
     OperatorRepository operators(TransactionalContext autoTx);
+    LanguageEngineerRepository languageEngineers();
+
+    LanguageEngineerRepository languageEngineers(TransactionalContext autoTx);
 
     CustomerManagerRepository customerManagers();
 

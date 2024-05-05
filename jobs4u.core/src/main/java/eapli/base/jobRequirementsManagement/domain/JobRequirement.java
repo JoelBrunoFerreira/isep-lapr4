@@ -22,12 +22,12 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     protected JobRequirement() {
     }
 
-    public JobRequirement(JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass) {
-        this.jobRequirementTitle = jobRequirementTitle;
-        this.jobRequirementClass = jobRequirementClass;
+    public JobRequirement(JobRequirementTitle requirementTitle, JobRequirementClass className) {
+        this.jobRequirementTitle = requirementTitle;
+        this.jobRequirementClass = className;
     }
 
-    public JobRequirement(long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass) {
+    public JobRequirement(Long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass) {
         this.id = id;
         this.jobRequirementTitle = jobRequirementTitle;
         this.jobRequirementClass = jobRequirementClass;

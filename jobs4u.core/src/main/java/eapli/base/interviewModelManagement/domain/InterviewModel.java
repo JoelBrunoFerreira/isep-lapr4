@@ -13,18 +13,22 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private InterviewModelTitle title;
+    @Column(name = "Class")
     private InterviewModelClass className;
+    @Column(name = "Title")
+
+    private InterviewModelTitle title;
+
 
     public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.id = id;
         this.className = className;
-        this.title = title;
+        this.title = interviewModelTitle;
     }
 
     public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.className = className;
-        this.title = title;
+        this.title = interviewModelTitle;
     }
 
 
@@ -34,11 +38,6 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     }
 
     protected InterviewModel() {
-    }
-
-    public InterviewModel(InterviewModelTitle title, InterviewModelClass className) {
-        this.className = className;
-        this.title = title;
     }
 
     @Override
@@ -60,7 +59,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     public Long identity() {
         return null;
     }
-    public InterviewModelPlugin buildPThelugin(){
+    public InterviewModelPlugin buildThePlugin(){
         try{
             return (InterviewModelPlugin) java.lang.Class.forName(className.toString()).getDeclaredConstructor().newInstance();
         }catch (Exception e){

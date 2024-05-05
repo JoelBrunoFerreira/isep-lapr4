@@ -44,15 +44,15 @@ public final class BaseRoles {
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, CANDIDATE_USER, CUSTOMER_USER, CUSTOMER_MANAGER, OPERATOR };
+        return new Role[] { ADMIN, CANDIDATE_USER, CUSTOMER_USER, CUSTOMER_MANAGER, OPERATOR ,LANGUAGE_ENGINEER};
     }
 
     public static Role[] getAllValues() {
-        return new Role[] { ADMIN, CANDIDATE_USER, CUSTOMER_USER, CUSTOMER_MANAGER, OPERATOR };
+        return new Role[] { ADMIN, CANDIDATE_USER, CUSTOMER_USER, CUSTOMER_MANAGER, OPERATOR, LANGUAGE_ENGINEER };
     }
 
     public static Role[] backofficeUserValues() {
-        return new Role[] { CUSTOMER_MANAGER, OPERATOR, CUSTOMER_USER};
+        return new Role[] { CUSTOMER_MANAGER, OPERATOR, CUSTOMER_USER, LANGUAGE_ENGINEER};
     }
 
 }

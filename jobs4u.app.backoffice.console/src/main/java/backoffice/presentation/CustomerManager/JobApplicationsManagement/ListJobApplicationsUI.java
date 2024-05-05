@@ -1,13 +1,29 @@
 package backoffice.presentation.CustomerManager.JobApplicationsManagement;
 
 import backoffice.presentation.CustomerManager.CustomerManagerMainMenu;
+import backoffice.presentation.backofficeUser.SignupRequestAction;
 import backoffice.presentation.candidates.CandidatePrinter;
+import backoffice.presentation.operator.OperatorMainMenu;
+import eapli.base.Application;
+import eapli.base.JobApplication.application.ListApplicationController;
+import eapli.base.JobApplication.dto.JobApplicationDTO;
+import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.candidate.dto.CandidateDTO;
+import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.jobApplication.application.ListApplicationController;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.usermanagement.application.ListUsersController;
+import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.actions.Action;
+import eapli.framework.actions.Actions;
+import eapli.framework.actions.ChainedAction;
+import eapli.framework.actions.menu.Menu;
+import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.ExitWithMessageAction;
+import eapli.framework.presentation.console.menu.MenuItemRenderer;
+import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.util.Optional;
 
