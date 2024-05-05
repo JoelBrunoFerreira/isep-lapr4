@@ -62,8 +62,12 @@ public class ListJobOpeningsUI extends AbstractUI {
 
     private void showAllJobOpenings() {
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByUSer();
-        ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Job Openings:", jobOpeningDTOS, new JobOpeningPrinter());
-        selectJobOpeningDTO.show();
+        if (jobOpeningDTOS.iterator().hasNext()){
+            ListWidget<JobOpeningDTO> selectJobOpeningDTO = new ListWidget<>("Job Openings:", jobOpeningDTOS, new JobOpeningPrinter());
+            selectJobOpeningDTO.show();
+        }else{
+            System.out.println("No job openings to list.");
+        }
     }
 
     private String filterMenu() {

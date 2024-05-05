@@ -1,7 +1,7 @@
-package eapli.base.RequirementSpecificationsManagement.repository;
+package eapli.base.jobRequirementsManagement.repository;
 
 
-import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
+import eapli.base.jobRequirementsManagement.domain.JobRequirement;
 import eapli.framework.domain.repositories.DomainRepository;
 
 public interface JobRequirementRepository extends DomainRepository<Long, JobRequirement> {

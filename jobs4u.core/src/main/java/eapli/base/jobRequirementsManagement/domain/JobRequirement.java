@@ -1,7 +1,7 @@
-package eapli.base.RequirementSpecificationsManagement.domain;
+package eapli.base.jobRequirementsManagement.domain;
 
 
-import eapli.base.RequirementSpecificationsManagement.dto.JobRequirementDTO;
+import eapli.base.jobRequirementsManagement.dto.JobRequirementDTO;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -15,6 +15,14 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     private RequirementTitle requirementTitle;
 
     private FileName fileName; //path
+
+    protected JobRequirement() {
+    }
+
+    public JobRequirement(RequirementTitle requirementTitle, FileName fileName) {
+        this.requirementTitle = requirementTitle;
+        this.fileName = fileName;
+    }
 
     @Override
     public boolean sameAs(Object other) {

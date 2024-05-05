@@ -1,4 +1,4 @@
-package eapli.base.RecruitmentProcessManagement.dto;
+package eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto;
 
 import eapli.framework.representations.dto.DTO;
 import lombok.Getter;

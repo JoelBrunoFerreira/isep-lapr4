@@ -1,9 +1,9 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
-import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
-import eapli.framework.io.util.Console;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.application.SetupRecruitmentProcessController;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.Phase;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 
@@ -16,8 +16,6 @@ import static eapli.framework.io.util.Console.readLine;
 
 public class SetupRecruitmentPhasesUI extends AbstractUI {
 
-    private LocalDate startDate;
-    private LocalDate endDate;
     SetupRecruitmentProcessController controller = new SetupRecruitmentProcessController();
 
     @Override
@@ -43,166 +41,228 @@ public class SetupRecruitmentPhasesUI extends AbstractUI {
 
     private void mainMenu() {
         JobOpeningDTO dto = getJobOpening();
-        System.out.println(dto);
-        System.out.println(dto.jobReference);
-        //TODO, ERRO a partir daqui:
-        System.out.println(controller.getJO(dto.jobReference));
+        if (dto == null) {
+            System.out.println("No job openings are pending.");
+        } else {
+            System.out.println(dto);
+            System.out.println(dto.jobReference);
+            //TODO, ERRO a partir daqui:
+            System.out.println(controller.getJO(dto.jobReference));
 
-        boolean withInterview = false;
-        System.out.println();
+            boolean withInterview = false;
+            System.out.println();
 
-        String answerInterviewPhase;
+            String answerInterviewPhase;
 
-        boolean validInput = false;
+            boolean validInput = false;
 
 
-        while (!validInput) {
+            while (!validInput) {
 
-            try {
-                answerInterviewPhase = Console.readLine("Do you want to setup the interview phase? (y/n):").trim();
+                try {
+                    answerInterviewPhase = readLine("Do you want to setup the interview phase? (y/n):").trim();
 
-                if (answerInterviewPhase.equals("y")) {
-                    withInterview = true;
-                    validInput = true;
-                } else if (answerInterviewPhase.equals("n")) {
-                    validInput = true;
-                } else {
-                    System.out.println("Invalid option.");
+                    if (answerInterviewPhase.equals("y")) {
+                        withInterview = true;
+                        validInput = true;
+                    } else if (answerInterviewPhase.equals("n")) {
+                        validInput = true;
+                    } else {
+                        System.out.println("Invalid option.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println();
+                    readLine("Invalid input.");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println();
-                Console.readLine("Invalid input.");
             }
-        }
 
-        List<RecruitmentProcessPhaseDTO> list = controller.getRecruitmentProcessPhases(dto.jobReference, withInterview);
-        System.out.println(list);
-        setRecruitmentProcessPhasesData(list);
+            List<RecruitmentProcessPhaseDTO> list = controller.getRecruitmentProcessPhases(dto.jobReference, withInterview);
+            System.out.println(list);
+
+            controller.setRecruitmentProcessPhases(setRecruitmentProcessPhasesData(list));
+
+            String sucessfull = "";
+            System.out.println("Phases sucessfully created!" + sucessfull);
+        }
     }
 
-    public void setRecruitmentProcessPhasesData(List<RecruitmentProcessPhaseDTO> list) {
+    public List<RecruitmentProcessPhaseDTO> setRecruitmentProcessPhasesData(List<RecruitmentProcessPhaseDTO> list) {
+
         LocalDate maxDate = LocalDate.now();
 
+        LocalDate applicationStartDate = null;
+        LocalDate applicationEndDate = null;
 
-        boolean validInput = false;
-        boolean dateControl =false;
+        LocalDate screeningStartDate = null;
+        LocalDate screeningEndDate = null;
+
+        LocalDate interviewStartDate = null;
+        LocalDate interviewEndDate = null;
+
+        LocalDate analysisStartDate = null;
+        LocalDate analysisEndDate = null;
+
+        LocalDate resultStartDate = null;
+        LocalDate resultEndDate = null;
+
+        boolean validInput;
+        boolean dateControl;
 
 
         for (RecruitmentProcessPhaseDTO phase : list) {
-            System.out.println(phase);
+            System.out.println();
+            System.out.println("+=" + phase + "=+");
             validInput = false;
 
-            if (phase.getPhase().equals("APPLICATION")) {
+            if (phase.getPhase().equals(Phase.APPLICATION.getDesignation())) {
 
-                while (!validInput){
+                while (!validInput) {
 
                     try {
-                        LocalDate applicationStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        LocalDate applicationEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        dateControl = phaseDateVerification(applicationStartDate, applicationEndDate, maxDate);
-                        if (dateControl) {
-                            phase.setRecruitmentProcessPhaseDates(applicationStartDate, applicationEndDate);
-                            maxDate = applicationEndDate;
-                            validInput = true;
-                        }
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid date format.");
+                        applicationStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        applicationEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    } catch (Exception e) {
+                        System.out.println("Invalid date format. Please try again.");
+                        continue;
                     }
+
+                    dateControl = phaseDateVerification(applicationStartDate, applicationEndDate, maxDate);
+                    if (dateControl) {
+                        phase.setRecruitmentProcessPhaseDates(applicationStartDate, applicationEndDate);
+                        maxDate = applicationEndDate;
+                        validInput = true;
+                    }
+//                    try {
+//                        applicationStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+//                        applicationEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+//
+//
+//                        dateControl = phaseDateVerification(applicationStartDate, applicationEndDate, maxDate);
+//                        if (dateControl) {
+//                            phase.setRecruitmentProcessPhaseDates(applicationStartDate, applicationEndDate);
+//                            maxDate = applicationEndDate;
+//                            validInput = true;
+//                        }
+//                    } catch (InputMismatchException e) {
+//                        System.out.println("Invalid date format.");
+//                    }
                 }
 
-            } else if (phase.getPhase().equals("SCREENING")) {
 
-                while (!validInput){
+            } else if (phase.getPhase().equals(Phase.SCREENING.getDesignation())) {
+
+                while (!validInput) {
 
                     try {
-                        LocalDate screeningStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        LocalDate screeningEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        dateControl = phaseDateVerification(screeningStartDate, screeningEndDate, maxDate);
-                        if (dateControl) {
-                            phase.setRecruitmentProcessPhaseDates(screeningStartDate, screeningEndDate);
-                            maxDate = screeningEndDate;
-                            validInput = true;
-                        }
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid date format.");
+                        screeningStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        screeningEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    } catch (Exception e) {
+                        System.out.println("Invalid date format. Please try again.");
+                        continue;
+                    }
+                    dateControl = phaseDateVerification(screeningStartDate, screeningEndDate, maxDate);
+                    if (dateControl) {
+                        phase.setRecruitmentProcessPhaseDates(screeningStartDate, screeningEndDate);
+                        maxDate = screeningEndDate;
+                        validInput = true;
+                    }
+
+                }
+            } else if (phase.getPhase().equals(Phase.INTERVIEWS.getDesignation())) {
+                while (!validInput) {
+
+                    try {
+                        interviewStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        interviewEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    } catch (Exception e) {
+                        System.out.println("Invalid date format. Please try again.");
+                        continue;
+                    }
+                    dateControl = phaseDateVerification(interviewStartDate, interviewEndDate, maxDate);
+                    if (dateControl) {
+                        phase.setRecruitmentProcessPhaseDates(interviewStartDate, interviewEndDate);
+                        maxDate = interviewEndDate;
+                        validInput = true;
                     }
                 }
-            } else if (phase.getPhase().equals("INTERVIEWS")) {
-                while (!validInput){
+            } else if (phase.getPhase().equals(Phase.ANALYSIS.getDesignation())) {
+                while (!validInput) {
 
                     try {
-                        LocalDate interviewStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        LocalDate interviewEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        dateControl = phaseDateVerification(interviewStartDate, interviewEndDate, maxDate);
-                        if (dateControl) {
-                            phase.setRecruitmentProcessPhaseDates(interviewEndDate, interviewEndDate);
-                            maxDate = interviewEndDate;
-                            validInput = true;
-                        }
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid date format.");
+                        analysisStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        analysisEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    } catch (Exception e) {
+                        System.out.println("Invalid date format. Please try again.");
+                        continue;
+                    }
+                    dateControl = phaseDateVerification(analysisStartDate, analysisEndDate, maxDate);
+                    if (dateControl) {
+                        phase.setRecruitmentProcessPhaseDates(analysisStartDate, analysisEndDate);
+                        maxDate = analysisEndDate;
+                        validInput = true;
                     }
                 }
-
-            } else if (phase.getPhase().equals("ANALYSIS")) {
-                while (!validInput){
+            } else if (phase.getPhase().equals(Phase.RESULT.getDesignation())) {
+                while (!validInput) {
 
                     try {
-                        LocalDate analysisStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        LocalDate analysisEndDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        dateControl = phaseDateVerification(analysisStartDate, analysisEndDate, maxDate);
-                        if (dateControl) {
-                            phase.setRecruitmentProcessPhaseDates(analysisStartDate, analysisEndDate);
-                            maxDate = analysisEndDate;
-                            validInput = true;
-                        }
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid date format.");
+                        resultStartDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        resultEndDate = LocalDate.parse(readLine("End Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                    } catch (Exception e) {
+                        System.out.println("Invalid date format. Please try again.");
+                        continue;
                     }
-                }
-
-            }else if (phase.getPhase().equals("RESULT")) {
-                while (!validInput){
-
-                    try {
-                        LocalDate resultStartDate= LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        LocalDate resultEndDate = LocalDate.parse(readLine("Start Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        dateControl = phaseDateVerification(resultStartDate, resultEndDate, maxDate);
-                        if (dateControl) {
-                            phase.setRecruitmentProcessPhaseDates(resultStartDate, resultEndDate);
-                            maxDate = resultEndDate;
-                            validInput = true;
-                        }
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid date format.");
+                    dateControl = phaseDateVerification(resultStartDate, resultEndDate, maxDate);
+                    if (dateControl) {
+                        phase.setRecruitmentProcessPhaseDates(resultStartDate, resultEndDate);
+                        maxDate = resultEndDate;
+                        validInput = true;
                     }
                 }
             }
-
-
         }
+        return list;
     }
+
 
     @Override
     public String headline() {
         return "Setup Recruitment Process Phases";
     }
 
-    public boolean phaseDateVerification (LocalDate startDate, LocalDate endDate, LocalDate maxDate) {
+    public boolean phaseDateVerification(LocalDate startDate, LocalDate endDate, LocalDate maxDate) {
 
-        if (startDate.isAfter(endDate)) {
-            System.out.println("The end date is after the start date. Please try again.");
+        if (startDate.isBefore(LocalDate.now())) {
+            System.out.println("The start date is in the past. Please try again.");
             return false;
         }
 
-        if (startDate.isBefore(endDate)) {
-            return true;
+        if (startDate.isAfter(endDate)) {
+            System.out.println("The start date is after the end date. Please try again.");
+            return false;
         }
 
+        if (endDate.isBefore(maxDate) || endDate.isEqual(maxDate)) {
+            System.out.println("The end date of this phase can't be in the same period as the previous phase. Please try again.");
+            return false;
+        }
 
+        if (startDate.isBefore(maxDate)) {
+            System.out.println("The start date of this phase can't be before the current date or in the same period as the previous phase. Please try again.");
+            return false;
+        }
 
+        if (startDate.isEqual(endDate)) {
+            System.out.println("The start and end date of this phase can't be the same. Please try again.");
+            return false;
+        }
 
-        return false;
+        return true;
     }
 
 }

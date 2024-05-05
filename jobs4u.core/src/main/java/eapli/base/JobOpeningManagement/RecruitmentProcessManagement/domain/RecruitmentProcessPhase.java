@@ -1,6 +1,6 @@
-package eapli.base.RecruitmentProcessManagement.domain;
+package eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain;
 
-import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.domain.model.DomainEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,24 +9,26 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
-public class RecruitmentProcessPhase implements DomainEntity<Phase>{
-    @Id
+
+public class RecruitmentProcessPhase implements DomainEntity<Phase> {
+    @EmbeddedId
+    private RecruitmentProcessPhaseID id;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private final Phase phase;
     private final PhasePeriod period;
-    private String jobOpening_id;
+
 
     public RecruitmentProcessPhase(Phase phase, PhasePeriod period, String jobOpeningReference) {
         this.phase = phase;
         this.period = period;
-        this.jobOpening_id = jobOpeningReference;
+        this.id = new RecruitmentProcessPhaseID(phase.toString(), jobOpeningReference);
     }
 
     protected RecruitmentProcessPhase() {
         this.phase = null;
         this.period = null;
-        this.jobOpening_id = "";
+        this.id = null;
     }
 
     public boolean isActive(LocalDate date) {
@@ -50,21 +52,23 @@ public class RecruitmentProcessPhase implements DomainEntity<Phase>{
                 && period.equals(that.period);
     }
 
-    @Override
-    public Phase identity() {
-        return phase;
-    }
 
     @Override
     public String toString() {
         return "RecruitmentProcessPhase{" +
                 "phase=" + phase +
                 ", period=" + period +
-                ", jobOpening_id='" + jobOpening_id + '\'' +
+                ", jobOpening_id='" + id + '\'' +
                 '}';
     }
 
-    public RecruitmentProcessPhaseDTO toDTO(){
+    public RecruitmentProcessPhaseDTO toDTO() {
         return new RecruitmentProcessPhaseDTO(getPhase().toString());
+    }
+
+
+    @Override
+    public Phase identity() {
+        return phase;
     }
 }

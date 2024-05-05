@@ -2,11 +2,14 @@ package eapli.base.JobOpeningManagement.domain;
 
 
 import eapli.base.InterviewModelManagement.domain.InterviewModel;
-import eapli.base.RecruitmentProcessManagement.domain.Phase;
-import eapli.base.RecruitmentProcessManagement.domain.PhasePeriod;
-import eapli.base.RecruitmentProcessManagement.domain.RecruitmentProcessPhase;
-import eapli.base.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
-import eapli.base.RequirementSpecificationsManagement.domain.JobRequirement;
+import eapli.base.InterviewModelManagement.domain.InterviewModelClass;
+import eapli.base.InterviewModelManagement.domain.InterviewModelTitle;
+import eapli.base.InterviewModelManagement.dto.InterviewModelDTO;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.Phase;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.PhasePeriod;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.domain.RecruitmentProcessPhase;
+import eapli.base.JobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
+import eapli.base.jobRequirementsManagement.domain.JobRequirement;
 import eapli.base.JobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.domain.Customer;
 import eapli.framework.domain.model.AggregateRoot;
@@ -15,6 +18,8 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
@@ -46,7 +51,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Column(nullable = false)
     private Status status;
     @OneToMany
-    @JoinColumn(name = "jobOpening_id", referencedColumnName = "id")
+    @Cascade(value = CascadeType.ALL)
+    @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
     private List<RecruitmentProcessPhase> recruitmentProcess;
     @ManyToOne
     private JobRequirement jobRequirement;
@@ -123,14 +129,23 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     public void setupRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> dtoList){
         recruitmentProcess = new ArrayList<>();
         for (RecruitmentProcessPhaseDTO dto : dtoList){
-            recruitmentProcess.add(new RecruitmentProcessPhase(Phase.valueOf(dto.getPhase()),
-                    new PhasePeriod(dto.getStartDate(),dto.getEndDate()), jobReference.toString()));
+            Phase phase = Phase.parse(dto.getPhase());
+            PhasePeriod phasePeriod = new PhasePeriod(dto.getStartDate(), dto.getEndDate());
+            RecruitmentProcessPhase recruitmentProcessPhase = new RecruitmentProcessPhase(phase,phasePeriod, this.jobReference.getId());
+            recruitmentProcess.add(recruitmentProcessPhase);
         }
         //if (jobRequirement!=null && interviewModel!=null){
             this.status = Status.ACTIVE;
         //}
     }
-
+   public void updateInterviewModel(InterviewModelDTO dto){
+        this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()));
+        //TODO phase triggered and job application status update
+    }
+    /*public void setJobRequirement(JobRequirementDTO dto){
+        this.jobRequirement = new JobRequirement(new RequirementTitle(dto.getRequirementTitle()),new FileName(dto.getRequirementTitle()));
+        //TODO phase triggered and job application status update
+    }*/
     public boolean isActive() {
         return this.status.equals(Status.ACTIVE);
     }
@@ -145,5 +160,11 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     public boolean isManagedBy(SystemUser user) {
         return this.customerManager.equals(user);
+    }
+    public boolean hasInterviewModel(){
+        return this.interviewModel != null;
+    }
+    public boolean hasRequirementSpecification(){
+        return this.jobRequirement != null;
     }
 }

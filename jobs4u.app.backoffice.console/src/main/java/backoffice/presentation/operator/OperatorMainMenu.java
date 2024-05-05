@@ -17,65 +17,65 @@ public class OperatorMainMenu {
     private static final int OPTION_2 = 2;
     private static final int OPTION_3 = 3;
     private static final int LOGOUT = 4;
+
     public void displayOperatorMenu() {
 
-        System.out.println("""
-                =====================================
-                |      Jobs4u - Operator Menu       |
-                =====================================
-                1. Register new Candidate
-                2. List all Candidates
-                3. Register Job Application
-                3. Logout
-                0. Exit
-                =====================================
-                
-                """);
-        System.out.println();
+        while (true) {
+            System.out.println("""
+                    =====================================
+                    |      Jobs4u - Operator Menu       |
+                    =====================================
+                    1. Register new Candidate
+                    2. List all Candidates
+                    3. Register Job Application
+                    4. Logout
+                    0. Exit
+                    =====================================
+                                    
+                    """);
+            int option = 0;
+            boolean validInput = false;
 
+            while (!validInput) {
+                System.out.print("Enter option number: ");
 
-        int option = 0;
-        boolean validInput = false;
+                try {
+                    option = read.nextInt();
 
-        while (!validInput) {
-            System.out.print("Enter option number: ");
-
-            try {
-                option = read.nextInt();
-
-                if (option >= EXIT_OPTION && option <= LOGOUT) {
-                    validInput = true;
-                } else {
-                    System.out.printf("Invalid option. Please enter a number between %d and %d \n", EXIT_OPTION, LOGOUT);
+                    if (option >= EXIT_OPTION && option <= LOGOUT) {
+                        validInput = true;
+                    } else {
+                        System.out.printf("Invalid option. Please enter a number between %d and %d \n", EXIT_OPTION, LOGOUT);
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, LOGOUT);
+                    read.nextLine();
                 }
-            } catch (InputMismatchException e) {
-                System.out.printf("Invalid input. Please enter a number between %d and %d \n", EXIT_OPTION, LOGOUT);
-                read.nextLine();
             }
-        }
-        switch (option) {
-            case OPTION_1:
-                addCandidateUI.doShow();
-                // do you want to register another candidate
-                break;
-            case OPTION_2:
-                System.out.println(listUsersController.listAllCandidates().toString()
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace(",", ""));
-                break;
-            case OPTION_3:
-                registerJobApplicationUI.doShow();
-                break;
-            case LOGOUT:
-                Jobs4uBackofficeApp.main(null);
-                break;
-            case EXIT_OPTION:
-                System.out.println("Bye, Bye");
-                System.exit(0);
-                break;
-            default:
-                System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, LOGOUT);
+            switch (option) {
+                case OPTION_1:
+                    addCandidateUI.doShow();
+                    // do you want to register another candidate
+                    break;
+                case OPTION_2:
+                    System.out.println(listUsersController.listAllCandidates().toString()
+                            .replace("[", "")
+                            .replace("]", "")
+                            .replace(",", ""));
+                    break;
+                case OPTION_3:
+                    registerJobApplicationUI.doShow();
+                    break;
+                case LOGOUT:
+                    Jobs4uBackofficeApp.main(null);
+                    break;
+                case EXIT_OPTION:
+                    System.out.println("Bye, Bye");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.printf("Invalid input. Please enter a number between %d and %d.\n", EXIT_OPTION, LOGOUT);
+            }
         }
     }
 

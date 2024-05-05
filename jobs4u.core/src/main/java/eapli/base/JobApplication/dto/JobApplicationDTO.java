@@ -3,6 +3,7 @@ package eapli.base.JobApplication.dto;
 import eapli.framework.representations.dto.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class JobApplicationDTO {
     public JobApplicationDTO(List<String> files, String candidateEmail, String jobOpeningReference) {
         this.files = files;
         this.candidateEmail = candidateEmail;
-        JobOpeningReference = jobOpeningReference;
+        this.jobOpeningReference = jobOpeningReference;
     }
 
     public JobApplicationDTO(long id, List<String> files, int rank, String state, int interviewGrade, String candidateEmail, String jobOpeningReference) {
@@ -31,6 +32,14 @@ public class JobApplicationDTO {
         this.state = state;
         this.interviewGrade = interviewGrade;
         this.candidateEmail = candidateEmail;
-        JobOpeningReference = jobOpeningReference;
+        this.jobOpeningReference = jobOpeningReference;
+    }
+
+    public String getCandidateEmail() {
+        return candidateEmail;
+    }
+
+    public String getJobOpeningReference() {
+        return jobOpeningReference;
     }
 }

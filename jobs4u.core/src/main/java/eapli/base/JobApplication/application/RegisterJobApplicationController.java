@@ -16,10 +16,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @UseCaseController
@@ -34,17 +31,27 @@ public class RegisterJobApplicationController {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.OPERATOR);
     }
 
-    public boolean candidateExists(String email){
+    public boolean candidateExists(String email) {
         return candidateRepository.findByEmail(new Email(email)).isPresent();
     }
-    public boolean checkIfApplicationExists(String email){
-        return applicationRepository.findApplicationsByJCandidateEmail(email).iterator().hasNext();
+
+    public boolean checkIfApplicationExists(String email, String jobReference) {
+        Iterator<JobApplicationDTO> it = applicationRepository.findApplicationsByJCandidateEmail(email).iterator();
+        if (it.hasNext()){
+            String jobRef = it.next().getJobOpeningReference();
+            if (jobRef.contains(jobReference)){
+                return true;
+            }
+            System.out.println(jobRef);
+        }
+        return false;
     }
+
     public JobApplicationDTO registerJobApplication(String path, String candidateEmail, String jobReference) {
         //authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER, BaseRoles.OPERATOR);
         List<ApplicationFile> files = getApplicationFiles(path);
         Optional<Candidate> candidate = candidateRepository.findByEmail(new Email(candidateEmail));
-        Optional<JobOpening> jobOpening = jobOpeningSvc.getJobOpening(jobReference);
+        Optional<JobOpening> jobOpening = jobOpeningSvc.getJobOpeningByReference(jobReference);
         JobApplication jobApplication = new JobApplication(files, candidate.get(), jobOpening.get());
         return applicationRepository.save(jobApplication).toDTO();
 
@@ -71,7 +78,7 @@ public class RegisterJobApplicationController {
         return applicationFiles;
     }
 
-    public String getFolderName(String directoryPath){
-       return importCandidatesFilePathsSvc.getFolderName(directoryPath);
+    public String getFolderName(String directoryPath) {
+        return importCandidatesFilePathsSvc.getFolderName(directoryPath);
     }
 }
