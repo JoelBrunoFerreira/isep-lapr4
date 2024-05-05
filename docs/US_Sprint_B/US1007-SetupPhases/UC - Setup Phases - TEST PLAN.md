@@ -18,15 +18,7 @@
 >4. The system shall alert that the Job opening already exists
 
 
-## Case #3: Create less recruitment phases
->1. Login as Customer Manager
->2. Create a new Job Opening
->3. Insert mandatory information
->4. Set recruitment process phases (less then the mandatory 4 phases).
->5. The system shall alert that the number of phases is wrong.
-
-
-## Case #4: Create overlapping dates in recruitment phases
+## Case #3: Create overlapping dates in recruitment phases
 >1. Login as Customer Manager
 >2. Create a new Job Opening
 >3. Insert mandatory information
