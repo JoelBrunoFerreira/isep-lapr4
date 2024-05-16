@@ -7,46 +7,43 @@ skinparam defaultFontName FG Virgil
 skinparam shadowing false
 
 actor CustomerManager as Actor
-participant RegisterJobOpeningUI as UI <<presentation>>
-participant GetCustomerController as CustomerController <<application>>
-participant RegisterJobOpeningController as Controller <<application>>
-participant RecruitmentProcessController as RPController <<application>>
+participant EditJobOpeningUI as UI <<presentation>>
+participant EditJobOpeningController as Controller <<application>>
+participant JobOpeningSvc as Service <<application>>
+participant JobOpeningDTO as DTO<<domain>>
+participant JobOpening as Domain <<domain>>
+database JobOpeningRepository as Repository <<repository>>
 participant GetRequirementsController as ReqController <<application>>
 participant GetInterviewModelController as IMController <<application>>
-participant JobOpeningBuilder as Builder <<builder>>
-participant JobOpening as Domain <<domain>>
-participant PhaseFactory as PFactory <<factory>>
-participant Phase as Phase <<domain>>
-participant RepositoryFactory as Factory <<factory>>
-database UserRepository as URepository <<repository>>
-database JobOpeningRepository as Repository <<repository>>
+database InterviewModelRepository as IMRepository <<repository>>
+database JobRequirementsRepository as JRRepository <<repository>>
 
 
-Actor --> UI: add job opening
+Actor --> UI: edit job opening
 activate UI
-    UI -> CustomerController : getCustomer
-    activate CustomerController
-        CustomerController -> URepository : getAllCustomers()
-        URepository -> CustomerController : allCustomers()
-        CustomerController -> UI : show all customers
-        note left of UI: select and get customer name \n and acronym for jobReference
+
+    UI --> Actor: ask to list all jobOpenings | get by job reference
+    Actor --> UI
+    note left of UI: if list view, get job opening\n by jobReference anyway
+    UI -> Controller: get JobOpening list | search by jobReference
+    activate Controller
+        Controller -> Service: get JobOpening List | get JobOpening by jobReference
+        activate Service
+        Service -> Repository
+            activate Repository
+                Repository -> Domain
+            deactivate Repository
+            Domain-> DTO
+            DTO -> Service
+            Service -> Controller
+        deactivate Service
+        Controller->UI : list of JobOpeningDTOs | JobOpeningDTO
+        deactivate Controller
+    UI-->Actor: show JobOpeningDTO
     deactivate CustomerController
-    UI --> Actor: Ask job opening information
+    UI --> Actor: Ask what to edit
     Actor --> UI: Description, VacancyNumber, Address, \nMode, ContractType, Title
     Actor --> UI: Set Recruitment Process
-    loop 4-5
-        UI -> RPController: createPhase
-        activate RPController
-            RPController -> PFactory : createPhase(Period,TypeOfPhase)
-            activate PFactory
-                PFactory -> Phase: createPhase(Period,...)
-                note right of Phase : Application, Screening(Get Requirements Specifications), \n Interview (Get Interview Model), Analysis and Results
-                Phase -> PFactory: Phase
-                PFactory -> RPController: Phase
-                RPController -> UI: Phase
-            deactivate PFactory
-        deactivate RPController
-    end
     UI -> Controller: RegisterJobOpening(JobReference, Company, \nDescription, Address, Mode, ContractType, \nVacancyNumber, Title, RecruitmentProcess)
     activate Controller
         Controller -> Builder : create
