@@ -34,6 +34,9 @@ public class ListJobOpeningsController {
     }
 
     public Iterable<JobOpeningDTO> listJobOpeningsByStatus(Status status) {
-        return jobOpeningSvc.listJobOpeningsByStatus(status, user );
+        return jobOpeningSvc.listJobOpeningsByStatus(status, user);
+    }
+    public JobOpeningDTO getJobOpeningByReference(String jobReference){
+        return jobOpeningSvc.getJobOpeningDTOByReference(jobReference);
     }
 }

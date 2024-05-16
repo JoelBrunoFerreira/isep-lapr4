@@ -30,7 +30,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 | [1221715](members/1221715/readme.md)	  | Jorge Cruz     | [US 1001](US_Sprint_B%2FUS1001) *  [US 1005](US_Sprint_B%2FUS1005)  *  [US 1006](US_Sprint_B%2FUS1006)  *  [US 1006b](US_Sprint_B%2FUS1006b)  *  [US 1008](US_Sprint_B%2FUS1008)  *  [US 2001](SCOMP%2Fus_2001)                                            |
 | [1221722](members/1221722/readme.md)	  | Victor Salgado | [US 1002](US_Sprint_B%2Fus_1002) *  [US 1003](US_Sprint_B%2Fus_1003)  *  [US 1011](US_Sprint_B%2FUS1011-SelectInterviewModel)  *  [US 2002](US_Sprint_B%2Fus_2002)  *  [US 2001](SCOMP%2Fus_2001)                                                          |
 
-| Student Nr.	                          | Name           | Sprint B |
+| Student Nr.	                          | Name           | Sprint C |
 |---------------------------------------|----------------|----------|
 | [1191843](members/1191843/readme.md)  | Joel Ferreira  |          |
 | [1100719](members/1100719/readme.md)	 | Fábio Borges   |          |

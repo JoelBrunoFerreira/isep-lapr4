@@ -35,7 +35,6 @@ public class AddCandidateUI extends AbstractUI {
             System.out.println("Role(s): " + registeredUser.get("roles").toString());
             System.out.println("================================");
             System.out.println();
-            reRunMenu();
         } catch (IntegrityViolationException | ConstraintViolationException e) {
             System.out.println("Error registering candidate.\nCode already in use.\n");
         } catch (Exception e) {
