@@ -1,0 +1,137 @@
+@startuml Domain Model
+left to right direction
+
+
+
+'=== JobApplication Aggregate ===
+package JobApplication_Aggregate{
+
+    Entity JobApplication <<Aggregate Root>>{
+    }
+    Class JobApplicationState <<Value Object>>{
+    }
+    Enum ApplicationState
+    Class JobApplicationFile  <<Value Object>>
+    Class Rank  <<Value Object>>
+    Class Justification <<Value Object>>
+    JobApplication --> InterviewModelScore
+   JobApplication  --> "1…*" JobApplicationFile
+   JobApplication  --> "1" JobRequirementResult
+   JobApplication  --> JobApplicationState
+    JobApplication  --> "1" Rank
+    JobApplicationState --> ApplicationState
+
+
+}
+
+Entity JobRequirementsEvaluation <<Service>>
+Entity InterviewModelEvaluation <<Service>>
+
+'=== RequirementSpecifications Aggregate ===
+package JobRequirements_Aggregate{
+    Entity JobRequirement <<Aggregate Root>>{}
+    Class JobRequirementTitle <<Value Object>>{}
+    Class JobRequirementClass <<Value Object>>
+    JobRequirement --> "1" JobRequirementTitle
+    JobRequirement -> "1" JobRequirementClass
+}
+
+'=== InterviewModel Aggregate ===
+package InterviewModel_Aggregate{
+
+    Entity InterviewModel <<Aggregate Root>>{
+    }
+
+    Class InterviewModelTitle <<Value Object>>{
+    }
+    Class InterviewModelClass <<Value Object>> {}
+
+
+
+    InterviewModel --> "1" InterviewModelTitle
+
+    InterviewModel --> "1" InterviewModelClass
+}
+
+'=== Candidate Aggregate ===
+package Candidate_Aggregate{
+
+    Entity Candidate <<Aggregate Root>>{
+    }
+
+    Class Email <<Identity>><<Value Object>>{
+    }
+
+    Class Password  <<Value Object>>{
+        }
+    Class Name <<Value Object>> {}
+    Class PhoneNumber <<Value Object>> {}
+
+
+    Candidate --> "1" Email
+    Candidate --> "1" Password
+    Candidate --> "1" Name
+    Candidate --> "1" PhoneNumber
+}
+
+'=== JobOpening Aggregate ===
+package JobOpening_Aggregate{
+    Entity JobOpening <<Aggregate Root>>{}
+    Class Status <<ValueObject>> {}
+    Class JobReference <<Identity>><<ValueObject>>
+    Class JobTitle <<Value Object>>{}
+    Enum ContractType <<Enum>><<Value Object>> {}
+    Enum WorkingMode <<Enum>><<Value Object>> {}
+    Class Address <<Value Object>>{}
+    Class NumberVacancies <<Value Object>>{}
+    Class Description <<Value Object>> {}
+    Entity RecruitmentProcessPhase <<Aggregate Root>>{
+    }
+    Enum Phases<<ValueObject>>{}
+    Class Period <<Value Object>> {}
+
+    JobOpening --> "1" JobReference
+    JobOpening --> "1" JobTitle
+    JobOpening --> "1" ContractType
+    JobOpening --> "1" WorkingMode
+    JobOpening --> "1" Address
+    JobOpening --> "1" NumberVacancies
+    JobOpening --> "1" Description
+    JobOpening --> "1" Status
+    JobOpening --> "4-5" RecruitmentProcessPhase
+    RecruitmentProcessPhase --> "1" Period
+    RecruitmentProcessPhase --> "1" Phases
+}
+
+'=== Company/Customer Aggregate ===
+package Customer_Aggregate{
+
+    Entity Customer <<Aggregate Root>>{
+    }
+
+    Class Email <<Identity>> <<Value Object>>{
+    }
+    Class Password <<Value Object>>{
+    }
+    Class Name <<Value Object>>{}
+    Class Address <<Value Object>>{
+        }
+    Class Acronym <<Value Object>>{
+    }
+
+    Customer --> "1   " Email
+    Customer --> "1" Password
+    Customer --> "1" Address
+    Customer --> "1" Acronym
+    Customer --> "1" Name
+}
+
+Justification <.. JobRequirementsEvaluation
+JobRequirementResult --> Justification
+InterviewModelScore <.. InterviewModelEvaluation
+JobOpening --> "0...1     " InterviewModel
+JobOpening --> "1   " Customer
+JobOpening --> "1" JobRequirement
+JobApplication  --> "1" Candidate
+JobApplication  --> "1" JobOpening
+@enduml

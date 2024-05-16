@@ -30,7 +30,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 | [1221715](members/1221715/readme.md)	 | Jorge Cruz     |                                                 |
 | [1221722](members/1221722/readme.md)	 | Victor Salgado |                                                 |
 
-| Student Nr.	                          | Name           | Sprint B |
+| Student Nr.	                          | Name           | Sprint C |
 |---------------------------------------|----------------|----------|
 | [1191843](members/1191843/readme.md)  | Joel Ferreira  |          |
 | [1100719](members/1100719/readme.md)	 | Fábio Borges   |          |

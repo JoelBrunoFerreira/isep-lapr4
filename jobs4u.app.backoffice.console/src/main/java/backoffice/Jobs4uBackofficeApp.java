@@ -25,13 +25,18 @@ public class Jobs4uBackofficeApp extends BaseApplication {
     protected void doMain(String[] args) {
 //        new BackofficeFrontMenu().show();
 
-        // login and go to main menu
-        final boolean authenticated = new LoginUI(new AuthenticationCredentialHandler()).show();
-        if (authenticated) {
-            // go to main menu
-            final var menu = new MainMenu();
-            menu.mainLoop();
+        try {
+            final boolean authenticated = new LoginUI(new AuthenticationCredentialHandler()).show();
+            if (authenticated) {
+                // go to main menu
+                final var menu = new MainMenu();
+                menu.mainLoop();
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+        // login and go to main menu
+
     }
 
     @Override

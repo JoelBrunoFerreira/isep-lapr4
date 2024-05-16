@@ -17,8 +17,9 @@ public class ListJobOpeningsUI extends AbstractUI {
     private static final int FILTER_ACTIVE = 2;
     private static final int FILTER_PENDING = 3;
     private static final int FILTER_COMPLETED = 4;
+    private static final int FILTER_JOB_REFERENCE = 5;
 
-    private static final int FILTER_ALL = 5;
+    private static final int FILTER_ALL = 6;
 
     private final ListJobOpeningsController controller = new ListJobOpeningsController();
 
@@ -45,6 +46,9 @@ public class ListJobOpeningsUI extends AbstractUI {
                     break;
                 case FILTER_COMPLETED:
                     filterByCompleted();
+                    break;
+                case FILTER_JOB_REFERENCE:
+                    filterByJobRefernece();
                     break;
                 case FILTER_ALL:
                     showAllJobOpenings();
@@ -74,8 +78,9 @@ public class ListJobOpeningsUI extends AbstractUI {
         return String.format("%d - By customer;\n" +
                         "%d - Active;\n%d - Pending;\n" +
                         "%d - Completed;\n" +
+                        "%d - Job Reference;\n" +
                         "%d - All.\n",
-                FILTER_CUSTOMER, FILTER_ACTIVE,FILTER_PENDING,FILTER_COMPLETED, FILTER_ALL);
+                FILTER_CUSTOMER, FILTER_ACTIVE,FILTER_PENDING,FILTER_COMPLETED, FILTER_JOB_REFERENCE, FILTER_ALL);
     }
 
     private void filterByCustomer() {
@@ -116,6 +121,14 @@ public class ListJobOpeningsUI extends AbstractUI {
         }else {
             System.out.println("No completed job openings found!\n");
         }
+    }
+    private void filterByJobRefernece(){
+        String jobReference = Console.readLine("Job reference: ");
+       try{
+           JobOpeningDTO jobOpeningDTO = controller.getJobOpeningByReference(jobReference);
+       }catch (Exception e) {
+           System.out.println("Job opening with job reference: \"" + jobReference + "\" does not exist!\n");
+       }
     }
 
     @Override
