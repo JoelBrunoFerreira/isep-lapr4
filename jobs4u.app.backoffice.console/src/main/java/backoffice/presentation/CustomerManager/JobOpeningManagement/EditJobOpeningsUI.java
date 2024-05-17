@@ -9,13 +9,14 @@ import eapli.framework.presentation.console.SelectWidget;
 
 public class EditJobOpeningsUI extends AbstractUI {
     private static final int EXIT_OPTION = 0;
-    private static final int FILTER_CUSTOMER = 1;
-    private static final int FILTER_ACTIVE = 2;
-    private static final int FILTER_PENDING = 3;
-    private static final int FILTER_COMPLETED = 4;
-    private static final int FILTER_JOB_REFERENCE = 5;
+    private static final int EDIT_TITLE = 1;
+    private static final int EDIT_DESCRIPTION = 2;
+    private static final int EDIT_MODE = 3;
+    private static final int EDIT_CONTRACT = 4;
+    private static final int EDIT_N_VACANCIES = 5;
 
-    private static final int FILTER_ALL = 6;
+    private static final int EDIT_ADDRESS = 6;
+
 
     private final EditJobOpeningController controller = new EditJobOpeningController();
 
@@ -41,10 +42,19 @@ public class EditJobOpeningsUI extends AbstractUI {
         }
         if (jobOpeningDTO != null) {
             if (validToEditEverything(jobOpeningDTO)){
-                System.out.println("Valid!");
+                int option = Console.readInteger(showEditMenu());
             }
         }
         return false;
+    }
+
+    private String showEditMenu() {
+        return String.format("EDIT:\n%d - Title;\n" +
+                        "%d - Description;\n%d - Mode;\n" +
+                        "%d - Contract Type;\n" +
+                        "%d - Number of Vacancies;\n" +
+                        "%d - Address.\n",
+                EDIT_TITLE, EDIT_DESCRIPTION, EDIT_MODE, EDIT_CONTRACT, EDIT_N_VACANCIES, EDIT_ADDRESS);
     }
 
     private boolean validToEditEverything(JobOpeningDTO jobOpeningDTO) {
@@ -80,14 +90,6 @@ public class EditJobOpeningsUI extends AbstractUI {
     }
 
 
-    private String filterMenu() {
-        return String.format("%d - By customer;\n" +
-                        "%d - Active;\n%d - Pending;\n" +
-                        "%d - Completed;\n" +
-                        "%d - Job Reference;\n" +
-                        "%d - All.\n",
-                FILTER_CUSTOMER, FILTER_ACTIVE, FILTER_PENDING, FILTER_COMPLETED, FILTER_JOB_REFERENCE, FILTER_ALL);
-    }
 
 
     @Override
