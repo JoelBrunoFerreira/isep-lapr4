@@ -13,10 +13,8 @@ participant JobOpeningSvc as Service <<application>>
 participant JobOpeningDTO as DTO<<domain>>
 participant JobOpening as Domain <<domain>>
 database JobOpeningRepository as Repository <<repository>>
-participant GetRequirementsController as ReqController <<application>>
-participant GetInterviewModelController as IMController <<application>>
-database InterviewModelRepository as IMRepository <<repository>>
 database JobRequirementsRepository as JRRepository <<repository>>
+database InterviewModelRepository as IMRepository <<repository>>
 
 
 Actor --> UI: edit job opening
@@ -38,32 +36,34 @@ activate UI
             Service -> Controller
         deactivate Service
         Controller->UI : list of JobOpeningDTOs | JobOpeningDTO
-        deactivate Controller
-    UI-->Actor: show JobOpeningDTO
-    deactivate CustomerController
-    UI --> Actor: Ask what to edit
-    Actor --> UI: Description, VacancyNumber, Address, \nMode, ContractType, Title
-    Actor --> UI: Set Recruitment Process
-    UI -> Controller: RegisterJobOpening(JobReference, Company, \nDescription, Address, Mode, ContractType, \nVacancyNumber, Title, RecruitmentProcess)
-    activate Controller
-        Controller -> Builder : create
-        note right of Builder: JobOpeningBuilder used to create a JobOpening entity in a valid state
-        Controller -> Builder:setJobReference(acronym)
-        note right of Controller: Set the rest of the information
-        Controller -> Builder:registerJobOpening()
-        activate Builder
-            Builder -> Domain: registerJobOpening(JobReference, Company, \nDescription, Address, Mode, ContractType, \nVacancyNumber, Title, RecruitmentProcess)
-            Domain->Builder: JobOpening
-            Builder -> Controller:JobOpening
-        deactivate Builder
-        Controller -> Factory
-        activate Factory
-            Factory -> Repository : create
-            Factory -> Controller : JobOpening
-        deactivate Factory
-        Controller -> Repository : save(JobOpening)
-        Controller -> UI : JobOpening
     deactivate Controller
-    UI-->Actor: displayJobOpeningInfo
+    UI-->Actor: show JobOpeningDTO
+    UI --> Actor: Ask what to edit
+    Actor --> UI: Description, VacancyNumber, Address, \nMode, ContractType, Title, Recruitment Process\nPhase Dates, Interview Model, Job Requirements
+    UI -> Controller: editJobOpening(Company, Description, Address, \nMode, ContractType, VacancyNumber, Title, \nRecruitmentProcess, Interview Model, Job Requirements)
+    note left of Controller: If possible to edit
+    activate Controller
+        Controller -> Service:editJobOpening(...)
+        activate Service
+            Service -> DTO
+            DTO -> Domain
+            Domain -> Service
+            Service -> JRRepository: getNewJobRequirement
+                        activate JRRepository
+                            JRRepository->Service: new JobRequirement
+                        deactivate JRRepository
+            Service -> IMRepository: getNewInterviewModel
+            activate IMRepository
+                IMRepository->Service: new InterviewModel
+            deactivate IMRepository
+            Service -> Repository: updateJobOpening(...)
+            activate Repository
+                Repository -> Service: return jobOpening
+            deactivate Repository
+            Service -> Controller: return jobOpening
+        deactivate Service
+        Controller -> UI: return jobOpening
+    deactivate Controller
+    UI-->Actor: displayEditedJobOpening
 deactivate UI
 @enduml
