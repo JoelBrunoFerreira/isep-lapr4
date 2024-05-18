@@ -22,7 +22,7 @@ public class ListJobApplicationsUI extends AbstractUI {
     protected boolean doShow() {
         System.out.println("1. List by candidate");
         System.out.println("2. List by job opening");
-        System.out.println("3. List all data of a specific appication");
+        System.out.println("3. List all data of a specific application");
         System.out.println("0. Return");
 
         boolean valid = false;
@@ -31,10 +31,13 @@ public class ListJobApplicationsUI extends AbstractUI {
             System.out.println("Please choose an option");
             String value = Console.readLine("");
 
+            final String email, reference;
+            Iterable<JobApplicationDTO> jobApplications;
+
             switch (value) {
                 case "1":
                     valid = true;
-                    final String email = Console.readLine("Type the candidate's email:");
+                    email = Console.readLine("Type the candidate's email:");
 
                     Optional<CandidateDTO> candidateDTO = listUsersController.findCandidateByEmail(email);
 
@@ -45,7 +48,7 @@ public class ListJobApplicationsUI extends AbstractUI {
                         System.out.println("Candidate found");
                         printer.visit(candidateDTO.get());
 
-                        Iterable<JobApplicationDTO> jobApplications = listApplicationController.listApplicationsByCandidate(email);
+                        jobApplications = listApplicationController.listApplicationsByCandidate(email);
 
                         if (!jobApplications.iterator().hasNext()) {
                             System.out.println("No job applications for the selected candidate.");
@@ -62,9 +65,28 @@ public class ListJobApplicationsUI extends AbstractUI {
                     break;
                 case "2":
                     valid = true;
-                    final String reference = Console.readLine("Type the Job Reference: ");
+                    reference = Console.readLine("Type the Job Reference: ");
+                    email = Console.readLine("Type the candidate's email:");
 
-                    Iterable<JobApplicationDTO> jobApplications = listApplicationController.listApplicationsByJobOpeningId(reference);
+                    Optional<JobApplicationDTO> jobApplication = listApplicationController.getJobApplicationByEmailAndJobReference(email, reference);
+
+                    if (!jobApplication.isPresent()) {
+                        System.out.println("No job applications with the submitted data.");
+                    } else {
+                        System.out.println();
+                        System.out.println("Job Opening: " + jobApplication.get().JobOpeningReference);
+                        System.out.println("Candidate: " + jobApplication.get().candidateEmail);
+                        System.out.println("State: " + jobApplication.get().state);
+                        System.out.println("Rank: " + jobApplication.get().rank);
+                        System.out.println("Interview grade: " + jobApplication.get().interviewGrade);
+                    }
+                    break;
+
+                case "3":
+                    valid = true;
+                    reference = Console.readLine("Type the Job Reference: ");
+
+                    jobApplications = listApplicationController.listApplicationsByJobOpeningId(reference);
 
                     if (!jobApplications.iterator().hasNext()) {
                         System.out.println("No job applications for the selected job opening.");
@@ -89,9 +111,9 @@ public class ListJobApplicationsUI extends AbstractUI {
         return true;
     }
 
-        @Override
-        public String headline () {
-            return "List Job Applications";
-        }
-
+    @Override
+    public String headline() {
+        return "List Job Applications";
     }
+
+}

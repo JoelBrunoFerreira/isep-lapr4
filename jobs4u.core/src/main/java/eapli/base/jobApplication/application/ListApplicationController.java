@@ -10,6 +10,8 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.util.Optional;
+
 
 @UseCaseController
 public class ListApplicationController {
@@ -36,6 +38,11 @@ public class ListApplicationController {
     public Iterable<JobApplicationDTO> listApplicationsByCandidate(String candidateEmail) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
         return applicationRepository.findApplicationsByJCandidateEmail(candidateEmail);
+    }
+
+    public Optional<JobApplicationDTO> getJobApplicationByEmailAndJobReference(String candidateEmail, String jobReference) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+        return applicationRepository.findApplicationByEmailAndJobReference(candidateEmail, jobReference);
     }
 
 }

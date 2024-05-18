@@ -7,8 +7,7 @@ import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplication, Long, Long >
         implements JobApplicationRepository {
@@ -40,6 +39,14 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
             }
         }
         return result;
+    }
+
+    @Override
+    public Optional<JobApplicationDTO> findApplicationByEmailAndJobReference(String candidateEmail, String jobReference) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("candidateId", candidateEmail);
+        params.put("jobReference", jobReference);
+        return Optional.ofNullable(matchOne("e.candidateId=:candidateEmail and e.jobReference=:jobReference", params).get().toDTO());
     }
 
     @Override
