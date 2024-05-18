@@ -139,9 +139,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             RecruitmentProcessPhase recruitmentProcessPhase = new RecruitmentProcessPhase(phase, phasePeriod, this.jobReference.getId());
             recruitmentProcess.add(recruitmentProcessPhase);
         }
-        //if (jobRequirement!=null && interviewModel!=null){
         this.status = Status.ACTIVE;
-        //}
+        setStatusByPhaseDates();
     }
 
     public void updateInterviewModel(InterviewModelDTO dto) {
@@ -151,16 +150,36 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     public void updateJobRequirement(JobRequirementDTO dto) {
         this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()));
-        setStatusByPhaseDates();
         //TODO phase triggered and job application status update
     }
-
-    public boolean isActive() {
-        return this.status.equals(Status.ACTIVE);
-    }
-
     public boolean isPending() {
         return this.status.equals(Status.PENDING);
+    }
+    public boolean allActive() {
+        return this.status.equals(Status.ACTIVE)
+                ||this.status.equals(Status.ACTIVE_APPLICATION)
+                ||this.status.equals(Status.ACTIVE_SCREENING)
+                ||this.status.equals(Status.ACTIVE_INTERVIEW)
+                ||this.status.equals(Status.ACTIVE_ANALYSIS)
+                ||this.status.equals(Status.ACTIVE_RESULT);
+    }
+    public boolean isActive(){
+        return this.status.equals(Status.ACTIVE);
+    }
+    public boolean isActiveApplication() {
+        return this.status.equals(Status.ACTIVE_APPLICATION);
+    }
+    public boolean isActiveScreening() {
+        return this.status.equals(Status.ACTIVE_SCREENING);
+    }
+    public boolean isActiveInterview() {
+        return this.status.equals(Status.ACTIVE_INTERVIEW);
+    }
+    public boolean isActiveAnalysis() {
+        return this.status.equals(Status.ACTIVE_ANALYSIS);
+    }
+    public boolean isActiveResult() {
+        return this.status.equals(Status.ACTIVE_RESULT);
     }
 
     public boolean isCompleted() {

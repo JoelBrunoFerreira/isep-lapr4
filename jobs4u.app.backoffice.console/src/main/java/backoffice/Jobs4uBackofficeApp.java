@@ -1,6 +1,7 @@
 package backoffice;
 
 import backoffice.presentation.MainMenu;
+import eapli.base.app.bootstrap.BaseBootstrap;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
