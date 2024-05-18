@@ -26,6 +26,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,32 +132,55 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         return result;
     }
 
-    public void setupRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> dtoList){
+    public void setupRecruitmentProcessPhases(List<RecruitmentProcessPhaseDTO> dtoList) {
         recruitmentProcess = new ArrayList<>();
-        for (RecruitmentProcessPhaseDTO dto : dtoList){
+        for (RecruitmentProcessPhaseDTO dto : dtoList) {
             Phase phase = Phase.parse(dto.getPhase());
             PhasePeriod phasePeriod = new PhasePeriod(dto.getStartDate(), dto.getEndDate());
-            RecruitmentProcessPhase recruitmentProcessPhase = new RecruitmentProcessPhase(phase,phasePeriod, this.jobReference.getId());
+            RecruitmentProcessPhase recruitmentProcessPhase = new RecruitmentProcessPhase(phase, phasePeriod, this.jobReference.getId());
             recruitmentProcess.add(recruitmentProcessPhase);
         }
-        //if (jobRequirement!=null && interviewModel!=null){
-            this.status = Status.ACTIVE;
-        //}
+        this.status = Status.ACTIVE;
+        setStatusByPhaseDates();
     }
-   public void updateInterviewModel(InterviewModelDTO dto){
+
+    public void updateInterviewModel(InterviewModelDTO dto) {
         this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()));
         //TODO phase triggered and job application status update
     }
-    public void updateJobRequirement(JobRequirementDTO dto){
+
+    public void updateJobRequirement(JobRequirementDTO dto) {
         this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()));
         //TODO phase triggered and job application status update
     }
-    public boolean isActive() {
-        return this.status.equals(Status.ACTIVE);
-    }
-
     public boolean isPending() {
         return this.status.equals(Status.PENDING);
+    }
+    public boolean allActive() {
+        return this.status.equals(Status.ACTIVE)
+                ||this.status.equals(Status.ACTIVE_APPLICATION)
+                ||this.status.equals(Status.ACTIVE_SCREENING)
+                ||this.status.equals(Status.ACTIVE_INTERVIEW)
+                ||this.status.equals(Status.ACTIVE_ANALYSIS)
+                ||this.status.equals(Status.ACTIVE_RESULT);
+    }
+    public boolean isActive(){
+        return this.status.equals(Status.ACTIVE);
+    }
+    public boolean isActiveApplication() {
+        return this.status.equals(Status.ACTIVE_APPLICATION);
+    }
+    public boolean isActiveScreening() {
+        return this.status.equals(Status.ACTIVE_SCREENING);
+    }
+    public boolean isActiveInterview() {
+        return this.status.equals(Status.ACTIVE_INTERVIEW);
+    }
+    public boolean isActiveAnalysis() {
+        return this.status.equals(Status.ACTIVE_ANALYSIS);
+    }
+    public boolean isActiveResult() {
+        return this.status.equals(Status.ACTIVE_RESULT);
     }
 
     public boolean isCompleted() {
@@ -165,13 +190,16 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     public boolean isManagedBy(SystemUser user) {
         return this.customerManager.equals(user);
     }
-    public boolean hasInterviewModel(){
+
+    public boolean hasInterviewModel() {
         return this.interviewModel != null;
     }
-    public boolean hasRequirementSpecification(){
+
+    public boolean hasRequirementSpecification() {
         return this.jobRequirement != null;
     }
 
+<<<<<<< HEAD
     public InterviewModel interviewModel(){
         return interviewModel;
     }
@@ -179,5 +207,24 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     public void selectInterviewModel(InterviewModel interviewModel ){
         Preconditions.nonNull(interviewModel);
         this.interviewModel = interviewModel;
+=======
+    private void setStatusByPhaseDates() {
+        LocalDate now = LocalDate.now();
+        Phase activePhase = null;
+        for (RecruitmentProcessPhase phase : recruitmentProcess) {
+            if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now))
+                    && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
+                activePhase = phase.getPhase();
+                break;
+            }
+        }
+        switch (activePhase){
+            case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+            case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
+            case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+            case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+            case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+        }
+>>>>>>> 49bae7957133484b21c65380b7518e52ad56cc27
     }
 }

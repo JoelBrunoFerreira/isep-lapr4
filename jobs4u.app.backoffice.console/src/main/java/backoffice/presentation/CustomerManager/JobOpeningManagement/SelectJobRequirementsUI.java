@@ -16,7 +16,7 @@ public class SelectJobRequirementsUI extends AbstractUI {
         Iterable<JobOpeningDTO> jobOpeningDTOS = controller.getJobOpeningPendingJobRequirements();
         Iterable<JobRequirementDTO> jobReqDTOS = controller.getAllJobRequirementDTOs();
         if (jobOpeningDTOS.iterator().hasNext() && jobReqDTOS.iterator().hasNext()){
-            SelectWidget<JobOpeningDTO> joSelectWidget = new SelectWidget<>("Job Openings pending an Interview Model: ", jobOpeningDTOS, new JobOpeningPrinter());
+            SelectWidget<JobOpeningDTO> joSelectWidget = new SelectWidget<>("Job Openings pending job requirements: ", jobOpeningDTOS, new JobOpeningPrinter());
             joSelectWidget.show();
             String jobReference = joSelectWidget.selectedElement().getJobReference();
             SelectWidget<JobRequirementDTO> imSelectWidget = new SelectWidget<>("Job Requirements: ", jobReqDTOS, System.out::print);
@@ -24,7 +24,7 @@ public class SelectJobRequirementsUI extends AbstractUI {
             JobOpeningDTO result = controller.updateJobOpeningJobRequirement(jobReference, imSelectWidget.selectedElement());
             System.out.println(result);
         }else{
-            System.out.println("No job openings are pending an Interview Model.");
+            System.out.println("No job openings are pending Job Requirements.");
         }
         return false;
     }
