@@ -3,8 +3,9 @@ package backoffice.presentation.CustomerManager;
 import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJobApplicationsUI;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
+import backoffice.presentation.CustomerManager.customerManagement.AddCustomerUI;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
-import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
+import backoffice.presentation.interviewModel.GenerateInterviewModelTemplateUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -45,7 +46,7 @@ public class CustomerManagerMainMenu {
         jobOpeningMenu.addItem(OPTION_3, "Setup Recruitment Process Phases", new SetupRecruitmentPhasesUI()::show);
         jobOpeningMenu.addItem(OPTION_4, "Select Requirement Specifications", new SelectJobRequirementsUI()::show);
         jobOpeningMenu.addItem(OPTION_5, "Select an Interview Model", new SelectInterviewModelUI()::show);
-        //TODO jobOpeningMenu.addItem(OPTION_6, "Generate interview template", new SelectInterviewModelUI()::show);
+        jobOpeningMenu.addItem(OPTION_6, "Generate interview template", new GenerateInterviewModelTemplateUI()::show);
         //TODO jobOpeningMenu.addItem(OPTION_7, "Generate Job Requirement template", new SelectInterviewModelUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));

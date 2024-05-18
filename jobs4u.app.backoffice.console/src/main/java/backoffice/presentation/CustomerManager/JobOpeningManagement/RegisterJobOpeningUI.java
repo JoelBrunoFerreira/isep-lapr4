@@ -1,7 +1,8 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
+import backoffice.presentation.CustomerManager.customerManagement.AddCustomerUI;
 import eapli.base.jobOpeningManagement.application.RegisterJobOpeningController;
-import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
+
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.dto.CustomerDTO;
 import eapli.framework.io.util.Console;

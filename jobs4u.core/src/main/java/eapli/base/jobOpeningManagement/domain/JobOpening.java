@@ -19,6 +19,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.Cascade;
@@ -169,5 +170,14 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
     public boolean hasRequirementSpecification(){
         return this.jobRequirement != null;
+    }
+
+    public InterviewModel interviewModel(){
+        return interviewModel;
+    }
+
+    public void selectInterviewModel(InterviewModel interviewModel ){
+        Preconditions.nonNull(interviewModel);
+        this.interviewModel = interviewModel;
     }
 }
