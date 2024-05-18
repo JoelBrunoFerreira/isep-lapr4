@@ -22,6 +22,7 @@ public class ListJobApplicationsUI extends AbstractUI {
     protected boolean doShow() {
         System.out.println("1. List by candidate");
         System.out.println("2. List by job opening");
+        System.out.println("3. List all data of a specific appication");
         System.out.println("0. Return");
 
         boolean valid = false;

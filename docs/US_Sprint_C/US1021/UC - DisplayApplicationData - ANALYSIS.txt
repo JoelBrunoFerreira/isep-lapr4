@@ -1,0 +1,23 @@
+	___________
+
+	ANÁLISE
+	____________
+
+
+	Informações fornecidas pelo cliente
+
+	* Garantir que é usado o email para identificar qualquer utilizador do sistema. (Customer manager, Candidate, Customer)
+	* "Relativamente ao “all data of na application” refere-se a todos os dados de uma candidatura, nomeadamente, os ficheiros
+	submetidos pelos candidato assim como dados recolhidos ou gerados durante o processo (como as entrevistas e processamento de requisitos)."
+
+
+	______________________
+
+	REGRAS DE NEGÓCIO
+	_____________________
+
+
+	* "Candidates submit their applications for job openings by email." -> Email como identificador único do candidato
+	* "A text file with the data of the application and candidate, with at least:
+       – job reference" ---> jobReference como identificador da JobOpening presente na JobApplication
+
