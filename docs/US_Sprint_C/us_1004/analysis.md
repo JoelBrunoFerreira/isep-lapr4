@@ -28,10 +28,10 @@
 
 ---
 #### Unit Tests: ####
-get jobOpeningDTO that's does not have a recruitment process phase set;
-edit jobOpeningDTO, all attributes;
+get jobOpeningDTO that does not have a recruitment process phase set;
+edit jobOpeningDTO, all attributes, except Interview model and requirements;
 
-get jobOpeningDTO that's in recruitment process phase application;
+get jobOpeningDTO that's in process phase application;
 edit jobOpeningDTO, requirements;
 edit jobOpeningDTO, interview model(if Interview phase exists);
 

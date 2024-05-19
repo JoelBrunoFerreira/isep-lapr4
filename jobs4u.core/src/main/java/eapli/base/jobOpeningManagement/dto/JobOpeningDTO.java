@@ -19,21 +19,44 @@ public class JobOpeningDTO {
     public String jobRequirement;
     public String interviewModel;
     public String status;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNumberVacancies(String numberVacancies) {
+        this.numberVacancies = numberVacancies;
+    }
+
+    public void setJobOpeningAddress(String jobOpeningAddress) {
+        this.jobOpeningAddress = jobOpeningAddress;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
     /*public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String jobTitle, String contractType, String jobRequirement, String interviewModel, String recruitmentProcess, String status) {
-        this.jobReference = jobReference;
-        this.description = description;
-        this.numberVacancies = numberVacancies;
-        this.jobOpeningAddress = jobOpeningAddress;
-        this.mode = mode;
-        this.jobTitle = jobTitle;
-        this.contractType = contractType;
-        this.jobRequirement = jobRequirement;
-        this.interviewModel = interviewModel;
-        this.recruitmentProcess = recruitmentProcess;
-        this.status = status;
-    }
-*/
+            this.jobReference = jobReference;
+            this.description = description;
+            this.numberVacancies = numberVacancies;
+            this.jobOpeningAddress = jobOpeningAddress;
+            this.mode = mode;
+            this.jobTitle = jobTitle;
+            this.contractType = contractType;
+            this.jobRequirement = jobRequirement;
+            this.interviewModel = interviewModel;
+            this.recruitmentProcess = recruitmentProcess;
+            this.status = status;
+        }
+    */
     @Override
     public String toString() {
         return String.format("Job Reference: %s | Job Title: %s | Desc.: %s | Contract Type: %s | Mode: %s | Vacancies: %s |  Address: %s | Rec. Process: %s | Requirements: %s | Interview: %s | Status: %s",

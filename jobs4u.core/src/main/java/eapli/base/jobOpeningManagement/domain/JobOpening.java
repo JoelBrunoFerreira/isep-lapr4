@@ -90,7 +90,19 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.customerManager = customerManager;
         this.status = Status.PENDING;
     }
-
+public void updateJobOpening(String description,
+                             int numberVacancies,
+                             String jobOpeningAddress,
+                             String mode,
+                             String contractType,
+                             String jobTitle) {
+    this.description = Description.valueOf(description);
+    this.numberVacancies = new NumberVacancies(numberVacancies);
+    this.jobOpeningAddress = new JobOpeningAddress(jobOpeningAddress);
+    this.mode = WorkingMode.parse(mode);
+    this.contractType = ContractType.parse(contractType);
+    this.jobTitle = new JobTitle(jobTitle);
+}
     public void changeStatus(Status status) {
         this.status = status;
     }
@@ -153,40 +165,32 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()));
         //TODO phase triggered and job application status update
     }
-
     public boolean isPending() {
         return this.status.equals(Status.PENDING);
     }
-
     public boolean allActive() {
         return this.status.equals(Status.ACTIVE)
-                || this.status.equals(Status.ACTIVE_APPLICATION)
-                || this.status.equals(Status.ACTIVE_SCREENING)
-                || this.status.equals(Status.ACTIVE_INTERVIEW)
-                || this.status.equals(Status.ACTIVE_ANALYSIS)
-                || this.status.equals(Status.ACTIVE_RESULT);
+                ||this.status.equals(Status.ACTIVE_APPLICATION)
+                ||this.status.equals(Status.ACTIVE_SCREENING)
+                ||this.status.equals(Status.ACTIVE_INTERVIEW)
+                ||this.status.equals(Status.ACTIVE_ANALYSIS)
+                ||this.status.equals(Status.ACTIVE_RESULT);
     }
-
-    public boolean isActive() {
+    public boolean isActive(){
         return this.status.equals(Status.ACTIVE);
     }
-
     public boolean isActiveApplication() {
         return this.status.equals(Status.ACTIVE_APPLICATION);
     }
-
     public boolean isActiveScreening() {
         return this.status.equals(Status.ACTIVE_SCREENING);
     }
-
     public boolean isActiveInterview() {
         return this.status.equals(Status.ACTIVE_INTERVIEW);
     }
-
     public boolean isActiveAnalysis() {
         return this.status.equals(Status.ACTIVE_ANALYSIS);
     }
-
     public boolean isActiveResult() {
         return this.status.equals(Status.ACTIVE_RESULT);
     }
@@ -218,23 +222,23 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     private void setStatusByPhaseDates() {
-        LocalDate now = LocalDate.now();
-        Phase activePhase = null;
-        for (RecruitmentProcessPhase phase : recruitmentProcess) {
-            if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now))
-                    && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
-                activePhase = phase.getPhase();
-                break;
+        if(!this.recruitmentProcess.isEmpty()){
+            LocalDate now = LocalDate.now();
+            Phase activePhase = null;
+            for (RecruitmentProcessPhase phase : recruitmentProcess) {
+                if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now))
+                        && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
+                    activePhase = phase.getPhase();
+                    break;
+                }
+            }
+            switch (activePhase){
+                case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+                case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
+                case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+                case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+                case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
             }
         }
-        switch (activePhase) {
-            case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
-            case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
-            case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
-            case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
-            case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
-        }
-
     }
 }
-
