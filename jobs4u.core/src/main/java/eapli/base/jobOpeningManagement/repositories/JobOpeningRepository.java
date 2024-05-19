@@ -17,4 +17,5 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
     JobOpeningDTO findByJobReference(String jobReference);
 
     Iterable<JobOpeningDTO> findAllByManager(SystemUser user);
+    JobOpeningDTO updateJobOpening(JobOpeningDTO dto);
 }

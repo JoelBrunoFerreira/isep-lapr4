@@ -89,7 +89,19 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.customerManager = customerManager;
         this.status = Status.PENDING;
     }
-
+public void updateJobOpening(String description,
+                             int numberVacancies,
+                             String jobOpeningAddress,
+                             String mode,
+                             String contractType,
+                             String jobTitle) {
+    this.description = Description.valueOf(description);
+    this.numberVacancies = new NumberVacancies(numberVacancies);
+    this.jobOpeningAddress = new JobOpeningAddress(jobOpeningAddress);
+    this.mode = WorkingMode.parse(mode);
+    this.contractType = ContractType.parse(contractType);
+    this.jobTitle = new JobTitle(jobTitle);
+}
     public void changeStatus(Status status) {
         this.status = status;
     }
@@ -199,21 +211,23 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     private void setStatusByPhaseDates() {
-        LocalDate now = LocalDate.now();
-        Phase activePhase = null;
-        for (RecruitmentProcessPhase phase : recruitmentProcess) {
-            if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now))
-                    && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
-                activePhase = phase.getPhase();
-                break;
+        if(!this.recruitmentProcess.isEmpty()){
+            LocalDate now = LocalDate.now();
+            Phase activePhase = null;
+            for (RecruitmentProcessPhase phase : recruitmentProcess) {
+                if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now))
+                        && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
+                    activePhase = phase.getPhase();
+                    break;
+                }
             }
-        }
-        switch (activePhase){
-            case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
-            case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
-            case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
-            case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
-            case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+            switch (activePhase){
+                case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+                case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
+                case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+                case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+                case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+            }
         }
     }
 }

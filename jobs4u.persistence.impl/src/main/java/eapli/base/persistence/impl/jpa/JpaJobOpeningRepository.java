@@ -2,18 +2,18 @@ package eapli.base.persistence.impl.jpa;
 
 
 import eapli.base.Application;
-import eapli.base.jobOpeningManagement.domain.Status;
-import eapli.base.jobOpeningManagement.domain.JobOpening;
-import eapli.base.jobOpeningManagement.domain.JobReference;
+import eapli.base.jobOpeningManagement.domain.*;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReference, JobReference>
         implements JobOpeningRepository {
@@ -26,6 +26,12 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     }
 
 
+    public JobOpeningDTO updateJobOpening(JobOpeningDTO dto){
+        JobOpening result = repo.ofIdentity(new JobReference(dto.getJobReference())).get();
+        result.updateJobOpening(dto.getDescription(), Integer.parseInt(dto.getNumberVacancies()),dto.getJobOpeningAddress(), dto.getMode(), dto.getContractType(),dto.getJobTitle());
+        repo.save(result);
+        return result.toDTO();
+    }
     public Iterable<JobOpeningDTO> findAllByUser(SystemUser user) {
         Iterable<JobOpening> jobOpenings = findAll();
         List<JobOpeningDTO> jobOpeningsDTO = new ArrayList<>();
@@ -118,11 +124,12 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     @Override
     public Iterable<JobOpeningDTO> findAllByManager(SystemUser user) {
         List<JobOpeningDTO> result = new ArrayList<>();
-        for (JobOpening jo : findAll()){
-            if (jo.isManagedBy(user)){
+        for (JobOpening jo : findAll()) {
+            if (jo.isManagedBy(user)) {
                 result.add(jo.toDTO());
             }
         }
         return result;
     }
+
 }
