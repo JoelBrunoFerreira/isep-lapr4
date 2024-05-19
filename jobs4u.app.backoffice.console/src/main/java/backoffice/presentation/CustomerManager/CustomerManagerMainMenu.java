@@ -43,18 +43,11 @@ public class CustomerManagerMainMenu {
         final Menu jobOpeningMenu = new Menu("Job Opening Management >");
         jobOpeningMenu.addItem(OPTION_1, "List Job Openings", new ListJobOpeningsUI()::show);
         jobOpeningMenu.addItem(OPTION_2, "Register Job Openings", new RegisterJobOpeningUI()::show);
-<<<<<<< HEAD
-        jobOpeningMenu.addItem(OPTION_3, "Setup Recruitment Process Phases", new SetupRecruitmentPhasesUI()::show);
-        jobOpeningMenu.addItem(OPTION_4, "Select Requirement Specifications", new SelectJobRequirementsUI()::show);
-        jobOpeningMenu.addItem(OPTION_5, "Select an Interview Model", new SelectInterviewModelUI()::show);
-        jobOpeningMenu.addItem(OPTION_6, "Generate interview template", new GenerateInterviewModelTemplateUI()::show);
-=======
         jobOpeningMenu.addItem(OPTION_3, "Edit Job Openings", new EditJobOpeningsUI()::show);
         jobOpeningMenu.addItem(OPTION_4, "Setup Recruitment Process Phases", new SetupRecruitmentPhasesUI()::show);
         jobOpeningMenu.addItem(OPTION_5, "Select Requirement Specifications", new SelectJobRequirementsUI()::show);
         jobOpeningMenu.addItem(OPTION_6, "Select an Interview Model", new SelectInterviewModelUI()::show);
-        //TODO jobOpeningMenu.addItem(OPTION_6, "Generate interview template", new SelectInterviewModelUI()::show);
->>>>>>> 49bae7957133484b21c65380b7518e52ad56cc27
+        jobOpeningMenu.addItem(OPTION_7, "Generate interview template", new GenerateInterviewModelTemplateUI()::show);
         //TODO jobOpeningMenu.addItem(OPTION_7, "Generate Job Requirement template", new SelectInterviewModelUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));

@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 
 public enum Status implements Serializable {
-    ACTIVE("active"),
-    ACTIVE_IMPENDING("impending"),
-    ACTIVE_APPLICATION("application"),
+    ACTIVE("active"), //when the jobopening has phases set up (dates)
+    ACTIVE_IMPENDING("impending"), //active jobopening with phases, but still hasn't started
+    ACTIVE_APPLICATION("application"), //when it's in application phase
     ACTIVE_SCREENING("screening"),
 
     ACTIVE_INTERVIEW("interview"),

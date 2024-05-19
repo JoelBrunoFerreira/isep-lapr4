@@ -153,32 +153,40 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()));
         //TODO phase triggered and job application status update
     }
+
     public boolean isPending() {
         return this.status.equals(Status.PENDING);
     }
+
     public boolean allActive() {
         return this.status.equals(Status.ACTIVE)
-                ||this.status.equals(Status.ACTIVE_APPLICATION)
-                ||this.status.equals(Status.ACTIVE_SCREENING)
-                ||this.status.equals(Status.ACTIVE_INTERVIEW)
-                ||this.status.equals(Status.ACTIVE_ANALYSIS)
-                ||this.status.equals(Status.ACTIVE_RESULT);
+                || this.status.equals(Status.ACTIVE_APPLICATION)
+                || this.status.equals(Status.ACTIVE_SCREENING)
+                || this.status.equals(Status.ACTIVE_INTERVIEW)
+                || this.status.equals(Status.ACTIVE_ANALYSIS)
+                || this.status.equals(Status.ACTIVE_RESULT);
     }
-    public boolean isActive(){
+
+    public boolean isActive() {
         return this.status.equals(Status.ACTIVE);
     }
+
     public boolean isActiveApplication() {
         return this.status.equals(Status.ACTIVE_APPLICATION);
     }
+
     public boolean isActiveScreening() {
         return this.status.equals(Status.ACTIVE_SCREENING);
     }
+
     public boolean isActiveInterview() {
         return this.status.equals(Status.ACTIVE_INTERVIEW);
     }
+
     public boolean isActiveAnalysis() {
         return this.status.equals(Status.ACTIVE_ANALYSIS);
     }
+
     public boolean isActiveResult() {
         return this.status.equals(Status.ACTIVE_RESULT);
     }
@@ -199,15 +207,16 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         return this.jobRequirement != null;
     }
 
-<<<<<<< HEAD
-    public InterviewModel interviewModel(){
+
+    public InterviewModel interviewModel() {
         return interviewModel;
     }
 
-    public void selectInterviewModel(InterviewModel interviewModel ){
+    public void selectInterviewModel(InterviewModel interviewModel) {
         Preconditions.nonNull(interviewModel);
         this.interviewModel = interviewModel;
-=======
+    }
+
     private void setStatusByPhaseDates() {
         LocalDate now = LocalDate.now();
         Phase activePhase = null;
@@ -218,13 +227,14 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                 break;
             }
         }
-        switch (activePhase){
+        switch (activePhase) {
             case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
             case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
             case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
             case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
             case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
         }
->>>>>>> 49bae7957133484b21c65380b7518e52ad56cc27
+
     }
 }
+
