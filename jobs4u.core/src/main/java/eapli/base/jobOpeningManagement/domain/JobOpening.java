@@ -238,12 +238,15 @@ public void updateJobOpening(String description,
                     break;
                 }
             }
-            switch (activePhase){
-                case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
-                case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
-                case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
-                case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
-                case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+            if (activePhase!=null){
+                switch (activePhase){
+                    case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+                    case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
+                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+                    case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+                    case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+                    default -> this.status = Status.ACTIVE;
+                }
             }
         }
     }

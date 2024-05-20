@@ -1,18 +1,14 @@
 package eapli.base.jobOpeningManagement.application;
 
-import eapli.base.customer.application.CustomerService;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.jobOpeningManagement.domain.*;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
-import eapli.base.jobRequirementsManagement.dto.JobRequirementDTO;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
-import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import org.hibernate.jdbc.Work;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +26,7 @@ public class EditJobOpeningController {
         user = authz.session().get().authenticatedUser();
     }
 
-    public Iterable<JobOpeningDTO> listJobOpeningsByUSer() {
+    public Iterable<JobOpeningDTO> listJobOpeningsByUser() {
         return jobOpeningSvc.listJobOpeningsByUser(user);
     }
     public JobOpeningDTO getJobOpeningByReference(String jobReference){

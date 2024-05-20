@@ -4,6 +4,7 @@ import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
+import eapli.base.jobOpeningManagement.domain.Status;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -27,7 +28,8 @@ public class SelectInterviewModelController {
     public Iterable<JobOpeningDTO> getJobOpeningPendingInterviewModel(){
         List<JobOpeningDTO> result = new ArrayList<>();
         for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser())){
-            if (jO.getInterviewModel().isEmpty()){
+            if ((jO.getStatus().equalsIgnoreCase(Status.ACTIVE.toString()) || jO.getStatus().equalsIgnoreCase(Status.PENDING.toString()) || jO.getStatus().equalsIgnoreCase(Status.ACTIVE_APPLICATION.toString())||jO.getStatus().equalsIgnoreCase(Status.ACTIVE_SCREENING.toString())))
+            {
                 result.add(jO);
             }
         }
