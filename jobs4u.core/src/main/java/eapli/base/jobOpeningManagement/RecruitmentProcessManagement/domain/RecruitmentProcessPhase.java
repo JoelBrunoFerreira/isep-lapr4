@@ -55,17 +55,16 @@ public class RecruitmentProcessPhase implements DomainEntity<Phase> {
 
     @Override
     public String toString() {
-        return "RecruitmentProcessPhase{" +
-                "phase=" + phase +
-                ", period=" + period.getStartDate().toString() + period.getEndDate().toString() +
+        return /*"RecruitmentProcessPhase{" +*/
+                "PHASE: " + phase +
+                        " - PERIOD: " + period.getStartDate().toString() + " to " + period.getEndDate().toString() /*+
                 ", jobOpening_id='" + id.toString() + '\'' +
-                '}';
+                '}'*/;
     }
 
     public RecruitmentProcessPhaseDTO toDTO() {
-        return new RecruitmentProcessPhaseDTO(getPhase().toString());
+        return new RecruitmentProcessPhaseDTO(getPhase().toString(), getPeriod().getStartDate(), getPeriod().getEndDate());
     }
-
 
     @Override
     public Phase identity() {

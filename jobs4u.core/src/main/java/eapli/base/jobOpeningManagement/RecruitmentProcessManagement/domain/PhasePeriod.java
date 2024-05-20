@@ -16,6 +16,14 @@ public class PhasePeriod implements ValueObject, Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     protected PhasePeriod(){
         this.startDate = null;
         this.endDate = null;

@@ -56,6 +56,11 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
+
+    public List<RecruitmentProcessPhase> getRecruitmentProcess() {
+        return recruitmentProcess;
+    }
+
     @OneToMany
     @Cascade(value = CascadeType.ALL)
     @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
@@ -153,7 +158,7 @@ public void updateJobOpening(String description,
             recruitmentProcess.add(recruitmentProcessPhase);
         }
         this.status = Status.ACTIVE;
-        setStatusByPhaseDates();
+//        setStatusByPhaseDates();
     }
 
     public void updateInterviewModel(InterviewModelDTO dto) {
@@ -221,7 +226,8 @@ public void updateJobOpening(String description,
         this.interviewModel = interviewModel;
     }
 
-    private void setStatusByPhaseDates() {
+    //chamar no final de activar/desactivar fases da jobOpening
+    public void setStatusByPhaseDates() {
         if(!this.recruitmentProcess.isEmpty()){
             LocalDate now = LocalDate.now();
             Phase activePhase = null;
@@ -241,4 +247,5 @@ public void updateJobOpening(String description,
             }
         }
     }
+
 }

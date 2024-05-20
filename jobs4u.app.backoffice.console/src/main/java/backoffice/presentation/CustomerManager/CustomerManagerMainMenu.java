@@ -48,7 +48,11 @@ public class CustomerManagerMainMenu {
         jobOpeningMenu.addItem(OPTION_5, "Select Requirement Specifications", new SelectJobRequirementsUI()::show);
         jobOpeningMenu.addItem(OPTION_6, "Select an Interview Model", new SelectInterviewModelUI()::show);
         jobOpeningMenu.addItem(OPTION_7, "Generate interview template", new GenerateInterviewModelTemplateUI()::show);
-        //TODO jobOpeningMenu.addItem(OPTION_7, "Generate Job Requirement template", new SelectInterviewModelUI()::show);
+        //TODO jobOpeningMenu.addItem(OPTION_8, "Generate Job Requirement template", new SelectInterviewModelUI()::show);
+        jobOpeningMenu.addItem(OPTION_9, "Open or close phases of the process for a job opening", new OpenOrClosePhasesUI()::show);
+        //
+        // , "Generate Job Requirement template", new SelectInterviewModelUI()::show);
+
         if (!Application.settings().isMenuLayoutHorizontal())
             jobOpeningMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobOpeningMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
