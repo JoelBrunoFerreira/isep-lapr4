@@ -6,7 +6,6 @@ import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import org.springframework.boot.Banner;
 
 public class EditJobOpeningsUI extends AbstractUI {
     private static final int EXIT_OPTION = 0;
@@ -114,7 +113,7 @@ public class EditJobOpeningsUI extends AbstractUI {
     }
 
     private JobOpeningDTO showAllJobOpenings() {
-        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByUSer();
+        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.listJobOpeningsByUser();
         if (jobOpeningDTOS.iterator().hasNext()) {
             SelectWidget<JobOpeningDTO> selectJobOpeningDTO = new SelectWidget<>("Job Openings:", jobOpeningDTOS, new JobOpeningPrinter());
             selectJobOpeningDTO.show();

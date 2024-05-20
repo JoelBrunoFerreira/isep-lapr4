@@ -5,6 +5,7 @@ import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
+import eapli.base.jobOpeningManagement.domain.Status;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.jobRequirementsManagement.dto.JobRequirementDTO;
 import eapli.base.jobRequirementsManagement.repository.JobRequirementRepository;
@@ -25,17 +26,19 @@ public class SelectJobRequirementController {
     public SelectJobRequirementController() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
     }
-    public Iterable<JobOpeningDTO> getJobOpeningPendingJobRequirements(){
+
+    public Iterable<JobOpeningDTO> getJobOpeningPendingJobRequirements() {
         List<JobOpeningDTO> result = new ArrayList<>();
-        for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser())){
-            if (jO.getJobRequirement().isEmpty() ){
+        for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser())) {
+            if ((jO.getStatus().equalsIgnoreCase(Status.ACTIVE.toString()) || jO.getStatus().equalsIgnoreCase(Status.PENDING.toString()) || jO.getStatus().equalsIgnoreCase(Status.ACTIVE_APPLICATION.toString())))
+            {
                 result.add(jO);
             }
         }
         return result;
     }
 
-    public Iterable<JobRequirementDTO> getAllJobRequirementDTOs(){
+    public Iterable<JobRequirementDTO> getAllJobRequirementDTOs() {
         return repository.findAllDTOs();
     }
 
