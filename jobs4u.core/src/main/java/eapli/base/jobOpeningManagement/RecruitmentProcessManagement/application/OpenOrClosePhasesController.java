@@ -57,7 +57,7 @@ public class OpenOrClosePhasesController {
     public void openProcessPhases(String phase, LocalDate openDate) {
 
         for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
-            if (p.equals(phase)) {
+            if (p.getPhase().toString().equalsIgnoreCase(phase)) {
                 p.getPeriod().setStartDate(openDate);
                 break;
             }
