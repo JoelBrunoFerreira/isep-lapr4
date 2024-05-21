@@ -2,6 +2,7 @@ package backoffice.presentation.CustomerManager;
 
 import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJobApplicationsUI;
+import backoffice.presentation.CustomerManager.JobApplicationsManagement.ScheduleInterviewUI;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
@@ -54,6 +55,7 @@ public class CustomerManagerMainMenu {
 
         final Menu jobApplicationMenu = new Menu("Job Application Management >");
         jobApplicationMenu.addItem(OPTION_1, "List Job Applications", new ListJobApplicationsUI():: show);
+        jobApplicationMenu.addItem(OPTION_2, "Schedule Interviews", new ScheduleInterviewUI():: show);
         if (!Application.settings().isMenuLayoutHorizontal())
             jobApplicationMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobApplicationMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);

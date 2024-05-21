@@ -5,14 +5,15 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 @Embeddable
 public class InterviewSchedule implements ValueObject, Serializable {
-    private LocalDateTime interviewDateTime;
+    private Calendar interviewDateTime;
 
     protected InterviewSchedule(){}
 
-    public InterviewSchedule(LocalDateTime interviewDateTime) {
+    public InterviewSchedule(Calendar interviewDateTime) {
         this.interviewDateTime = interviewDateTime;
     }
 }

@@ -12,6 +12,7 @@ import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -83,5 +84,9 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     }
     public boolean hasCandidateEmail(String email){
         return this.candidate.getEmail().equals(new Email(email));
+    }
+
+    public void setInterviewSchedule(Calendar dateTime){
+        this.interviewSchedule = new InterviewSchedule(dateTime);
     }
 }

@@ -7,7 +7,6 @@ import lombok.Getter;
 
 @DTO
 @Getter
-@AllArgsConstructor
 public class JobOpeningDTO {
     public String jobReference;
     public String description;
@@ -20,6 +19,23 @@ public class JobOpeningDTO {
     public String jobRequirement;
     public String interviewModel;
     public String status;
+    private final boolean hasInterviewPhase;
+
+    public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle, String recruitmentProcess, String jobRequirement, String interviewModel, String status, boolean interviewPhase) {
+        this.jobReference = jobReference;
+        this.description = description;
+        this.numberVacancies = numberVacancies;
+        this.jobOpeningAddress = jobOpeningAddress;
+        this.mode = mode;
+        this.contractType = contractType;
+        this.jobTitle = jobTitle;
+        this.recruitmentProcess = recruitmentProcess;
+        this.jobRequirement = jobRequirement;
+        this.interviewModel = interviewModel;
+        this.status = status;
+        this.hasInterviewPhase = interviewPhase;
+    }
+
     //private RecruitmentProcessPhaseDTO phases;
     public void setDescription(String description) {
         this.description = description;

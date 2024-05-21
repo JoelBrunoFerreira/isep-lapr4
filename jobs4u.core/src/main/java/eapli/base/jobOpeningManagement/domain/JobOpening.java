@@ -123,7 +123,7 @@ public void updateJobOpening(String description,
                 mode.toString(), contractType.toString(), jobTitle.toString(),
                 recruitmentProcess == null ? "" : recruitmentProcess.toString(),
                 jobRequirement == null ? "" : jobRequirement.toString(),
-                interviewModel == null ? "" : interviewModel.toString(), this.status.toString());
+                interviewModel == null ? "" : interviewModel.toString(), this.status.toString(), (this.recruitmentProcess.size() == 5));
     }
 
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(boolean interview) {

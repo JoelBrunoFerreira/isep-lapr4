@@ -3,6 +3,7 @@ package eapli.base.jobApplication.dto;
 import eapli.framework.representations.dto.DTO;
 import lombok.Data;
 
+import java.util.Calendar;
 import java.util.List;
 
 @DTO
@@ -15,6 +16,7 @@ public class JobApplicationDTO {
     public int interviewGrade;
     public String candidateEmail;
     public String JobOpeningReference;
+    public Calendar interviewSchedule;
 
     public JobApplicationDTO(List<String> files, String candidateEmail, String jobOpeningReference) {
         this.files = files;
@@ -30,6 +32,7 @@ public class JobApplicationDTO {
         this.interviewGrade = interviewGrade;
         this.candidateEmail = candidateEmail;
         this.JobOpeningReference = jobOpeningReference;
+        this.interviewSchedule = null;
     }
 
     public String getCandidateEmail() {
