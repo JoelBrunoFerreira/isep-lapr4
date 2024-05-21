@@ -19,6 +19,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.dto.DTOable;
+import eapli.framework.validations.Preconditions;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.Cascade;
@@ -55,6 +56,11 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
+
+    public List<RecruitmentProcessPhase> getRecruitmentProcess() {
+        return recruitmentProcess;
+    }
+
     @OneToMany
     @Cascade(value = CascadeType.ALL)
     @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
@@ -152,7 +158,7 @@ public void updateJobOpening(String description,
             recruitmentProcess.add(recruitmentProcessPhase);
         }
         this.status = Status.ACTIVE;
-        setStatusByPhaseDates();
+//        setStatusByPhaseDates();
     }
 
     public void updateInterviewModel(InterviewModelDTO dto) {
@@ -209,7 +215,18 @@ public void updateJobOpening(String description,
         return this.jobRequirement != null;
     }
 
-    private void setStatusByPhaseDates() {
+
+    public InterviewModel interviewModel() {
+        return interviewModel;
+    }
+
+    public void selectInterviewModel(InterviewModel interviewModel) {
+        Preconditions.nonNull(interviewModel);
+        this.interviewModel = interviewModel;
+    }
+
+    //chamar no final de activar/desactivar fases da jobOpening
+    public void setStatusByPhaseDates() {
         if(!this.recruitmentProcess.isEmpty()){
             LocalDate now = LocalDate.now();
             Phase activePhase = null;
@@ -232,4 +249,5 @@ public void updateJobOpening(String description,
             }
         }
     }
+
 }

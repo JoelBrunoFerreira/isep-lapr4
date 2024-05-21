@@ -58,7 +58,7 @@ public class DeactivateUserUI extends AbstractUI {
             final var option = Console.readInteger("Enter user nº to deactivate or 0 to finish ");
             if (option == 0) {
                 System.out.println("No user selected");
-            } else {
+            } else { //TODO: catch exception number out of bounds, check readOption
                 try {
                     this.theController.deactivateUser(list.get(option - 1));
                 } catch (@SuppressWarnings("unused") final ConcurrencyException ex) {

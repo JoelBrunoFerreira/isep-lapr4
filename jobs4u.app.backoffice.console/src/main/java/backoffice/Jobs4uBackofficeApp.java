@@ -5,6 +5,7 @@ import eapli.base.app.bootstrap.BaseBootstrap;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
+import eapli.base.infrastructure.bootstrapers.JobsDataBootstrap;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -17,8 +18,8 @@ public class Jobs4uBackofficeApp extends BaseApplication {
     }
 
     public static void main(String[] args) {
-        //BaseBootstrap.main(args);
-        //new JobsDataBootstrap().execute();
+//        BaseBootstrap.main(args);
+//        new JobsDataBootstrap().execute();
         new Jobs4uBackofficeApp().run(args);
     }
 

@@ -1,4 +1,4 @@
-package backoffice.presentation.CustomerManager.customer;
+package backoffice.presentation.CustomerManager.customerManagement;
 
 import eapli.base.customer.application.AddCustomerController;
 import eapli.framework.domain.repositories.IntegrityViolationException;

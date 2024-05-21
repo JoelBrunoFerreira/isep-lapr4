@@ -1,6 +1,7 @@
 package eapli.base.jobOpeningManagement.RecruitmentProcessManagement.dto;
 
 import eapli.framework.representations.dto.DTO;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -33,7 +34,6 @@ public class RecruitmentProcessPhaseDTO {
     }
 
     public String toStringComplete() {
-        return "Phase: " + phase + ", Start Date: " + startDate +
-                ", End Date: " + endDate ;
+        return String.format("PHASE: %s START DATE: %s END DATE: %s", phase, startDate, endDate);
     }
 }
