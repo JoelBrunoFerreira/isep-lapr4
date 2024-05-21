@@ -1,3 +1,4 @@
+# US1004 - As Customer Manager, I want to edit a job opening. 
 
 ## ANALYSIS ## 
 
@@ -28,12 +29,12 @@
 
 ---
 #### Unit Tests: ####
-get jobOpeningDTO that does not have a recruitment process phase set;
-edit jobOpeningDTO, all attributes, except Interview model and requirements;
+    *   get jobOpeningDTO that does not have a recruitment process phase set;
+    *   edit jobOpeningDTO, all attributes, except Interview model and requirements;
 
-get jobOpeningDTO that's in process phase application;
-edit jobOpeningDTO, requirements;
-edit jobOpeningDTO, interview model(if Interview phase exists);
+    *   get jobOpeningDTO that's in process phase application;
+    *   edit jobOpeningDTO, requirements;
+    *   edit jobOpeningDTO, interview model(if Interview phase exists);
 
-get jobOpeningDTO that's in process phase Interview(if exists);
-can't edit jobOpeningDTO;
+    *   get jobOpeningDTO that's in process phase Interview(if exists);
+    *   can't edit jobOpeningDTO;

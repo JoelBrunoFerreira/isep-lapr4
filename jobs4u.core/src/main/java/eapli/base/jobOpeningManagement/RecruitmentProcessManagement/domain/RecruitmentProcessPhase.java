@@ -63,9 +63,8 @@ public class RecruitmentProcessPhase implements DomainEntity<Phase> {
     }
 
     public RecruitmentProcessPhaseDTO toDTO() {
-        return new RecruitmentProcessPhaseDTO(getPhase().toString());
+        return new RecruitmentProcessPhaseDTO(getPhase().toString(), getPeriod().getStartDate(), getPeriod().getEndDate());
     }
-
 
     @Override
     public Phase identity() {

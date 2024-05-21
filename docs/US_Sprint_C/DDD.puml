@@ -10,16 +10,20 @@ package JobApplication_Aggregate{
     }
     Class JobApplicationState <<Value Object>>{
     }
-    Enum ApplicationState
+    Enum ApplicationState <<Enum>>
     Class JobApplicationFile  <<Value Object>>
     Class Rank  <<Value Object>>
     Class Justification <<Value Object>>
-    JobApplication --> InterviewModelScore
+    Class InterviewSchedule <<Value Object>>
+    Class InterviewGrade <<Value Object>>
+
+    JobApplication --> "1" InterviewGrade
    JobApplication  --> "1…*" JobApplicationFile
    JobApplication  --> "1" JobRequirementResult
    JobApplication  --> JobApplicationState
     JobApplication  --> "1" Rank
     JobApplicationState --> ApplicationState
+    JobApplication --> "1" InterviewSchedule
 
 
 }
@@ -128,7 +132,7 @@ package Customer_Aggregate{
 
 Justification <.. JobRequirementsEvaluation
 JobRequirementResult --> Justification
-InterviewModelScore <.. InterviewModelEvaluation
+InterviewGrade <.. InterviewModelEvaluation
 JobOpening --> "0...1     " InterviewModel
 JobOpening --> "1   " Customer
 JobOpening --> "1" JobRequirement

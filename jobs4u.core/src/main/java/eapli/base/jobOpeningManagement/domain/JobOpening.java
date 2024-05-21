@@ -205,7 +205,6 @@ public void updateJobOpening(String description,
     public boolean hasInterviewModel() {
         return this.interviewModel != null;
     }
-
     public boolean hasRequirementSpecification() {
         return this.jobRequirement != null;
     }

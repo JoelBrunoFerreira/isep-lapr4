@@ -1,0 +1,28 @@
+@startuml
+actor CustomerManager
+participant System
+participant Candidate
+participant ScreeningProcess
+
+CustomerManager -> System: Schedule Interview
+System -> System: Check if interview phase
+
+alt Interview phase ongoing
+    System --> CustomerManager: Interview phase ongoing, proceed to scheduling
+    CustomerManager -> System: Select interview date and time
+    System -> System: Validate selected date and time
+    System -> System: Check candidate status in screening process
+    System -> ScreeningProcess: Get candidate status
+    ScreeningProcess --> System: Candidate status
+
+    alt Candidate passed screening
+        System --> CustomerManager: Candidate passed screening, schedule interview
+        System -> System: Record interview details
+        System --> CustomerManager: Interview scheduled successfully
+    else Candidate not passed screening
+        System --> CustomerManager: Candidate not passed screening, cannot schedule interview
+    end
+else Interview phase not ongoing
+    System --> CustomerManager: Interview phase not ongoing, cannot schedule interview
+end
+@enduml

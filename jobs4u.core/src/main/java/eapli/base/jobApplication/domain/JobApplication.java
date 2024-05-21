@@ -6,6 +6,7 @@ import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
+import eapli.base.jobRequirementsManagement.domain.RequirementClass;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -25,8 +26,9 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private JobApplicationState jobApplicationState;
-
+    private RequirementResult requirementResult;
     private InterviewGrade interviewGrade;
+    private InterviewSchedule interviewSchedule;
     @ManyToOne
     @JoinColumn(name = "candidateID")
     private Candidate candidate;

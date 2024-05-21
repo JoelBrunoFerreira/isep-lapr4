@@ -1,5 +1,6 @@
 package eapli.base.jobOpeningManagement.dto;
 
+import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.framework.representations.dto.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class JobOpeningDTO {
     public String jobRequirement;
     public String interviewModel;
     public String status;
+    //private RecruitmentProcessPhaseDTO phases;
     public void setDescription(String description) {
         this.description = description;
     }

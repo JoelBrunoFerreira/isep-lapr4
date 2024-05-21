@@ -16,6 +16,12 @@ public class RecruitmentProcessPhaseDTO {
         this.phase = phase;
     }
 
+    public RecruitmentProcessPhaseDTO(String phase, LocalDate startDate, LocalDate endDate) {
+        this.phase = phase;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public void setRecruitmentProcessPhaseDates(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
