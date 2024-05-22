@@ -125,11 +125,28 @@ public void updateJobOpening(String description,
 
     @Override
     public JobOpeningDTO toDTO() {
-        return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(),
-                mode.toString(), contractType.toString(), jobTitle.toString(),
+        List<RecruitmentProcessPhaseDTO> phasesDTO = null;
+        if (!this.recruitmentProcess.isEmpty()) {
+            phasesDTO = new ArrayList<>();
+            for (RecruitmentProcessPhase phase : this.recruitmentProcess) {
+                phasesDTO.add(phase.toDTO());
+            }
+        }
+        return new JobOpeningDTO(
+                jobReference.getId(),
+                description.toString(),
+                numberVacancies.toString(),
+                jobOpeningAddress.toString(),
+                mode.toString(),
+                contractType.toString(),
+                jobTitle.toString(),
                 recruitmentProcess == null ? "" : recruitmentProcess.toString(),
                 jobRequirement == null ? "" : jobRequirement.toString(),
-                interviewModel == null ? "" : interviewModel.toString(), this.status.toString(), (this.recruitmentProcess.size() == 5));
+                interviewModel == null ? "" : interviewModel.toString(),
+                this.status.toString(),
+                this.recruitmentProcess.size() == 5,
+                phasesDTO
+        );
     }
 
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(boolean interview) {
