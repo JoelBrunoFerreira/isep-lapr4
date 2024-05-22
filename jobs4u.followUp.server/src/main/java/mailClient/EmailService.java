@@ -13,11 +13,11 @@ import java.util.Properties;
 public class EmailService {
 
     public EmailService() {
-        // Empty Cosntructor
+        // Empty Constructor
     }
 
     public void sendEmail(String to, String emailBody) {
-        // To From --> Our Domain
+        // From --> Our Domain
         final String from = "sys-admin@jobs4u-isep.xyz";
 
         // API Settings
