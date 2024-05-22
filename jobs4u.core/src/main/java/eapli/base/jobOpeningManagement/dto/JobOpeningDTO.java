@@ -5,6 +5,8 @@ import eapli.framework.representations.dto.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @DTO
 @Getter
 public class JobOpeningDTO {
@@ -19,9 +21,9 @@ public class JobOpeningDTO {
     public String jobRequirement;
     public String interviewModel;
     public String status;
-    private final boolean hasInterviewPhase;
+    private List<RecruitmentProcessPhaseDTO> recruitmentProcessPhaseDTOList;
 
-    public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle, String recruitmentProcess, String jobRequirement, String interviewModel, String status, boolean interviewPhase) {
+       public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle, String recruitmentProcess, String jobRequirement, String interviewModel, String status, boolean interviewPhase, List<RecruitmentProcessPhaseDTO> list) {
         this.jobReference = jobReference;
         this.description = description;
         this.numberVacancies = numberVacancies;
@@ -33,7 +35,7 @@ public class JobOpeningDTO {
         this.jobRequirement = jobRequirement;
         this.interviewModel = interviewModel;
         this.status = status;
-        this.hasInterviewPhase = interviewPhase;
+        this.recruitmentProcessPhaseDTOList = list;
     }
 
     //private RecruitmentProcessPhaseDTO phases;
@@ -59,6 +61,9 @@ public class JobOpeningDTO {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
+    }
+    public boolean hasInterviewPhase(){
+           return this.recruitmentProcessPhaseDTOList.size()==5;
     }
 
     /*public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String jobTitle, String contractType, String jobRequirement, String interviewModel, String recruitmentProcess, String status) {

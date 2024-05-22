@@ -35,7 +35,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 | [1191843](members/1191843/readme.md)  | Joel Ferreira  |                                                                                                            |
 | [1100719](members/1100719/readme.md)	 | Fábio Borges   |                                                                                                            |
 | [1221715](members/1221715/readme.md)	 | Jorge Cruz     |                                                                                                            |
-| [1221722](members/1221722/readme.md)	 | Victor Salgado | [us_2001b](..%2FSCOMP%2Fus_2001b) * [us_1004](US_Sprint_C%2Fus_1004) * [us_1010](US_Sprint_C%2Fus_1010) * [us_1019](US_Sprint_C%2Fus_1019) |
+| [1221722](members/1221722/readme.md)	 | Victor Salgado | [us_2001b](..%2FSCOMP%2Fus_2001b) * [us_1004](US_Sprint_C%2Fus_1004) * [us_1014](US_Sprint_C%2Fus_1014) * [us_1019](US_Sprint_C%2Fus_1019) |
 
 
 ## 3. LAPR4 Self Assessment
