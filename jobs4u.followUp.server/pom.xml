@@ -9,7 +9,6 @@
         <version>0.1.0</version>
     </parent>
 
-    <groupId>org.isep</groupId>
     <artifactId>jobs4u.followUp.server</artifactId>
 
     <properties>
@@ -34,6 +33,13 @@
             <groupId>lapr4</groupId>
             <artifactId>jobs4u.app.common.console</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+
+        <!-- Jakarta Mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
         </dependency>
     </dependencies>
 
