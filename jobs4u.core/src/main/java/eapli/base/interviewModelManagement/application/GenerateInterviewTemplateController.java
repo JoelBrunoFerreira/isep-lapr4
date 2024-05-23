@@ -2,11 +2,9 @@ package eapli.base.interviewModelManagement.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.interviewModelManagement.domain.InterviewModel;
-import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
-import eapli.base.jobOpeningManagement.domain.Status;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -24,7 +22,7 @@ public class GenerateInterviewTemplateController {
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
 
     public Iterable<JobOpeningDTO> listJobOpeningsDTO() {
-        return jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser());
+        return jobOpeningSvc.listJobOpeningsByUser(authz.session().get().authenticatedUser());
     }
 
     public GenerateInterviewTemplateController(){

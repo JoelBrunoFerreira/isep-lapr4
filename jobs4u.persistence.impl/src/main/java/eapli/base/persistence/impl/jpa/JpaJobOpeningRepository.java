@@ -6,14 +6,12 @@ import eapli.base.jobOpeningManagement.domain.*;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReference, JobReference>
         implements JobOpeningRepository {
@@ -119,17 +117,6 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
     public JobOpeningDTO findByJobReference(String jobReference) {
         JobReference jr = new JobReference(jobReference);
         return ofIdentity(jr).get().toDTO();
-    }
-
-    @Override
-    public Iterable<JobOpeningDTO> findAllByManager(SystemUser user) {
-        List<JobOpeningDTO> result = new ArrayList<>();
-        for (JobOpening jo : findAll()) {
-            if (jo.isManagedBy(user)) {
-                result.add(jo.toDTO());
-            }
-        }
-        return result;
     }
 
 }

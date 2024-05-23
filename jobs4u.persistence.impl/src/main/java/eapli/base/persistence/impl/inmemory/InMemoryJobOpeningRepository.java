@@ -85,10 +85,6 @@ public class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOp
         return null;
     }
 
-    @Override
-    public Iterable<JobOpeningDTO> findAllByManager(SystemUser user) {
-        return null;
-    }
 
     @Override
     public JobOpeningDTO updateJobOpening(JobOpeningDTO dto) {

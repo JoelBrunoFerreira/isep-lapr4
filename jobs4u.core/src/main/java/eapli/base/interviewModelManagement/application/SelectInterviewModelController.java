@@ -27,7 +27,7 @@ public class SelectInterviewModelController {
 
     public Iterable<JobOpeningDTO> getJobOpeningPendingInterviewModel(){
         List<JobOpeningDTO> result = new ArrayList<>();
-        for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser())){
+        for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByUser(authz.session().get().authenticatedUser())){
             if ((jO.getStatus().equalsIgnoreCase(Status.ACTIVE.toString()) || jO.getStatus().equalsIgnoreCase(Status.PENDING.toString()) || jO.getStatus().equalsIgnoreCase(Status.ACTIVE_APPLICATION.toString())||jO.getStatus().equalsIgnoreCase(Status.ACTIVE_SCREENING.toString())))
             {
                 result.add(jO);

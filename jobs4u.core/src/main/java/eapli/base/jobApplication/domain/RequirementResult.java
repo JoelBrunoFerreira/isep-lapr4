@@ -4,11 +4,13 @@ import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 import java.io.Serializable;
 
 @Embeddable
 public class RequirementResult implements ValueObject, Serializable {
+    @Getter
     private boolean approved;
     private Description justification;
     protected RequirementResult() {

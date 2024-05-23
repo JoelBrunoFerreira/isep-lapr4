@@ -1,8 +1,6 @@
 package eapli.base.jobRequirementsManagement.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
-import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.Status;
@@ -29,7 +27,7 @@ public class SelectJobRequirementController {
 
     public Iterable<JobOpeningDTO> getJobOpeningPendingJobRequirements() {
         List<JobOpeningDTO> result = new ArrayList<>();
-        for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser())) {
+        for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByUser(authz.session().get().authenticatedUser())) {
             if ((jO.getStatus().equalsIgnoreCase(Status.ACTIVE.toString()) || jO.getStatus().equalsIgnoreCase(Status.PENDING.toString()) || jO.getStatus().equalsIgnoreCase(Status.ACTIVE_APPLICATION.toString())))
             {
                 result.add(jO);
