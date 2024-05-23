@@ -4,9 +4,11 @@ import eapli.base.candidate.application.DisplayRankedCandidatesController;
 import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
 
 import java.util.List;
+import java.util.Map;
 
 public class DisplayRankedCandidatesUI extends AbstractUI {
     private final DisplayRankedCandidatesController controller = new DisplayRankedCandidatesController();
@@ -20,11 +22,19 @@ public class DisplayRankedCandidatesUI extends AbstractUI {
         SelectWidget<JobOpeningDTO> jobOpeningDTO = new SelectWidget<>("Choose Job Opening", jobOpeningDTOS, System.out::print);
         jobOpeningDTO.show();
         String jobReference = jobOpeningDTO.selectedElement().getJobReference();
-        List<CandidateDTO> result = controller.candidateDTOS(jobReference);
-
+        Map<CandidateDTO, Integer> candidateDTOIntegerMap = controller.candidateDTOS(jobReference);
+        if (!candidateDTOIntegerMap.isEmpty()){
+            printCandidateMap(candidateDTOIntegerMap);
+        }
         return false;
     }
-
+    private void printCandidateMap(Map<CandidateDTO, Integer> candidateDTOIntegerMap) {
+        for (Map.Entry<CandidateDTO, Integer> entry : candidateDTOIntegerMap.entrySet()) {
+            CandidateDTO candidate = entry.getKey();
+            Integer votes = entry.getValue();
+            System.out.println(candidate + "\nInterview Grade: " + votes);
+        }
+    }
     @Override
     public String headline() {
         return "Ranked Candidates";
