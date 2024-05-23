@@ -21,9 +21,9 @@ public class JobOpeningDTO {
     public String jobRequirement;
     public String interviewModel;
     public String status;
-    private List<RecruitmentProcessPhaseDTO> recruitmentProcessPhaseDTOList;
+    private final List<RecruitmentProcessPhaseDTO> recruitmentProcessPhaseDTOList;
 
-       public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle, String recruitmentProcess, String jobRequirement, String interviewModel, String status, boolean interviewPhase, List<RecruitmentProcessPhaseDTO> list) {
+    public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle, String recruitmentProcess, String jobRequirement, String interviewModel, String status, List<RecruitmentProcessPhaseDTO> recruitmentProcessPhaseDTOList) {
         this.jobReference = jobReference;
         this.description = description;
         this.numberVacancies = numberVacancies;
@@ -35,7 +35,7 @@ public class JobOpeningDTO {
         this.jobRequirement = jobRequirement;
         this.interviewModel = interviewModel;
         this.status = status;
-        this.recruitmentProcessPhaseDTOList = list;
+        this.recruitmentProcessPhaseDTOList = recruitmentProcessPhaseDTOList;
     }
 
     //private RecruitmentProcessPhaseDTO phases;
@@ -63,7 +63,7 @@ public class JobOpeningDTO {
         this.jobTitle = jobTitle;
     }
     public boolean hasInterviewPhase(){
-           return this.recruitmentProcessPhaseDTOList.size()==5;
+           return this.recruitmentProcessPhaseDTOList!=null && this.recruitmentProcessPhaseDTOList.size()==5;
     }
 
     /*public JobOpeningDTO(String jobReference, String description, String numberVacancies, String jobOpeningAddress, String mode, String jobTitle, String contractType, String jobRequirement, String interviewModel, String recruitmentProcess, String status) {

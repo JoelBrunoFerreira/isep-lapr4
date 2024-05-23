@@ -44,6 +44,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.candidate = candidate;
         this.jobOpening = jobOpening;
         this.jobApplicationState = JobApplicationState.RECEIVED;
+        this.requirementResult = new RequirementResult(false, "Pending");
     }
 
     @Override
@@ -68,7 +69,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         for (ApplicationFile file : applicationFiles) {
             files.add(file.toString());
         }
-        return new JobApplicationDTO(id, files,rank==null? 0 : rank.valueOf(), jobApplicationState.toString(),interviewGrade==null? 0 :Integer.parseInt(interviewGrade.toString()), candidate.getEmail().toString(),jobOpening.getJobReference().toString());
+        return new JobApplicationDTO(id, files,rank==null? 0 : rank.valueOf(), jobApplicationState.toString(),interviewGrade==null? 0 :Integer.parseInt(interviewGrade.toString()), candidate.getEmail().toString(),jobOpening.getJobReference().toString(), requirementResult.isApproved());
     }
 
     public void setInterviewGrade(int interviewGrade) {
@@ -88,5 +89,8 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
 
     public void setInterviewSchedule(Calendar dateTime){
         this.interviewSchedule = new InterviewSchedule(dateTime);
+    }
+    public void applicationPassedRequirements(String description){
+        this.requirementResult = new RequirementResult(true, description);
     }
 }

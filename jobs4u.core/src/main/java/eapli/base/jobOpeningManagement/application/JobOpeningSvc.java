@@ -19,14 +19,11 @@ public class JobOpeningSvc {
     public Iterable<JobOpeningDTO> listJobOpeningsByStatus(Status status, SystemUser user) {
         return repository.findAllByStatus(status, user);
     }
-    public Iterable<JobOpeningDTO> listJobOpeningsByManager(SystemUser user) {
-        return repository.findAllByManager(user);
+    public Iterable<JobOpeningDTO> listJobOpeningsByUser(SystemUser user) {
+        return repository.findAllByUser(user);
     }
     public Iterable<JobOpeningDTO> listJobOpeningsByCustomers(String email, SystemUser user){
         return repository.findAllByCustomerID(email, user);
-    }
-    public Iterable<JobOpeningDTO> listJobOpeningsByUser(SystemUser user){
-        return repository.findAllByUser(user);
     }
 
     public JobOpeningDTO getJobOpeningDTOByReference(String jobReference) {

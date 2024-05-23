@@ -34,4 +34,9 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
         }
         return result;
     }
+
+    @Override
+    public Iterable<JobApplicationDTO> getRankedApplicationsByJobReference(String jobReference) {
+        return null;
+    }
 }

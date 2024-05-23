@@ -144,7 +144,6 @@ public void updateJobOpening(String description,
                 jobRequirement == null ? "" : jobRequirement.toString(),
                 interviewModel == null ? "" : interviewModel.toString(),
                 this.status.toString(),
-                this.recruitmentProcess.size() == 5,
                 phasesDTO
         );
     }
