@@ -1,5 +1,6 @@
 package eapli.base.candidate.application;
 
+import eapli.base.candidate.domain.Email;
 import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.candidate.repository.CandidateRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -16,7 +17,9 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.ListWidget;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @UseCaseController
 public class DisplayRankedCandidatesController {
@@ -41,12 +44,22 @@ public class DisplayRankedCandidatesController {
         return result;
     }
 
-    public List<CandidateDTO> candidateDTOS(String jobReference){
-        List<CandidateDTO> result = new ArrayList<>();
+    public Map<CandidateDTO, Integer> candidateDTOS(String jobReference) {
+        Map<CandidateDTO, Integer> result = new HashMap<>();
         Iterable<JobApplicationDTO> jobApplicationDTOS = jobApplicationRepository.getRankedApplicationsByJobReference(jobReference);
-        ListWidget<JobApplicationDTO> listWidget = new ListWidget<>("JAPP: ", jobApplicationDTOS, System.out::print);
-        listWidget.show();
+        if (jobApplicationDTOS.iterator().hasNext()){
+            for (JobApplicationDTO dto : jobApplicationDTOS) {
+                CandidateDTO candidateDTO = getCandidateDTO(dto.getCandidateEmail());
+                if (candidateDTO != null) {
+                    result.put(candidateDTO, dto.getInterviewGrade());
+                }
+            }
+        }
         return result;
+    }
+
+    private CandidateDTO getCandidateDTO(String email){
+        return candidateRepository.findByEmail(new Email(email)).get().toDTO();
     }
 
 }

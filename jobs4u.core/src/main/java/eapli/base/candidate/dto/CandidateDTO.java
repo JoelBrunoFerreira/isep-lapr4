@@ -18,4 +18,9 @@ public class CandidateDTO {
     private String email;
     private String phoneNumber;
     private String username;
+
+    @Override
+    public String toString() {
+        return String.format("Candidate: %s | Name: %s %s | Phone number: %s", username, firstName, lastName, phoneNumber);
+    }
 }
