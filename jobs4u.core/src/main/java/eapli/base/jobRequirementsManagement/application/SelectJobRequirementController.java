@@ -28,7 +28,7 @@ public class SelectJobRequirementController {
     public Iterable<JobOpeningDTO> getJobOpeningPendingJobRequirements(){
         List<JobOpeningDTO> result = new ArrayList<>();
         for (JobOpeningDTO jO : jobOpeningSvc.listJobOpeningsByManager(authz.session().get().authenticatedUser())){
-            if (jO.getJobRequirement().isEmpty()){
+            if (jO.getJobRequirement().isEmpty() ){
                 result.add(jO);
             }
         }

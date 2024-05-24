@@ -1,0 +1,69 @@
+@startuml
+'http://plantuml.com/skinparam.html
+'skinparam handwritten true
+'skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor CustomerManager as Actor
+participant EditJobOpeningUI as UI <<presentation>>
+participant EditJobOpeningController as Controller <<application>>
+participant JobOpeningSvc as Service <<application>>
+participant JobOpeningDTO as DTO<<domain>>
+participant JobOpening as Domain <<domain>>
+database JobOpeningRepository as Repository <<repository>>
+database JobRequirementsRepository as JRRepository <<repository>>
+database InterviewModelRepository as IMRepository <<repository>>
+
+
+Actor --> UI: edit job opening
+activate UI
+
+    UI --> Actor: ask to list all jobOpenings | get by job reference
+    Actor --> UI
+    note left of UI: if list view, get job opening\n by jobReference anyway
+    UI -> Controller: get JobOpening list | search by jobReference
+    activate Controller
+        Controller -> Service: get JobOpening List | get JobOpening by jobReference
+        activate Service
+        Service -> Repository
+            activate Repository
+                Repository -> Domain
+            deactivate Repository
+            Domain-> DTO
+            DTO -> Service
+            Service -> Controller
+        deactivate Service
+        Controller->UI : list of JobOpeningDTOs | JobOpeningDTO
+    deactivate Controller
+    UI-->Actor: show JobOpeningDTO
+    UI --> Actor: Ask what to edit
+    Actor --> UI: Description, VacancyNumber, Address, \nMode, ContractType, Title, Recruitment Process\nPhase Dates, Interview Model, Job Requirements
+    UI -> Controller: editJobOpening(Company, Description, Address, \nMode, ContractType, VacancyNumber, Title, \nRecruitmentProcess, Interview Model, Job Requirements)
+    note left of Controller: If possible to edit
+    activate Controller
+        Controller -> Service:editJobOpening(...)
+        activate Service
+            Service -> DTO
+            DTO -> Domain
+            Domain -> Service
+            Service -> JRRepository: getNewJobRequirement
+                        activate JRRepository
+                            JRRepository->Service: new JobRequirement
+                        deactivate JRRepository
+            Service -> IMRepository: getNewInterviewModel
+            activate IMRepository
+                IMRepository->Service: new InterviewModel
+            deactivate IMRepository
+            Service -> Repository: updateJobOpening(...)
+            activate Repository
+                Repository -> Service: return jobOpening
+            deactivate Repository
+            Service -> Controller: return jobOpening
+        deactivate Service
+        Controller -> UI: return jobOpening
+    deactivate Controller
+    UI-->Actor: displayEditedJobOpening
+deactivate UI
+@enduml

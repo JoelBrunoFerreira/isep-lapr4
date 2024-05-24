@@ -5,6 +5,14 @@ import java.io.Serializable;
 
 public enum Status implements Serializable {
     ACTIVE("active"),
+    ACTIVE_IMPENDING("impending"),
+    ACTIVE_APPLICATION("application"),
+    ACTIVE_SCREENING("screening"),
+
+    ACTIVE_INTERVIEW("interview"),
+
+    ACTIVE_ANALYSIS("analysis"),
+    ACTIVE_RESULT("result"),
     PENDING("pending"),
     COMPLETED("completed");
 

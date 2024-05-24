@@ -12,20 +12,24 @@ public class RegisterJobApplicationUI extends AbstractUI {
 
     @Override
     public boolean doShow() {
-        String directoryPath = Console.readLine("Path: ");
-        String jobReference = controller.getFolderName(directoryPath);
-        directoryPath = directoryPath.concat("\\").concat(jobReference);
-        String candidateEmail = controller.getFolderName(directoryPath);
-        if (controller.checkIfApplicationExists(candidateEmail, jobReference)){
-            System.out.println("Application already registered!");
-            return true;
+        try {
+            String directoryPath = Console.readLine("Path: ");
+            String jobReference = controller.getFolderName(directoryPath);
+            directoryPath = directoryPath.concat("\\").concat(jobReference);
+            String candidateEmail = controller.getFolderName(directoryPath);
+            if (controller.checkIfApplicationExists(candidateEmail, jobReference)) {
+                System.out.println("Application already registered!");
+                return true;
+            }
+            if (!controller.candidateExists(candidateEmail)) {
+                new AddCandidateUI().doShow();
+            }
+            directoryPath = directoryPath.concat("\\").concat(candidateEmail);
+            JobApplicationDTO result = controller.registerJobApplication(directoryPath, candidateEmail, jobReference);
+            System.out.println("Job application for " + result.getJobOpeningReference() + " and candidate " + result.getCandidateEmail() + " registered successfully!");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        if (!controller.candidateExists(candidateEmail)) {
-            new AddCandidateUI().doShow();
-        }
-        directoryPath = directoryPath.concat("\\").concat(candidateEmail);
-        JobApplicationDTO result = controller.registerJobApplication(directoryPath,candidateEmail,jobReference);
-        System.out.println("Job application for " + result.getJobOpeningReference() +" and candidate "+ result.getCandidateEmail()+ " registered successfully!");
         return false;
     }
 

@@ -72,7 +72,25 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
                     method = JobOpening.class.getDeclaredMethod("isPending");
                     break;
                 case ACTIVE:
+                    method = JobOpening.class.getDeclaredMethod("allActive");
+                    break;
+                case ACTIVE_IMPENDING:
                     method = JobOpening.class.getDeclaredMethod("isActive");
+                    break;
+                case ACTIVE_APPLICATION:
+                    method = JobOpening.class.getDeclaredMethod("isActiveApplication");
+                    break;
+                case ACTIVE_SCREENING:
+                    method = JobOpening.class.getDeclaredMethod("isActiveScreening");
+                    break;
+                case ACTIVE_INTERVIEW:
+                    method = JobOpening.class.getDeclaredMethod("isActiveInterview");
+                    break;
+                case ACTIVE_ANALYSIS:
+                    method = JobOpening.class.getDeclaredMethod("isActiveAnalysis");
+                    break;
+                case ACTIVE_RESULT:
+                    method = JobOpening.class.getDeclaredMethod("isActiveResult");
                     break;
                 case COMPLETED:
                     method = JobOpening.class.getDeclaredMethod("isCompleted");
