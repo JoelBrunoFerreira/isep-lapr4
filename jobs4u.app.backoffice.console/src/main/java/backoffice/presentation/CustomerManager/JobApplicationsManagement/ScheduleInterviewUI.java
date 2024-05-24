@@ -40,22 +40,23 @@ public class ScheduleInterviewUI extends AbstractUI {
         SelectWidget<JobApplicationDTO> jobApplicationWidget = new SelectWidget<>("Job Applications", jobApplicationDTOS, System.out::print);
         jobApplicationWidget.show();
         JobApplicationDTO selectedJobApplication = jobApplicationWidget.selectedElement();
+        if (selectedJobApplication!=null){
+            System.out.println("Interview phase between " + startDate + " and " + endDate + ".");
+            try {
+                Calendar scheduler = Console.readCalendar("Date and time for the interview: (dd-MM-yyyy hh:mm)", "dd-MM-yyyy hh:mm");
+                int dayOfWeek = scheduler.get(Calendar.DAY_OF_WEEK);
+                String dayOfWeekString = new DateFormatSymbols().getWeekdays()[dayOfWeek];
 
-        System.out.println("Interview phase between " + startDate + " and " + endDate + ".");
-        try {
-            Calendar scheduler = Console.readCalendar("Date and time for the interview: (dd-MM-yyyy hh:mm)", "dd-MM-yyyy hh:mm");
-            int dayOfWeek = scheduler.get(Calendar.DAY_OF_WEEK);
-            String dayOfWeekString = new DateFormatSymbols().getWeekdays()[dayOfWeek];
-
-            if (isInvalidInterviewDate(scheduler, startDate, endDate, dayOfWeek)) {
-                System.out.println("Date not valid (" + dayOfWeekString + "), please pick a work day between the interview phase period.");
-            } else {
-                controller.updateJobApplication(selectedJobApplication, scheduler);
+                if (isInvalidInterviewDate(scheduler, startDate, endDate, dayOfWeek)) {
+                    System.out.println("Date not valid (" + dayOfWeekString + "), please pick a work day between the interview phase period.");
+                } else {
+                    controller.updateJobApplication(selectedJobApplication, scheduler);
+                }
+            } catch (Exception e) {
+                System.out.println("An error occurred while scheduling the interview.");
             }
-        } catch (Exception e) {
-            System.out.println("An error occurred while scheduling the interview.");
-        }
 
+        }
         return false;
     }
 

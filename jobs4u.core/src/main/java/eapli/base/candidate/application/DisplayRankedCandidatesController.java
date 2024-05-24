@@ -16,10 +16,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.ListWidget;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @UseCaseController
 public class DisplayRankedCandidatesController {
@@ -37,14 +34,13 @@ public class DisplayRankedCandidatesController {
         List<JobOpeningDTO> result = new ArrayList<>();
         for (JobOpeningDTO dto : jobOpeningSvc.listJobOpeningsByUser(user)){
             if (dto.hasInterviewPhase()){
-
                 result.add(dto);
             }
         }
         return result;
     }
 
-    public Map<CandidateDTO, Integer> candidateDTOS(String jobReference) {
+    public List<Map.Entry<CandidateDTO, Integer>> candidateDTOS(String jobReference) {
         Map<CandidateDTO, Integer> result = new HashMap<>();
         Iterable<JobApplicationDTO> jobApplicationDTOS = jobApplicationRepository.getRankedApplicationsByJobReference(jobReference);
         if (jobApplicationDTOS.iterator().hasNext()){
@@ -55,7 +51,15 @@ public class DisplayRankedCandidatesController {
                 }
             }
         }
-        return result;
+        List<Map.Entry<CandidateDTO, Integer>> entryList = new ArrayList<>(result.entrySet());
+        entryList.sort(new Comparator<Map.Entry<CandidateDTO, Integer>>() {
+            @Override
+            public int compare(Map.Entry<CandidateDTO, Integer> e1, Map.Entry<CandidateDTO, Integer> e2) {
+                return e2.getValue().compareTo(e1.getValue());
+            }
+        });
+
+        return entryList;
     }
 
     private CandidateDTO getCandidateDTO(String email){
