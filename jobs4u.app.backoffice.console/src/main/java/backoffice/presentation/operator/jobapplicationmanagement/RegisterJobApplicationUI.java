@@ -6,6 +6,10 @@ import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegisterJobApplicationUI extends AbstractUI {
 
     private final RegisterJobApplicationController controller = new RegisterJobApplicationController();
@@ -32,7 +36,6 @@ public class RegisterJobApplicationUI extends AbstractUI {
         }
         return false;
     }
-
 
     @Override
     public String headline() {

@@ -57,10 +57,9 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Column(nullable = false)
     private Status status;
 
-    public List<RecruitmentProcessPhase> getRecruitmentProcess() {
-        return recruitmentProcess;
-    }
 
+
+    @Getter
     @OneToMany
     @Cascade(value = CascadeType.ALL)
     @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
@@ -95,7 +94,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.customerManager = customerManager;
         this.status = Status.PENDING;
     }
-public void updateJobOpening(String description,
+
+    public void updateJobOpening(String description,
                              int numberVacancies,
                              String jobOpeningAddress,
                              String mode,

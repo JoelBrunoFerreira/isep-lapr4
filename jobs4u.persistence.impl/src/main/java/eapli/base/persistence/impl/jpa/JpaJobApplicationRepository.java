@@ -51,8 +51,8 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
                 result.add(dto);
             }
         }
-        Collections.sort(result.reversed());
-        return result;
+        Collections.sort(result);
+        return result.reversed();
     }
 
     @Override
