@@ -1,10 +1,8 @@
 package backoffice.presentation.CustomerManager.JobOpeningManagement;
 
-import backoffice.presentation.CustomerManager.CustomerManagerMainMenu;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.application.OpenOrClosePhasesController;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 
@@ -32,8 +30,6 @@ public class OpenOrClosePhasesUI extends AbstractUI {
     private static final String ANALYSIS = "ANALYSIS";
     private static final String RESULT = "RESULT";
 
-
-
     @Override
     protected boolean doShow() {
 
@@ -45,24 +41,52 @@ public class OpenOrClosePhasesUI extends AbstractUI {
             System.out.println("Returning to main menu...");
         } else {
 
-            String selectPhase = getRecruitmentProcessPhaseDates(dto.jobReference).getPhase();
-//            boolean validPhaseToUpdate = validPhaseToUpdate(selectPhase);
-            String option = readLine("Open/Close phase?");
-            if (option.equalsIgnoreCase("open")) {
+            String jobRefStatus = controller.jobOpeningStatus(dto.jobReference);
+            System.out.println("THE SELECTED JOB OPENING IS IN THE PHASE: " + jobRefStatus + "\n");
 
-                LocalDate openDate = LocalDate.parse(readLine("Open Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                controller.openProcessPhases(selectPhase,openDate);
+            String option = readLine("CHOOSE WHAT MOVE TO DO TO CURRENT PHASE (next/previous):");
+            if (option.equalsIgnoreCase("previous")) {
 
-            }else if (option.equalsIgnoreCase("close")) {
+                LocalDate openDate = LocalDate.parse(readLine("Insert the start date of the previous phase (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                controller.returnToPreviousProcessPhase(jobRefStatus, openDate);
 
-                LocalDate closeDate = LocalDate.parse(readLine("Close Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                controller.closeProcessPhases(selectPhase,closeDate);
+            } else if (option.equalsIgnoreCase("next")) {
+
+                LocalDate closeDate = LocalDate.parse(readLine("INSERT THE CLOSE DATE OF THE CURRENT PHASE (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                controller.moveToNextProcessPhase(jobRefStatus, closeDate);
             }
 
         }
         return false;
     }
-
+//    @Override
+//    protected boolean doShow() {
+//
+//
+//        JobOpeningDTO dto = getJobOpening();
+////        controller.setRecruitmentProcessPhases(setRecruitmentProcessPhasesData(list));
+//
+//        if (dto == null) {
+//            System.out.println("Returning to main menu...");
+//        } else {
+//
+//            String selectPhase = getRecruitmentProcessPhaseDates(dto.jobReference).getPhase();
+////            boolean validPhaseToUpdate = validPhaseToUpdate(selectPhase);
+//            String option = readLine("Choose what to do to current phase: move (back/forward)");
+//            if (option.equalsIgnoreCase("back")) {
+//
+//                LocalDate openDate = LocalDate.parse(readLine("Open Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+//                controller.openProcessPhases(selectPhase, openDate);
+//
+//            } else if (option.equalsIgnoreCase("forward")) {
+//
+//                LocalDate closeDate = LocalDate.parse(readLine("Close Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+//                controller.moveProcessPhaseForward(selectPhase, closeDate);
+//            }
+//
+//        }
+//        return false;
+//    }
 
 
     private JobOpeningDTO getJobOpening() {
@@ -87,18 +111,16 @@ public class OpenOrClosePhasesUI extends AbstractUI {
             return null;
         } else {
             System.out.println("Select the phase you wish to change:\n");
-            SelectWidget<RecruitmentProcessPhaseDTO> selectRecruitmentProcessPhaseDTO = new SelectWidget<>("", recruitmentProcessPhaseDTO, visitee -> System.out.println(visitee.toStringComplete())/*, new JobOpeningPrinter()*/);
+            SelectWidget<RecruitmentProcessPhaseDTO> selectRecruitmentProcessPhaseDTO = new SelectWidget<>("", recruitmentProcessPhaseDTO, visitee -> System.out.println(visitee.toStringComplete()));
             selectRecruitmentProcessPhaseDTO.show();
             return selectRecruitmentProcessPhaseDTO.selectedElement();
         }
     }
 
 
-
-
     private String changeProcessPhaseMenuOptions() {
 
-            return String.format("""
+        return String.format("""
                         Select the phase you want to change:
                         %d - APPLICATION
                         %d - SCREENING

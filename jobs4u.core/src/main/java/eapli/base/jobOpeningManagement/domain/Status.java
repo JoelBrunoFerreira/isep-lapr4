@@ -9,7 +9,7 @@ public enum Status implements Serializable {
     ACTIVE_APPLICATION("application"), //when it's in application phase
     ACTIVE_SCREENING("screening"),
 
-    ACTIVE_INTERVIEW("interview"),
+    ACTIVE_INTERVIEW("interviews"),
 
     ACTIVE_ANALYSIS("analysis"),
     ACTIVE_RESULT("result"),
