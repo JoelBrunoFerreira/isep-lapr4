@@ -25,9 +25,11 @@ activate UI
 
     activate Controller
         Controller -> Repository: findApplicationByEmailAndJobReference(CandidateEmail, JobReference)
+            activate Repository
+            Repository -> Controller: JobApplication
+            deactivate Repository
 
-
-            Repository -> Domain: toDTO()
+            Controller -> Domain: toDTO()
 
             Domain -> DTO: toDto()
             activate DTO

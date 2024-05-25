@@ -209,11 +209,11 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             }
         }
         switch (activePhase){
-            case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
-            case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
-            case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
-            case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
-            case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+            case APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+            case SCREENING -> this.status = Status.ACTIVE_SCREENING;
+            case INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+            case ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+            case RESULT -> this.status = Status.ACTIVE_RESULT;
         }
     }
 }

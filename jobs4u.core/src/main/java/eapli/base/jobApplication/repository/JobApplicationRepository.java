@@ -11,5 +11,5 @@ public interface JobApplicationRepository extends DomainRepository<Long, JobAppl
 
     public Iterable<JobApplicationDTO> findApplicationsByJobOpeningReference(String jobReference);
     public Iterable<JobApplicationDTO> findApplicationsByJCandidateEmail(String candidateEmail);
-    public Optional<JobApplicationDTO> findApplicationByEmailAndJobReference(String candidateEmail, String JobReference);
+    public Optional<JobApplication> findApplicationByCandidateEmailAndJobReference(String email, String JobReference);
 }

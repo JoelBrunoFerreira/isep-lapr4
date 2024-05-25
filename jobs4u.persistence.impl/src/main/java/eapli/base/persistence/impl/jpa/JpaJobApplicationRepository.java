@@ -1,9 +1,11 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
+import eapli.base.candidate.domain.Email;
 import eapli.base.jobApplication.domain.JobApplication;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobApplication.repository.JobApplicationRepository;
+import eapli.base.jobOpeningManagement.domain.JobReference;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
@@ -42,11 +44,11 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
     }
 
     @Override
-    public Optional<JobApplicationDTO> findApplicationByEmailAndJobReference(String candidateEmail, String jobReference) {
-        final Map<String, Object> params = new HashMap<>();
-        params.put("candidateId", candidateEmail);
-        params.put("jobReference", jobReference);
-        return Optional.ofNullable(matchOne("e.candidateId=:candidateEmail and e.jobReference=:jobReference", params).get().toDTO());
+    public Optional<JobApplication> findApplicationByCandidateEmailAndJobReference(String email, String jobReference) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", new Email(email));
+        params.put("jobReference", new JobReference(jobReference));
+        return matchOne("e.candidate.email = :email AND e.jobOpening.jobReference = :jobReference", params);
     }
 
     @Override

@@ -40,9 +40,9 @@ public class ListApplicationController {
         return applicationRepository.findApplicationsByJCandidateEmail(candidateEmail);
     }
 
-    public Optional<JobApplicationDTO> getJobApplicationByEmailAndJobReference(String candidateEmail, String jobReference) {
+    public Optional<JobApplicationDTO> getJobApplicationByCandidateEmailAndJobReference(String email, String jobReference) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
-        return applicationRepository.findApplicationByEmailAndJobReference(candidateEmail, jobReference);
+        return Optional.ofNullable(applicationRepository.findApplicationByCandidateEmailAndJobReference(email, jobReference).get().toDTO());
     }
 
 }

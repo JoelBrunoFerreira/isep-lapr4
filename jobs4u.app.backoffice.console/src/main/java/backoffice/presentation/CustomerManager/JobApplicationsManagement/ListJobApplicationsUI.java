@@ -63,12 +63,12 @@ public class ListJobApplicationsUI extends AbstractUI {
                         }
                     }
                     break;
-                case "2":
+                case "3":
                     valid = true;
                     reference = Console.readLine("Type the Job Reference: ");
                     email = Console.readLine("Type the candidate's email:");
 
-                    Optional<JobApplicationDTO> jobApplication = listApplicationController.getJobApplicationByEmailAndJobReference(email, reference);
+                    Optional<JobApplicationDTO> jobApplication = listApplicationController.getJobApplicationByCandidateEmailAndJobReference(email, reference);
 
                     if (!jobApplication.isPresent()) {
                         System.out.println("No job applications with the submitted data.");
@@ -82,7 +82,7 @@ public class ListJobApplicationsUI extends AbstractUI {
                     }
                     break;
 
-                case "3":
+                case "2":
                     valid = true;
                     reference = Console.readLine("Type the Job Reference: ");
 

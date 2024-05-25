@@ -37,7 +37,7 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
     }
 
     @Override
-    public Optional<JobApplicationDTO> findApplicationByEmailAndJobReference(String candidateEmail, String JobReference) {
+    public Optional<JobApplication> findApplicationByCandidateEmailAndJobReference(String email, String JobReference) {
         return Optional.empty();
     }
 }
