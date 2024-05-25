@@ -1,0 +1,38 @@
+@startuml
+actor CustomerManager as actor
+participant DisplayRankedCandidatesUI as UI
+participant DisplayRankedCandidatesController as controller
+participant JobApplicationDTO as dto
+participant JobApplication as domain
+participant CandidateDTO as candidateDTO
+participant Candidate as candidate
+database JobApplicationsRepository as repo
+database CandidateRepository as candidateRepo
+
+actor --> UI: ask to View Ranked Candidates
+activate UI
+    note right of UI: gets all jobOpeningDTOs that \nqualify with valid interview phase
+    UI --> actor: show list of job openings
+    actor --> UI: selects jobOpening (String jobReference)
+    UI -> controller: getAllCandidatesRanked(jobReference)
+    activate controller
+        controller -> repo: getAllRankedJobApplicationDTOs(jobReference)
+        activate repo
+            repo -> domain
+        deactivate repo
+        domain -> dto
+        dto -> controller: listOfRankedJobApplicationDTOs
+        note right of controller: gets candidate id from application
+        loop
+            controller -> candidateRepo: getCandidateDTO(id)
+            activate candidateRepo
+                candidateRepo-> candidate
+            deactivate candidateRepo
+            candidate -> candidateDTO
+            candidateDTO -> controller: candidateDTO
+        end
+        controller -> UI: return List of Ranked CandidateDTOs
+    deactivate controller
+    UI --> actor: displays list of ranked candidates
+deactivate UI
+@enduml

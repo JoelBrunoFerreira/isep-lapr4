@@ -8,10 +8,11 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplication, Long, Long >
-        implements JobApplicationRepository {
+        implements JobApplicationRepository{
     public JpaJobApplicationRepository(final TransactionalContext autoTx) {
         super(autoTx, "id");
     }
@@ -43,7 +44,20 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
     }
 
     @Override
+    public Iterable<JobApplicationDTO> getRankedApplicationsByJobReference(String jobReference) {
+        List<JobApplicationDTO> result = new ArrayList<>();
+        for (JobApplicationDTO dto : this.findApplicationsByJobOpeningReference(jobReference)){
+            if (dto.isApproved()){
+                result.add(dto);
+            }
+        }
+        Collections.sort(result);
+        return result.reversed();
+    }
+
+    @Override
     public <S extends JobApplication> S save(S entity) {
         return super.save(entity);
     }
+
 }

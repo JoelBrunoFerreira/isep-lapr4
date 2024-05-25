@@ -8,7 +8,6 @@ import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 public interface JobOpeningRepository extends DomainRepository<JobReference, JobOpening> {
-    Iterable<JobOpeningDTO> findAllByUser(SystemUser user);
     Iterable<JobOpeningDTO> findAllDTO();
     Iterable<JobOpeningDTO> findAllByCustomerID(String email, SystemUser user);
 
@@ -16,6 +15,6 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
 
     JobOpeningDTO findByJobReference(String jobReference);
 
-    Iterable<JobOpeningDTO> findAllByManager(SystemUser user);
+    Iterable<JobOpeningDTO> findAllByUser(SystemUser user);
     JobOpeningDTO updateJobOpening(JobOpeningDTO dto);
 }

@@ -33,7 +33,7 @@ public class OpenOrClosePhasesController {
 
         List<JobOpeningDTO> result = new ArrayList<>();
 
-        for (JobOpeningDTO dto : jobOpeningSvc.listJobOpeningsByManager(user)) {
+        for (JobOpeningDTO dto : jobOpeningSvc.listJobOpeningsByUser(user)) {
             if (!(dto.getStatus().equalsIgnoreCase(Status.PENDING.toString()) || dto.getStatus().equalsIgnoreCase(Status.COMPLETED.toString()))) {
                 result.add(dto);
             }

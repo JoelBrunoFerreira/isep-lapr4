@@ -57,10 +57,9 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Column(nullable = false)
     private Status status;
 
-    public List<RecruitmentProcessPhase> getRecruitmentProcess() {
-        return recruitmentProcess;
-    }
 
+
+    @Getter
     @OneToMany
     @Cascade(value = CascadeType.ALL)
     @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
@@ -95,7 +94,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.customerManager = customerManager;
         this.status = Status.PENDING;
     }
-public void updateJobOpening(String description,
+
+    public void updateJobOpening(String description,
                              int numberVacancies,
                              String jobOpeningAddress,
                              String mode,
@@ -125,11 +125,27 @@ public void updateJobOpening(String description,
 
     @Override
     public JobOpeningDTO toDTO() {
-        return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(),
-                mode.toString(), contractType.toString(), jobTitle.toString(),
+        List<RecruitmentProcessPhaseDTO> phasesDTO = null;
+        if (!this.recruitmentProcess.isEmpty()) {
+            phasesDTO = new ArrayList<>();
+            for (RecruitmentProcessPhase phase : this.recruitmentProcess) {
+                phasesDTO.add(phase.toDTO());
+            }
+        }
+        return new JobOpeningDTO(
+                jobReference.getId(),
+                description.toString(),
+                numberVacancies.toString(),
+                jobOpeningAddress.toString(),
+                mode.toString(),
+                contractType.toString(),
+                jobTitle.toString(),
                 recruitmentProcess == null ? "" : recruitmentProcess.toString(),
                 jobRequirement == null ? "" : jobRequirement.toString(),
-                interviewModel == null ? "" : interviewModel.toString(), this.status.toString());
+                interviewModel == null ? "" : interviewModel.toString(),
+                this.status.toString(),
+                phasesDTO
+        );
     }
 
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(boolean interview) {
@@ -211,7 +227,6 @@ public void updateJobOpening(String description,
     public boolean hasInterviewModel() {
         return this.interviewModel != null;
     }
-
     public boolean hasRequirementSpecification() {
         return this.jobRequirement != null;
     }

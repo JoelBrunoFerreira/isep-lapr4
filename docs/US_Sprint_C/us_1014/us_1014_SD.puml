@@ -1,0 +1,43 @@
+@startuml
+actor CustomerManager as actor
+participant ScheduleInterviewUI as UI
+participant ScheduleInterviewController as Controller
+participant JobApplicationDTO as dto
+participant JobApplication as domain
+database JobApplicationsRepository as repo
+
+actor --> UI: ask to Schedule an Interview
+activate UI
+    note right of UI: gets all eligible jobOpeningDTOs\n from jobOpeningSvc
+    UI --> actor: show list of jobOpenings
+    actor --> UI: chooses JobOpeningDTO(JobReference)
+    UI->Controller: getJobApplicationsByJobReference(jobReference)
+    activate Controller
+        Controller->repo: getJobApplicationsByJobReference()
+        activate repo
+            repo -> domain: return list<JobApplication>
+        deactivate repo
+        domain -> dto
+        dto->Controller: return list<JobApplicationDTO>
+        Controller -> UI: return list of all JobApplicationDTOs
+    deactivate Controller
+    UI-->actor: shows JobApplicationDTOs
+    actor--> UI: selects JobApplicationDTO\n to schedule interview
+    UI-->actor: asks for interview date and time
+    actor--> UI: chooses date and time
+    note right of UI: validates date and time
+    UI->Controller: setScheduleInterview(JobApplicationDTO)
+    activate Controller
+        Controller -> domain: setScheduleInterviewDateTime()
+        domain -> Controller: updated JobApplication with interview scheduled
+        Controller -> repo: save(JobApplication)
+        activate repo
+            repo -> domain: return updated JobApplication
+        deactivate repo
+        domain -> dto
+        dto -> Controller: return updated JobApplicationDTO
+        Controller -> UI: return updated JobApplicationDTO
+    deactivate Controller
+    UI --> actor: show updated JobApplicationDTO
+deactivate UI
+@enduml

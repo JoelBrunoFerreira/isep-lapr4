@@ -6,11 +6,13 @@ import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
+import eapli.base.jobRequirementsManagement.domain.RequirementClass;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -25,8 +27,9 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private JobApplicationState jobApplicationState;
-
+    private RequirementResult requirementResult;
     private InterviewGrade interviewGrade;
+    private InterviewSchedule interviewSchedule;
     @ManyToOne
     @JoinColumn(name = "candidateID")
     private Candidate candidate;
@@ -41,6 +44,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.candidate = candidate;
         this.jobOpening = jobOpening;
         this.jobApplicationState = JobApplicationState.RECEIVED;
+        this.requirementResult = new RequirementResult(false, "Pending");
     }
 
     @Override
@@ -65,7 +69,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         for (ApplicationFile file : applicationFiles) {
             files.add(file.toString());
         }
-        return new JobApplicationDTO(id, files,rank==null? 0 : rank.valueOf(), jobApplicationState.toString(),interviewGrade==null? 0 :Integer.parseInt(interviewGrade.toString()), candidate.getEmail().toString(),jobOpening.getJobReference().toString());
+        return new JobApplicationDTO(id, files,rank==null? 0 : rank.valueOf(), jobApplicationState.toString(),interviewGrade==null? 0 :Integer.parseInt(interviewGrade.toString()), candidate.getEmail().toString(),jobOpening.getJobReference().toString(), requirementResult.isApproved());
     }
 
     public void setInterviewGrade(int interviewGrade) {
@@ -81,5 +85,12 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     }
     public boolean hasCandidateEmail(String email){
         return this.candidate.getEmail().equals(new Email(email));
+    }
+
+    public void setInterviewSchedule(Calendar dateTime){
+        this.interviewSchedule = new InterviewSchedule(dateTime);
+    }
+    public void applicationPassedRequirements(String description){
+        this.requirementResult = new RequirementResult(true, description);
     }
 }
