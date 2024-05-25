@@ -24,11 +24,6 @@ public class OpenOrClosePhasesController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
     private final SystemUser user;
-//    private final String APPLICATION ="APPLICATION";
-//    private final String SCREENING ="SCREENING";
-//    private final String ANALYSIS ="APPLICATION";
-//    private final String INTERVIEWS ="APPLICATION";
-//    private final String RESULT ="RESULT";
 
 
     public OpenOrClosePhasesController() {
@@ -50,6 +45,7 @@ public class OpenOrClosePhasesController {
 
     }
 
+
     public String jobOpeningStatus(String jobReference) {
         jobOpening = jobOpeningSvc.getJobOpeningByReference(jobReference).get(); //Gets jobOpening object
         return jobOpening.toDTO().getStatus().toUpperCase();
@@ -67,6 +63,7 @@ public class OpenOrClosePhasesController {
 
         return result;
     }
+
 
     public void returnToPreviousProcessPhase(String selectedPhase, LocalDate openDate) {
 
@@ -128,11 +125,24 @@ public class OpenOrClosePhasesController {
         }
     }
 
+
     public void moveToNextProcessPhase(String selectedPhase, LocalDate closeDate) {
-
+        boolean interviewPhase = false;
         String nextPhase = null;
+        boolean completeStatus = false;
+        boolean activeStatus = false;
+        int counter = 0;
 
-        if (jobOpening.hasInterviewModel()) {
+        for (RecruitmentProcessPhase processPhase : jobOpening.getRecruitmentProcess()) {
+
+            if (processPhase.getPhase().toString().equalsIgnoreCase(INTERVIEWS.toString())) {
+                interviewPhase = true;
+                break;
+            }
+        }
+
+
+        if (jobOpening.hasInterviewModel() && interviewPhase) {
             for (RecruitmentProcessPhase processPhaseToChange : jobOpening.getRecruitmentProcess()) {
 
                 if (selectedPhase.equalsIgnoreCase(Status.ACTIVE.toString())) {
@@ -140,27 +150,32 @@ public class OpenOrClosePhasesController {
                     startApplicationPhase(closeDate, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(APPLICATION.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(APPLICATION.getDesignation())
+                        && processPhaseToChange.getPhase().toString().equalsIgnoreCase(selectedPhase)) {
                     nextPhase = SCREENING.getDesignation();
                     setNextPhaseStartDateAndProcessStatus(closeDate, processPhaseToChange, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(SCREENING.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(SCREENING.getDesignation())
+                        && processPhaseToChange.getPhase().toString().equalsIgnoreCase(selectedPhase)) {
                     nextPhase = INTERVIEWS.getDesignation();
                     setNextPhaseStartDateAndProcessStatus(closeDate, processPhaseToChange, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(INTERVIEWS.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(INTERVIEWS.getDesignation())
+                        && processPhaseToChange.getPhase().toString().equalsIgnoreCase(selectedPhase)) {
                     nextPhase = ANALYSIS.getDesignation();
                     setNextPhaseStartDateAndProcessStatus(closeDate, processPhaseToChange, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(ANALYSIS.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(ANALYSIS.getDesignation())
+                        && processPhaseToChange.getPhase().toString().equalsIgnoreCase(selectedPhase)) {
                     nextPhase = RESULT.getDesignation();
                     setNextPhaseStartDateAndProcessStatus(closeDate, processPhaseToChange, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(RESULT.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(RESULT.getDesignation())
+                        && processPhaseToChange.getPhase().toString().equalsIgnoreCase(RESULT.getDesignation())) {
                     nextPhase = Status.COMPLETED.toString();
                     setNextPhaseStartDateAndProcessStatus(closeDate, processPhaseToChange, nextPhase);
                     break;
@@ -169,22 +184,31 @@ public class OpenOrClosePhasesController {
         } else {
             for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
 
-                if (selectedPhase.equalsIgnoreCase(APPLICATION.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(Status.ACTIVE.toString())) {
+                    nextPhase = APPLICATION.getDesignation();
+                    startApplicationPhase(closeDate, nextPhase);
+                    break;
+                }
+                if (selectedPhase.equalsIgnoreCase(APPLICATION.getDesignation())
+                        && p.getPhase().toString().equalsIgnoreCase(selectedPhase)) {
                     nextPhase = SCREENING.getDesignation();
                     setNextPhaseStartDateAndProcessStatus(closeDate, p, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(SCREENING.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(SCREENING.getDesignation())
+                        && p.getPhase().toString().equalsIgnoreCase(selectedPhase)) {
                     nextPhase = ANALYSIS.getDesignation();
                     setNextPhaseStartDateAndProcessStatus(closeDate, p, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(ANALYSIS.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(ANALYSIS.getDesignation())
+                        && p.getPhase().toString().equalsIgnoreCase(selectedPhase)) {
                     nextPhase = RESULT.getDesignation();
                     setNextPhaseStartDateAndProcessStatus(closeDate, p, nextPhase);
                     break;
                 }
-                if (selectedPhase.equalsIgnoreCase(RESULT.getDesignation())) {
+                if (selectedPhase.equalsIgnoreCase(RESULT.getDesignation())
+                        && p.getPhase().toString().equalsIgnoreCase(RESULT.getDesignation())) {
                     nextPhase = Status.COMPLETED.toString();
                     setNextPhaseStartDateAndProcessStatus(closeDate, p, nextPhase);
                     break;
@@ -194,19 +218,33 @@ public class OpenOrClosePhasesController {
 
     }
 
+
     private void setNextPhaseStartDateAndProcessStatus(LocalDate closeDate, RecruitmentProcessPhase processPhaseToChange, String nextPhase) {
-        processPhaseToChange.getPeriod().setEndDate(closeDate);
-        for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
-            if (p.getPhase().toString().equalsIgnoreCase(nextPhase)) {
-                p.getPeriod().setStartDate(closeDate);
-                break;
+
+        if (nextPhase.equalsIgnoreCase(Status.COMPLETED.toString())) {
+            for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
+                if (p.getPhase().toString().equalsIgnoreCase(processPhaseToChange.getPhase().toString())) {
+                    processPhaseToChange.getPeriod().setEndDate(closeDate);
+                    break;
+                }
             }
+        }else{
+            for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
+                if (p.getPhase().toString().equalsIgnoreCase(nextPhase)) {
+                    processPhaseToChange.getPeriod().setEndDate(closeDate);
+                    p.getPeriod().setStartDate(closeDate);
+                    break;
+                }
+        }
+
+
         }
         jobOpening.setStatusByMovingForwardPhase(nextPhase);
         jobOpeningSvc.saveJobOpening(jobOpening);
     }
 
-    private void setPreviousPhaseProcessStatus(LocalDate closeDate,RecruitmentProcessPhase processPhaseToChange, String previousPhase) {
+
+    private void setPreviousPhaseProcessStatus(LocalDate closeDate, RecruitmentProcessPhase processPhaseToChange, String previousPhase) {
         processPhaseToChange.getPeriod().setEndDate(closeDate);
         for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
             if (p.getPhase().toString().equalsIgnoreCase(previousPhase)) {
@@ -230,25 +268,8 @@ public class OpenOrClosePhasesController {
         jobOpening.setStatusByMovingForwardPhase(nextPhase);
         jobOpeningSvc.saveJobOpening(jobOpening);
     }
-//    public void setApplicationPhase(String phase) {
-//        for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
-//            if (p.getPhase().toString().equalsIgnoreCase(phase)) {
-//                openProcessPhases(phase, LocalDate.now());
-////               p.getPeriod().setStartDate(openDate);
-//                break;
-//            }
-//        }
-//    }
-//
-//
-//    public void setScreeningPhase(String phase) {
-//        for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
-//            if (p.getPhase().toString().equalsIgnoreCase(phase)) {
-////               p.getPeriod().setStartDate(openDate);
-//                break;
-//            }
-//        }
-//    }
+
+
 }
 
 

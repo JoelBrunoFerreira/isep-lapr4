@@ -298,9 +298,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                     case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
                     default -> this.status = Status.ACTIVE;
                 }
+                System.out.println("[Phase successfully updated! It's now in " + activePhase.toString().toUpperCase() + " phase]");
+
             }
-            System.out.println("[Phase successfully updated!]");
-        }
+                    }
     }
 
 }

@@ -3,6 +3,7 @@ package backoffice.presentation.CustomerManager.JobOpeningManagement;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.application.OpenOrClosePhasesController;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
+import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 
