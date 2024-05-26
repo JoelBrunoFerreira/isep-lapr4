@@ -3,7 +3,6 @@ package backoffice.presentation.CustomerManager.JobOpeningManagement;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.application.OpenOrClosePhasesController;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
 
@@ -17,14 +16,6 @@ public class OpenOrClosePhasesUI extends AbstractUI {
 
 
     private static final String EXIT_OPTION = "0";
-//    private static final int FILTER_ACTIVE = 2;
-//    private static final int ACTIVE = 1;
-//    private static final int ACTIVE_APPLICATION = 2;
-//    private static final int ACTIVE_SCREENING = 3;
-//    private static final int ACTIVE_INTERVIEW = 4;
-//    private static final int ACTIVE_ANALYSIS = 5;
-//    private static final int ACTIVE_RESULT = 6;
-
     private static final String APPLICATION = "APPLICATION";
     private static final String SCREENING = "SCREENING";
     private static final String INTERVIEW = "INTERVIEW";
@@ -36,7 +27,7 @@ public class OpenOrClosePhasesUI extends AbstractUI {
 
 
         JobOpeningDTO dto = getJobOpening();
-//        controller.setRecruitmentProcessPhases(setRecruitmentProcessPhasesData(list));
+
 
         if (dto == null) {
             System.out.println("Returning to main menu...");
@@ -60,34 +51,6 @@ public class OpenOrClosePhasesUI extends AbstractUI {
         }
         return false;
     }
-//    @Override
-//    protected boolean doShow() {
-//
-//
-//        JobOpeningDTO dto = getJobOpening();
-////        controller.setRecruitmentProcessPhases(setRecruitmentProcessPhasesData(list));
-//
-//        if (dto == null) {
-//            System.out.println("Returning to main menu...");
-//        } else {
-//
-//            String selectPhase = getRecruitmentProcessPhaseDates(dto.jobReference).getPhase();
-////            boolean validPhaseToUpdate = validPhaseToUpdate(selectPhase);
-//            String option = readLine("Choose what to do to current phase: move (back/forward)");
-//            if (option.equalsIgnoreCase("back")) {
-//
-//                LocalDate openDate = LocalDate.parse(readLine("Open Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-//                controller.openProcessPhases(selectPhase, openDate);
-//
-//            } else if (option.equalsIgnoreCase("forward")) {
-//
-//                LocalDate closeDate = LocalDate.parse(readLine("Close Date (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-//                controller.moveProcessPhaseForward(selectPhase, closeDate);
-//            }
-//
-//        }
-//        return false;
-//    }
 
 
     private JobOpeningDTO getJobOpening() {
@@ -116,20 +79,6 @@ public class OpenOrClosePhasesUI extends AbstractUI {
             selectRecruitmentProcessPhaseDTO.show();
             return selectRecruitmentProcessPhaseDTO.selectedElement();
         }
-    }
-
-
-    private String changeProcessPhaseMenuOptions() {
-
-        return String.format("""
-                        Select the phase you want to change:
-                        %d - APPLICATION
-                        %d - SCREENING
-                        %d - INTERVIEW
-                        %d - ANALYSIS
-                        %d - RESULT
-                        """,
-                APPLICATION, SCREENING, INTERVIEW, ANALYSIS, RESULT);
     }
 
 
