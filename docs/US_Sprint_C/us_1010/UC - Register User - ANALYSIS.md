@@ -11,8 +11,7 @@
 
 **From the specifications document:**
 
->* A
-   customer manager will register job offers for the entities he manages in the backoffice. **The
+>* A customer manager will register job offers for the entities he manages in the backoffice. **The
    customer manager will also manage other aspects of job offers, namely the entire candidate
    selection process.**
 
@@ -24,7 +23,7 @@
 >* A previous phase can be reopened if there are no steps started in the current phase.
 >* Once the process reaches the complete state, the job opening is no longer active.
 >* Interview phase can't be started if there is no interview model loaded.
->* 
+
 
 
 ### 1.3 Input and Output Data
@@ -33,12 +32,12 @@
 **Input Data:**
 
 >* Typed data:
->    * Open/close phase
+>    * next/previous phase
 >    * Start date
 >    * End date
 
 >* Selected data:
->    * Phase
+>    * Job opening
 
 
 **Output Data:**
@@ -56,9 +55,9 @@
 
 
 >* testChangePhaseMenuByCustomerManager
->* testChangePhaseOpen
->* testChangePhaseClose
->* testReopenPreviousPhase
+>* testChangeToNextPhase
+>* testChangeToPreviousPhase
+
 
 
 

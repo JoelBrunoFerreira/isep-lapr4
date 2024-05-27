@@ -34,6 +34,6 @@ public class RecruitmentProcessPhaseDTO {
     }
 
     public String toStringComplete() {
-        return String.format("PHASE: %s START DATE: %s END DATE: %s", phase, startDate, endDate);
+        return String.format("PHASE: %s \n   START DATE: %s      END DATE: %s", phase, startDate, endDate);
     }
 }

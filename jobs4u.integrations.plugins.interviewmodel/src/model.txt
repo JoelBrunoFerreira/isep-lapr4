@@ -1,0 +1,57 @@
+INTERVIEW_MODEL
+SHORT_ANSWER {
+    DESCRIPTION: "Where is Casa da Música located?"
+    CASE_SENSITIVE: false
+
+    SOLUTION 1: "Boavista" [0.5]
+    SOLUTION 2: "Avenida da Boavista" [1.0]
+}
+#
+TIME {
+    DESCRIPTION: "After what time is usually lunch time?"
+    SOLUTION 1: 11:59 [1.0]
+}
+#
+NUMERICAL {
+    DESCRIPTION: "How much does a beagle weight?"
+    ERROR: 5
+
+    SOLUTION 1: 15 [1.0]
+}
+#
+MULTIPLE_CHOICE {
+    CHOICE_TYPE: single-answer
+    DESCRIPTION: "The EMI (electromagnetic interference) phenomena..."
+
+    ANSWER 1: "is the main cause for the internal noise found in data transmission mediums"
+    ANSWER 2: "only affects analogue signals, digital signals are immune to the harmful effects of this phenomenon"
+    ANSWER 3: "is the cause of ISI (Inter Symbol Interference)"
+    ANSWER 4: "in no way affects data transmissions over optical fibre"
+
+    SOLUTION 1: 4 [5.0]
+}
+#
+MULTIPLE_CHOICE {
+    CHOICE_TYPE: multiple-answer
+    DESCRIPTION: "Which of the following animals are mammals?"
+
+    ANSWER 1: "Kangaroo"
+    ANSWER 2: "Turtle"
+    ANSWER 3: "Dolphin"
+    ANSWER 4: "Salmon"
+
+    SOLUTION 1: 1,3 [2.0]
+    SOLUTION 2: 1,3,4 [1.5]
+    SOLUTION 3: 1,4 [1.0]
+    SOLUTION 4: 3,4 [0.5]
+    SOLUTION 5: 1 [0.2]
+    SOLUTION 6: 3 [0.2]
+    SOLUTION 7: 4 [0.1]
+
+    FEEDBACK {
+        CORRECT_ANSWER: "Perfect"
+        WRONG_ANSWER: "Could be better"
+    }
+}
+#
+END_OF_INTERVIEW

@@ -27,7 +27,6 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +55,6 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
-
 
 
     @Getter
@@ -96,18 +94,19 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public void updateJobOpening(String description,
-                             int numberVacancies,
-                             String jobOpeningAddress,
-                             String mode,
-                             String contractType,
-                             String jobTitle) {
-    this.description = Description.valueOf(description);
-    this.numberVacancies = new NumberVacancies(numberVacancies);
-    this.jobOpeningAddress = new JobOpeningAddress(jobOpeningAddress);
-    this.mode = WorkingMode.parse(mode);
-    this.contractType = ContractType.parse(contractType);
-    this.jobTitle = new JobTitle(jobTitle);
-}
+                                 int numberVacancies,
+                                 String jobOpeningAddress,
+                                 String mode,
+                                 String contractType,
+                                 String jobTitle) {
+        this.description = Description.valueOf(description);
+        this.numberVacancies = new NumberVacancies(numberVacancies);
+        this.jobOpeningAddress = new JobOpeningAddress(jobOpeningAddress);
+        this.mode = WorkingMode.parse(mode);
+        this.contractType = ContractType.parse(contractType);
+        this.jobTitle = new JobTitle(jobTitle);
+    }
+
     public void changeStatus(Status status) {
         this.status = status;
     }
@@ -186,32 +185,40 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()));
         //TODO phase triggered and job application status update
     }
+
     public boolean isPending() {
         return this.status.equals(Status.PENDING);
     }
+
     public boolean allActive() {
         return this.status.equals(Status.ACTIVE)
-                ||this.status.equals(Status.ACTIVE_APPLICATION)
-                ||this.status.equals(Status.ACTIVE_SCREENING)
-                ||this.status.equals(Status.ACTIVE_INTERVIEW)
-                ||this.status.equals(Status.ACTIVE_ANALYSIS)
-                ||this.status.equals(Status.ACTIVE_RESULT);
+                || this.status.equals(Status.ACTIVE_APPLICATION)
+                || this.status.equals(Status.ACTIVE_SCREENING)
+                || this.status.equals(Status.ACTIVE_INTERVIEW)
+                || this.status.equals(Status.ACTIVE_ANALYSIS)
+                || this.status.equals(Status.ACTIVE_RESULT);
     }
-    public boolean isActive(){
+
+    public boolean isActive() {
         return this.status.equals(Status.ACTIVE);
     }
+
     public boolean isActiveApplication() {
         return this.status.equals(Status.ACTIVE_APPLICATION);
     }
+
     public boolean isActiveScreening() {
         return this.status.equals(Status.ACTIVE_SCREENING);
     }
+
     public boolean isActiveInterview() {
         return this.status.equals(Status.ACTIVE_INTERVIEW);
     }
+
     public boolean isActiveAnalysis() {
         return this.status.equals(Status.ACTIVE_ANALYSIS);
     }
+
     public boolean isActiveResult() {
         return this.status.equals(Status.ACTIVE_RESULT);
     }
@@ -227,6 +234,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     public boolean hasInterviewModel() {
         return this.interviewModel != null;
     }
+
     public boolean hasRequirementSpecification() {
         return this.jobRequirement != null;
     }
@@ -243,7 +251,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     //chamar no final de activar/desactivar fases da jobOpening
     public void setStatusByPhaseDates() {
-        if(!this.recruitmentProcess.isEmpty()){
+        if (!this.recruitmentProcess.isEmpty()) {
             LocalDate now = LocalDate.now();
             Phase activePhase = null;
             for (RecruitmentProcessPhase phase : recruitmentProcess) {
@@ -253,8 +261,36 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                     break;
                 }
             }
-            if (activePhase!=null){
-                switch (activePhase){
+            if (activePhase != null) {
+                switch (activePhase) {
+                    case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+                    case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
+                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+                    case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+                    case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+                    default -> this.status = Status.COMPLETED;
+                }
+            }
+        }
+    }
+
+    public void setStatusByMovingForwardPhase(String closePhase) {
+
+        if (closePhase.equalsIgnoreCase(Status.COMPLETED.toString())) {
+            this.status = Status.COMPLETED;
+            System.out.println("Recruitment process completed!");
+
+        } else if (!this.recruitmentProcess.isEmpty()) {
+
+            Phase activePhase = null;
+            for (RecruitmentProcessPhase phase : recruitmentProcess) {
+                if (phase.getPhase().toString().equalsIgnoreCase(closePhase)) {
+                    activePhase = phase.getPhase();
+                    break;
+                }
+            }
+            if (activePhase != null) {
+                switch (activePhase) {
                     case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
                     case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
                     case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
@@ -262,8 +298,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                     case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
                     default -> this.status = Status.ACTIVE;
                 }
+                System.out.println("[Phase successfully updated! It's now in " + activePhase.toString().toUpperCase() + " phase]");
+
             }
-        }
+                    }
     }
 
 }

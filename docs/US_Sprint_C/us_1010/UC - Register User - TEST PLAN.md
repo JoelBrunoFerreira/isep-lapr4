@@ -3,20 +3,18 @@
 
 ## Test Plan
 
-## Case #1: Open phase
+## Case #1: Next phase
  >1. Login as Customer Manager
  >2. Select job opening
- >3. Select phase to be changed
- >4. Select open phase
- >5. Insert start date
- >6. Job opening status changes it's state phase
+ >3. Select move to next phase
+ >4. Insert end date
+ >5. Job opening status changes it's state phase to next in the process
 
 
-## Case #2: Close phase
+## Case #2: Previous phase
 >1. Login as Customer Manager
 >2. Select job opening
->3. Select phase to be changed
->4. Select close phase
->5. Insert end date
->6. Job opening status changes it's state phase
+>3. Select move to previous phase
+>4. Insert start date
+>5. Job opening status changes it's state phase to previous in the process
 

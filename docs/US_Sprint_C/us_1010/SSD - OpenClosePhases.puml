@@ -1,0 +1,109 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten false
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor CustomerManager as Actor
+participant OpenOrClosePhasesUI as UI <<presentation>>
+participant OpenOrClosePhasesController as Controller <<application>>
+participant JobOpeningDTO as DTO <<DTO>>
+participant JobOpeningSvc as Service <<Service>>
+
+database JobOpeningRepository as Repository <<repository>>
+
+Actor --> UI: Select open or close phase
+activate UI
+    UI -> Controller: create
+    UI -> Controller: getJobOpening()
+    activate Controller
+        Controller -> DTO : listJobOpeningsDTO()
+        activate DTO
+        DTO->Service : listJobOpeningsByUser(user)
+        activate Service
+        Service -> Repository : findAllByUser()
+        activate Repository
+        Repository -> Service : JobopeningDTO
+        deactivate Repository
+        Service -> DTO : JobOpeningDTO
+        deactivate Service
+
+        DTO -> Controller : List<JobOpeningDTO>
+        deactivate DTO
+
+        deactivate Service
+
+        Controller --> UI: List<JobOpeningDTO>
+    deactivate Controller
+    UI --> Actor: Ask user to select job opening
+    Actor --> UI: Select jobReference
+
+    UI -> Controller: jobOpeningStatus(selectedJobOpeningDTO.jobReference)
+    activate Controller
+        Controller -> Service: getJobOpeningByReference(jobReference)
+        activate Service
+        Service -> Repository : job opening status
+        activate Repository
+        Repository -> Service :  job opening phase status
+        deactivate Repository
+        Service --> DTO: job opening phase status
+        deactivate Service
+
+        activate DTO
+        DTO --> Controller: job opening phase status
+        deactivate DTO
+        Controller --> UI: job opening phase status
+    deactivate Controller
+
+    UI --> Actor: Display current phase
+    UI --> Actor: Prompt for next/previous
+    Actor --> UI: option
+
+    alt option is "previous"
+        UI --> Actor: Prompt for start date of previous phase
+        Actor --> UI: openDate
+        UI -> Controller: returnToPreviousProcessPhase(jobOpeningStatus, openDate)
+        activate Controller
+            Controller -> DTO: getRecruitmentProcess()
+            activate DTO
+            DTO -> Controller: recruitmentProcess
+            deactivate DTO
+            Controller -> Controller: update phases
+            Controller -> Service: saveJobOpening(jobOpening)
+            activate Service
+            Service -> Repository : saveJobOpening(jobOpening)
+                activate Repository
+                Repository -> Service : confirmation
+                deactivate Repository
+            Service --> Controller: confirmation
+            deactivate Service
+            Controller -> UI : confirmation
+        deactivate Controller
+    else option is "next"
+        UI --> Actor: Prompt for close date of current phase
+        Actor --> UI: closeDate
+        UI -> Controller: moveToNextProcessPhase(jobOpeningStatus, closeDate)
+        activate Controller
+            Controller -> DTO: getRecruitmentProcess()
+            activate DTO
+            DTO -> Controller: recruitmentProcess
+            deactivate DTO
+            Controller -> Controller: update phases
+            Controller -> Service: saveJobOpening(jobOpening)
+            activate Service
+            Service -> Repository : saveJobOpening(jobOpening)
+                        activate Repository
+                        Repository -> Service : confirmation
+                        deactivate Repository
+            Service --> Controller: confirmation
+            deactivate Service
+            Controller -> UI : confirmation
+        deactivate Controller
+    end
+
+UI --> Actor: Returning to main menu
+deactivate UI
+
+@enduml
