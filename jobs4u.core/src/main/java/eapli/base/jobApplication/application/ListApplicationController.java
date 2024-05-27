@@ -1,5 +1,6 @@
 package eapli.base.jobApplication.application;
 
+import eapli.base.jobApplication.domain.JobApplication;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
@@ -42,7 +43,8 @@ public class ListApplicationController {
 
     public Optional<JobApplicationDTO> getJobApplicationByCandidateEmailAndJobReference(String email, String jobReference) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
-        return Optional.ofNullable(applicationRepository.findApplicationByCandidateEmailAndJobReference(email, jobReference).get().toDTO());
+        return Optional.of(applicationRepository.findApplicationByCandidateEmailAndJobReference(email, jobReference).get().toDTO());
     }
+
 
 }

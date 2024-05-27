@@ -37,69 +37,20 @@ public class ListJobApplicationsUI extends AbstractUI {
             switch (value) {
                 case "1":
                     valid = true;
-                    email = Console.readLine("Type the candidate's email:");
-
-                    Optional<CandidateDTO> candidateDTO = listUsersController.findCandidateByEmail(email);
-
-                    if (!candidateDTO.isPresent()) {
-                        System.out.println("Candidate not found.");
-
-                    } else {
-                        System.out.println("Candidate found");
-                        printer.visit(candidateDTO.get());
-
-                        jobApplications = listApplicationController.listApplicationsByCandidate(email);
-
-                        if (!jobApplications.iterator().hasNext()) {
-                            System.out.println("No job applications for the selected candidate.");
-                        } else {
-                            for (JobApplicationDTO dto : jobApplications) {
-                                System.out.println();
-                                System.out.println("Job Opening: " + dto.JobOpeningReference);
-                                System.out.println("State: " + dto.state);
-                                System.out.println("Rank: " + dto.rank);
-                                System.out.println("Interview grade: " + dto.interviewGrade);
-                            }
-                        }
-                    }
-                    break;
-                case "3":
-                    valid = true;
-                    reference = Console.readLine("Type the Job Reference: ");
-                    email = Console.readLine("Type the candidate's email:");
-
-                    Optional<JobApplicationDTO> jobApplication = listApplicationController.getJobApplicationByCandidateEmailAndJobReference(email, reference);
-
-                    if (!jobApplication.isPresent()) {
-                        System.out.println("No job applications with the submitted data.");
-                    } else {
-                        System.out.println();
-                        System.out.println("Job Opening: " + jobApplication.get().JobOpeningReference);
-                        System.out.println("Candidate: " + jobApplication.get().candidateEmail);
-                        System.out.println("State: " + jobApplication.get().state);
-                        System.out.println("Rank: " + jobApplication.get().rank);
-                        System.out.println("Interview grade: " + jobApplication.get().interviewGrade);
-                    }
+                    listByCandidate();
                     break;
 
                 case "2":
                     valid = true;
-                    reference = Console.readLine("Type the Job Reference: ");
-
-                    jobApplications = listApplicationController.listApplicationsByJobOpeningId(reference);
-
-                    if (!jobApplications.iterator().hasNext()) {
-                        System.out.println("No job applications for the selected job opening.");
-                    } else {
-                        for (JobApplicationDTO dto : jobApplications) {
-                            System.out.println();
-                            System.out.println("Job Opening: " + dto.JobOpeningReference);
-                            System.out.println("State: " + dto.state);
-                            System.out.println("Rank: " + dto.rank);
-                            System.out.println("Interview grade: " + dto.interviewGrade);
-                        }
-                    }
+                    listByJobOpening();
                     break;
+
+                case "3":
+                    valid = true;
+                    listAllDataOfASpecificApplication();
+                    break;
+
+
                 case "0":
                     valid = true;
                     new CustomerManagerMainMenu().buildCustomerManagerMenu();
@@ -109,6 +60,70 @@ public class ListJobApplicationsUI extends AbstractUI {
             }
         }
         return true;
+    }
+
+    public void listByCandidate() {
+        String email = Console.readLine("Type the candidate's email:");
+
+        Optional<CandidateDTO> candidateDTO = listUsersController.findCandidateByEmail(email);
+
+        if (!candidateDTO.isPresent()) {
+            System.out.println("Candidate not found.");
+
+        } else {
+            System.out.println("Candidate found");
+            printer.visit(candidateDTO.get());
+
+            Iterable<JobApplicationDTO> jobApplications = listApplicationController.listApplicationsByCandidate(email);
+
+            if (!jobApplications.iterator().hasNext()) {
+                System.out.println("No job applications for the selected candidate.");
+            } else {
+                for (JobApplicationDTO dto : jobApplications) {
+                    System.out.println();
+                    System.out.println("Job Opening: " + dto.JobOpeningReference);
+                    System.out.println("State: " + dto.state);
+                    System.out.println("Rank: " + dto.rank);
+                    System.out.println("Interview grade: " + dto.interviewGrade);
+                }
+            }
+        }
+    }
+
+    public void listAllDataOfASpecificApplication() {
+        String reference = Console.readLine("Type the Job Reference: ");
+        String email = Console.readLine("Type the candidate's email:");
+
+        Optional<JobApplicationDTO> jobApplication = listApplicationController.getJobApplicationByCandidateEmailAndJobReference(email, reference);
+
+        if (!jobApplication.isPresent()) {
+            System.out.println("No job applications with the submitted data.");
+        } else {
+            System.out.println();
+            System.out.println("Job Opening: " + jobApplication.get().JobOpeningReference);
+            System.out.println("Candidate: " + jobApplication.get().candidateEmail);
+            System.out.println("State: " + jobApplication.get().state);
+            System.out.println("Rank: " + jobApplication.get().rank);
+            System.out.println("Interview grade: " + jobApplication.get().interviewGrade);
+        }
+    }
+
+    public void listByJobOpening() {
+        String reference = Console.readLine("Type the Job Reference: ");
+        Iterable<JobApplicationDTO> jobApplications = listApplicationController.listApplicationsByJobOpeningId(reference);
+
+        if (!jobApplications.iterator().hasNext()) {
+            System.out.println("No job applications for the selected job opening.");
+        } else {
+            for (JobApplicationDTO dto : jobApplications) {
+                System.out.println();
+                System.out.println("Job Opening: " + dto.JobOpeningReference);
+                System.out.println("State: " + dto.state);
+                System.out.println("Rank: " + dto.rank);
+                System.out.println("Interview grade: " + dto.interviewGrade);
+            }
+        }
+
     }
 
     @Override

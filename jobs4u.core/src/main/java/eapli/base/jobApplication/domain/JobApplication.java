@@ -82,4 +82,11 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     public boolean hasCandidateEmail(String email){
         return this.candidate.getEmail().equals(new Email(email));
     }
+
+    public void rankApplication(String rank) {
+        if(rank == null){
+            throw new IllegalArgumentException();
+        }
+        this.rank = new Rank(Integer.parseInt(rank));
+    }
 }

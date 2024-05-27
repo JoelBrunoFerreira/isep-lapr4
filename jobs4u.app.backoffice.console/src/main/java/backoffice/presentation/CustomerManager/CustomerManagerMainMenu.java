@@ -5,6 +5,7 @@ import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJob
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.CustomerManager.customer.AddCustomerUI;
+import backoffice.presentation.candidates.RankCandidatesUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -60,7 +61,8 @@ public class CustomerManagerMainMenu {
 
         final Menu candidatesMenu = new Menu("Candidates >");
         candidatesMenu.addItem(OPTION_1, "Display Candidates", new DisplayCandidateDataUI()::show);
-        //TODO candidatesMenu.addItem(OPTION_2, "Display Candidates Applications Customer", new RegisterJobOpeningUI()::show);
+        candidatesMenu.addItem(OPTION_2, "Rank Candidates", new RankCandidatesUI()::show);
+        //TODO candidatesMenu.addItem(OPTION_3, "Display Candidates Applications Customer", new RegisterJobOpeningUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             candidatesMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         candidatesMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
