@@ -1,6 +1,7 @@
 package customer;
 
 import customer.presentation.CustomerFrontMenu;
+import eapli.base.Application;
 import eapli.base.app.bootstrap.BaseBootstrap;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -15,8 +16,9 @@ public class Jobs4uCustomerApp extends BaseApplication {
     }
 
     public static void main(String[] args) {
-        BaseBootstrap.main(args);
-        new Jobs4uCustomerApp().run(args);
+
+        System.out.println(Application.settings().getIP_ADDRESS());
+        //new Jobs4uCustomerApp().run(args);
     }
 
     @Override

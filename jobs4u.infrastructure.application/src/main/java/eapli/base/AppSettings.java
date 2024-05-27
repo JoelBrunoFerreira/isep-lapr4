@@ -20,6 +20,7 @@
  */
 package eapli.base;
 
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +44,12 @@ public class AppSettings {
     private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private static final String SCHEMA_GENERATION_KEY = "jakarta.persistence.schema-generation.database.action";
     private final Properties applicationProperties = new Properties();
+
+
+    private final String IP_ADDRESS = "application.ip.address";
+
+
+    private final String PORT = "application.port";
 
     public AppSettings() {
         loadProperties();
@@ -71,6 +78,14 @@ public class AppSettings {
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "jobs4uPU");
     }
 
+    public String getIP_ADDRESS() {
+        return this.applicationProperties.getProperty(IP_ADDRESS);
+    }
+
+    public String getPORT() {
+        return this.applicationProperties.getProperty(PORT);
+    }
+
     public Boolean isMenuLayoutHorizontal() {
         return "horizontal"
                 .equalsIgnoreCase(this.applicationProperties.getProperty(UI_MENU_LAYOUT_KEY));
@@ -85,7 +100,7 @@ public class AppSettings {
     }
 
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Map getExtendedPersistenceProperties() {
         final Map ret = new HashMap();
         ret.put(SCHEMA_GENERATION_KEY, applicationProperties.getProperty(SCHEMA_GENERATION_KEY));
