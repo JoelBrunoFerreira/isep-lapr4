@@ -1,0 +1,47 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor CustomerManager as Actor
+participant ListJobApplicationsUI as UI <<presentation>>
+participant ListApplicationsController as Controller <<application>>
+database JobApplicationRepository as Repository <<repository>>
+participant JobApplication as Domain <<domain>>
+participant JobApplicationDTO as DTO <<DTO>>
+
+Actor --> UI: Display job application data
+activate UI
+    UI --> Actor: Ask Candidate Email
+    Actor --> UI: Candidate Email
+
+    UI --> Actor: Ask JobReference
+        Actor --> UI: JobReference
+
+    UI -> Controller: getJobApplicationByEmailAndJobReference(CandidateEmail, JobReference)
+
+    activate Controller
+        Controller -> Repository: findApplicationByEmailAndJobReference(CandidateEmail, JobReference)
+            activate Repository
+            Repository -> Controller: JobApplication
+            deactivate Repository
+
+            Controller -> Domain: toDTO()
+
+            Domain -> DTO: toDto()
+            activate DTO
+            DTO -> Controller: JobApplicationDTO
+            deactivate DTO
+
+
+        Controller -> UI: JobApplicationDTO
+    deactivate Controller
+
+
+    UI --> Actor: Show job application data
+
+deactivate UI
+@enduml

@@ -7,6 +7,7 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<JobApplication, Long> implements JobApplicationRepository {
     static {

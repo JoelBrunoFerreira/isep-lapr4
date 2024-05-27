@@ -1,5 +1,6 @@
 package backoffice.presentation.CustomerManager;
 
+import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJobApplicationsUI;
 import backoffice.presentation.CustomerManager.JobApplicationsManagement.ScheduleInterviewUI;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
@@ -11,6 +12,9 @@ import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.io.util.Console;
+
+import java.util.InputMismatchException;
 
 public class CustomerManagerMainMenu {
 

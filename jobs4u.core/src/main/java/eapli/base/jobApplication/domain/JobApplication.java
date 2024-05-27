@@ -87,10 +87,17 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         return this.candidate.getEmail().equals(new Email(email));
     }
 
-    public void setInterviewSchedule(Calendar dateTime){
+public void setInterviewSchedule(Calendar dateTime){
         this.interviewSchedule = new InterviewSchedule(dateTime);
     }
     public void applicationPassedRequirements(String description){
         this.requirementResult = new RequirementResult(true, description);
+    }
+
+    public void rankApplication(String rank) {
+        if(rank == null){
+            throw new IllegalArgumentException();
+        }
+        this.rank = new Rank(Integer.parseInt(rank));
     }
 }
