@@ -40,4 +40,9 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
     public Iterable<JobApplicationDTO> getRankedApplicationsByJobReference(String jobReference) {
         return null;
     }
+
+    @Override
+    public Optional<JobApplication> findApplicationByCandidateEmailAndJobReference(String email, String JobReference) {
+        return Optional.empty();
+    }
 }

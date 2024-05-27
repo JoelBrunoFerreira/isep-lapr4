@@ -82,7 +82,7 @@ public class ListJobApplicationsUI extends AbstractUI {
                 for (JobApplicationDTO dto : jobApplications) {
                     System.out.println();
                     System.out.println("Job Opening: " + dto.JobOpeningReference);
-                    System.out.println("State: " + dto.state);
+                    System.out.println("State: " + dto.status);
                     System.out.println("Rank: " + dto.rank);
                     System.out.println("Interview grade: " + dto.interviewGrade);
                 }
@@ -102,7 +102,7 @@ public class ListJobApplicationsUI extends AbstractUI {
             System.out.println();
             System.out.println("Job Opening: " + jobApplication.get().JobOpeningReference);
             System.out.println("Candidate: " + jobApplication.get().candidateEmail);
-            System.out.println("State: " + jobApplication.get().state);
+            System.out.println("State: " + jobApplication.get().status);
             System.out.println("Rank: " + jobApplication.get().rank);
             System.out.println("Interview grade: " + jobApplication.get().interviewGrade);
         }
@@ -118,7 +118,7 @@ public class ListJobApplicationsUI extends AbstractUI {
             for (JobApplicationDTO dto : jobApplications) {
                 System.out.println();
                 System.out.println("Job Opening: " + dto.JobOpeningReference);
-                System.out.println("State: " + dto.state);
+                System.out.println("State: " + dto.status);
                 System.out.println("Rank: " + dto.rank);
                 System.out.println("Interview grade: " + dto.interviewGrade);
             }

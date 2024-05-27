@@ -1,20 +1,17 @@
 package backoffice.presentation.CustomerManager;
 
-import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJobApplicationsUI;
 import backoffice.presentation.CustomerManager.JobApplicationsManagement.ScheduleInterviewUI;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.CustomerManager.candidateManagement.DisplayRankedCandidatesUI;
 import backoffice.presentation.CustomerManager.customerManagement.AddCustomerUI;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
+import backoffice.presentation.candidates.RankCandidatesUI;
 import backoffice.presentation.interviewModel.GenerateInterviewModelTemplateUI;
 import eapli.base.Application;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
-import eapli.framework.io.util.Console;
-
-import java.util.InputMismatchException;
 
 public class CustomerManagerMainMenu {
 
@@ -68,8 +65,8 @@ public class CustomerManagerMainMenu {
 
         final Menu candidatesMenu = new Menu("Candidates >");
         candidatesMenu.addItem(OPTION_1, "Display Candidates", new DisplayCandidateDataUI()::show);
-        //TODO candidatesMenu.addItem(OPTION_2, "Display Candidates Applications Customer", new RegisterJobOpeningUI()::show);
-        candidatesMenu.addItem(OPTION_3, "Display Candidates Ranked", new DisplayRankedCandidatesUI()::show);
+        candidatesMenu.addItem(OPTION_2, "Rank Candidates", new RankCandidatesUI()::show);
+        candidatesMenu.addItem(OPTION_3, "Display Candidates Ranked by interview", new DisplayRankedCandidatesUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             candidatesMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         candidatesMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);

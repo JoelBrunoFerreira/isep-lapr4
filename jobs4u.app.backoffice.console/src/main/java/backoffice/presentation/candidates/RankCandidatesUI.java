@@ -24,7 +24,7 @@ public class RankCandidatesUI extends AbstractUI{
                 System.out.println();
                 System.out.println("Job Opening: " + dto.JobOpeningReference);
                 System.out.println("Candidate email: " + dto.candidateEmail);
-                System.out.println("State: " + dto.state);
+                System.out.println("State: " + dto.status);
                 System.out.println("Rank: " + dto.rank);
                 System.out.println("Interview grade: " + dto.interviewGrade);
             }

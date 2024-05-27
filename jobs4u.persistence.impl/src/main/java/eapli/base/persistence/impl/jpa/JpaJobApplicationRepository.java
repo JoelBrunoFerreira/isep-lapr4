@@ -56,6 +56,14 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
     }
 
     @Override
+    public Optional<JobApplication> findApplicationByCandidateEmailAndJobReference(String email, String jobReference) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", new Email(email));
+        params.put("jobReference", new JobReference(jobReference));
+        return matchOne("e.candidate.email = :email AND e.jobOpening.jobReference = :jobReference", params);
+    }
+
+    @Override
     public <S extends JobApplication> S save(S entity) {
         return super.save(entity);
     }
