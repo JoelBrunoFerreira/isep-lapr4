@@ -9,6 +9,7 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.ApplicationService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationService
@@ -36,5 +37,8 @@ public class JobOpeningSvc {
 
     public JobOpeningDTO saveJobOpening(JobOpening jobOpening) {
        return repository.save(jobOpening).toDTO();
+    }
+    public Iterable<JobOpening> allCustomerJobOpenings(SystemUser customer){
+        return repository.allCustomerJobOpenings(customer);
     }
 }

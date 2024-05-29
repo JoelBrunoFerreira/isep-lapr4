@@ -65,6 +65,20 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
         return result;
     }
 
+    public Iterable<JobOpening> allCustomerJobOpenings(SystemUser customer) {
+        Iterable<JobOpening> jobOpenings = repo.findAll();
+        List<JobOpening> result = new ArrayList<>();
+        for (JobOpening jo : jobOpenings) {
+            if (jo.getCustomer().getSystemUser().equals(customer)) {
+                if (jo.allActive())
+                {
+                    result.add(jo);
+                }
+            }
+        }
+        return result;
+    }
+
     @Override
     public Iterable<JobOpeningDTO> findAllByStatus(Status status, SystemUser user) {
         Iterable<JobOpening> jobOpenings = findAll();

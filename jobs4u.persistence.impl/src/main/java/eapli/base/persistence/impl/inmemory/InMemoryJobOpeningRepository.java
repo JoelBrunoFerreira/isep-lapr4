@@ -90,4 +90,9 @@ public class InMemoryJobOpeningRepository extends InMemoryDomainRepository<JobOp
     public JobOpeningDTO updateJobOpening(JobOpeningDTO dto) {
         return null;
     }
+
+    @Override
+    public Iterable<JobOpening> allCustomerJobOpenings(SystemUser user) {
+        return null;
+    }
 }

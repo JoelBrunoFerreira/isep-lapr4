@@ -36,9 +36,9 @@ public class JobOpeningDTO {
         this.interviewModel = interviewModel;
         this.status = status;
         this.recruitmentProcessPhaseDTOList = recruitmentProcessPhaseDTOList;
+        //this.activeDate = recruitmentProcessPhaseDTOList.get(0).getStartDate().toString();
     }
 
-    //private RecruitmentProcessPhaseDTO phases;
     public void setDescription(String description) {
         this.description = description;
     }

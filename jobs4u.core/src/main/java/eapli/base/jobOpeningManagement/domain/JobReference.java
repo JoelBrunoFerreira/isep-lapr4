@@ -45,4 +45,8 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return this.id;
+    }
 }

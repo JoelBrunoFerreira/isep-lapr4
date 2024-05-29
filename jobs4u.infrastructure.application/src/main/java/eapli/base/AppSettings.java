@@ -20,7 +20,6 @@
  */
 package eapli.base;
 
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,12 +77,12 @@ public class AppSettings {
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "jobs4uPU");
     }
 
-    public String getIP_ADDRESS() {
+    public String getIpAddress() {
         return this.applicationProperties.getProperty(IP_ADDRESS);
     }
 
-    public String getPORT() {
-        return this.applicationProperties.getProperty(PORT);
+    public int getPort() {
+        return Integer.parseInt(this.applicationProperties.getProperty(PORT));
     }
 
     public Boolean isMenuLayoutHorizontal() {
