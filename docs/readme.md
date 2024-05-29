@@ -30,12 +30,12 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 | [1221715](members/1221715/readme.md)	  | Jorge Cruz     | [US 1001](US_Sprint_B%2FUS1001) *  [US 1005](US_Sprint_B%2FUS1005)  *  [US 1006](US_Sprint_B%2FUS1006)  *  [US 1006b](US_Sprint_B%2FUS1006b)  *  [US 1008](US_Sprint_B%2FUS1008)  *  [US 2001](SCOMP%2Fus_2001)                                            |
 | [1221722](members/1221722/readme.md)	  | Victor Salgado | [US 1002](US_Sprint_B%2Fus_1002) *  [US 1003](US_Sprint_B%2Fus_1003)  *  [US 1011](US_Sprint_B%2FUS1011-SelectInterviewModel)  *  [US 2002](US_Sprint_B%2Fus_2002)  *  [US 2001](SCOMP%2Fus_2001)                                                          |
 
-| Student Nr.	                          | Name           | Sprint C                                                                                                   |
-|---------------------------------------|----------------|------------------------------------------------------------------------------------------------------------|
-| [1191843](members/1191843/readme.md)  | Joel Ferreira  |                                                                                                            |
-| [1100719](members/1100719/readme.md)	 | Fábio Borges   |                                                                                                            |
-| [1221715](members/1221715/readme.md)	 | Jorge Cruz     |                                                                                                            |
-| [1221722](members/1221722/readme.md)	 | Victor Salgado | [us_2001b](..%2FSCOMP%2Fus_2001b) * [us_1004](US_Sprint_C%2Fus_1004) * [us_1014](US_Sprint_C%2Fus_1014) * [us_1019](US_Sprint_C%2Fus_1019) |
+| Student Nr.	                          | Name           | Sprint C                                                                                                                                      |
+|---------------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| [1191843](members/1191843/readme.md)  | Joel Ferreira  |                                                                                                                                               |
+| [1100719](members/1100719/readme.md)	 | Fábio Borges   |                                                                                                                                               |
+| [1221715](members/1221715/readme.md)	 | Jorge Cruz     |                                                                                                                                               |
+| [1221722](members/1221722/readme.md)	 | Victor Salgado | [us_2001b](..%2FSCOMP%2Fus_2001b) * [us_1004](US_Sprint_C%2Fus_1004) * [us_1014](US_Sprint_C%2Fus_1014) * [us_1019](US_Sprint_C%2Fus_1019) * [us_3002](US_Sprint_C%2Fus_3002) |
 
 
 ## 3. LAPR4 Self Assessment
@@ -62,9 +62,9 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 
 ### Sprint C
 
-| Student Nr.	                  | Name           | Justification | Engineering Process | Issues and Version Control | Team Work | Deployment | Integration | Req. Satisfaction | 
-|-------------------------------|----------------|---------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
-| [1191843](members/1191843/readme.md)  | Joel Ferreira  |               |                     |                            |           |            |             |                   |
-| [1100719](members/1100719/readme.md)	 | Fábio Borges   |               |                     |                            |           |            |             |                   |
-| [1221715](members/1221715/readme.md)  | Jorge Cruz     |               |                     |                            |           |            |             |                   |
-| [1221722](members/1221722/readme.md)	 | Victor Salgado |               |                     |                            |           |            |             |                   |
+| Student Nr.	                  | Name           | Justification                                                               | Engineering Process | Issues and Version Control | Team Work | Deployment | Integration | Req. Satisfaction | 
+|-------------------------------|----------------|-----------------------------------------------------------------------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
+| [1191843](members/1191843/readme.md)  | Joel Ferreira  | [1191843 - Justification](members%2F1191843%2Flapr4%2FSprint_B%2Freadme.md) | 4                   | 5                          | 5         | 5          | 4           | 4                 |
+| [1100719](members/1100719/readme.md)	 | Fábio Borges   | [1100719 - Justification](members%2F1100719%2Flapr4%2FSprint_B%2Freadme.md) | 4                   | 5                          | 5         | 5          | 4           | 4                 |
+| [1221715](members/1221715/readme.md)  | Jorge Cruz     | [1221715 - Justification](members%2F1221715%2Flapr4%2FSprint_B%2Freadme.md) | 4                   | 5                          | 5         | 5          | 4           | 4                 |
+| [1221722](members/1221722/readme.md)	 | Victor Salgado | [1221722 - Justification](members%2F1221722%2Flapr4%2FSprint_B%2Freadme.md)                | 4                   | 5                          | 5         | 5          | 4           | 4                 |

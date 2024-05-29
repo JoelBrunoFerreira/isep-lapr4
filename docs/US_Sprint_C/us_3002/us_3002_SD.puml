@@ -1,0 +1,27 @@
+@startuml
+actor Customer as actor
+participant DisplayJobOpeningsUI as UI
+participant DisplayJobOpeningsController as controller
+queue SrvProxy as proxy
+database FollowUpSrv as repo
+
+note right of actor: Connection established between customer \napp and follow-up server pre login
+actor --> UI: ask to View Job Openings
+activate UI
+    UI -> controller: listAllJobOpenings(Customer c)
+    activate controller
+        controller -> proxy: listAllJobOpenings(Customer c)
+        activate proxy
+            proxy -> repo: listAllJobOpenings(Customer c)
+            activate repo
+                repo -->
+                repo <--
+                repo -> proxy : JobOpeningDTOs
+            deactivate repo
+        proxy -> controller: JobOpeningDTOs
+        deactivate proxy
+    controller -> UI : return JobOpeningDTOs
+    deactivate controller
+UI --> actor: display JobOpenings
+deactivate UI
+@enduml
