@@ -51,7 +51,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ContractType contractType;
-
+    @Getter
     private JobTitle jobTitle;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -119,7 +119,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     @Override
     public JobReference identity() {
-        return null;
+        return this.jobReference;
     }
 
 
@@ -174,7 +174,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             recruitmentProcess.add(recruitmentProcessPhase);
         }
         this.status = Status.ACTIVE;
-//        setStatusByPhaseDates();
+        //setStatusByPhaseDates();
     }
 
     public void updateInterviewModel(InterviewModelDTO dto) {
@@ -202,6 +202,10 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     public boolean isActive() {
         return this.status.equals(Status.ACTIVE);
+    }
+
+    public String activeSince() {
+        return this.recruitmentProcess == null ? "" : this.recruitmentProcess.get(0).getPeriod().getStartDate().toString();
     }
 
     public boolean isActiveApplication() {
@@ -302,7 +306,6 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                 System.out.println("[Phase successfully updated! It's now in " + activePhase.toString().toUpperCase() + " phase]");
 
             }
-                    }
+        }
     }
-
 }

@@ -1,29 +1,46 @@
 package customer;
 
-import customer.presentation.CustomerFrontMenu;
-import eapli.base.Application;
-import eapli.base.app.bootstrap.BaseBootstrap;
+import customer.application.SrvProxy;
+import customer.presentation.CustomerMainMenu;
+import customer.presentation.LoginUI;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
+import eapli.framework.io.util.Console;
+
+import java.io.IOException;
 
 public class Jobs4uCustomerApp extends BaseApplication {
     private Jobs4uCustomerApp() {
-        // private constructor to avoid instantiation
     }
 
     public static void main(String[] args) {
+        new Jobs4uCustomerApp().run(args);
+    }
 
-        System.out.println(Application.settings().getIP_ADDRESS());
-        //new Jobs4uCustomerApp().run(args);
+    @Override
+    protected void configureAuthz() {
+
     }
 
     @Override
     protected void doMain(String[] args) {
-        new CustomerFrontMenu().show();
+        try {
+            if (!SrvProxy.connect()) {
+                System.out.println("Couldn't connect to server!");
+                System.exit(1);
+            }
+            final boolean auth = new LoginUI().login();
+            if (auth) {
+                final var menu = new CustomerMainMenu();
+                menu.mainLoop();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -39,11 +56,6 @@ public class Jobs4uCustomerApp extends BaseApplication {
         return "    Thank you for using our App";
     }
 
-    @Override
-    protected void configureAuthz() {
-        AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
-                new PlainTextEncoder());
-    }
 
     @Override
     protected void doSetupEventHandlers(EventDispatcher dispatcher) {
