@@ -1,12 +1,9 @@
 package candidate;
 
-import candidate.presentation.CandidateFrontMenu;
-import eapli.base.app.bootstrap.BaseBootstrap;
+import candidate.application.SrvProxy;
+import candidate.presentation.CandidateMainMenu;
+import candidate.presentation.LoginUI;
 import eapli.base.app.common.console.BaseApplication;
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.domain.BasePasswordPolicy;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
 public class Jobs4uCandidateApp extends BaseApplication {
@@ -14,14 +11,31 @@ public class Jobs4uCandidateApp extends BaseApplication {
         // private constructor to avoid instantiation
     }
 
+
     public static void main(String[] args) {
-        BaseBootstrap.main(args);
         new Jobs4uCandidateApp().run(args);
     }
 
     @Override
+    protected void configureAuthz() {
+
+    }
+
+    @Override
     protected void doMain(String[] args) {
-        new CandidateFrontMenu().show();
+        try {
+            if (!SrvProxy.connect()) {
+                System.out.println("Couldn't connect to server!");
+                System.exit(1);
+            }
+            final boolean auth = new LoginUI().login();
+            if (auth) {
+                final var menu = new CandidateMainMenu();
+                menu.mainLoop();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -37,11 +51,6 @@ public class Jobs4uCandidateApp extends BaseApplication {
         return "    Thank you for using our App";
     }
 
-    @Override
-    protected void configureAuthz() {
-        AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
-                new PlainTextEncoder());
-    }
 
     @Override
     protected void doSetupEventHandlers(EventDispatcher dispatcher) {

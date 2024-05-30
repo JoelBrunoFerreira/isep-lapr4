@@ -1,6 +1,6 @@
-package customer.application;
+package candidate.application;
 
-import customer.dto.JobOpeningDto;
+import candidate.dto.JobApplicationDto;
 import eapli.base.Application;
 import eapli.base.MessageCodes;
 
@@ -9,7 +9,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class SrvProxy {
     private static InetAddress serverIP;
@@ -47,7 +46,7 @@ public class SrvProxy {
         }
     }
 
-    public static boolean customerLogin(String username, String password) throws IOException {
+    public static boolean candidateLogin(String username, String password) throws IOException {
         if (sOut == null || sIn == null) {
             System.out.println("No connection.");
             return false;
@@ -72,8 +71,7 @@ public class SrvProxy {
         if (version == MESSAGE_VERSION) {
             char code = (char) sIn.readByte();
             if (code == MessageCodes.ACK.valueOf()) {
-                sIn.readByte();
-                sIn.readByte();
+                readEndOfMessage();
                 return true;
             } else if (code == MessageCodes.ERR.valueOf()) {
                 getDataLenL = sIn.readByte();
@@ -89,16 +87,16 @@ public class SrvProxy {
         return false;
     }
 
-    public static List<JobOpeningDto> listJobOpenings() throws IOException {
-        List<JobOpeningDto> result = new ArrayList<>();
+    public static List<JobApplicationDto> getJobApplications() throws IOException {
+        List<JobApplicationDto> result = new ArrayList<>();
 
         sOut.write(MESSAGE_VERSION);
-        sOut.write(MessageCodes.LIST_JOBOPENINGS_REQ.valueOf());
+        sOut.write(MessageCodes.LIST_JOBAPPLICATIONS_REQ.valueOf());
         writeEndOfMessage();
 
         if ((char) sIn.readByte() == MESSAGE_VERSION) {
             char code = (char) sIn.readByte();
-            if (code == MessageCodes.LIST_JOBOPENINGS_RES.valueOf()) {
+            if (code == MessageCodes.LIST_JOBAPPLICATIONS_RES.valueOf()) {
                 while (true) {
                     int getDataLenL = sIn.readByte();
                     int getDataLenM = sIn.readByte();
@@ -110,11 +108,10 @@ public class SrvProxy {
 
                     String[] fields = message.split(";");
                     String jobReference = fields[0];
-                    String jobTitle = fields[1];
-                    String activeDate = fields[2];
-                    String applicants = fields[3];
-                    JobOpeningDto jobOpeningDTO = new JobOpeningDto(jobReference, jobTitle, activeDate, applicants);
-                    result.add(jobOpeningDTO);
+                    String state = fields[1];
+                    String applicants = fields[2];
+                    JobApplicationDto jobApplicationDto = new JobApplicationDto(jobReference, state, applicants);
+                    result.add(jobApplicationDto);
                 }
             } else if (code == MessageCodes.ERR.valueOf()) {
                 int getDataLenL = sIn.readByte();

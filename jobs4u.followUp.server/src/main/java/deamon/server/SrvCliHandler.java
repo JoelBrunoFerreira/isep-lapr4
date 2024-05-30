@@ -2,6 +2,7 @@ package deamon.server;
 
 import eapli.base.MessageCodes;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.jobApplication.domain.JobApplication;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
@@ -14,6 +15,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.stream.StreamSupport;
 
 public class SrvCliHandler implements Runnable {
     private static Socket s;
@@ -56,15 +58,47 @@ public class SrvCliHandler implements Runnable {
                             loginCustomer();
                             break;
                         case LIST_JOBOPENINGS_REQ:
-                            System.out.println("Received JOBS");
+                            System.out.println("Received JOP");
                             listJobOpenings();
+                            break;
+                        case LIST_JOBAPPLICATIONS_REQ:
+                            System.out.println("Received JAP");
+                            listJobApplications();
                         default:
                             break;
                     }
                 }
             }
         } catch (IOException ex) {
-            System.out.println("IOException");
+            System.out.println("Disconnected.");
+        }
+    }
+
+    private void listJobApplications() throws IOException {
+        readEndOfMessage();
+        Iterable<JobApplication> jobApplications = applicationRepository.findApplicationsByCandidate(user.email().toString());
+        if (jobApplications.iterator().hasNext()) {
+            sOut.write(MESSAGE_VERSION);
+            sOut.write(MessageCodes.LIST_JOBAPPLICATIONS_RES.valueOf());
+            for (JobApplication ja : jobApplications) {
+
+                System.out.println(ja.toDTO().getJobOpeningReference());
+
+                String jobReference = ja.toDTO().getJobOpeningReference();
+                String state = ja.toDTO().getStatus();
+
+                String applicantsCount = getApplicantsCount(jobReference);
+                String message = jobReference + ";" + state + ";" + applicantsCount;
+
+                int dataLenL = message.getBytes().length % 256;
+                int dataLenM = message.getBytes().length / 256;
+                sOut.write(dataLenL);
+                sOut.write(dataLenM);
+                sOut.write(message.getBytes());
+            }
+            writeEndOfMessage();
+        } else {
+            returnErrCli("No Job Openings Available.");
         }
     }
 
@@ -98,10 +132,8 @@ public class SrvCliHandler implements Runnable {
     }
 
     private String getApplicantsCount(String jobReference) {
-        int count = 0;
-        while (applicationRepository.findApplicationsByJobOpeningReference(jobReference).iterator().hasNext()) {
-            count++;
-        }
+        Iterable<JobApplicationDTO> list = applicationRepository.findApplicationsByJobOpeningReference(jobReference);
+        long count = StreamSupport.stream(list.spliterator(), false).count();
         return String.valueOf(count);
     }
 

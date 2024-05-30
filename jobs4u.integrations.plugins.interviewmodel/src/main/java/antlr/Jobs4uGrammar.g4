@@ -1,8 +1,8 @@
 grammar Jobs4uGrammar;
 
-start: interviewModelModel ;
+start: interviewModelTemplate ;
 
-interviewModelModel: '<MODEL>'  question+ '</MODEL>' EOF;
+interviewModelTemplate: '<MODEL>'  question+ '</MODEL>' EOF;
 
 question: '<QUESTION>'  (title | answer| grade| format)* '</QUESTION>' ;
 
