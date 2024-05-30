@@ -46,9 +46,7 @@ public class CustomerManagerMainMenu {
         jobOpeningMenu.addItem(OPTION_4, "Setup Recruitment Process Phases", new SetupRecruitmentPhasesUI()::show);
         jobOpeningMenu.addItem(OPTION_5, "Select Requirement Specifications", new SelectJobRequirementsUI()::show);
         jobOpeningMenu.addItem(OPTION_6, "Select an Interview Model", new SelectInterviewModelUI()::show);
-        jobOpeningMenu.addItem(OPTION_7, "Generate interview template", new GenerateInterviewModelTemplateUI()::show);
-        //TODO jobOpeningMenu.addItem(OPTION_8, "Generate Job Requirement template", new SelectInterviewModelUI()::show);
-        jobOpeningMenu.addItem(OPTION_9, "Open or close phases of the process for a job opening", new OpenOrClosePhasesUI()::show);
+        jobOpeningMenu.addItem(OPTION_7, "Open or close phases of the process for a job opening", new OpenOrClosePhasesUI()::show);
         //
         // , "Generate Job Requirement template", new SelectInterviewModelUI()::show);
 
@@ -57,8 +55,12 @@ public class CustomerManagerMainMenu {
         jobOpeningMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         final Menu jobApplicationMenu = new Menu("Job Application Management >");
-        jobApplicationMenu.addItem(OPTION_1, "List Job Applications", new ListJobApplicationsUI():: show);
-        jobApplicationMenu.addItem(OPTION_2, "Schedule Interviews", new ScheduleInterviewUI():: show);
+        jobApplicationMenu.addItem(OPTION_1, "List Job Applications", new ListJobApplicationsUI()::show);
+        jobApplicationMenu.addItem(OPTION_2, "Schedule Interviews", new ScheduleInterviewUI()::show);
+        //TODO jobApplicationMenu.addItem(OPTION_3, "Evaluate Job Requirement template", new SelectInterviewModelUI()::show);
+        jobApplicationMenu.addItem(OPTION_4, "Generate and submit interview template", new GenerateInterviewModelTemplateUI()::show);
+        //TODO jobApplicationMenu.addItem(OPTION_5, "Evaluate interview", new SelectInterviewModelUI()::show);
+
         if (!Application.settings().isMenuLayoutHorizontal())
             jobApplicationMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         jobApplicationMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);

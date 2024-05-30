@@ -6,7 +6,6 @@ import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
-import eapli.base.jobRequirementsManagement.domain.RequirementClass;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -16,28 +15,34 @@ import java.util.Calendar;
 import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"candidateID","jobReference"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"candidateID", "jobReference"})})
 public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicationDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ElementCollection
     private List<ApplicationFile> applicationFiles;
-    private Rank rank;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private JobApplicationState jobApplicationState;
+    @Column(name = "JobRequirement")
+    private RequirementModel requirementModel;
     private RequirementResult requirementResult;
-    private InterviewGrade interviewGrade;
+
     private InterviewSchedule interviewSchedule;
+    @Column(name = "InterviewAnswers")
+    private InterviewAnswers interviewAnswers;
+    private InterviewResult interviewResult;
     @ManyToOne
     @JoinColumn(name = "candidateID")
     private Candidate candidate;
     @ManyToOne
     @JoinColumn(name = "jobReference")
     private JobOpening jobOpening;
-
-    protected JobApplication(){}
+    private Rank rank;
+    protected JobApplication() {
+    }
 
     public JobApplication(List<ApplicationFile> applicationFiles, Candidate candidate, JobOpening jobOpening) {
         this.applicationFiles = applicationFiles;
@@ -45,6 +50,11 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.jobOpening = jobOpening;
         this.jobApplicationState = JobApplicationState.RECEIVED;
         this.requirementResult = new RequirementResult(false, "Pending");
+        this.interviewAnswers = null;
+    }
+
+    public void saveInterviewModelAnswers(String answers) {
+        this.interviewAnswers = new InterviewAnswers(answers);
     }
 
     @Override
@@ -69,33 +79,35 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         for (ApplicationFile file : applicationFiles) {
             files.add(file.toString());
         }
-        return new JobApplicationDTO(id, files,rank==null? 0 : rank.valueOf(), jobApplicationState.toString(),interviewGrade==null? 0 :Integer.parseInt(interviewGrade.toString()), candidate.getEmail().toString(),jobOpening.getJobReference().toString(), requirementResult.isApproved());
+        return new JobApplicationDTO(id, files, rank == null ? 0 : rank.valueOf(), jobApplicationState.toString(), interviewResult == null ? 0 : Integer.parseInt(interviewResult.toString()), candidate.getEmail().toString(), jobOpening.getJobReference().toString(), requirementResult.isApproved());
     }
 
     public void setInterviewGrade(int interviewGrade) {
-        this.interviewGrade = new InterviewGrade();
+        this.interviewResult = new InterviewResult();
     }
 
-    public void setRanking(int ranking){
+    public void setRanking(int ranking) {
         this.rank = new Rank(ranking);
     }
 
-    public boolean hasJobOpeningReference(String jobRefrence){
+    public boolean hasJobOpeningReference(String jobRefrence) {
         return this.jobOpening.getJobReference().equals(new JobReference(jobRefrence));
     }
-    public boolean hasCandidateEmail(String email){
+
+    public boolean hasCandidateEmail(String email) {
         return this.candidate.getEmail().equals(new Email(email));
     }
 
-public void setInterviewSchedule(Calendar dateTime){
+    public void setInterviewSchedule(Calendar dateTime) {
         this.interviewSchedule = new InterviewSchedule(dateTime);
     }
-    public void applicationPassedRequirements(String description){
+
+    public void applicationPassedRequirements(String description) {
         this.requirementResult = new RequirementResult(true, description);
     }
 
     public void rankApplication(String rank) {
-        if(rank == null){
+        if (rank == null) {
             throw new IllegalArgumentException();
         }
         this.rank = new Rank(Integer.parseInt(rank));
