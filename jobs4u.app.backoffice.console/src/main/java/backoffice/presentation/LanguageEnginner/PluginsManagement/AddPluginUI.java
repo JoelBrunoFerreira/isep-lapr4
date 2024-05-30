@@ -53,7 +53,7 @@ public class AddPluginUI extends AbstractUI {
 
                     title = Console.readLine("Plugin name: ");
                     className = Console.readLine("Plugin class: ");
-
+                    //TODO: add model to addinterviewmodel
                     Optional<InterviewModel> interviewModel = addInterviewModelController.addInterviewModel(title, className);
 
                     if (interviewModel.isPresent()) {

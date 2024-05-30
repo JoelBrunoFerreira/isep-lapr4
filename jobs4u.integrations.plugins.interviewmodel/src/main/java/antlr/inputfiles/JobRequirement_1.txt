@@ -1,0 +1,25 @@
+<MODEL>
+    <QUESTION>
+        <TITLE>"Enter the number of years of experience (Integer)"</TITLE>
+        <ANSWER_PREFIX>"Resposta: "</ANSWER_PREFIX>
+        <GRADE>10</GRADE>
+        <FORMAT>INTEGER</FORMAT>
+        <CORRECT_ANSWER>2</CORRECT_ANSWER>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Select one degree (None; Bachelor; Master; PhD)"</TITLE>
+        <ANSWER_PREFIX>"Resposta: "</ANSWER_PREFIX>
+        <GRADE>10</GRADE>
+        <FORMAT>CHOICE_SINGLE_ANSWER</FORMAT>
+        <FORMAT_CONF>"None","Bachelor","Master","PhD"</FORMAT_CONF>
+        <CORRECT_ANSWER>"Bachelor"</CORRECT_ANSWER>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Select one or more programming languages you are proficient in (java; javascript; python)"</TITLE>
+        <ANSWER_PREFIX>"Resposta: "</ANSWER_PREFIX>
+        <GRADE>10</GRADE>
+        <FORMAT>CHOICE_MULTIPLE_ANSWER</FORMAT>
+        <FORMAT_CONF>"java","javascript","python"</FORMAT_CONF>
+        <CORRECT_ANSWER>"java":50%;"javascript":50%;"java","javascript":100%</CORRECT_ANSWER>
+    </QUESTION>
+</MODEL>

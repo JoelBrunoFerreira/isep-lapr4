@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface InterviewModelPlugin {
-    InterviewModelResult validateQuestionAnswers(String answers) throws IOException;
-    String generateTemplate();
+    String generateTemplate(String model);
+
+    InterviewModelResult validateQuestionAnswers(String model,String answers) throws IOException;
 }

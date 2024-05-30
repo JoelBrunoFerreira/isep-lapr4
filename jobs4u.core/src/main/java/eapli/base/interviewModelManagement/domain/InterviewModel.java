@@ -1,10 +1,12 @@
 package eapli.base.interviewModelManagement.domain;
 
+
 import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
@@ -16,19 +18,34 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     @Column(name = "Class")
     private InterviewModelClass className;
     @Column(name = "Title")
-
     private InterviewModelTitle title;
+    @Getter
+    @Column(name = "Model")
+    private InterviewModelModel interviewModelModel;
 
+    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelModel interviewModelModel) {
+        this.id = id;
+        this.className = className;
+        this.title = interviewModelTitle;
+        this.interviewModelModel = interviewModelModel;
+    }
 
+    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelModel interviewModelModel) {
+        this.className = className;
+        this.title = interviewModelTitle;
+        this.interviewModelModel = interviewModelModel;
+    }
     public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.id = id;
         this.className = className;
         this.title = interviewModelTitle;
+
     }
 
     public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.className = className;
         this.title = interviewModelTitle;
+
     }
 
 
@@ -66,4 +83,5 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
             throw new IllegalStateException("Error loading the plugin!");
         }
     }
+
 }

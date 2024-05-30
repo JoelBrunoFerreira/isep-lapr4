@@ -32,6 +32,23 @@ public class GenerateInterviewModelTemplateUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
+        //TODO
+//        String name = Console.readLine("Name:");
+//        String filePath = Console.readLine("Enter the path of the interview model file:");
+//        try {
+//            File modelFile = new File(filePath);
+//            if (modelFile.exists() && modelFile.isFile()) {
+//                String model = Files.readString(Path.of(filePath));
+//                controller.configureInterviewModel(name, model);
+//                System.out.println("Interview model registered successfully");
+//            } else {
+//                System.out.println("Entered path is not a valid file.");
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return false;
+
         JobOpeningDTO jobOpeningDTO = getJobOpening();
         if (jobOpeningDTO == null) {
             System.out.println("Returning to main menu...");
