@@ -77,7 +77,7 @@ public class AddCandidateUI extends AbstractUI {
         }
 
     }
-    
+
     public String buildEmailHTML(String firstName, String lastName, String username, String password) {
 
         String HTML =
