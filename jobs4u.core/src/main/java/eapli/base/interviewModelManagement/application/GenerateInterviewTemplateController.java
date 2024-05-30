@@ -47,7 +47,7 @@ public class GenerateInterviewTemplateController {
             throw new IllegalArgumentException("Interview model not found!");
         }
         var interviewModelPlugin = interviewModel.buildThePlugin(); //var is to be able to instantiate an interface
-        return interviewModelPlugin.generateTemplate(interviewModel.getInterviewModelModel().toString());
+        return interviewModelPlugin.generateTemplate(interviewModel.getInterviewModelTemplate().toString());
     }
 
 }

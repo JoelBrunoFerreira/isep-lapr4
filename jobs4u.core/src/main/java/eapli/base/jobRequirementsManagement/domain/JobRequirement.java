@@ -19,20 +19,35 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     @Column(name = "Class")
     private JobRequirementClass jobRequirementClass;
 
+    private JobRequirementTemplate jobRequirementTemplate;
     protected JobRequirement() {
     }
-
-    public JobRequirement(JobRequirementTitle requirementTitle, JobRequirementClass className) {
-        this.jobRequirementTitle = requirementTitle;
-        this.jobRequirementClass = className;
+//TODO NEW...
+    public JobRequirement(long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass, JobRequirementTemplate jobRequirementTemplate) {
+        this.id = id;
+        this.jobRequirementTitle = jobRequirementTitle;
+        this.jobRequirementClass = jobRequirementClass;
+        this.jobRequirementTemplate = jobRequirementTemplate;
     }
 
+    public JobRequirement(JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass, JobRequirementTemplate jobRequirementTemplate) {
+        this.jobRequirementTitle = jobRequirementTitle;
+        this.jobRequirementClass = jobRequirementClass;
+        this.jobRequirementTemplate = jobRequirementTemplate;
+    }
+
+    //TODO OLD...
     public JobRequirement(Long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass) {
         this.id = id;
         this.jobRequirementTitle = jobRequirementTitle;
         this.jobRequirementClass = jobRequirementClass;
+        this.jobRequirementTemplate = null;
     }
-
+    public JobRequirement(JobRequirementTitle requirementTitle, JobRequirementClass className) {
+        this.jobRequirementTitle = requirementTitle;
+        this.jobRequirementClass = className;
+        this.jobRequirementTemplate = null;
+    }
     @Override
     public boolean sameAs(Object other) {
         if (other == null) {

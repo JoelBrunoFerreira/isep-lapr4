@@ -94,12 +94,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.status = Status.PENDING;
     }
 
-    public void updateJobOpening(String description,
-                                 int numberVacancies,
-                                 String jobOpeningAddress,
-                                 String mode,
-                                 String contractType,
-                                 String jobTitle) {
+    public void updateJobOpening(String description, int numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle) {
         this.description = Description.valueOf(description);
         this.numberVacancies = new NumberVacancies(numberVacancies);
         this.jobOpeningAddress = new JobOpeningAddress(jobOpeningAddress);
@@ -132,20 +127,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                 phasesDTO.add(phase.toDTO());
             }
         }
-        return new JobOpeningDTO(
-                jobReference.getId(),
-                description.toString(),
-                numberVacancies.toString(),
-                jobOpeningAddress.toString(),
-                mode.toString(),
-                contractType.toString(),
-                jobTitle.toString(),
-                recruitmentProcess == null ? "" : recruitmentProcess.toString(),
-                jobRequirement == null ? "" : jobRequirement.toString(),
-                interviewModel == null ? "" : interviewModel.toString(),
-                this.status.toString(),
-                phasesDTO
-        );
+        return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(), mode.toString(), contractType.toString(), jobTitle.toString(), recruitmentProcess == null ? "" : recruitmentProcess.toString(), jobRequirement == null ? "" : jobRequirement.toString(), interviewModel == null ? "" : interviewModel.toString(), this.status.toString(), phasesDTO);
     }
 
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(boolean interview) {
@@ -192,12 +174,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public boolean allActive() {
-        return this.status.equals(Status.ACTIVE)
-                || this.status.equals(Status.ACTIVE_APPLICATION)
-                || this.status.equals(Status.ACTIVE_SCREENING)
-                || this.status.equals(Status.ACTIVE_INTERVIEW)
-                || this.status.equals(Status.ACTIVE_ANALYSIS)
-                || this.status.equals(Status.ACTIVE_RESULT);
+        return this.status.equals(Status.ACTIVE) || this.status.equals(Status.ACTIVE_APPLICATION) || this.status.equals(Status.ACTIVE_SCREENING) || this.status.equals(Status.ACTIVE_INTERVIEW) || this.status.equals(Status.ACTIVE_ANALYSIS) || this.status.equals(Status.ACTIVE_RESULT);
     }
 
     public boolean isActive() {
@@ -260,8 +237,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             LocalDate now = LocalDate.now();
             Phase activePhase = null;
             for (RecruitmentProcessPhase phase : recruitmentProcess) {
-                if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now))
-                        && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
+                if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now)) && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
                     activePhase = phase.getPhase();
                     break;
                 }

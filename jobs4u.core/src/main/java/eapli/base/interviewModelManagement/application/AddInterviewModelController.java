@@ -4,6 +4,7 @@ package eapli.base.interviewModelManagement.application;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.interviewModelManagement.domain.InterviewModel;
 import eapli.base.interviewModelManagement.domain.InterviewModelClass;
+import eapli.base.interviewModelManagement.domain.InterviewModelTemplate;
 import eapli.base.interviewModelManagement.domain.InterviewModelTitle;
 import eapli.base.interviewModelManagement.repository.InterviewModelRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -19,10 +20,10 @@ public class AddInterviewModelController {
 
 
 
-    public Optional<InterviewModel> addInterviewModel(final String name, final String className) {
+    public Optional<InterviewModel> addInterviewModel(final String name, final String className, final String model) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.LANGUAGE_ENGINEER);
 
-        InterviewModel interviewModel = new InterviewModel(new InterviewModelClass(className), new InterviewModelTitle(name));
+        InterviewModel interviewModel = new InterviewModel(new InterviewModelClass(className), new InterviewModelTitle(name), new InterviewModelTemplate(model));
         //TODO: check how to link with the other TODO from the model addPluginUI
         return Optional.of(interviewModelRepository.save(interviewModel));
     }

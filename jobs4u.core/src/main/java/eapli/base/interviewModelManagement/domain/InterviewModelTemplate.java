@@ -2,16 +2,22 @@ package eapli.base.interviewModelManagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 
-public class InterviewModelModel implements ValueObject, Serializable {
+@Embeddable
+public class InterviewModelTemplate implements ValueObject, Serializable {
 
     @Column(columnDefinition = "TEXT")
-    private String model;
+    private String model; //file in string format
 
-    public InterviewModelModel(String model) {
+    public InterviewModelTemplate(String model) {
         this.model = model;
+    }
+
+    protected InterviewModelTemplate() {
+
     }
 
     @Override

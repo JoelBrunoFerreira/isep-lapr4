@@ -21,31 +21,31 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     private InterviewModelTitle title;
     @Getter
     @Column(name = "Model")
-    private InterviewModelModel interviewModelModel;
+    private InterviewModelTemplate interviewModelTemplate;
 
-    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelModel interviewModelModel) {
+    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelTemplate interviewModelTemplate) {
         this.id = id;
         this.className = className;
         this.title = interviewModelTitle;
-        this.interviewModelModel = interviewModelModel;
+        this.interviewModelTemplate = interviewModelTemplate;
     }
 
-    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelModel interviewModelModel) {
+    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelTemplate interviewModelTemplate) {
         this.className = className;
         this.title = interviewModelTitle;
-        this.interviewModelModel = interviewModelModel;
+        this.interviewModelTemplate = interviewModelTemplate;
     }
     public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.id = id;
         this.className = className;
         this.title = interviewModelTitle;
-
+        this.interviewModelTemplate = null;
     }
 
     public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
         this.className = className;
         this.title = interviewModelTitle;
-
+        this.interviewModelTemplate = null;
     }
 
 
