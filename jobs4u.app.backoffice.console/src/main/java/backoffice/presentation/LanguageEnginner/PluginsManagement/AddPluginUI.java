@@ -65,7 +65,6 @@ public class AddPluginUI extends AbstractUI {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    //TODO: add model to addinterviewmodel
                     Optional<InterviewModel> interviewModel = addInterviewModelController.addInterviewModel(title, className, model);
 
                     if (interviewModel.isPresent()) {

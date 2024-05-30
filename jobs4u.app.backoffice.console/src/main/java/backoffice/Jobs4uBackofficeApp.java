@@ -18,7 +18,7 @@ public class Jobs4uBackofficeApp extends BaseApplication {
     }
 
     public static void main(String[] args) {
-//        BaseBootstrap.main(args);
+ //       BaseBootstrap.main(args);
 //        new JobsDataBootstrap().execute();
         new Jobs4uBackofficeApp().run(args);
     }

@@ -22,7 +22,6 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     private JobRequirementTemplate jobRequirementTemplate;
     protected JobRequirement() {
     }
-//TODO NEW...
     public JobRequirement(long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass, JobRequirementTemplate jobRequirementTemplate) {
         this.id = id;
         this.jobRequirementTitle = jobRequirementTitle;
@@ -36,18 +35,7 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
         this.jobRequirementTemplate = jobRequirementTemplate;
     }
 
-    //TODO OLD...
-    public JobRequirement(Long id, JobRequirementTitle jobRequirementTitle, JobRequirementClass jobRequirementClass) {
-        this.id = id;
-        this.jobRequirementTitle = jobRequirementTitle;
-        this.jobRequirementClass = jobRequirementClass;
-        this.jobRequirementTemplate = null;
-    }
-    public JobRequirement(JobRequirementTitle requirementTitle, JobRequirementClass className) {
-        this.jobRequirementTitle = requirementTitle;
-        this.jobRequirementClass = className;
-        this.jobRequirementTemplate = null;
-    }
+
     @Override
     public boolean sameAs(Object other) {
         if (other == null) {
@@ -66,7 +54,7 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
 
     @Override
     public JobRequirementDTO toDTO() {
-        return new JobRequirementDTO(id, jobRequirementTitle.toString(), jobRequirementClass.toString());
+        return new JobRequirementDTO(id, jobRequirementTitle.toString(), jobRequirementClass.toString(), jobRequirementTemplate.toString());
     }
 
     @Override

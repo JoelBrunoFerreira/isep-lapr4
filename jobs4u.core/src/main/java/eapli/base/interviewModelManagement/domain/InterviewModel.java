@@ -35,19 +35,6 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
         this.title = interviewModelTitle;
         this.interviewModelTemplate = interviewModelTemplate;
     }
-    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
-        this.id = id;
-        this.className = className;
-        this.title = interviewModelTitle;
-        this.interviewModelTemplate = null;
-    }
-
-    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
-        this.className = className;
-        this.title = interviewModelTitle;
-        this.interviewModelTemplate = null;
-    }
-
 
     @Override
     public String toString() {
@@ -59,7 +46,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
 
     @Override
     public InterviewModelDTO toDTO() {
-        return new InterviewModelDTO(id, className.toString(), title.toString());
+        return new InterviewModelDTO(id, className.toString(), title.toString(), interviewModelTemplate.toString());
     }
 
     @Override

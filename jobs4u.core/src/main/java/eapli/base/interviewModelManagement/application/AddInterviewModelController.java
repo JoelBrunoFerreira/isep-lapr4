@@ -24,7 +24,7 @@ public class AddInterviewModelController {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.LANGUAGE_ENGINEER);
 
         InterviewModel interviewModel = new InterviewModel(new InterviewModelClass(className), new InterviewModelTitle(name), new InterviewModelTemplate(model));
-        //TODO: check how to link with the other TODO from the model addPluginUI
+
         return Optional.of(interviewModelRepository.save(interviewModel));
     }
 

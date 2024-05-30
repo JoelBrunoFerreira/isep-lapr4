@@ -7,12 +7,19 @@ import lombok.NoArgsConstructor;
 
 @DTO
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class InterviewModelDTO {
     private long id;
     private String className;
     private String title;
+    private String model;
+
+    public InterviewModelDTO(long id, String className, String title, String model) {
+        this.id = id;
+        this.className = className;
+        this.title = title;
+        this.model = model;
+    }
 
     @Override
     public String toString() {
