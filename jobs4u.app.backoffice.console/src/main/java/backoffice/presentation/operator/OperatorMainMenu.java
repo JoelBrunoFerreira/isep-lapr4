@@ -12,14 +12,16 @@ public class OperatorMainMenu {
     ListCandidateUI listCandidateUI = new ListCandidateUI();
     AddCandidateUI addCandidateUI = new AddCandidateUI();
     RegisterJobApplicationUI registerJobApplicationUI = new RegisterJobApplicationUI();
-
     SaveJobRequirementAnswersUI saveJobRequirementAnswersUI = new SaveJobRequirementAnswersUI();
     private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
     private static final int OPTION_3 = 3;
+    private static final int OPTION_4 = 4;
     private static final int OPTION_5 = 5;
-    private static final int LOGOUT = 6;
+    private static final int OPTION_6 = 6;
+    private static final int OPTION_7 = 7;
+    private static final int LOGOUT = 8;
     public void displayOperatorMenu() {
 
         while (true) {
@@ -29,10 +31,12 @@ public class OperatorMainMenu {
                 =====================================
                 1. Register new Candidate
                 2. List all Candidates
-                3. Register Job Application
-                4. Generate Job Requirements Template
-                5. Save Job Requirements
-                4. Logout
+                3. 
+                4. 
+                5. Register Job Application
+                6. Generate Job Requirements Template
+                7. Save Job Requirements
+                8. Logout
                 0. Exit
                 =====================================
                 
@@ -67,12 +71,18 @@ public class OperatorMainMenu {
                     listCandidateUI.doShow();
                     break;
                 case OPTION_3:
+
+                    break;
+                case OPTION_4:
+
+                    break;
+                case OPTION_5:
                     registerJobApplicationUI.doShow();
                     break;
-                //TODO case OPTION_4:
-                    //GenerateJobRequirementsTemplateUI();
-                    //break;
-                case OPTION_5:
+                case OPTION_6:
+                    System.out.println("Not implemented yet...");
+                    break;
+                case OPTION_7:
                     saveJobRequirementAnswersUI.doShow();
                     break;
                 case LOGOUT:
