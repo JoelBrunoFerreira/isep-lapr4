@@ -47,7 +47,7 @@ public class OperatorMainMenu {
             int option = 0;
             boolean validInput = false;
 
-            while (!validInput) {
+            while (!validInput) {saveJobRequirementAnswersUI.doShow();
                 System.out.print("Enter option number: ");
 
                 try {
