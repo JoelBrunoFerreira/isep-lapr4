@@ -5,7 +5,6 @@ import backoffice.presentation.authz.ActivateUserAction;
 import backoffice.presentation.authz.DeactivateUserAction;
 import backoffice.presentation.operator.jobapplicationmanagement.RegisterJobApplicationUI;
 import backoffice.presentation.operator.jobapplicationmanagement.SaveJobRequirementAnswersUI;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,6 +13,7 @@ public class OperatorMainMenu {
     ListCandidateUI listCandidateUI = new ListCandidateUI();
     AddCandidateUI addCandidateUI = new AddCandidateUI();
     RegisterJobApplicationUI registerJobApplicationUI = new RegisterJobApplicationUI();
+    SaveJobRequirementAnswersUI saveJobRequirementAnswersUI = new SaveJobRequirementAnswersUI();
     ActivateUserAction activateUserAction = new ActivateUserAction();
     DeactivateUserAction deactivateUserAction = new DeactivateUserAction();
     private static final int EXIT_OPTION = 0;
