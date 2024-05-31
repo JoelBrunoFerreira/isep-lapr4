@@ -39,10 +39,15 @@ public class GenerateInterviewTemplateController {
             throw new IllegalArgumentException("Job opening not found!");
         }
 
+
+
         JobOpening jobOpening = jobOpeningOptional.get();
         InterviewModel interviewModel = jobOpening.interviewModel(); //gets the interview model for that jobOpening
+        if (interviewModel == null) {
+            throw new IllegalArgumentException("Interview model not found!");
+        }
         var interviewModelPlugin = interviewModel.buildThePlugin(); //var is to be able to instantiate an interface
-        return interviewModelPlugin.generateTemplate();
+        return interviewModelPlugin.generateTemplate(interviewModel.getInterviewModelTemplate().toString());
     }
 
 }

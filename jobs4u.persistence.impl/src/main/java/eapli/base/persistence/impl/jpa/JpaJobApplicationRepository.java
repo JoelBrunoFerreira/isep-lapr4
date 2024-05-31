@@ -33,7 +33,7 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
     }
 
     @Override
-    public Iterable<JobApplicationDTO> findApplicationsByJCandidateEmail(String candidateEmail) {
+    public Iterable<JobApplicationDTO> findApplicationsDTOByCandidateEmail(String candidateEmail) {
         List<JobApplicationDTO> result = new ArrayList<>();
         for (JobApplication jobApplication : findAll()){
             if (jobApplication.hasCandidateEmail(candidateEmail)){
@@ -61,6 +61,17 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
         params.put("email", new Email(email));
         params.put("jobReference", new JobReference(jobReference));
         return matchOne("e.candidate.email = :email AND e.jobOpening.jobReference = :jobReference", params);
+    }
+
+    @Override
+    public Iterable<JobApplication> findApplicationsByCandidate(String email) {
+        List<JobApplication> result = new ArrayList<>();
+        for (JobApplication jobApplication : repo.findAll()){
+            if (jobApplication.hasCandidateEmail(email)){
+                result.add(jobApplication);
+            }
+        }
+        return result;
     }
 
     @Override

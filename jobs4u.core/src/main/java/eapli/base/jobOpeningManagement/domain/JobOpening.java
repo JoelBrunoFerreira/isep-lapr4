@@ -3,6 +3,7 @@ package eapli.base.jobOpeningManagement.domain;
 
 import eapli.base.interviewModelManagement.domain.InterviewModel;
 import eapli.base.interviewModelManagement.domain.InterviewModelClass;
+import eapli.base.interviewModelManagement.domain.InterviewModelTemplate;
 import eapli.base.interviewModelManagement.domain.InterviewModelTitle;
 import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.domain.Phase;
@@ -13,6 +14,7 @@ import eapli.base.jobRequirementsManagement.domain.JobRequirement;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.base.customer.domain.Customer;
 import eapli.base.jobRequirementsManagement.domain.JobRequirementClass;
+import eapli.base.jobRequirementsManagement.domain.JobRequirementTemplate;
 import eapli.base.jobRequirementsManagement.domain.JobRequirementTitle;
 import eapli.base.jobRequirementsManagement.dto.JobRequirementDTO;
 import eapli.framework.domain.model.AggregateRoot;
@@ -94,12 +96,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.status = Status.PENDING;
     }
 
-    public void updateJobOpening(String description,
-                                 int numberVacancies,
-                                 String jobOpeningAddress,
-                                 String mode,
-                                 String contractType,
-                                 String jobTitle) {
+    public void updateJobOpening(String description, int numberVacancies, String jobOpeningAddress, String mode, String contractType, String jobTitle) {
         this.description = Description.valueOf(description);
         this.numberVacancies = new NumberVacancies(numberVacancies);
         this.jobOpeningAddress = new JobOpeningAddress(jobOpeningAddress);
@@ -132,20 +129,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                 phasesDTO.add(phase.toDTO());
             }
         }
-        return new JobOpeningDTO(
-                jobReference.getId(),
-                description.toString(),
-                numberVacancies.toString(),
-                jobOpeningAddress.toString(),
-                mode.toString(),
-                contractType.toString(),
-                jobTitle.toString(),
-                recruitmentProcess == null ? "" : recruitmentProcess.toString(),
-                jobRequirement == null ? "" : jobRequirement.toString(),
-                interviewModel == null ? "" : interviewModel.toString(),
-                this.status.toString(),
-                phasesDTO
-        );
+        return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(), mode.toString(), contractType.toString(), jobTitle.toString(), recruitmentProcess == null ? "" : recruitmentProcess.toString(), jobRequirement == null ? "" : jobRequirement.toString(), interviewModel == null ? "" : interviewModel.toString(), this.status.toString(), phasesDTO);
     }
 
     public List<RecruitmentProcessPhaseDTO> getRecruitmentProcessPhases(boolean interview) {
@@ -178,12 +162,12 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public void updateInterviewModel(InterviewModelDTO dto) {
-        this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()));
+        this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()), new InterviewModelTemplate(dto.getModel()));
         //TODO phase triggered and job application status update
     }
 
     public void updateJobRequirement(JobRequirementDTO dto) {
-        this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()));
+        this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()), new JobRequirementTemplate(dto.getModel()));
         //TODO phase triggered and job application status update
     }
 
@@ -192,12 +176,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public boolean allActive() {
-        return this.status.equals(Status.ACTIVE)
-                || this.status.equals(Status.ACTIVE_APPLICATION)
-                || this.status.equals(Status.ACTIVE_SCREENING)
-                || this.status.equals(Status.ACTIVE_INTERVIEW)
-                || this.status.equals(Status.ACTIVE_ANALYSIS)
-                || this.status.equals(Status.ACTIVE_RESULT);
+        return this.status.equals(Status.ACTIVE) || this.status.equals(Status.ACTIVE_APPLICATION) || this.status.equals(Status.ACTIVE_SCREENING) || this.status.equals(Status.ACTIVE_INTERVIEW) || this.status.equals(Status.ACTIVE_ANALYSIS) || this.status.equals(Status.ACTIVE_RESULT);
     }
 
     public boolean isActive() {
@@ -260,8 +239,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             LocalDate now = LocalDate.now();
             Phase activePhase = null;
             for (RecruitmentProcessPhase phase : recruitmentProcess) {
-                if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now))
-                        && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
+                if ((phase.getPeriod().getStartDate().isEqual(now) || phase.getPeriod().getStartDate().isBefore(now)) && (phase.getPeriod().getEndDate().isEqual(now) || phase.getPeriod().getEndDate().isAfter(now))) {
                     activePhase = phase.getPhase();
                     break;
                 }

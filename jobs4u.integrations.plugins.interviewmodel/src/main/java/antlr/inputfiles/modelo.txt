@@ -1,0 +1,69 @@
+<MODEL>
+    <QUESTION>
+        <TITLE>"Java é uma linguagem de programação orientada a objectos?"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>BOOLEAN</FORMAT>
+        <SOLUTION>T</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Qual a linguagem mais comum para lidar com bases de dados?"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>SHORT_TEXT</FORMAT>
+        <FORMAT_CONF>"[A-Z]{10}"</FORMAT_CONF>
+        <SOLUTION>"SQL"</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Indique qual das seguintes opções é uma linguagem OOP."</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>CHOICE_SINGLE_ANSWER</FORMAT>
+        <FORMAT_CONF>"Ladder","Java","Cobol","SQL","Prolog","BASIC"</FORMAT_CONF>
+        <SOLUTION>"Java"</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Quais das seguintes opções são linguagens orientadas a objectos?"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>CHOICE_MULTIPLE_ANSWER</FORMAT>
+        <FORMAT_CONF>"Java","SQL","Cobol","Python","BASIC","Prolog"</FORMAT_CONF>
+        <SOLUTION>"Java":50%;"Python":50%;"Java","Python":100%</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Quantos bits tem 1 byte?"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>INTEGER</FORMAT>
+        <SOLUTION>8</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"3/2 é igual a? (resultado com uma casa decimal)"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>DECIMAL</FORMAT>
+        <SOLUTION>1.5</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Em que data se celebra o S.João do Porto este ano? (DD/MM/YYYY)"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>DATE</FORMAT>
+        <SOLUTION>"24/06/2024"</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Qual a hora máxima de cada dia? (HH:MM:SS)"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>TIME</FORMAT>
+        <SOLUTION>"23:59:59"</SOLUTION>
+    </QUESTION>
+    <QUESTION>
+        <TITLE>"Inteiro entre 2 e 5"</TITLE>
+        <ANSWER>"Resposta: "</ANSWER>
+        <GRADE>10</GRADE>
+        <FORMAT>INTEGER_SCALE</FORMAT>
+        <FORMAT_CONF>1-10</FORMAT_CONF>
+        <SOLUTION>2-5</SOLUTION>
+    </QUESTION>
+</MODEL>

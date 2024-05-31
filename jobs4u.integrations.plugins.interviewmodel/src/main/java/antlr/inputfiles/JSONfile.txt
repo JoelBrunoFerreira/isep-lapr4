@@ -1,0 +1,22 @@
+{
+  "INTERVIEW":{
+    "QUESTION": {
+        "QUESTION_TITLE": "Qual o melhor pintor? ",
+        "FORMAT": "ESCOLHA_MULTIPLA_VARIOS",
+        "CHOICES":"'Van Gogh';'Da Vinci';'Adolf H.';'Dalí';'Picasso'",
+        "PREFIX_ANSWER": "Responda aqui:",
+        "GRADE": "10",
+        "ANWSER_SOLUTION": "'Van Gogh':40%;'Van Gogh','Da Vinci':60%;'Da Vinci':40%;'Adolf H.':100%",
+        "ANWSER": ""
+      },
+    "QUESTION": {
+        "QUESTION_TITLE": "Qual o melhor canto? ",
+        "FORMAT": "ESCOLHA_MULTIPLA",
+        "CHOICES":"'Van Gogh';'Da Vinci'",
+        "PREFIX_ANSWER": "Responda aqui:",
+        "GRADE": "20",
+        "ANWSER_SOLUTION": "'Van Gogh':100%",
+        "ANWSER": ""
+    }
+  }
+}

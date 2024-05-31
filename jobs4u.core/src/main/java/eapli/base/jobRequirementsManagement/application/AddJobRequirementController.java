@@ -4,6 +4,7 @@ package eapli.base.jobRequirementsManagement.application;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.jobRequirementsManagement.domain.JobRequirement;
 import eapli.base.jobRequirementsManagement.domain.JobRequirementClass;
+import eapli.base.jobRequirementsManagement.domain.JobRequirementTemplate;
 import eapli.base.jobRequirementsManagement.domain.JobRequirementTitle;
 import eapli.base.jobRequirementsManagement.repository.JobRequirementRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -20,10 +21,10 @@ public class AddJobRequirementController {
 
 
 
-    public Optional<JobRequirement> addJobRequirement(final String name, final String className) {
+    public Optional<JobRequirement> addJobRequirement(final String name, final String className, final String model) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.LANGUAGE_ENGINEER);
 
-        JobRequirement jobRequirement = new JobRequirement(new JobRequirementTitle(name), new JobRequirementClass(className));
+        JobRequirement jobRequirement = new JobRequirement(new JobRequirementTitle(name), new JobRequirementClass(className), new JobRequirementTemplate(model));
 
         return Optional.of(jobRequirementRepository.save(jobRequirement));
     }

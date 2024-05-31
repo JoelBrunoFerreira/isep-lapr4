@@ -1,10 +1,12 @@
 package eapli.base.interviewModelManagement.domain;
 
+
 import eapli.base.interviewModelManagement.dto.InterviewModelDTO;
 import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
@@ -16,21 +18,23 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
     @Column(name = "Class")
     private InterviewModelClass className;
     @Column(name = "Title")
-
     private InterviewModelTitle title;
+    @Getter
+    @Column(name = "Model")
+    private InterviewModelTemplate interviewModelTemplate;
 
-
-    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
+    public InterviewModel(long id, InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelTemplate interviewModelTemplate) {
         this.id = id;
         this.className = className;
         this.title = interviewModelTitle;
+        this.interviewModelTemplate = interviewModelTemplate;
     }
 
-    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle) {
+    public InterviewModel(InterviewModelClass className, InterviewModelTitle interviewModelTitle, InterviewModelTemplate interviewModelTemplate) {
         this.className = className;
         this.title = interviewModelTitle;
+        this.interviewModelTemplate = interviewModelTemplate;
     }
-
 
     @Override
     public String toString() {
@@ -42,7 +46,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
 
     @Override
     public InterviewModelDTO toDTO() {
-        return new InterviewModelDTO(id, className.toString(), title.toString());
+        return new InterviewModelDTO(id, className.toString(), title.toString(), interviewModelTemplate.toString());
     }
 
     @Override
@@ -66,4 +70,5 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
             throw new IllegalStateException("Error loading the plugin!");
         }
     }
+
 }

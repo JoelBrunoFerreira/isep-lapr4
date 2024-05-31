@@ -7,7 +7,10 @@ import eapli.base.jobRequirementsManagement.application.AddJobRequirementControl
 import eapli.base.jobRequirementsManagement.domain.JobRequirement;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 public class AddPluginUI extends AbstractUI {
@@ -23,6 +26,8 @@ public class AddPluginUI extends AbstractUI {
         System.out.println("0. Return");
         String title;
         String className;
+        String model;
+
 
         boolean valid = false;
         while (!valid) {
@@ -33,16 +38,19 @@ public class AddPluginUI extends AbstractUI {
             switch (value) {
                 case "1":
                     valid = true;
+                    try {
+                        title = Console.readLine("Plugin name: ");
+                        className = "antlr.JobRequirement";
+                        model = getFileTemplate();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
-                    title = Console.readLine("Plugin name: ");
-                    className = Console.readLine("Plugin class: ");
-
-                    Optional<JobRequirement> jobRequirement = addJobRequirementController.addJobRequirement(title, className);
+                    Optional<JobRequirement> jobRequirement = addJobRequirementController.addJobRequirement(title, className, model);
 
                     if (jobRequirement.isPresent()) {
                         System.out.println("Successfully registered");
-                    }
-                    else {
+                    } else {
                         System.out.println("Something went wrong. Try again.");
                     }
 
@@ -50,16 +58,18 @@ public class AddPluginUI extends AbstractUI {
                     break;
                 case "2":
                     valid = true;
-
-                    title = Console.readLine("Plugin name: ");
-                    className = Console.readLine("Plugin class: ");
-
-                    Optional<InterviewModel> interviewModel = addInterviewModelController.addInterviewModel(title, className);
+                    try {
+                        title = Console.readLine("Plugin name: ");
+                        className = "antlr.InterviewModel";
+                        model = getFileTemplate();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Optional<InterviewModel> interviewModel = addInterviewModelController.addInterviewModel(title, className, model);
 
                     if (interviewModel.isPresent()) {
                         System.out.println("Successfully registered");
-                    }
-                    else {
+                    } else {
                         System.out.println("Something went wrong. Try again.");
                     }
                     break;
@@ -73,8 +83,13 @@ public class AddPluginUI extends AbstractUI {
             }
         }
         return true;
+    }
 
-
+    private String getFileTemplate() throws IOException {
+        //TODO get file path, read file and transform into string
+        String filePath = Console.readLine("File path: ");
+        File file = new File(filePath);
+        return FileUtils.readFileToString(file, "UTF-8");
     }
 
     @Override

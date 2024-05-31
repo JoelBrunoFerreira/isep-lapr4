@@ -36,7 +36,7 @@ public class RegisterJobApplicationController {
     }
 
     public boolean checkIfApplicationExists(String email, String jobReference) {
-        Iterator<JobApplicationDTO> it = applicationRepository.findApplicationsByJCandidateEmail(email).iterator();
+        Iterator<JobApplicationDTO> it = applicationRepository.findApplicationsDTOByCandidateEmail(email).iterator();
         if (it.hasNext()){
             String jobRef = it.next().getJobOpeningReference();
             if (jobRef.contains(jobReference)){

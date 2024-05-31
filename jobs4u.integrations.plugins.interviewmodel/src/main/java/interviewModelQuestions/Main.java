@@ -10,26 +10,26 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Main implements InterviewModelPlugin {
+public class Main /*implements InterviewModelPlugin*/ {
 
-    @Override
-    public InterviewModelResult validateQuestionAnswers(String answers) throws IOException {
+/*        @Override
+        public InterviewModelResult validateQuestionAnswers(String answers) throws IOException {
 
-        //Create other visitor to get answers
+            //Create other visitor to get answers
 
-        FileInputStream fis = new FileInputStream(new File("model.txt"));
-        LabeledExprLexer lexer = new LabeledExprLexer(new ANTLRInputStream(fis));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        LabeledExprParser parser = new LabeledExprParser(tokens);
-        ParseTree tree = parser.start(); // parse, se não funcionar, retorna false ou null
-        EvalVisitor eval = new EvalVisitor();
-        eval.visit(tree);
+            FileInputStream fis = new FileInputStream(new File("model.txt"));
+            LabeledExprLexer lexer = new LabeledExprLexer(new ANTLRInputStream(fis));
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            LabeledExprParser parser = new LabeledExprParser(tokens);
+            ParseTree tree = parser.start(); // parse, se não funcionar, retorna false ou null
+            EvalVisitor eval = new EvalVisitor();
+            eval.visit(tree);
 
-        return null;
-    }
+            return null;
+        }
 
-    @Override
-    public String generateTemplate() /*throws IOException*/ {
+        @Override
+        public String generateTemplate() *//*throws IOException*//* {
 
         //visitor to get questions
 
@@ -46,13 +46,23 @@ public class Main implements InterviewModelPlugin {
 
         return "FUNCIONA";
     }
-//    public static void main(String[] args) throws IOException {
-//        FileInputStream fis = new FileInputStream(new File("model.txt"));
-//        LabeledExprLexer lexer = new LabeledExprLexer(new ANTLRInputStream(fis));
-//        CommonTokenStream tokens = new CommonTokenStream(lexer);
-//        LabeledExprParser parser = new LabeledExprParser(tokens);
-//        ParseTree tree = parser.start(); // parse, se não funcionar, retorna false ou null
-//        EvalVisitor eval = new EvalVisitor();
-//        eval.visit(tree);
-//    }
+
+    @Override
+    public InterviewModelResult validateQuestionAnswers(String answers) throws IOException {
+        return null;
+    }
+
+    @Override
+    public String generateTemplate(String model) {
+        return "";
+    }
+    public static void main(String[] args) throws IOException {
+        FileInputStream fis = new FileInputStream(new File("model.txt"));
+        LabeledExprLexer lexer = new LabeledExprLexer(new ANTLRInputStream(fis));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LabeledExprParser parser = new LabeledExprParser(tokens);
+        ParseTree tree = parser.start(); // parse, se não funcionar, retorna false ou null
+        EvalVisitor eval = new EvalVisitor();
+        eval.visit(tree);
+    }*/
 }

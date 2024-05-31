@@ -26,7 +26,7 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
     }
 
     @Override
-    public Iterable<JobApplicationDTO> findApplicationsByJCandidateEmail(String candidateEmail) {
+    public Iterable<JobApplicationDTO> findApplicationsDTOByCandidateEmail(String candidateEmail) {
         List<JobApplicationDTO> result = new ArrayList<>();
         for (JobApplication jobApplication : findAll()){
             if (jobApplication.hasCandidateEmail(candidateEmail)){
@@ -44,5 +44,10 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
     @Override
     public Optional<JobApplication> findApplicationByCandidateEmailAndJobReference(String email, String JobReference) {
         return Optional.empty();
+    }
+
+    @Override
+    public Iterable<JobApplication> findApplicationsByCandidate(String email) {
+        return null;
     }
 }

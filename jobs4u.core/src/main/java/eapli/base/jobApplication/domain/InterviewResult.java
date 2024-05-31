@@ -7,19 +7,19 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class InterviewGrade implements ValueObject, Serializable {
+public class InterviewResult implements ValueObject, Serializable {
     private final int grade;
 
-    protected InterviewGrade() {
+    protected InterviewResult() {
         this.grade = 0;
     }
-    public InterviewGrade(final int grade) {
+    public InterviewResult(final int grade) {
         Preconditions.nonNegative(grade);
         this.grade = grade;
     }
 
-    public InterviewGrade valueOf(int grade) {
-        return new InterviewGrade(grade);
+    public InterviewResult valueOf(int grade) {
+        return new InterviewResult(grade);
     }
 
     @Override
