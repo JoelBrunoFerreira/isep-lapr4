@@ -40,8 +40,9 @@ public class AddCandidateUI extends AbstractUI {
             String userPassword = registeredUser.get("password").toString();
             System.out.println("Role(s): " + registeredUser.get("roles").toString());
             System.out.println("================================");
-            String emailBody = String.valueOf(buildEmail(fName, lName, username, userPassword));
+            String emailBody = buildEmailHTML(fName, lName, username, userPassword);
             emailService.sendEmail(username, emailBody);
+            reRunMenu();
             System.out.println();
         } catch (IntegrityViolationException | ConstraintViolationException e) {
             System.out.println("Error registering candidate.\nCode already in use.\n");
@@ -77,23 +78,31 @@ public class AddCandidateUI extends AbstractUI {
 
     }
 
-    public StringBuilder buildEmail(String firstName, String lastName, String username, String password) {
-        StringBuilder message = new StringBuilder();
-        message.append("==============================");
-        message.append(System.getProperty("line.separator"));
-        message.append("      Welcome to Jobs4u       ");
-        message.append(System.getProperty("line.separator"));
-        message.append("==============================");
-        message.append(System.getProperty("line.separator"));
-        message.append("Mr/Mrs " + firstName + " " + lastName + " thank you for registering our application.");
-        message.append(System.getProperty("line.separator"));
-        message.append("Your username is: " + username);
-        message.append(System.getProperty("line.separator"));
-        message.append("Your password is: " + password);
-        message.append(System.getProperty("line.separator"));
-        message.append("==============================");
-        message.append(System.getProperty("line.separator"));
+    public String buildEmailHTML(String firstName, String lastName, String username, String password) {
 
-        return message;
+        String HTML =
+                """
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Email</title>
+                </head>
+                <body>
+                    <h1>Welcome to Jobs4u</h1>
+                    <p>Mr./Mrs. %s %s thank you for registering on our app.</p>
+                    <p>Your username is: %s</p>
+                    <p>Your password is: %s</p>
+                    <p>Best of luck!</p>
+                    <br>
+                    <footer>
+                        <p>Made with ❤ by Code Warriors - All rights reserved</p>
+                    </footer>
+                </body>
+                </html>
+                """;
+
+        return String.format(HTML, firstName, lastName, username, password);
     }
 }

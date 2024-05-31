@@ -1,5 +1,7 @@
 # Project Jobs4U - ISEP - LAPR4 - 2023/2024
 
+![logo.png](assets%2Flogo.png)
+
 ## 1. Description of the Project
 
 The Jobs4U App is a comprehensive solution designed to streamline the talent acquisition process for companies seeking 

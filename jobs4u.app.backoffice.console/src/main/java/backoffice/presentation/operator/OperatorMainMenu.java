@@ -1,6 +1,8 @@
 package backoffice.presentation.operator;
 
 import backoffice.Jobs4uBackofficeApp;
+import backoffice.presentation.authz.ActivateUserAction;
+import backoffice.presentation.authz.DeactivateUserAction;
 import backoffice.presentation.operator.jobapplicationmanagement.RegisterJobApplicationUI;
 import backoffice.presentation.operator.jobapplicationmanagement.SaveJobRequirementAnswersUI;
 
@@ -12,7 +14,8 @@ public class OperatorMainMenu {
     ListCandidateUI listCandidateUI = new ListCandidateUI();
     AddCandidateUI addCandidateUI = new AddCandidateUI();
     RegisterJobApplicationUI registerJobApplicationUI = new RegisterJobApplicationUI();
-    SaveJobRequirementAnswersUI saveJobRequirementAnswersUI = new SaveJobRequirementAnswersUI();
+    ActivateUserAction activateUserAction = new ActivateUserAction();
+    DeactivateUserAction deactivateUserAction = new DeactivateUserAction();
     private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
@@ -31,8 +34,8 @@ public class OperatorMainMenu {
                 =====================================
                 1. Register new Candidate
                 2. List all Candidates
-                3. 
-                4. 
+                3. Enable a Candidate
+                4. Disable a Candidate 
                 5. Register Job Application
                 6. Generate Job Requirements Template
                 7. Save Job Requirements
@@ -47,7 +50,7 @@ public class OperatorMainMenu {
             int option = 0;
             boolean validInput = false;
 
-            while (!validInput) {saveJobRequirementAnswersUI.doShow();
+            while (!validInput) {
                 System.out.print("Enter option number: ");
 
                 try {
@@ -71,11 +74,11 @@ public class OperatorMainMenu {
                     listCandidateUI.doShow();
                     break;
                 case OPTION_3:
-
+		    activateUserAction.execute();
                     break;
                 case OPTION_4:
-
-                    break;
+                    deactivateUserAction.execute();
+                    break;	
                 case OPTION_5:
                     registerJobApplicationUI.doShow();
                     break;
