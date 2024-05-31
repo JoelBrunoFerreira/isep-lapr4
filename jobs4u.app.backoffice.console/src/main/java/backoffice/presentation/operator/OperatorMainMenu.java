@@ -35,7 +35,7 @@ public class OperatorMainMenu {
                 1. Register new Candidate
                 2. List all Candidates
                 3. Enable a Candidate
-                4. Disable a Candidate 
+                4. Disable a Candidate
                 5. Register Job Application
                 6. Generate Job Requirements Template
                 7. Save Job Requirements
