@@ -27,7 +27,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     @Column(nullable = false)
     private JobApplicationState jobApplicationState;
     @Column(name = "JobRequirement")
-    private RequirementModel requirementModel;
+    private RequirementAnswers requirementAnswers;
     private RequirementResult requirementResult;
 
     private InterviewSchedule interviewSchedule;
@@ -51,10 +51,14 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.jobApplicationState = JobApplicationState.RECEIVED;
         this.requirementResult = new RequirementResult(false, "Pending");
         this.interviewAnswers = null;
+        this.requirementAnswers = null;
     }
 
     public void saveInterviewModelAnswers(String answers) {
         this.interviewAnswers = new InterviewAnswers(answers);
+    }
+    public void saveJobRequirementAnswers(String answers){
+        this.requirementAnswers = new RequirementAnswers(answers);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class AddPluginUI extends AbstractUI {
                     valid = true;
                     try {
                         title = Console.readLine("Plugin name: ");
-                        className = Console.readLine("Plugin class: ");
+                        className = "antlr.JobRequirement";
                         model = getFileTemplate();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -60,7 +60,7 @@ public class AddPluginUI extends AbstractUI {
                     valid = true;
                     try {
                         title = Console.readLine("Plugin name: ");
-                        className = Console.readLine("Plugin class: ");
+                        className = "antlr.InterviewModel";
                         model = getFileTemplate();
                     } catch (IOException e) {
                         throw new RuntimeException(e);

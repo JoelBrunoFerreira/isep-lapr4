@@ -2,6 +2,7 @@ package backoffice.presentation.operator;
 
 import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.operator.jobapplicationmanagement.RegisterJobApplicationUI;
+import backoffice.presentation.operator.jobapplicationmanagement.SaveJobRequirementAnswersUI;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,11 +12,14 @@ public class OperatorMainMenu {
     ListCandidateUI listCandidateUI = new ListCandidateUI();
     AddCandidateUI addCandidateUI = new AddCandidateUI();
     RegisterJobApplicationUI registerJobApplicationUI = new RegisterJobApplicationUI();
+
+    SaveJobRequirementAnswersUI saveJobRequirementAnswersUI = new SaveJobRequirementAnswersUI();
     private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
     private static final int OPTION_3 = 3;
-    private static final int LOGOUT = 4;
+    private static final int OPTION_5 = 5;
+    private static final int LOGOUT = 6;
     public void displayOperatorMenu() {
 
         while (true) {
@@ -26,6 +30,8 @@ public class OperatorMainMenu {
                 1. Register new Candidate
                 2. List all Candidates
                 3. Register Job Application
+                4. Generate Job Requirements Template
+                5. Save Job Requirements
                 4. Logout
                 0. Exit
                 =====================================
@@ -62,6 +68,12 @@ public class OperatorMainMenu {
                     break;
                 case OPTION_3:
                     registerJobApplicationUI.doShow();
+                    break;
+                //TODO case OPTION_4:
+                    //GenerateJobRequirementsTemplateUI();
+                    //break;
+                case OPTION_5:
+                    saveJobRequirementAnswersUI.doShow();
                     break;
                 case LOGOUT:
                     Jobs4uBackofficeApp.main(null);

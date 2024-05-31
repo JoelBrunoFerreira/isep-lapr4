@@ -7,14 +7,14 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class RequirementModel implements ValueObject, Serializable {
+public class RequirementAnswers implements ValueObject, Serializable {
     @Column(columnDefinition = "TEXT")
     private String model;
 
-    protected RequirementModel() {
+    protected RequirementAnswers() {
     }
 
-    public RequirementModel(String model) {
+    public RequirementAnswers(String model) {
         this.model = model;
     }
 
