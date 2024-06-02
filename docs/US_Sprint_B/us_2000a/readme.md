@@ -83,7 +83,11 @@ Output Data:
 [US_2000a_SSD.puml](US_2000a_SSD.puml)
 
 ## 7. Tests
-
+    public void testGeneratedPasswordLength();
+    public void testUppercaseLetters();
+    public void testLowercaseLetters();
+    public void testNumbers();
+    public void testSpecialCharacters()
 
 ## 8. Observations
 * n/a

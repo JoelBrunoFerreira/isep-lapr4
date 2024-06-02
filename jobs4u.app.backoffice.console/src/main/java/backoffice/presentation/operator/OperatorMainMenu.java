@@ -3,8 +3,10 @@ package backoffice.presentation.operator;
 import backoffice.Jobs4uBackofficeApp;
 import backoffice.presentation.authz.ActivateUserAction;
 import backoffice.presentation.authz.DeactivateUserAction;
+import backoffice.presentation.interviewModel.GenerateInterviewModelTemplateUI;
 import backoffice.presentation.operator.jobapplicationmanagement.RegisterJobApplicationUI;
 import backoffice.presentation.operator.jobapplicationmanagement.SaveJobRequirementAnswersUI;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,6 +18,7 @@ public class OperatorMainMenu {
     SaveJobRequirementAnswersUI saveJobRequirementAnswersUI = new SaveJobRequirementAnswersUI();
     ActivateUserAction activateUserAction = new ActivateUserAction();
     DeactivateUserAction deactivateUserAction = new DeactivateUserAction();
+    GenerateInterviewModelTemplateUI generateInterviewModelTemplateUI = new GenerateInterviewModelTemplateUI();
     private static final int EXIT_OPTION = 0;
     private static final int OPTION_1 = 1;
     private static final int OPTION_2 = 2;
@@ -83,7 +86,7 @@ public class OperatorMainMenu {
                     registerJobApplicationUI.doShow();
                     break;
                 case OPTION_6:
-                    System.out.println("Not implemented yet...");
+                    generateInterviewModelTemplateUI.doShow();
                     break;
                 case OPTION_7:
                     saveJobRequirementAnswersUI.doShow();

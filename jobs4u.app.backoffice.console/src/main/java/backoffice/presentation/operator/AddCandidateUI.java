@@ -80,6 +80,8 @@ public class AddCandidateUI extends AbstractUI {
 
     public String buildEmailHTML(String firstName, String lastName, String username, String password) {
 
+        // Character.toString();
+
         String HTML =
                 """
                 <!DOCTYPE html>
@@ -97,7 +99,7 @@ public class AddCandidateUI extends AbstractUI {
                     <p>Best of luck!</p>
                     <br>
                     <footer>
-                        <p>Made with ❤ by Code Warriors - All rights reserved</p>
+                        <p>Made with &#x1F493; by Code Warriors - All rights reserved</p>
                     </footer>
                 </body>
                 </html>
