@@ -5,7 +5,7 @@ public class InterviewModelResult {
     private String errorMessage;
     private double grade;
 
-    protected InterviewModelResult() {
+    public InterviewModelResult() {
     }
 
     public InterviewModelResult(boolean valid, String errorMessage, double grade) {

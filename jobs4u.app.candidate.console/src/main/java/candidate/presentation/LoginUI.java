@@ -1,8 +1,6 @@
 package candidate.presentation;
 
 import candidate.application.CandidateLoginController;
-import customer.application.CustomerLoginController;
-import eapli.base.candidate.domain.Candidate;
 import eapli.framework.io.util.Console;
 
 public class LoginUI {

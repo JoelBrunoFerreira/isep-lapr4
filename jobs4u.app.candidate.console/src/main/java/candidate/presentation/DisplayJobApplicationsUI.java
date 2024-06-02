@@ -2,8 +2,6 @@ package candidate.presentation;
 
 import candidate.application.DisplayJobApplicationsController;
 import candidate.dto.JobApplicationDto;
-import customer.application.DisplayJobOpeningsController;
-import customer.dto.JobOpeningDto;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.ListWidget;
 

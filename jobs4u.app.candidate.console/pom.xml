@@ -43,8 +43,13 @@
         <dependency>
             <groupId>lapr4</groupId>
             <artifactId>jobs4u.app.bootstrap</artifactId>
-            <version>0.1.0</version>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>lapr4</groupId>
+            <artifactId>jobs4u.followUp.server</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 

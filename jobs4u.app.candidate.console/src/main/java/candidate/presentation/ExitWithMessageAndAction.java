@@ -1,6 +1,6 @@
 package candidate.presentation;
 
-import customer.application.SrvProxy;
+import candidate.application.SrvProxy;
 import eapli.framework.actions.Action;
 
 public class ExitWithMessageAndAction implements Action {
