@@ -218,7 +218,7 @@ public class LabeledExprParser extends Parser {
 			setState(74);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case EOF:
+			case Recognizer.EOF:
 				enterOuterAlt(_localctx, 1);
 				{
 				}
