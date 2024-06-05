@@ -5,9 +5,12 @@ import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.interviewModelManagement.domain.InterviewModel;
+import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
 public class Jobs4uBackofficeApp extends BaseApplication {
@@ -17,6 +20,10 @@ public class Jobs4uBackofficeApp extends BaseApplication {
 
     public static void main(String[] args) {
         //BaseBootstrap.main(args);
+        InterviewModel interviewModel = PersistenceContext.repositories().interviewModelRepository().ofIdentity(4l).get();
+        InterviewModelPlugin plugin = interviewModel.buildThePlugin();
+        System.out.println(plugin.generateTemplate(""));
+
         //new JobsDataBootstrap().execute();
         new Jobs4uBackofficeApp().run(args);
     }

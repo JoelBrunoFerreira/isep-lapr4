@@ -6,5 +6,5 @@ import java.io.IOException;
 public interface InterviewModelPlugin {
     String generateTemplate(String model);
 
-    InterviewModelResult validateQuestionAnswers(String model,String answers) throws IOException;
+    InterviewModelResult evaluateInterviewModel(String answers) throws IOException;
 }

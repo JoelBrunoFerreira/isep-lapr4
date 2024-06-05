@@ -1,0 +1,27 @@
+<TITLE>"Interview Model - Multiple Answers"</TITLE>
+<MODEL>
+    <QUESTION_BLOCK>
+        <QUESTION>"Which of the following languages are Object-Oriented?"</QUESTION>
+        <ANSWER>"Java"</ANSWER>
+        <GRADE>5</GRADE>
+        <SOLUTION>"Java;50%""Python;50%"</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+        <QUESTION>"Which of the following languages are Object-Oriented?"</QUESTION>
+        <ANSWER>"Python, Java"</ANSWER>
+        <GRADE>5</GRADE>
+        <SOLUTION>"Java;50%""Python;50%"</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+         <QUESTION>"Which of the following languages are Object-Oriented?"</QUESTION>
+         <ANSWER>"Python"</ANSWER>
+         <GRADE>5</GRADE>
+         <SOLUTION>"Java;50%""Python;50%"</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+         <QUESTION>"Which of the following languages are Object-Oriented?"</QUESTION>
+         <ANSWER>"Java , Python"</ANSWER>
+         <GRADE>5</GRADE>
+         <SOLUTION>"Java;50%""Python;50%"</SOLUTION>
+    </QUESTION_BLOCK>
+</MODEL>
