@@ -1,8 +1,6 @@
 package backoffice.presentation.CustomerManager;
 
-import backoffice.presentation.CustomerManager.JobApplicationsManagement.ListJobApplicationsUI;
-import backoffice.presentation.CustomerManager.JobApplicationsManagement.SaveInterviewAnswersUI;
-import backoffice.presentation.CustomerManager.JobApplicationsManagement.ScheduleInterviewUI;
+import backoffice.presentation.CustomerManager.JobApplicationsManagement.*;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.CustomerManager.candidateManagement.DisplayRankedCandidatesUI;
 import backoffice.presentation.CustomerManager.customerManagement.AddCustomerUI;
@@ -56,9 +54,9 @@ public class CustomerManagerMainMenu {
         jobApplicationMenu.addItem(OPTION_1, "List Job Applications", new ListJobApplicationsUI()::show);
         jobApplicationMenu.addItem(OPTION_2, "Schedule Interviews", new ScheduleInterviewUI()::show);
         //TODO jobApplicationMenu.addItem(OPTION_3, "Evaluate Job Requirements", new SelectInterviewModelUI()::show);
-        //TODO jobApplicationMenu.addItem(OPTION_4, "Generate interview template", new GenerateInterviewModelTemplateUI()::show);
+        jobApplicationMenu.addItem(OPTION_4, "Generate interview template", new GenerateInterviewModelUI()::show);
         jobApplicationMenu.addItem(OPTION_5, "Save interview answers", new SaveInterviewAnswersUI()::show);
-        //TODO jobApplicationMenu.addItem(OPTION_6, "Evaluate interview", new GenerateInterviewModelTemplateUI()::show);
+        jobApplicationMenu.addItem(OPTION_6, "Evaluate interview", new EvaluateInterviewAnswersUI()::show);
 
         if (!Application.settings().isMenuLayoutHorizontal())
             jobApplicationMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));

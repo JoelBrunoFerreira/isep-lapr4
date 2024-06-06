@@ -27,10 +27,10 @@ public class SaveInterviewAnswersUI extends AbstractUI {
         return false;
     }
     private String getInterviewAnswersFile() throws IOException {
-        //TODO get file path, read file and transform into string
-        String filePath = Console.readLine("Interview Answers file: (path including file)");
-        File file = new File(filePath);
-        return FileUtils.readFileToString(file, "UTF-8");
+        String filePath = Console.readLine("Interview Answers file path: ");
+        return filePath;
+        //File file = new File(filePath);
+        //return FileUtils.readFileToString(file, "UTF-8");
     }
     @Override
     public String headline() {

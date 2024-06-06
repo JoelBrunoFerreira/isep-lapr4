@@ -32,4 +32,7 @@ public class GetApplicationService {
     }
 
 
+    public Iterable<JobApplication> getJobApplications() {
+        return applicationRepository.findAll();
+    }
 }

@@ -6,9 +6,11 @@ import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
+import eapli.base.jobOpeningManagement.domain.Status;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,14 +27,16 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private JobApplicationState jobApplicationState;
+    private Status jobApplicationState;
     @Column(name = "JobRequirement")
     private RequirementAnswers requirementAnswers;
     private RequirementResult requirementResult;
 
     private InterviewSchedule interviewSchedule;
     @Column(name = "InterviewAnswers")
+    @Getter
     private InterviewAnswers interviewAnswers;
+    @Getter
     private InterviewResult interviewResult;
     @ManyToOne
     @JoinColumn(name = "candidateID")
@@ -48,17 +52,33 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.applicationFiles = applicationFiles;
         this.candidate = candidate;
         this.jobOpening = jobOpening;
-        this.jobApplicationState = JobApplicationState.RECEIVED;
+        this.jobApplicationState = Status.ACTIVE_APPLICATION;
         this.requirementResult = new RequirementResult(false, "Pending");
         this.interviewAnswers = null;
         this.requirementAnswers = null;
     }
 
-    public void saveInterviewModelAnswers(String answers) {
-        this.interviewAnswers = new InterviewAnswers(answers);
+    public boolean saveInterviewModelAnswers(String answers) {
+        if (this.jobApplicationState.equals(Status.ACTIVE_INTERVIEW)){
+            this.interviewAnswers = new InterviewAnswers(answers);
+            System.out.println("Interview answers saved successfully.");
+            return true;
+        }
+        else{
+            System.out.println("Operation must be executed during interview phase.");
+            return false;
+        }
     }
-    public void saveJobRequirementAnswers(String answers){
-        this.requirementAnswers = new RequirementAnswers(answers);
+    public boolean saveJobRequirementAnswers(String answers){
+        if (this.jobApplicationState.equals(Status.ACTIVE_APPLICATION) || this.jobApplicationState.equals(Status.ACTIVE_SCREENING)){
+            this.requirementAnswers = new RequirementAnswers(answers);
+            System.out.println("Job Requirements answers saved successfully.");
+            return true;
+        }
+        else{
+            System.out.println("Operation must be executed during Application or Screening phases.");
+            return false;
+        }
     }
 
     @Override
@@ -86,8 +106,8 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         return new JobApplicationDTO(id, files, rank == null ? 0 : rank.valueOf(), jobApplicationState.toString(), interviewResult == null ? 0 : Integer.parseInt(interviewResult.toString()), candidate.getEmail().toString(), jobOpening.getJobReference().toString(), requirementResult.isApproved());
     }
 
-    public void setInterviewGrade(int interviewGrade) {
-        this.interviewResult = new InterviewResult();
+    public void setInterviewGrade(float interviewGrade) {
+        this.interviewResult = new InterviewResult().valueOf(interviewGrade);
     }
 
     public void setRanking(int ranking) {
@@ -115,5 +135,8 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
             throw new IllegalArgumentException();
         }
         this.rank = new Rank(Integer.parseInt(rank));
+    }
+    public Status jobApplicationState(){
+        return this.jobApplicationState;
     }
 }

@@ -38,7 +38,7 @@ public class InterviewModel implements AggregateRoot<Long>, DTOable<InterviewMod
 
     @Override
     public String toString() {
-        return "%ID: " + String.valueOf(id) + " Tilte: " + title;
+        return title.toString();
     }
 
     protected InterviewModel() {

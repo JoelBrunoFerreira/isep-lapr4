@@ -1,40 +1,22 @@
 package eapli.base.interviewModelManagement.integration;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class InterviewModelResult {
     private boolean valid;
     private String errorMessage;
-    private double grade;
+    private float grade;
 
     protected InterviewModelResult() {
     }
 
-    public InterviewModelResult(boolean valid, String errorMessage, double grade) {
+    public InterviewModelResult(boolean valid, String errorMessage, float grade) {
         this.valid = valid;
         this.errorMessage = errorMessage;
         this.grade = grade;
     }
 
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public double getGrade() {
-        return grade;
-    }
-
-    public void setGrade(double grade) {
-        this.grade = grade;
-    }
 }

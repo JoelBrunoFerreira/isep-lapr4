@@ -8,18 +8,21 @@ import java.io.Serializable;
 
 @Embeddable
 public class InterviewResult implements ValueObject, Serializable {
-    private final int grade;
+    private final float grade;
 
     protected InterviewResult() {
         this.grade = 0;
     }
-    public InterviewResult(final int grade) {
-        Preconditions.nonNegative(grade);
+    public InterviewResult(final float grade) {
         this.grade = grade;
     }
 
-    public InterviewResult valueOf(int grade) {
+    public InterviewResult valueOf(float grade) {
         return new InterviewResult(grade);
+    }
+
+    public float getGrade() {
+        return grade;
     }
 
     @Override

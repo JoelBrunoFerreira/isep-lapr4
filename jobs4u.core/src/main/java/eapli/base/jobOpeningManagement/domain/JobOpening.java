@@ -68,6 +68,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @ManyToOne
     private JobRequirement jobRequirement;
 
+    @Getter
     @ManyToOne
     private InterviewModel interviewModel;
 
@@ -123,10 +124,12 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Override
     public JobOpeningDTO toDTO() {
         List<RecruitmentProcessPhaseDTO> phasesDTO = null;
-        if (!this.recruitmentProcess.isEmpty()) {
-            phasesDTO = new ArrayList<>();
-            for (RecruitmentProcessPhase phase : this.recruitmentProcess) {
-                phasesDTO.add(phase.toDTO());
+        if (this.recruitmentProcess != null) {
+            if (!this.recruitmentProcess.isEmpty()) {
+                phasesDTO = new ArrayList<>();
+                for (RecruitmentProcessPhase phase : this.recruitmentProcess) {
+                    phasesDTO.add(phase.toDTO());
+                }
             }
         }
         return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(), mode.toString(), contractType.toString(), jobTitle.toString(), recruitmentProcess == null ? "" : recruitmentProcess.toString(), jobRequirement == null ? "" : jobRequirement.toString(), interviewModel == null ? "" : interviewModel.toString(), this.status.toString(), phasesDTO);
@@ -162,13 +165,21 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public void updateInterviewModel(InterviewModelDTO dto) {
+        //TODO
+        /*if (this.status.equals(Status.ACTIVE) || this.status.equals(Status.PENDING) || this.status.equals(Status.ACTIVE_SCREENING) || this.status.equals(Status.ACTIVE_IMPENDING)) {
+            this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()), new InterviewModelTemplate(dto.getModel()));
+        } else {
+            System.out.println("Cant add Interview model on the following phase " + this.status);
+        }*/
         this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()), new InterviewModelTemplate(dto.getModel()));
-        //TODO phase triggered and job application status update
     }
 
     public void updateJobRequirement(JobRequirementDTO dto) {
-        this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()), new JobRequirementTemplate(dto.getModel()));
-        //TODO phase triggered and job application status update
+        if (this.status.equals(Status.ACTIVE) || this.status.equals(Status.PENDING) || this.status.equals(Status.ACTIVE_IMPENDING)) {
+            this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()), new JobRequirementTemplate(dto.getModel()));
+        } else {
+            System.out.println("Cant add Job Requirements on the following phase " + this.status);
+        }
     }
 
     public boolean isPending() {

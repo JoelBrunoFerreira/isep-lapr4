@@ -19,7 +19,11 @@ public class SaveInterviewAnswersController {
 
     public boolean saveInterviewAnswersToJobApplication(String candidateEmail, String jobReference, String interviewAnswers) {
         JobApplication jobApplication = repository.findApplicationByCandidateEmailAndJobReference(candidateEmail, jobReference).get();
-        jobApplication.saveInterviewModelAnswers(interviewAnswers);
-        return repository.save(jobApplication) != null;
+        if (jobApplication.saveInterviewModelAnswers(interviewAnswers)){
+            return repository.save(jobApplication) != null;
+        }
+        else {
+            return false;
+        }
     }
 }

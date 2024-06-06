@@ -17,7 +17,9 @@ public class SaveJobRequirementAnswersController {
 
     public boolean saveJobRequirementAnswersToJobApplication(String candidateEmail, String jobReference, String jobRequirements) {
         JobApplication jobApplication = repository.findApplicationByCandidateEmailAndJobReference(candidateEmail, jobReference).get();
-        jobApplication.saveJobRequirementAnswers(jobRequirements);
-        return repository.save(jobApplication) != null;
+       if (jobApplication.saveJobRequirementAnswers(jobRequirements)){
+           return repository.save(jobApplication) != null;
+       }
+       return false;
     }
 }

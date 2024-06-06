@@ -1,29 +1,35 @@
 package backoffice;
 
 import backoffice.presentation.MainMenu;
+import eapli.base.app.bootstrap.BaseBootstrap;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.interviewModelManagement.domain.InterviewModel;
 import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
+import eapli.base.interviewModelManagement.integration.InterviewModelResult;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
+import java.io.IOException;
+
 public class Jobs4uBackofficeApp extends BaseApplication {
     private Jobs4uBackofficeApp() {
         // private constructor to avoid instantiation
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //BaseBootstrap.main(args);
-        InterviewModel interviewModel = PersistenceContext.repositories().interviewModelRepository().ofIdentity(4l).get();
+        /*InterviewModel interviewModel = PersistenceContext.repositories().interviewModelRepository().ofIdentity(4l).get();
         InterviewModelPlugin plugin = interviewModel.buildThePlugin();
-        System.out.println(plugin.generateTemplate(""));
-
+        System.out.println(plugin.generateTemplate("rightAnswers2.txt"));
+        InterviewModelResult result = plugin.evaluateInterviewModel("rightAnswers2.txt");
+        System.out.println(result.getGrade());
+        System.out.println("NOTHING");*/
         //new JobsDataBootstrap().execute();
         new Jobs4uBackofficeApp().run(args);
     }
