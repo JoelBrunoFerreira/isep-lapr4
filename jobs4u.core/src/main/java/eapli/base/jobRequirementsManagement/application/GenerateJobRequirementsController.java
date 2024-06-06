@@ -19,8 +19,10 @@ public class GenerateJobRequirementsController {
     public void formTemplate(String job, TreeMap<String, String> dataFields, String filePath) throws IOException {
 
         FileWriter writer = new FileWriter(filePath + "/" + job + ".txt");
+        writer.write("<Title>"+job+"</Title>\n");
         for (Map.Entry<String, String> entry : dataFields.entrySet()) {
-            writer.write(entry.getKey() + ": " + entry.getValue() + "\n");
+            writer.write("<Question>" +entry.getKey()+ "</Question>\n" + "<Answer>"
+                    + entry.getValue() + "</Answer>\n");
         }
         writer.close();
 

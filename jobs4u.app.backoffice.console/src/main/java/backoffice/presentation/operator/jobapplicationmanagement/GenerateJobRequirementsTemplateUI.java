@@ -28,11 +28,11 @@ public class GenerateJobRequirementsTemplateUI {
 
         String filePath = Console.readLine("Insert the path where you want to store the template: ");
         System.out.println();
-        
+
         try{
             generateJobRequirementsController.formTemplate(typeOfJobOpening, dataFields, filePath);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         System.out.println("Template generated successfully");
         System.out.println();
