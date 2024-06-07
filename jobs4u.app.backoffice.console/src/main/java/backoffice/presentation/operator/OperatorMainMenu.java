@@ -6,6 +6,8 @@ import backoffice.presentation.authz.DeactivateUserAction;
 import backoffice.presentation.operator.jobapplicationmanagement.GenerateJobRequirementsTemplateUI;
 import backoffice.presentation.operator.jobapplicationmanagement.RegisterJobApplicationUI;
 import backoffice.presentation.operator.jobapplicationmanagement.SaveJobRequirementAnswersUI;
+
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -27,7 +29,7 @@ public class OperatorMainMenu {
     private static final int OPTION_6 = 6;
     private static final int OPTION_7 = 7;
     private static final int LOGOUT = 8;
-    public void displayOperatorMenu() {
+    public void displayOperatorMenu() throws IOException {
 
         while (true) {
             System.out.println("""
