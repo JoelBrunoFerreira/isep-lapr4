@@ -1,19 +1,13 @@
 package backoffice;
 
 import backoffice.presentation.MainMenu;
-import eapli.base.app.bootstrap.BaseBootstrap;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
-import eapli.base.infrastructure.bootstrapers.JobsDataBootstrap;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.interviewModelManagement.domain.InterviewModel;
-import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
-import eapli.base.interviewModelManagement.integration.InterviewModelResult;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
 import java.io.IOException;
