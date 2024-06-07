@@ -31,7 +31,7 @@ public class GenerateInterviewModelController {
 
     public Iterable<JobApplicationDTO> getJobApplicationDTOs() {
         List<JobApplicationDTO> dtos = new ArrayList<>();
-        for (JobApplication jA : jobApplicationSvc.getJobApplications()) {
+        for (JobApplication jA : jobApplicationSvc.getAllJobApplications()) {
             dtos.add(jA.toDTO());
         }
         return dtos;

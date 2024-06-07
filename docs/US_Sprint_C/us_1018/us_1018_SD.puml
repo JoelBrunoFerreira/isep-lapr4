@@ -1,0 +1,39 @@
+@startuml
+actor CustomerManager as actor
+participant EvaluateInterviewAnswersUI as UI
+participant EvaluateInterviewAnswersController as controller
+participant JobOpeningSvc as jOsvc
+participant JobApplicationSvc as jAsvc
+participant InterviewModel as IM
+participant InterviewModelResult as IMR
+participant InterviewModelPlugin as plugin
+database JobApplicationsRepository as repo
+
+actor --> UI: ask to Evaluate Interview Answers
+activate UI
+    note right of UI: get all valid jobApplications, \nshow to the user,\nselect jobApplication,\nget candidateEmail and jobReference
+    UI -> controller: evaluateInterviewAnswers(jobReference, candidateEmail)
+    activate controller
+        controller->jOsvc: getJobOpening(jobReference)
+        activate jOsvc
+            jOsvc-> controller: return jobOpening
+        deactivate jOsvc
+        controller->IM: jobOpening.getInterviewModel()
+        IM->controller: return interviewModel
+        controller->plugin: get interviewModel.getThePlugin()
+        plugin->controller: return plugin
+        controller->jAsvc: get jobApplication
+        activate jAsvc
+            jAsvc->controller: return jobApplication
+        deactivate jAsvc
+        controller-> plugin: plugin.EvaluateInterviewAnswers()
+        activate plugin
+            plugin -> IMR
+        deactivate plugin
+        IMR-> controller: return InterviewInterviewModelResult
+        controller->repo: save jobApplication()
+        controller -> UI
+    deactivate controller
+    UI-->actor
+deactivate UI
+@enduml

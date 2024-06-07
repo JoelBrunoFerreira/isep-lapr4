@@ -3,6 +3,7 @@ package eapli.base.jobOpeningManagement.RecruitmentProcessManagement.application
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.domain.RecruitmentProcessPhase;
 import eapli.base.jobOpeningManagement.RecruitmentProcessManagement.dto.RecruitmentProcessPhaseDTO;
 import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
+import eapli.base.jobOpeningManagement.application.StatusChangeSvc;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.Status;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
@@ -24,11 +25,13 @@ public class OpenOrClosePhasesController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final JobOpeningSvc jobOpeningSvc = new JobOpeningSvc();
     private final SystemUser user;
+    private final StatusChangeSvc statusChangeSvc;
 
 
     public OpenOrClosePhasesController() {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
         user = authz.session().get().authenticatedUser();
+        statusChangeSvc = new StatusChangeSvc();
     }
 
     public Iterable<JobOpeningDTO> listJobOpeningsDTO() {

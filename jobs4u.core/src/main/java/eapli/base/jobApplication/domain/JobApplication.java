@@ -27,7 +27,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status jobApplicationState;
+    private JobApplicationState jobApplicationState;
     @Column(name = "JobRequirement")
     private RequirementAnswers requirementAnswers;
     private RequirementResult requirementResult;
@@ -52,14 +52,14 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.applicationFiles = applicationFiles;
         this.candidate = candidate;
         this.jobOpening = jobOpening;
-        this.jobApplicationState = Status.ACTIVE_APPLICATION;
+        this.jobApplicationState = JobApplicationState.ACCEPTED;
         this.requirementResult = new RequirementResult(false, "Pending");
         this.interviewAnswers = null;
         this.requirementAnswers = null;
     }
 
     public boolean saveInterviewModelAnswers(String answers) {
-        if (this.jobApplicationState.equals(Status.ACTIVE_INTERVIEWS)){
+        if (this.jobApplicationState.equals(JobApplicationState.INTERVIEWING)){
             this.interviewAnswers = new InterviewAnswers(answers);
             System.out.println("Interview answers saved successfully.");
             return true;
@@ -141,7 +141,10 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         }
         this.rank = new Rank(Integer.parseInt(rank));
     }
-    public Status jobApplicationState(){
+    public JobApplicationState jobApplicationState(){
         return this.jobApplicationState;
+    }
+    public void changeApplicationStatus(String status){
+        this.jobApplicationState = JobApplicationState.valueOf(status);
     }
 }
