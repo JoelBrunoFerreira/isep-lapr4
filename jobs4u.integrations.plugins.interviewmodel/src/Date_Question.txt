@@ -1,4 +1,0 @@
-DATE {
-    DESCRIPTION: "In which date did the Twin Towers terrorist attack occurred?"
-    SOLUTION 1: 11/09/2001 [1.0]
-}

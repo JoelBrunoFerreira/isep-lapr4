@@ -1,5 +1,0 @@
-TRUE_FALSE {
-    DESCRIPTION: "Water boils at 100 degrees Celsius."
-    SOLUTION 1: true [1.0]
-}
-
