@@ -10,7 +10,7 @@ public class InterviewModelResult {
     private String errorMessage;
     private float grade;
 
-    protected InterviewModelResult() {
+    public InterviewModelResult() {
     }
 
     public InterviewModelResult(boolean valid, String errorMessage, float grade) {

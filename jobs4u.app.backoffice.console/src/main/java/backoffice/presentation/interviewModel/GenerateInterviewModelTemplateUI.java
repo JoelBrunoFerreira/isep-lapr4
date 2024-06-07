@@ -10,7 +10,6 @@ import eapli.framework.presentation.console.SelectWidget;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collections;
 
 public class GenerateInterviewModelTemplateUI extends AbstractUI {
 
@@ -30,7 +29,7 @@ public class GenerateInterviewModelTemplateUI extends AbstractUI {
     }
 
     @Override
-    protected boolean doShow() {
+    public boolean doShow() {
 
         JobOpeningDTO jobOpeningDTO = getJobOpening();
         if (jobOpeningDTO == null) {
