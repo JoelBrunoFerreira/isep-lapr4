@@ -2,10 +2,7 @@ package eapli.base.jobApplication.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.jobApplication.domain.JobApplication;
-import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobApplication.repository.JobApplicationRepository;
-import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
-import eapli.base.jobOpeningManagement.repositories.JobOpeningRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -32,4 +29,10 @@ public class GetApplicationService {
     }
 
 
+    public Iterable<JobApplication> getAllJobApplications() {
+        return applicationRepository.findAll();
+    }
+    public Iterable<JobApplication> getJobApplicationsByJobReference(String jobReference) {
+        return applicationRepository.findAllApplicationsByJobReference(jobReference);
+    }
 }

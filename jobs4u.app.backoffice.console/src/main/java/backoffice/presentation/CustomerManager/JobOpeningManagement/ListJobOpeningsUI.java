@@ -102,7 +102,7 @@ public class ListJobOpeningsUI extends AbstractUI {
 
     private String activeSubMenuOptions() {
         return String.format("""
-                        %d - Impending;
+                        %d - Pending;
                         %d - Application;
                         %d - Screening;
                         %d - Interview;
@@ -119,7 +119,7 @@ public class ListJobOpeningsUI extends AbstractUI {
 
         switch (option) {
             case ACTIVE:
-                result = Status.ACTIVE_IMPENDING;
+                result = Status.ACTIVE_PENDING;
                 break;
             case ACTIVE_APPLICATION:
                 result = Status.ACTIVE_APPLICATION;
@@ -128,7 +128,7 @@ public class ListJobOpeningsUI extends AbstractUI {
                 result = Status.ACTIVE_SCREENING;
                 break;
             case ACTIVE_INTERVIEW:
-                result = Status.ACTIVE_INTERVIEW;
+                result = Status.ACTIVE_INTERVIEWS;
                 break;
             case ACTIVE_ANALYSIS:
                 result = Status.ACTIVE_ANALYSIS;

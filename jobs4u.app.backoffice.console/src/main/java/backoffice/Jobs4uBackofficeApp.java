@@ -5,19 +5,25 @@ import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.interviewModelManagement.domain.InterviewModel;
+import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
+import eapli.base.interviewModelManagement.integration.InterviewModelResult;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
+
+import java.io.IOException;
 
 public class Jobs4uBackofficeApp extends BaseApplication {
     private Jobs4uBackofficeApp() {
         // private constructor to avoid instantiation
     }
 
-    public static void main(String[] args) {
- //       BaseBootstrap.main(args);
-//        new JobsDataBootstrap().execute();
+    public static void main(String[] args) throws IOException {
+        //BaseBootstrap.main(args);
+        //new JobsDataBootstrap().execute();
         new Jobs4uBackofficeApp().run(args);
     }
 

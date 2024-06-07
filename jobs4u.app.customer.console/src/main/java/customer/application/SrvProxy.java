@@ -129,8 +129,8 @@ public class SrvProxy {
     }
 
     private static void writeEndOfMessage() throws IOException {
-        sOut.write('0');
-        sOut.write('0');
+        sOut.write(0);
+        sOut.write(0);
     }
 
     private static void readEndOfMessage() throws IOException {

@@ -1,0 +1,57 @@
+<TITLE>"Interview Model"</TITLE>
+<MODEL>
+    <QUESTION_BLOCK>
+        <QUESTION>"Is Java an object-oriented programming language? (Y/N)"</QUESTION>
+        <ANSWER></ANSWER>
+        <GRADE>2</GRADE>
+        <SOLUTION>Y</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+        <QUESTION>"Which is the most common language used for databases? (Answer in between quotes)"</QUESTION>
+        <ANSWER></ANSWER>
+        <GRADE>2</GRADE>
+        <SOLUTION>"SQL"</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+         <QUESTION>"Which network transmission protocol is used to transmit secure web data? 1. SMTP; 2. FTP; 3. HTTP; 4. ACL."</QUESTION>
+         <ANSWER></ANSWER>
+         <GRADE>2</GRADE>
+         <SOLUTION>3</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+         <QUESTION>"Which of the following languages are Object-Oriented? (Answer in between quotes: Hello, World)"</QUESTION>
+         <ANSWER></ANSWER>
+         <GRADE>4</GRADE>
+         <SOLUTION>"Java;50%""Python;50%"</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+        <QUESTION>"How many bits does 1 Byte have?"</QUESTION>
+        <ANSWER></ANSWER>
+        <GRADE>2</GRADE>
+        <SOLUTION>8</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+        <QUESTION>"What is the result of i = 3+5/2? (With two decimal houses, p.e.: 0.10)"</QUESTION>
+        <ANSWER></ANSWER>
+        <GRADE>2</GRADE>
+        <SOLUTION>5.50</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+        <QUESTION>"In which date was java officially presented? (Answer in between quotes: DD/MM/YYYY)"</QUESTION>
+        <ANSWER></ANSWER>
+        <GRADE>2</GRADE>
+        <SOLUTION>"23/05/1995"</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+        <QUESTION>"What is the maximum hour of each day? (Answer in between quotes: HH:MM:SS)"</QUESTION>
+        <ANSWER></ANSWER>
+        <GRADE>2</GRADE>
+        <SOLUTION>"23:59:59"</SOLUTION>
+    </QUESTION_BLOCK>
+    <QUESTION_BLOCK>
+        <QUESTION>"Choose an int between 2 and 5:"</QUESTION>
+        <ANSWER></ANSWER>
+        <GRADE>2</GRADE>
+        <SOLUTION>2-5</SOLUTION>
+    </QUESTION_BLOCK>
+</MODEL>

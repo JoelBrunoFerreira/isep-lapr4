@@ -23,14 +23,14 @@ public class DisplayRankedCandidatesUI extends AbstractUI {
         SelectWidget<JobOpeningDTO> jobOpeningDTO = new SelectWidget<>("Choose Job Opening", jobOpeningDTOS, System.out::print);
         jobOpeningDTO.show();
         String jobReference = jobOpeningDTO.selectedElement().getJobReference();
-        List<Map.Entry<CandidateDTO, Integer>> candidateDTOIntegerMap = controller.candidateDTOS(jobReference);
+        List<Map.Entry<CandidateDTO, Float>> candidateDTOIntegerMap = controller.candidateDTOS(jobReference);
         if (!candidateDTOIntegerMap.isEmpty()){
             //printCandidateMap(candidateDTOIntegerMap);
             printCandidateMap(candidateDTOIntegerMap);
         }
         return false;
     }
-    private void printCandidateMap( List<Map.Entry<CandidateDTO, Integer>>  candidateDTOIntegerMap) {
+    private void printCandidateMap( List<Map.Entry<CandidateDTO, Float>>  candidateDTOIntegerMap) {
         candidateDTOIntegerMap.forEach(System.out::println);
         /*for (Map.Entry<CandidateDTO, Integer> entry : candidateDTOIntegerMap) {
             System.out.println(entry.getKey() + ": " + entry.getValue());

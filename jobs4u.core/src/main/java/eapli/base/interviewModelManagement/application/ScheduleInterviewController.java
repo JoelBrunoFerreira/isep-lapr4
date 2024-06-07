@@ -35,7 +35,7 @@ public class ScheduleInterviewController {
             if ((dto.getStatus().equalsIgnoreCase(Status.ACTIVE.toString())
                     ||dto.getStatus().equalsIgnoreCase(Status.ACTIVE_APPLICATION.toString())
                     ||dto.getStatus().equalsIgnoreCase(Status.ACTIVE_SCREENING.toString())
-                    ||dto.getStatus().equalsIgnoreCase(Status.ACTIVE_INTERVIEW.toString()))
+                    ||dto.getStatus().equalsIgnoreCase(Status.ACTIVE_INTERVIEWS.toString()))
             &&dto.hasInterviewPhase()){
                 result.add(dto);
             }

@@ -14,7 +14,7 @@ public class JobApplicationDTO implements Comparable<JobApplicationDTO>  {
     private List<String> files;
     public int rank;
     public String status;
-    public int interviewGrade;
+    public float interviewGrade;
     @Getter
     public String candidateEmail;
     @Getter
@@ -29,7 +29,7 @@ public class JobApplicationDTO implements Comparable<JobApplicationDTO>  {
         this.JobOpeningReference = jobOpeningReference;
     }
 
-    public JobApplicationDTO(long id, List<String> files, int rank, String status, int interviewGrade, String candidateEmail, String jobOpeningReference) {
+    public JobApplicationDTO(long id, List<String> files, int rank, String status, float interviewGrade, String candidateEmail, String jobOpeningReference) {
         this.id = id;
         this.files = files;
         this.rank = rank;
@@ -39,7 +39,7 @@ public class JobApplicationDTO implements Comparable<JobApplicationDTO>  {
         this.JobOpeningReference = jobOpeningReference;
         this.interviewSchedule = null;
     }
-    public JobApplicationDTO(long id, List<String> files, int rank, String status, int interviewGrade, String candidateEmail, String jobOpeningReference, boolean requirementResult) {
+    public JobApplicationDTO(long id, List<String> files, int rank, String status, float interviewGrade, String candidateEmail, String jobOpeningReference, boolean requirementResult) {
         this.id = id;
         this.files = files;
         this.rank = rank;
@@ -53,6 +53,6 @@ public class JobApplicationDTO implements Comparable<JobApplicationDTO>  {
 
     @Override
     public int compareTo(JobApplicationDTO o) {
-        return Integer.compare(this.interviewGrade, o.interviewGrade);
+        return Float.compare(this.interviewGrade, o.interviewGrade);
     }
 }

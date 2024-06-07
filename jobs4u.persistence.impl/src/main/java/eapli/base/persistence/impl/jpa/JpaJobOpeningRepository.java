@@ -92,7 +92,7 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
                 case ACTIVE:
                     method = JobOpening.class.getDeclaredMethod("allActive");
                     break;
-                case ACTIVE_IMPENDING:
+                case ACTIVE_PENDING:
                     method = JobOpening.class.getDeclaredMethod("isActive");
                     break;
                 case ACTIVE_APPLICATION:
@@ -101,7 +101,7 @@ public class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, Job
                 case ACTIVE_SCREENING:
                     method = JobOpening.class.getDeclaredMethod("isActiveScreening");
                     break;
-                case ACTIVE_INTERVIEW:
+                case ACTIVE_INTERVIEWS:
                     method = JobOpening.class.getDeclaredMethod("isActiveInterview");
                     break;
                 case ACTIVE_ANALYSIS:

@@ -19,6 +19,8 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
+import java.io.IOException;
+
 public class MainMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
@@ -43,7 +45,12 @@ public class MainMenu extends AbstractUI {
      */
     @Override
     public boolean doShow() {
-        final Menu menu = buildMainMenu();
+        final Menu menu;
+        try {
+            menu = buildMainMenu();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         final MenuRenderer renderer;
 
         if (Application.settings().isMenuLayoutHorizontal())
@@ -60,7 +67,7 @@ public class MainMenu extends AbstractUI {
                 .orElse("jobs4u App [ ==Anonymous== ]");
     }
 
-    private Menu buildMainMenu() {
+    private Menu buildMainMenu() throws IOException {
         final Menu mainMenu = new Menu();
 
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {

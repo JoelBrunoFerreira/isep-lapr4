@@ -29,7 +29,6 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +67,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @ManyToOne
     private JobRequirement jobRequirement;
 
+    @Getter
     @ManyToOne
     private InterviewModel interviewModel;
 
@@ -104,11 +104,6 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         this.contractType = ContractType.parse(contractType);
         this.jobTitle = new JobTitle(jobTitle);
     }
-
-    public void changeStatus(Status status) {
-        this.status = status;
-    }
-
     @Override
     public boolean sameAs(Object other) {
         return false;
@@ -123,10 +118,12 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Override
     public JobOpeningDTO toDTO() {
         List<RecruitmentProcessPhaseDTO> phasesDTO = null;
-        if (!this.recruitmentProcess.isEmpty()) {
-            phasesDTO = new ArrayList<>();
-            for (RecruitmentProcessPhase phase : this.recruitmentProcess) {
-                phasesDTO.add(phase.toDTO());
+        if (this.recruitmentProcess != null) {
+            if (!this.recruitmentProcess.isEmpty()) {
+                phasesDTO = new ArrayList<>();
+                for (RecruitmentProcessPhase phase : this.recruitmentProcess) {
+                    phasesDTO.add(phase.toDTO());
+                }
             }
         }
         return new JobOpeningDTO(jobReference.getId(), description.toString(), numberVacancies.toString(), jobOpeningAddress.toString(), mode.toString(), contractType.toString(), jobTitle.toString(), recruitmentProcess == null ? "" : recruitmentProcess.toString(), jobRequirement == null ? "" : jobRequirement.toString(), interviewModel == null ? "" : interviewModel.toString(), this.status.toString(), phasesDTO);
@@ -162,13 +159,19 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public void updateInterviewModel(InterviewModelDTO dto) {
-        this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()), new InterviewModelTemplate(dto.getModel()));
-        //TODO phase triggered and job application status update
-    }
+        if (this.status.equals(Status.ACTIVE_ANALYSIS) || this.status.equals(Status.ACTIVE_RESULT) || this.status.equals(Status.COMPLETED)) {
+            System.out.println("Cant add Interview model on the following phase " + this.status);
+        } else {
+            this.interviewModel = new InterviewModel(dto.getId(), new InterviewModelClass(dto.getClassName()), new InterviewModelTitle(dto.getTitle()), new InterviewModelTemplate(dto.getModel()));
+        }
+     }
 
     public void updateJobRequirement(JobRequirementDTO dto) {
-        this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()), new JobRequirementTemplate(dto.getModel()));
-        //TODO phase triggered and job application status update
+        if (this.status.equals(Status.PENDING) || this.status.equals(Status.ACTIVE) || this.status.equals(Status.ACTIVE_PENDING) || this.status.equals(Status.ACTIVE_APPLICATION)) {
+            this.jobRequirement = new JobRequirement(dto.getId(), new JobRequirementTitle(dto.getTitle()), new JobRequirementClass(dto.getClassName()), new JobRequirementTemplate(dto.getModel()));
+        } else {
+            System.out.println("Cant add Job Requirements on the following phase " + this.status);
+        }
     }
 
     public boolean isPending() {
@@ -176,7 +179,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public boolean allActive() {
-        return this.status.equals(Status.ACTIVE) || this.status.equals(Status.ACTIVE_APPLICATION) || this.status.equals(Status.ACTIVE_SCREENING) || this.status.equals(Status.ACTIVE_INTERVIEW) || this.status.equals(Status.ACTIVE_ANALYSIS) || this.status.equals(Status.ACTIVE_RESULT);
+        return this.status.equals(Status.ACTIVE) || this.status.equals(Status.ACTIVE_APPLICATION) || this.status.equals(Status.ACTIVE_SCREENING) || this.status.equals(Status.ACTIVE_INTERVIEWS) || this.status.equals(Status.ACTIVE_ANALYSIS) || this.status.equals(Status.ACTIVE_RESULT);
     }
 
     public boolean isActive() {
@@ -196,7 +199,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     }
 
     public boolean isActiveInterview() {
-        return this.status.equals(Status.ACTIVE_INTERVIEW);
+        return this.status.equals(Status.ACTIVE_INTERVIEWS);
     }
 
     public boolean isActiveAnalysis() {
@@ -248,7 +251,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                 switch (activePhase) {
                     case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
                     case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
-                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEWS;
                     case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
                     case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
                     default -> this.status = Status.COMPLETED;
@@ -276,7 +279,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
                 switch (activePhase) {
                     case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
                     case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
-                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEWS;
                     case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
                     case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
                     default -> this.status = Status.ACTIVE;
@@ -286,4 +289,35 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             }
         }
     }
+
+    public void setStatusByMovingtoPreviousPhase(String openPhase) {
+
+        if (openPhase.equalsIgnoreCase(Status.COMPLETED.toString())) {
+            this.status = Status.COMPLETED;
+            System.out.println("Recruitment process completed!");
+
+        } else if (!this.recruitmentProcess.isEmpty()) {
+
+            Phase activePhase = null;
+            for (RecruitmentProcessPhase phase : recruitmentProcess) {
+                if (phase.getPhase().toString().equalsIgnoreCase(openPhase)) {
+                    activePhase = phase.getPhase();
+                    break;
+                }
+            }
+            if (activePhase != null) {
+                switch (activePhase) {
+                    case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+                    case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
+                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEWS;
+                    case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+                    case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+                    default -> this.status = Status.ACTIVE;
+                }
+                System.out.println("[Phase successfully updated! It's now in " + activePhase.toString().toUpperCase() + " phase]");
+
+            }
+        }
+    }
+
 }

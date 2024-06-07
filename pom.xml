@@ -19,7 +19,6 @@
         <module>jobs4u.app.common.console</module>
         <module>jobs4u.app.backoffice.console</module>
         <module>jobs4u.followUp.server</module>
-        <module>jobs4u.integrations.plugins.interviewmodel</module>
     </modules>
     <version>0.1.0</version>
 
