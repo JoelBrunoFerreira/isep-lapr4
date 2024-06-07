@@ -50,4 +50,9 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
     public Iterable<JobApplication> findApplicationsByCandidate(String email) {
         return null;
     }
+
+    @Override
+    public Iterable<JobApplication> findAllApplicationsByJobReference(String jobReference) {
+        return null;
+    }
 }

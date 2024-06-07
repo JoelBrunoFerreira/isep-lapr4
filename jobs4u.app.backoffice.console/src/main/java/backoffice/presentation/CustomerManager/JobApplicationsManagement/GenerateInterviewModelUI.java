@@ -14,8 +14,9 @@ public class GenerateInterviewModelUI extends AbstractUI {
         if (jobApplicationDTOS.iterator().hasNext()) {
             SelectWidget<JobApplicationDTO> selectWidget = new SelectWidget<>("Job Application: ", jobApplicationDTOS, System.out::print);
             selectWidget.show();
+            String candidate = selectWidget.selectedElement().getCandidateEmail();
             String jobReference = selectWidget.selectedElement().getJobOpeningReference();
-            return controller.generateInterviewTemplate(jobReference);
+            return controller.generateInterviewTemplate(jobReference, candidate);
 
         } else {
             System.out.println("No job applications available.");

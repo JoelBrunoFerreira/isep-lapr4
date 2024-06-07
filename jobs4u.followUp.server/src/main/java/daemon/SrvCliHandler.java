@@ -1,4 +1,4 @@
-package deamon.server;
+package daemon;
 
 import eapli.base.MessageCodes;
 import eapli.base.infrastructure.persistence.PersistenceContext;

@@ -75,6 +75,17 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
     }
 
     @Override
+    public Iterable<JobApplication> findAllApplicationsByJobReference(String jobReference) {
+        List<JobApplication> result = new ArrayList<>();
+        for (JobApplication jobApplication : repo.findAll()){
+            if (jobApplication.hasJobOpeningReference(jobReference)){
+                result.add(jobApplication);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public <S extends JobApplication> S save(S entity) {
         return super.save(entity);
     }

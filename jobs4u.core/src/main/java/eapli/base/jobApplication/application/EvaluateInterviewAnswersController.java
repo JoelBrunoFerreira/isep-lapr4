@@ -5,6 +5,7 @@ import eapli.base.interviewModelManagement.domain.InterviewModel;
 import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.base.interviewModelManagement.integration.InterviewModelResult;
 import eapli.base.jobApplication.domain.JobApplication;
+import eapli.base.jobApplication.domain.JobApplicationState;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
@@ -34,8 +35,9 @@ public class EvaluateInterviewAnswersController {
 
     public Iterable<JobApplicationDTO> getJobApplicationDTOs() {
         List<JobApplicationDTO> dtos = new ArrayList<>();
-        for (JobApplication jA : jobApplicationSvc.getJobApplications()) {
-            if (jA.jobApplicationState().equals(Status.ACTIVE_ANALYSIS)) {//||jA.jobApplicationState().equals(Status.ACTIVE_INTERVIEW)){
+        for (JobApplication jA : jobApplicationSvc.getAllJobApplications()) {
+            if (jA.jobApplicationState().equals(JobApplicationState.INTERVIEWING)
+            || jA.jobApplicationState().equals(JobApplicationState.ANALYSIS)) {//||jA.jobApplicationState().equals(Status.ACTIVE_INTERVIEW)){
                 dtos.add(jA.toDTO());
             }
         }
@@ -49,9 +51,13 @@ public class EvaluateInterviewAnswersController {
         InterviewModel interviewModel = jobOpening.getInterviewModel();
         InterviewModelPlugin plugin = interviewModel.buildThePlugin();
         InterviewModelResult result = plugin.evaluateInterviewModel(jobApplication.getInterviewAnswers().toString());
-        System.out.println(result.getGrade());
-        jobApplication.setInterviewGrade(result.getGrade());
-        repo.save(jobApplication);
+        if (result.isValid()){
+            jobApplication.setInterviewGrade(result.getGrade());
+            repo.save(jobApplication);
+        }else{
+            System.out.println("Answered interview model is not valid.");
+            System.out.println(result.getErrorMessage());
+        }
         return jobApplication.getInterviewResult().getGrade();
     }
 }

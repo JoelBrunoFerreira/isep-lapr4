@@ -40,8 +40,8 @@ public class DisplayRankedCandidatesController {
         return result;
     }
 
-    public List<Map.Entry<CandidateDTO, Integer>> candidateDTOS(String jobReference) {
-        Map<CandidateDTO, Integer> result = new HashMap<>();
+    public List<Map.Entry<CandidateDTO, Float>> candidateDTOS(String jobReference) {
+        Map<CandidateDTO, Float> result = new HashMap<>();
         Iterable<JobApplicationDTO> jobApplicationDTOS = jobApplicationRepository.getRankedApplicationsByJobReference(jobReference);
         if (jobApplicationDTOS.iterator().hasNext()){
             for (JobApplicationDTO dto : jobApplicationDTOS) {
@@ -51,10 +51,10 @@ public class DisplayRankedCandidatesController {
                 }
             }
         }
-        List<Map.Entry<CandidateDTO, Integer>> entryList = new ArrayList<>(result.entrySet());
-        entryList.sort(new Comparator<Map.Entry<CandidateDTO, Integer>>() {
+        List<Map.Entry<CandidateDTO, Float>> entryList = new ArrayList<>(result.entrySet());
+        entryList.sort(new Comparator<Map.Entry<CandidateDTO, Float>>() {
             @Override
-            public int compare(Map.Entry<CandidateDTO, Integer> e1, Map.Entry<CandidateDTO, Integer> e2) {
+            public int compare(Map.Entry<CandidateDTO, Float> e1, Map.Entry<CandidateDTO, Float> e2) {
                 return e2.getValue().compareTo(e1.getValue());
             }
         });
