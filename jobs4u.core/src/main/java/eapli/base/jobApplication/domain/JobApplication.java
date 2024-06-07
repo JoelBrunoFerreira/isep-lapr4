@@ -59,7 +59,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     }
 
     public boolean saveInterviewModelAnswers(String answers) {
-        if (this.jobApplicationState.equals(Status.ACTIVE_INTERVIEW)){
+        if (this.jobApplicationState.equals(Status.ACTIVE_INTERVIEWS)){
             this.interviewAnswers = new InterviewAnswers(answers);
             System.out.println("Interview answers saved successfully.");
             return true;
@@ -103,7 +103,12 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         for (ApplicationFile file : applicationFiles) {
             files.add(file.toString());
         }
-        return new JobApplicationDTO(id, files, rank == null ? 0 : rank.valueOf(), jobApplicationState.toString(), interviewResult == null ? 0 : Integer.parseInt(interviewResult.toString()), candidate.getEmail().toString(), jobOpening.getJobReference().toString(), requirementResult.isApproved());
+        return new JobApplicationDTO(id,
+                files,
+                rank == null ? 0 : rank.valueOf(),
+                jobApplicationState.toString(),
+                interviewResult == null ? 0 : this.interviewResult.getGrade(),
+                candidate.getEmail().toString(), jobOpening.getJobReference().toString(), requirementResult.isApproved());
     }
 
     public void setInterviewGrade(float interviewGrade) {

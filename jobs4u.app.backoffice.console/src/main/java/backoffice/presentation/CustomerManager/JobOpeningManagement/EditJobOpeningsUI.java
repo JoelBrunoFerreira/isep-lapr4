@@ -126,7 +126,7 @@ public class EditJobOpeningsUI extends AbstractUI {
 
     private boolean validToEditUntilPhases(JobOpeningDTO jobOpeningDTO) {
         return jobOpeningDTO.getStatus().equalsIgnoreCase(Status.PENDING.toString())|| jobOpeningDTO.getStatus().equalsIgnoreCase(Status.ACTIVE.toString())
-                || jobOpeningDTO.getStatus().equalsIgnoreCase(Status.ACTIVE_IMPENDING.toString());
+                || jobOpeningDTO.getStatus().equalsIgnoreCase(Status.ACTIVE_PENDING.toString());
     }
 
     private boolean validToEditPhaseDates(JobOpeningDTO jobOpeningDTO) {

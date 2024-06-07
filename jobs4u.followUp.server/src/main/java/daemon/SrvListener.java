@@ -1,4 +1,4 @@
-package deamon.server;
+package daemon;
 
 import eapli.base.Application;
 import eapli.base.infrastructure.persistence.PersistenceContext;

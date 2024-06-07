@@ -35,7 +35,7 @@ public class EvaluateInterviewAnswersController {
     public Iterable<JobApplicationDTO> getJobApplicationDTOs() {
         List<JobApplicationDTO> dtos = new ArrayList<>();
         for (JobApplication jA : jobApplicationSvc.getJobApplications()) {
-            if (jA.jobApplicationState().equals(Status.ACTIVE_ANALYSIS)) {//||jA.jobApplicationState().equals(Status.ACTIVE_INTERVIEW)){
+            if (jA.jobApplicationState().equals(Status.ACTIVE_ANALYSIS) || jA.jobApplicationState().equals(Status.ACTIVE_INTERVIEWS)) {//||jA.jobApplicationState().equals(Status.ACTIVE_INTERVIEW)){
                 dtos.add(jA.toDTO());
             }
         }
@@ -49,9 +49,12 @@ public class EvaluateInterviewAnswersController {
         InterviewModel interviewModel = jobOpening.getInterviewModel();
         InterviewModelPlugin plugin = interviewModel.buildThePlugin();
         InterviewModelResult result = plugin.evaluateInterviewModel(jobApplication.getInterviewAnswers().toString());
-        System.out.println(result.getGrade());
-        jobApplication.setInterviewGrade(result.getGrade());
-        repo.save(jobApplication);
+        if (result.isValid()){
+            jobApplication.setInterviewGrade(result.getGrade());
+            repo.save(jobApplication);
+        }else{
+            System.out.println("Answered interview model is not valid.");
+        }
         return jobApplication.getInterviewResult().getGrade();
     }
 }

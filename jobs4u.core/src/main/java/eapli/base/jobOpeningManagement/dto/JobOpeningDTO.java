@@ -82,9 +82,9 @@ public class JobOpeningDTO {
     */
     @Override
     public String toString() {
-        return String.format("Job Reference: %s | Job Title: %s | Desc.: %s | Contract Type: %s | Mode: %s | Vacancies: %s |  Address: %s | Rec. Process: %s | Requirements: %s | Interview: %s | Status: %s",
+        return String.format("Job Reference: %s | Job Title: %s | Desc.: %s | Contract Type: %s | Mode: %s | Vacancies: %s |  Address: %s | Requirements: %s | Interview: %s | Status: %s | Rec. Process: %s.\n",
                 jobReference, jobTitle, description, contractType, mode, numberVacancies,
-                jobOpeningAddress, recruitmentProcess, jobRequirement, interviewModel, status);
+                jobOpeningAddress, jobRequirement, interviewModel, status, recruitmentProcess);
     }
 }
 

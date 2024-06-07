@@ -9,6 +9,7 @@ import eapli.framework.presentation.console.SelectWidget;
 public class EvaluateInterviewAnswersUI extends AbstractUI {
 
     private final EvaluateInterviewAnswersController controller = new EvaluateInterviewAnswersController();
+
     @Override
     protected boolean doShow() {
         Iterable<JobApplicationDTO> jobApplicationDTOS = controller.getJobApplicationDTOs();
@@ -17,8 +18,7 @@ public class EvaluateInterviewAnswersUI extends AbstractUI {
             selectWidget.show();
             String jobReference = selectWidget.selectedElement().getJobOpeningReference();
             String candidate = selectWidget.selectedElement().getCandidateEmail();
-            float result = controller.evaluateInterviewAnswers(jobReference, candidate);
-            System.out.println("Interview Grade: " + result);
+            System.out.println("Interview Grade: " + controller.evaluateInterviewAnswers(jobReference, candidate));
 
         } else {
             System.out.println("No job applications available.");
