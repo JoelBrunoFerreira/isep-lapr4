@@ -5,6 +5,7 @@ import eapli.base.app.bootstrap.BaseBootstrap;
 import eapli.base.app.common.console.BaseApplication;
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
+import eapli.base.infrastructure.bootstrapers.JobsDataBootstrap;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.interviewModelManagement.domain.InterviewModel;
 import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
