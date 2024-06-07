@@ -24,12 +24,6 @@ public class Jobs4uBackofficeApp extends BaseApplication {
 
     public static void main(String[] args) throws IOException {
         //BaseBootstrap.main(args);
-        /*InterviewModel interviewModel = PersistenceContext.repositories().interviewModelRepository().ofIdentity(4l).get();
-        InterviewModelPlugin plugin = interviewModel.buildThePlugin();
-        System.out.println(plugin.generateTemplate("rightAnswers2.txt"));
-        InterviewModelResult result = plugin.evaluateInterviewModel("rightAnswers2.txt");
-        System.out.println(result.getGrade());
-        System.out.println("NOTHING");*/
         //new JobsDataBootstrap().execute();
         new Jobs4uBackofficeApp().run(args);
     }

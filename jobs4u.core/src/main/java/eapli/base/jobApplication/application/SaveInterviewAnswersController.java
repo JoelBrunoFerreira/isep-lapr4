@@ -2,6 +2,7 @@ package eapli.base.jobApplication.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.jobApplication.domain.JobApplication;
+import eapli.base.jobApplication.domain.JobApplicationState;
 import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -18,12 +19,18 @@ public class SaveInterviewAnswersController {
     }
 
     public boolean saveInterviewAnswersToJobApplication(String candidateEmail, String jobReference, String interviewAnswers) {
-        JobApplication jobApplication = repository.findApplicationByCandidateEmailAndJobReference(candidateEmail, jobReference).get();
-        if (jobApplication.saveInterviewModelAnswers(interviewAnswers)){
-            return repository.save(jobApplication) != null;
+        try {
+            JobApplication jobApplication = repository.findApplicationByCandidateEmailAndJobReference(candidateEmail, jobReference).get();
+            if (jobApplication.jobApplicationState().equals(JobApplicationState.INTERVIEWING)) {
+                if (jobApplication.saveInterviewModelAnswers(interviewAnswers)) {
+                    return repository.save(jobApplication) != null;
+                }
+            } else {
+                System.out.println("No job applications in interview phase.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error, candidate or job reference don't exist.");
         }
-        else {
-            return false;
-        }
+        return false;
     }
 }

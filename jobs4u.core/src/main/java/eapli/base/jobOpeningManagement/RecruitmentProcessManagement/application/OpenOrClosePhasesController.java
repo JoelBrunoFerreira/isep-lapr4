@@ -280,6 +280,7 @@ public class OpenOrClosePhasesController {
             }
         }
         jobOpening.setStatusByMovingForwardPhase(nextPhase);
+        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(),nextPhase);
         jobOpeningSvc.saveJobOpening(jobOpening);
     }
 

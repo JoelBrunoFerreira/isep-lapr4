@@ -28,29 +28,34 @@ public class EditJobOpeningsUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        JobOpeningDTO jobOpeningDTO = null;
-        boolean filtered = Console.readBoolean("Edit Job Opening by Job Reference? y/n");
-        if (filtered) {
-            String jobReference = Console.readLine("Job Reference: ");
-            try {
-                jobOpeningDTO = getJobOpeningByJobReference(jobReference);
-            } catch (Exception e) {
-                System.out.println("Job opening with job reference \"" + jobReference + "\" doesn't exists.");
-            }
-        } else {
-            jobOpeningDTO = showAllJobOpenings();
-        }
-        boolean keepEditing;
-        if (jobOpeningDTO != null) {
-            if (validToEditUntilPhases(jobOpeningDTO)) {
-                do {
-                    editBasicInfo(jobOpeningDTO);
-                    keepEditing = Console.readBoolean("Keep editing? y/n");
+        try {
+            JobOpeningDTO jobOpeningDTO = null;
+            boolean filtered = Console.readBoolean("Edit Job Opening by Job Reference? y/n");
+            if (filtered) {
+                String jobReference = Console.readLine("Job Reference: ");
+                try {
+                    jobOpeningDTO = getJobOpeningByJobReference(jobReference);
+                } catch (Exception e) {
+                    System.out.println("Job opening with job reference \"" + jobReference + "\" doesn't exists.");
                 }
-                while (keepEditing);
-                System.out.println(controller.updateJobOpening(jobOpeningDTO));
+            } else {
+                jobOpeningDTO = showAllJobOpenings();
             }
+            boolean keepEditing;
+            if (jobOpeningDTO != null) {
+                if (validToEditUntilPhases(jobOpeningDTO)) {
+                    do {
+                        editBasicInfo(jobOpeningDTO);
+                        keepEditing = Console.readBoolean("Keep editing? y/n");
+                    }
+                    while (keepEditing);
+                    System.out.println(controller.updateJobOpening(jobOpeningDTO));
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
         return false;
     }
 

@@ -22,8 +22,6 @@ public class SaveInterviewAnswersUI extends AbstractUI {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-
         return false;
     }
     private String getInterviewAnswersFile() throws IOException {

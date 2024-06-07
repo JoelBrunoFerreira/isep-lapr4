@@ -16,9 +16,13 @@ public class SaveJobRequirementAnswersController {
     }
 
     public boolean saveJobRequirementAnswersToJobApplication(String candidateEmail, String jobReference, String jobRequirements) {
-        JobApplication jobApplication = repository.findApplicationByCandidateEmailAndJobReference(candidateEmail, jobReference).get();
-       if (jobApplication.saveJobRequirementAnswers(jobRequirements)){
-           return repository.save(jobApplication) != null;
+       try {
+           JobApplication jobApplication = repository.findApplicationByCandidateEmailAndJobReference(candidateEmail, jobReference).get();
+           if (jobApplication.saveJobRequirementAnswers(jobRequirements)){
+               return repository.save(jobApplication) != null;
+           }
+       }catch (Exception e){
+           System.out.println(e.getMessage());
        }
        return false;
     }

@@ -18,31 +18,32 @@ public class ScheduleInterviewUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        Iterable<JobOpeningDTO> jobOpeningDTOS = controller.getJobOpeningsByUser();
-        if (!jobOpeningDTOS.iterator().hasNext()) {
-            System.out.println("No job openings qualify for interviews.");
-            return false;
-        }
+        try {
+            Iterable<JobOpeningDTO> jobOpeningDTOS = controller.getJobOpeningsByUser();
+            if (!jobOpeningDTOS.iterator().hasNext()) {
+                System.out.println("No job openings qualify for interviews.");
+                return false;
+            }
 
-        SelectWidget<JobOpeningDTO> jobOpeningWidget = new SelectWidget<>("Job Openings", jobOpeningDTOS, System.out::print);
-        jobOpeningWidget.show();
-        JobOpeningDTO selectedJobOpening = jobOpeningWidget.selectedElement();
-        String jobReference = selectedJobOpening.getJobReference();
-        LocalDate startDate = selectedJobOpening.getRecruitmentProcessPhaseDTOList().get(2).getStartDate();
-        LocalDate endDate = selectedJobOpening.getRecruitmentProcessPhaseDTOList().get(2).getEndDate();
+            SelectWidget<JobOpeningDTO> jobOpeningWidget = new SelectWidget<>("Job Openings", jobOpeningDTOS, System.out::print);
+            jobOpeningWidget.show();
+            JobOpeningDTO selectedJobOpening = jobOpeningWidget.selectedElement();
+            String jobReference = selectedJobOpening.getJobReference();
+            LocalDate startDate = selectedJobOpening.getRecruitmentProcessPhaseDTOList().get(2).getStartDate();
+            LocalDate endDate = selectedJobOpening.getRecruitmentProcessPhaseDTOList().get(2).getEndDate();
 
-        Iterable<JobApplicationDTO> jobApplicationDTOS = controller.getJobApplicationsByJobReference(jobReference);
-        if (!jobApplicationDTOS.iterator().hasNext()) {
-            System.out.println("No job applications available.");
-            return false;
-        }
+            Iterable<JobApplicationDTO> jobApplicationDTOS = controller.getJobApplicationsByJobReference(jobReference);
+            if (!jobApplicationDTOS.iterator().hasNext()) {
+                System.out.println("No job applications available.");
+                return false;
+            }
 
-        SelectWidget<JobApplicationDTO> jobApplicationWidget = new SelectWidget<>("Job Applications", jobApplicationDTOS, System.out::print);
-        jobApplicationWidget.show();
-        JobApplicationDTO selectedJobApplication = jobApplicationWidget.selectedElement();
-        if (selectedJobApplication!=null){
-            System.out.println("Interview phase between " + startDate + " and " + endDate + ".");
-            try {
+            SelectWidget<JobApplicationDTO> jobApplicationWidget = new SelectWidget<>("Job Applications", jobApplicationDTOS, System.out::print);
+            jobApplicationWidget.show();
+            JobApplicationDTO selectedJobApplication = jobApplicationWidget.selectedElement();
+            if (selectedJobApplication != null) {
+                System.out.println("Interview phase between " + startDate + " and " + endDate + ".");
+
                 Calendar scheduler = Console.readCalendar("Date and time for the interview: (dd-MM-yyyy hh:mm)", "dd-MM-yyyy hh:mm");
                 int dayOfWeek = scheduler.get(Calendar.DAY_OF_WEEK);
                 String dayOfWeekString = new DateFormatSymbols().getWeekdays()[dayOfWeek];
@@ -52,11 +53,13 @@ public class ScheduleInterviewUI extends AbstractUI {
                 } else {
                     controller.updateJobApplication(selectedJobApplication, scheduler);
                 }
-            } catch (Exception e) {
-                System.out.println("An error occurred while scheduling the interview.");
-            }
 
+
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred while scheduling the interview.");
         }
+
         return false;
     }
 

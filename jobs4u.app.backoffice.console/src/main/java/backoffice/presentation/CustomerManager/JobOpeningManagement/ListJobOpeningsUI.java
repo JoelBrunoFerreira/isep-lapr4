@@ -102,7 +102,7 @@ public class ListJobOpeningsUI extends AbstractUI {
 
     private String activeSubMenuOptions() {
         return String.format("""
-                        %d - Impending;
+                        %d - Pending;
                         %d - Application;
                         %d - Screening;
                         %d - Interview;
