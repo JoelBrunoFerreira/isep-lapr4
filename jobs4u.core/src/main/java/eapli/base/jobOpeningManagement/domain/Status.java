@@ -1,8 +1,10 @@
 package eapli.base.jobOpeningManagement.domain;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 
-
+@Getter
 public enum Status implements Serializable {
     ACTIVE("active"), //when the jobopening has phases set up (dates)
     ACTIVE_IMPENDING("impending"), //active jobopening with phases, but still hasn't started

@@ -297,4 +297,35 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
             }
         }
     }
+
+    public void setStatusByMovingtoPreviousPhase(String openPhase) {
+
+        if (openPhase.equalsIgnoreCase(Status.COMPLETED.toString())) {
+            this.status = Status.COMPLETED;
+            System.out.println("Recruitment process completed!");
+
+        } else if (!this.recruitmentProcess.isEmpty()) {
+
+            Phase activePhase = null;
+            for (RecruitmentProcessPhase phase : recruitmentProcess) {
+                if (phase.getPhase().toString().equalsIgnoreCase(openPhase)) {
+                    activePhase = phase.getPhase();
+                    break;
+                }
+            }
+            if (activePhase != null) {
+                switch (activePhase) {
+                    case Phase.APPLICATION -> this.status = Status.ACTIVE_APPLICATION;
+                    case Phase.SCREENING -> this.status = Status.ACTIVE_SCREENING;
+                    case Phase.INTERVIEWS -> this.status = Status.ACTIVE_INTERVIEW;
+                    case Phase.ANALYSIS -> this.status = Status.ACTIVE_ANALYSIS;
+                    case Phase.RESULT -> this.status = Status.ACTIVE_RESULT;
+                    default -> this.status = Status.ACTIVE;
+                }
+                System.out.println("[Phase successfully updated! It's now in " + activePhase.toString().toUpperCase() + " phase]");
+
+            }
+        }
+    }
+
 }
