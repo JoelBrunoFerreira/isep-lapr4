@@ -40,7 +40,7 @@ public class OpenOrClosePhasesUI extends AbstractUI {
             if (option.equalsIgnoreCase("previous")) {
 
                 LocalDate openDate = LocalDate.parse(readLine("INSERT THE START DATE OF THE PREVIOUS PHASE (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                controller.returnToPreviousProcessPhase(jobRefStatus, openDate);
+                controller.returnToPreviousProcessPhase(openDate);
 
             } else if (option.equalsIgnoreCase("next")) {
 

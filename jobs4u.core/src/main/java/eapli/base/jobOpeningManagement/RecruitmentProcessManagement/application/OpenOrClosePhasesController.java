@@ -71,9 +71,87 @@ public class OpenOrClosePhasesController {
     }
 
 
-    public void returnToPreviousProcessPhase(String selectedPhase, LocalDate openDate) {
+    public void returnToPreviousProcessPhase(LocalDate openDate) {
 
-        String previousPhase = null;
+        boolean interviewPhase = jobOpening.getRecruitmentProcess().size() == 5;
+        String previousState;
+        String previousPhase;
+        Status currentStatus = jobOpening.getStatus();
+        String currentPhase;
+
+        if (jobOpening.hasInterviewModel() && interviewPhase) {
+
+            switch (currentStatus) {
+                case ACTIVE:
+                    System.out.println("OPERATION NOT ALLOWED!");
+                    break;
+                case ACTIVE_APPLICATION:
+                    currentPhase = APPLICATION.toString();
+                    previousState = ACTIVE.toString();
+                    previousPhase = ACTIVE.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                case ACTIVE_SCREENING:
+                    currentPhase = SCREENING.toString();
+                    previousState = ACTIVE_APPLICATION.toString();
+                    previousPhase = APPLICATION.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                case ACTIVE_INTERVIEWS:
+                    currentPhase = INTERVIEWS.toString();
+                    previousState = ACTIVE_SCREENING.toString();
+                    previousPhase = SCREENING.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                case ACTIVE_ANALYSIS:
+                    currentPhase = ACTIVE_ANALYSIS.toString();
+                    previousState = ACTIVE_INTERVIEWS.toString();
+                    previousPhase = INTERVIEWS.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                case ACTIVE_RESULT:
+                    currentPhase = RESULT.toString();
+                    previousState = ACTIVE_ANALYSIS.toString();
+                    previousPhase = ANALYSIS.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+            }
+        } else {
+
+            switch (currentStatus) {
+                case ACTIVE:
+                    System.out.println("OPERATION NOT ALLOWED!");
+                    break;
+                case ACTIVE_APPLICATION:
+                    currentPhase = APPLICATION.toString();
+                    previousState = ACTIVE.toString();
+                    previousPhase = ACTIVE.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                case ACTIVE_SCREENING:
+                    currentPhase = SCREENING.toString();
+                    previousState = ACTIVE_APPLICATION.toString();
+                    previousPhase = APPLICATION.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                case ACTIVE_ANALYSIS:
+                    currentPhase = ACTIVE.toString();
+                    previousState = ACTIVE_RESULT.toString();
+                    previousPhase = RESULT.toString();
+                    setNextPhaseStartDateAndProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                case ACTIVE_RESULT:
+                    currentPhase = RESULT.toString();
+                    previousState = ACTIVE_ANALYSIS.toString();
+                    previousPhase = ANALYSIS.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    break;
+                default:
+                    System.out.println("OPERATION NOT ALLOWED!");
+                    break;
+            }
+        }
+        /*String previousPhase = null;
 
         if (jobOpening.hasInterviewModel()) {
             for (RecruitmentProcessPhase processPhaseToChange : jobOpening.getRecruitmentProcess()) {
@@ -137,14 +215,14 @@ public class OpenOrClosePhasesController {
                     break;
                 }
             }
-        }
+        }*/
     }
 
 
     public void moveToNextProcessPhase(LocalDate closeDate) {
         boolean interviewPhase = jobOpening.getRecruitmentProcess().size() == 5;
-        String nextState = null;
-        String nextPhase = null;
+        String nextState;
+        String nextPhase;
         Status currentStatus = jobOpening.getStatus();
         String currentPhase;
 
@@ -183,7 +261,7 @@ public class OpenOrClosePhasesController {
                 case ACTIVE_RESULT:
                     currentPhase = RESULT.toString();
                     nextState = COMPLETED.toString();
-                    nextPhase = "";
+                    nextPhase = COMPLETED.toString();
                     setNextPhaseStartDateAndProcessStatus2(closeDate, currentPhase, nextPhase, nextState);
                     break;
             }
@@ -216,7 +294,7 @@ public class OpenOrClosePhasesController {
                 case ACTIVE_RESULT:
                     currentPhase = RESULT.toString();
                     nextState = COMPLETED.toString();
-                    nextPhase = "";
+                    nextPhase = COMPLETED.toString();
                     setNextPhaseStartDateAndProcessStatus2(closeDate, currentPhase, nextPhase, nextState);
                     break;
             }
@@ -357,6 +435,33 @@ public class OpenOrClosePhasesController {
         }
         jobOpening.setStatusByMovingtoPreviousPhase(previousPhase);
         jobOpeningSvc.saveJobOpening(jobOpening);
+    }
+
+    private void setPreviousPhaseProcessStatus2(LocalDate openDate, String processPhaseToChange, String previousPhase, String previousState) {
+
+        for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
+            if (p.getPhase().toString().equalsIgnoreCase(previousPhase)) {
+                p.getPeriod().setStartDate(openDate);
+                break;
+            }else if (p.getPhase().toString().equalsIgnoreCase(ACTIVE.toString())) {
+                p.getPeriod().setStartDate(openDate);
+            }
+        }
+
+        jobOpening.setStatusByMovingtoPreviousPhase(previousPhase);
+        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), previousState.toUpperCase());
+        jobOpeningSvc.saveJobOpening(jobOpening);
+
+        /*processPhaseToChange.getPeriod().setEndDate(closeDate);
+        for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
+            if (p.getPhase().toString().equalsIgnoreCase(previousPhase)) {
+                p.getPeriod().setStartDate(closeDate);
+                break;
+            }
+        }
+        jobOpening.setStatusByMovingtoPreviousPhase(previousPhase);
+        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), nextState.toUpperCase());
+        jobOpeningSvc.saveJobOpening(jobOpening);*/
     }
 
 
