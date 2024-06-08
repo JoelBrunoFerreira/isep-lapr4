@@ -422,8 +422,8 @@ public class OpenOrClosePhasesController {
 
 
         jobOpening.setStatusByMovingForwardPhase(nextPhase);
-        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), nextState.toUpperCase());
         jobOpeningSvc.saveJobOpening(jobOpening);
+        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), nextState.toUpperCase());
     }
 
 
@@ -454,8 +454,8 @@ public class OpenOrClosePhasesController {
         }
 
         jobOpening.setStatusByMovingtoPreviousPhase(previousPhase);
-        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), previousState.toUpperCase());
         jobOpeningSvc.saveJobOpening(jobOpening);
+        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), previousState.toUpperCase());
 
         /*processPhaseToChange.getPeriod().setEndDate(closeDate);
         for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
@@ -479,8 +479,8 @@ public class OpenOrClosePhasesController {
             }
         }
         jobOpening.setStatusByMovingForwardPhase(nextPhase);
-        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), nextState.toUpperCase());
         jobOpeningSvc.saveJobOpening(jobOpening);
+        statusChangeSvc.changeJobApplicationStatus(jobOpening.getJobReference().toString(), nextState.toUpperCase());
     }
 
 
