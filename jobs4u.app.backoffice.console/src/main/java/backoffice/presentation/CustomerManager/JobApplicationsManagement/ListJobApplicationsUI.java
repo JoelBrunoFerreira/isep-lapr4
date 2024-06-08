@@ -3,12 +3,15 @@ package backoffice.presentation.CustomerManager.JobApplicationsManagement;
 import backoffice.presentation.CustomerManager.CustomerManagerMainMenu;
 import backoffice.presentation.candidates.CandidatePrinter;
 import eapli.base.candidate.dto.CandidateDTO;
+import eapli.base.jobApplication.application.GetTop20WordsService;
 import eapli.base.jobApplication.application.ListApplicationController;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.usermanagement.application.ListUsersController;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ListJobApplicationsUI extends AbstractUI {
@@ -17,6 +20,8 @@ public class ListJobApplicationsUI extends AbstractUI {
     ListApplicationController listApplicationController = new ListApplicationController();
     ListUsersController listUsersController = new ListUsersController();
     CandidatePrinter printer = new CandidatePrinter();
+
+    GetTop20WordsService service = new GetTop20WordsService();
 
     @Override
     protected boolean doShow() {
@@ -86,6 +91,33 @@ public class ListJobApplicationsUI extends AbstractUI {
                     System.out.println("Rank: " + dto.rank);
                     System.out.println("Interview grade: " + dto.interviewGrade);
                 }
+                System.out.println();
+                System.out.println("1. Present the top 20 words uploaded in the candidate's documents");
+                System.out.println("0. Return");
+                String value = Console.readLine("");
+                boolean valid = false;
+                while(!valid) {
+                    if (value.equals("1")) {
+                        String reference = Console.readLine("Type the jobReference: ");
+                        Map<String, List<String>> result = service.getTop20WordsAndItsLocation(reference, email);
+                        if (result != null) {
+                            for (Map.Entry<String, List<String>> entry : result.entrySet()) {
+                                String key = entry.getKey();
+                                List<String> locations = entry.getValue();
+                                System.out.println(key + ": " + locations.size() + " occurrences in files " + locations);
+                            }
+                        } else {
+                            System.out.println("Files not found");
+                        }
+                        valid = true;
+                    }
+                    if (!value.equals("1")) {
+                        valid = true;
+                        new CustomerManagerMainMenu().buildCustomerManagerMenu();
+                    }
+                }
+
+
             }
         }
     }
