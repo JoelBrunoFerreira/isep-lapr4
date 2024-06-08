@@ -10,17 +10,22 @@ public class GenerateInterviewModelUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        Iterable<JobApplicationDTO> jobApplicationDTOS = controller.getJobApplicationDTOs();
-        if (jobApplicationDTOS.iterator().hasNext()) {
-            SelectWidget<JobApplicationDTO> selectWidget = new SelectWidget<>("Job Application: ", jobApplicationDTOS, System.out::print);
-            selectWidget.show();
-            String candidate = selectWidget.selectedElement().getCandidateEmail();
-            String jobReference = selectWidget.selectedElement().getJobOpeningReference();
-            return controller.generateInterviewTemplate(jobReference, candidate);
+        try{
+            Iterable<JobApplicationDTO> jobApplicationDTOS = controller.getJobApplicationDTOs();
+            if (jobApplicationDTOS.iterator().hasNext()) {
+                SelectWidget<JobApplicationDTO> selectWidget = new SelectWidget<>("Job Application: ", jobApplicationDTOS, System.out::print);
+                selectWidget.show();
+                String candidate = selectWidget.selectedElement().getCandidateEmail();
+                String jobReference = selectWidget.selectedElement().getJobOpeningReference();
+                return controller.generateInterviewTemplate(jobReference, candidate);
 
-        } else {
-            System.out.println("No job applications available.");
+            } else {
+                System.out.println("No job applications available.");
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
         return false;
     }
 

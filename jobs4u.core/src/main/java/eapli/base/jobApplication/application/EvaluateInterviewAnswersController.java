@@ -35,10 +35,11 @@ public class EvaluateInterviewAnswersController {
 
     public Iterable<JobApplicationDTO> getJobApplicationDTOs() {
         List<JobApplicationDTO> dtos = new ArrayList<>();
-        for (JobApplication jA : jobApplicationSvc.getAllJobApplications()) {
-            if (jA.jobApplicationState().equals(JobApplicationState.INTERVIEWING)
-            || jA.jobApplicationState().equals(JobApplicationState.ANALYSIS)) {//||jA.jobApplicationState().equals(Status.ACTIVE_INTERVIEW)){
-                dtos.add(jA.toDTO());
+        for (JobApplication jobApp : jobApplicationSvc.getAllJobApplications()) {
+            JobApplicationState state = jobApp.jobApplicationState();
+            if ((state == JobApplicationState.INTERVIEWING || state == JobApplicationState.ANALYSIS)
+                    && jobApp.getInterviewResult() == null) {
+                dtos.add(jobApp.toDTO());
             }
         }
         return dtos;

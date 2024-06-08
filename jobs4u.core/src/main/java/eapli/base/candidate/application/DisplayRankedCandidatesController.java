@@ -43,25 +43,24 @@ public class DisplayRankedCandidatesController {
     public List<Map.Entry<CandidateDTO, Float>> candidateDTOS(String jobReference) {
         Map<CandidateDTO, Float> result = new HashMap<>();
         Iterable<JobApplicationDTO> jobApplicationDTOS = jobApplicationRepository.getRankedApplicationsByJobReference(jobReference);
-        if (jobApplicationDTOS.iterator().hasNext()){
-            for (JobApplicationDTO dto : jobApplicationDTOS) {
-                CandidateDTO candidateDTO = getCandidateDTO(dto.getCandidateEmail());
-                if (candidateDTO != null) {
-                    result.put(candidateDTO, dto.getInterviewGrade());
-                }
+
+        if (!jobApplicationDTOS.iterator().hasNext()) {
+            System.out.println("No Job Applications Approved.");
+            return new ArrayList<>(result.entrySet());
+        }
+
+        for (JobApplicationDTO dto : jobApplicationDTOS) {
+            CandidateDTO candidateDTO = getCandidateDTO(dto.getCandidateEmail());
+            if (candidateDTO != null) {
+                result.put(candidateDTO, dto.getInterviewGrade());
             }
         }
+
         List<Map.Entry<CandidateDTO, Float>> entryList = new ArrayList<>(result.entrySet());
-        entryList.sort(new Comparator<Map.Entry<CandidateDTO, Float>>() {
-            @Override
-            public int compare(Map.Entry<CandidateDTO, Float> e1, Map.Entry<CandidateDTO, Float> e2) {
-                return e2.getValue().compareTo(e1.getValue());
-            }
-        });
+        entryList.sort(Map.Entry.<CandidateDTO, Float>comparingByValue().reversed());
 
         return entryList;
     }
-
     private CandidateDTO getCandidateDTO(String email){
         return candidateRepository.findByEmail(new Email(email)).get().toDTO();
     }

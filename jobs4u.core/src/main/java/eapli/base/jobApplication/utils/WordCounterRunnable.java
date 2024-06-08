@@ -12,7 +12,8 @@ public class WordCounterRunnable implements Runnable{
 
     private Map<String, List<String>> occurrences;
     private String filePath;
-    private List<String> wordExceptions = Arrays.asList("THE", "OF", "A", "TO", "AND", "FOR", "IS", "WAS", "THAT", "THERE", "WITH", "COM", "END");
+    private List<String> wordExceptions = Arrays.asList("THE", "OF", "A", "TO", "AND", "FOR", "IS", "WAS", "THAT",
+            "THERE", "WITH", "COM", "END", "AN", "A");
 
     public WordCounterRunnable(Map<String, List<String>> occurrences, String filePath){
         this.occurrences = occurrences;
@@ -28,19 +29,18 @@ public class WordCounterRunnable implements Runnable{
                 for (String word : words) {
                     word = word.toUpperCase();
                     if (!word.isEmpty() && !wordExceptions.contains(word)) {
-                        // Use ConcurrentHashMap's compute method to ensure thread safety
                         synchronized (occurrences){
-                            occurrences.compute(word, (k, v) -> {
-                                if (v == null) {
-                                    v = new ArrayList<>();
-                                }
-                                v.add(filePath);
-                                return v;
-                            });
+                            List<String> fileList = occurrences.get(word);
+                            if (fileList == null) {
+                                fileList = new ArrayList<>();
+                                occurrences.put(word, fileList);
+                            }
+                            fileList.add(filePath);
                         }
                     }
                 }
             }
+            System.out.printf("Thread processing file %s has finished.%n", filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
