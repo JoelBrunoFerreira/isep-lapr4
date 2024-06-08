@@ -85,12 +85,6 @@ public class AddPluginUI extends AbstractUI {
         return true;
     }
 
-    private String getFileTemplate() throws IOException {
-        //TODO get file path, read file and transform into string
-        String filePath = Console.readLine("File path: ");
-        File file = new File(filePath);
-        return FileUtils.readFileToString(file, "UTF-8");
-    }
 
     @Override
     public String headline() {
