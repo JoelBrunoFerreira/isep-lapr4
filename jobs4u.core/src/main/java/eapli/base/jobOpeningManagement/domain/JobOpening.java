@@ -56,6 +56,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     private JobTitle jobTitle;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Getter
     private Status status;
 
 

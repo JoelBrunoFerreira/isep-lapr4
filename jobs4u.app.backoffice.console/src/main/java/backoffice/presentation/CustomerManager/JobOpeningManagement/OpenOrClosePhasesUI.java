@@ -45,7 +45,7 @@ public class OpenOrClosePhasesUI extends AbstractUI {
             } else if (option.equalsIgnoreCase("next")) {
 
                 LocalDate closeDate = LocalDate.parse(readLine("INSERT THE CLOSE DATE OF THE CURRENT PHASE (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                controller.moveToNextProcessPhase(jobRefStatus, closeDate);
+                controller.moveToNextProcessPhase(closeDate);
             }
 
         }
