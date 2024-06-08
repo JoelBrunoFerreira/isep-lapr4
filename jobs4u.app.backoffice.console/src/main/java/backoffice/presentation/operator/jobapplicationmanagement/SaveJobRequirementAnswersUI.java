@@ -15,19 +15,14 @@ public class SaveJobRequirementAnswersUI extends AbstractUI {
         try {
             String candidateEmail = Console.readLine("Candidate email: ");
             String jobReference = Console.readLine("Job Reference applying to: ");
-            String jobRequirements = getInterviewAnswersFile();
+            String jobRequirements = Console.readLine("File path: ");
             boolean success = controller.saveJobRequirementAnswersToJobApplication(candidateEmail, jobReference, jobRequirements);
             System.out.println(success?"Save successful.":"Save unsuccessful.");
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return false;
-    }
-    private String getInterviewAnswersFile() throws IOException {
-        String filePath = Console.readLine("Job Requirement Answers file: (path including file)");
-        File file = new File(filePath);
-        return FileUtils.readFileToString(file, "UTF-8");
     }
     @Override
     public String headline() {

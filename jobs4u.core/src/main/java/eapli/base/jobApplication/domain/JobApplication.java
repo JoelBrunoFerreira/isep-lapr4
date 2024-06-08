@@ -70,7 +70,8 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         }
     }
     public boolean saveJobRequirementAnswers(String answers){
-        if (this.jobApplicationState.equals(Status.ACTIVE_APPLICATION) || this.jobApplicationState.equals(Status.ACTIVE_SCREENING)){
+        if (this.jobApplicationState.equals(JobApplicationState.RECEIVED)
+                || this.jobApplicationState.equals(JobApplicationState.SCREENING)){
             this.requirementAnswers = new RequirementAnswers(answers);
             System.out.println("Job Requirements answers saved successfully.");
             return true;
@@ -131,9 +132,6 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.interviewSchedule = new InterviewSchedule(dateTime);
     }
 
-    public void applicationPassedRequirements(String description) {
-        this.requirementResult = new RequirementResult(true, description);
-    }
 
     public void rankApplication(String rank) {
         if (rank == null) {

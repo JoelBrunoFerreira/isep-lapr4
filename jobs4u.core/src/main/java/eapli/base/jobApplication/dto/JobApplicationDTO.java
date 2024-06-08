@@ -55,4 +55,11 @@ public class JobApplicationDTO implements Comparable<JobApplicationDTO>  {
     public int compareTo(JobApplicationDTO o) {
         return Float.compare(this.interviewGrade, o.interviewGrade);
     }
+
+    @Override
+    public String toString() {
+        return String.format("Candidate: %s | Job Opening: %s | State: %s | Approved Job Requirements: %s | Interview Schedule: %s | Interview Grade: | Rank: %s'",
+                candidateEmail, getJobOpeningReference(), status, isApproved(), interviewSchedule, interviewGrade, rank);
+
+    }
 }
