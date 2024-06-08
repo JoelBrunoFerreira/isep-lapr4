@@ -1,12 +1,11 @@
 package eapli.base.jobApplication.domain;
 
 
+import eapli.base.candidate.domain.Candidate;
+import eapli.base.candidate.domain.Email;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
-import eapli.base.candidate.domain.Candidate;
-import eapli.base.candidate.domain.Email;
-import eapli.base.jobOpeningManagement.domain.Status;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -38,12 +37,14 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     private InterviewAnswers interviewAnswers;
     @Getter
     private InterviewResult interviewResult;
+    @Getter
     @ManyToOne
     @JoinColumn(name = "candidateID")
     private Candidate candidate;
     @ManyToOne
     @JoinColumn(name = "jobReference")
     private JobOpening jobOpening;
+    @Getter
     private Rank rank;
     protected JobApplication() {
     }

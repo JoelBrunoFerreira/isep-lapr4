@@ -1,84 +1,47 @@
 package eapli.base.jobApplication.application;
 
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.jobApplication.repository.JobApplicationRepository;
+import eapli.base.jobApplication.domain.JobApplication;
+import eapli.base.jobOpeningManagement.application.JobOpeningSvc;
+import eapli.base.jobOpeningManagement.domain.Status;
+import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class NotifyCandidatesController {
     private final AuthorizationService authz;
-    private final JobApplicationRepository applicationRepository;
-
+    private final JobOpeningSvc jobOpeningSvc;
+    private final GetApplicationService getApplicationService;
+    private final NotifyCandidatesService notifyCandidatesService;
     public NotifyCandidatesController() {
         authz = AuthzRegistry.authorizationService();
-        applicationRepository= PersistenceContext.repositories().jobApplications();
+        jobOpeningSvc = new JobOpeningSvc();
+        getApplicationService = new GetApplicationService();
+        notifyCandidatesService = new NotifyCandidatesService();
     }
 
-
-    /*
-    public int getCandidateRanks() {
-
+    public Iterable<JobOpeningDTO> getJobAppplicationRanks() {
+        return jobOpeningSvc.listJobOpeningsByStatus(Status.ACTIVE_RESULT, authz.session().get().authenticatedUser());
+        // Return List of JobOpenings in phase result
     }
 
-     */
+    public void sendEmails(String jobReference, int vacancies) {
+        int counter = 0;
 
+        Map<Integer, String> results = new TreeMap<>();
+        for (JobApplication jobApplication : getApplicationService.getJobApplicationsByJobReference(jobReference)) {
+            results.put(jobApplication.getRank().valueOf(), jobApplication.getCandidate().getEmail().toString());
+        }
 
-
-
-    public String buildEmailHTMLSuccess(String firstName, String lastName, int rank, String jobReference) {
-
-        String HTML =
-                """
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Email</title>
-                </head>
-                <body>
-                    <h1>Welcome to Jobs4u</h1>
-                    <p>Mr./Mrs. %s %s thank you for registering on our app.</p>
-                    <p>Your username is: %s</p>
-                    <p>Your password is: %s</p>
-                    <p>Best of luck!</p>
-                    <br>
-                    <footer>
-                        <p>Made with &#x1F493; by Code Warriors - All rights reserved</p>
-                    </footer>
-                </body>
-                </html>
-                """;
-
-        return String.format(HTML, firstName, lastName, rank, jobReference);
+        for (Map.Entry<Integer, String> entry : results.entrySet()) {
+            if (counter < vacancies) {
+                counter++;
+                notifyCandidatesService.buildEmailForSelectedCandidate(entry.getValue(), entry.getKey(), jobReference);
+            } else {
+                notifyCandidatesService.buildEmailForNonSelectedCandidates(entry.getValue(), entry.getKey(), jobReference);
+            }
+        }
     }
-
-    public String buildEmailHTMLInsuccess(String firstName, String lastName, int rank, String jobReference) {
-
-        String HTML =
-                """
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Email</title>
-                </head>
-                <body>
-                    <h1>Welcome to Jobs4u</h1>
-                    <p>Mr./Mrs. %s %s thank you for registering on our app.</p>
-                    <p>Your username is: %s</p>
-                    <p>Your password is: %s</p>
-                    <p>Best of luck!</p>
-                    <br>
-                    <footer>
-                        <p>Made with &#x1F493; by Code Warriors - All rights reserved</p>
-                    </footer>
-                </body>
-                </html>
-                """;
-
-        return String.format(HTML, firstName, lastName, rank, jobReference);
-    }
-
 }
