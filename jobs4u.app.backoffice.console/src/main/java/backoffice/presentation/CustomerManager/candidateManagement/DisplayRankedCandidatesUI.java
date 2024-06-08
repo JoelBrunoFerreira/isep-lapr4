@@ -4,12 +4,10 @@ import eapli.base.candidate.application.DisplayRankedCandidatesController;
 import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
 
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class DisplayRankedCandidatesUI extends AbstractUI {
     private final DisplayRankedCandidatesController controller = new DisplayRankedCandidatesController();

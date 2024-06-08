@@ -33,6 +33,17 @@ public class JpaJobApplicationRepository extends JpaAutoTxRepository<JobApplicat
     }
 
     @Override
+    public Iterable<JobApplication> findApplicationsByJobOpeningApplicationRank(String jobReference) {
+        List<JobApplication> result = new ArrayList<>();
+        for (JobApplication jobApplication : findAll()){
+            if (jobApplication.hasJobOpeningReference(jobReference)){
+                result.add(jobApplication);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public Iterable<JobApplicationDTO> findApplicationsDTOByCandidateEmail(String candidateEmail) {
         List<JobApplicationDTO> result = new ArrayList<>();
         for (JobApplication jobApplication : findAll()){

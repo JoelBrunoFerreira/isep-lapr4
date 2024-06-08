@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface JobApplicationRepository extends DomainRepository<Long, JobApplication> {
 
     public Iterable<JobApplicationDTO> findApplicationsByJobOpeningReference(String jobReference);
+    public Iterable<JobApplication> findApplicationsByJobOpeningApplicationRank(String jobReference);
     public Iterable<JobApplicationDTO> findApplicationsDTOByCandidateEmail(String candidateEmail);
     public Iterable<JobApplicationDTO> getRankedApplicationsByJobReference(String jobReference);
     public Optional<JobApplication> findApplicationByCandidateEmailAndJobReference(String email, String JobReference);

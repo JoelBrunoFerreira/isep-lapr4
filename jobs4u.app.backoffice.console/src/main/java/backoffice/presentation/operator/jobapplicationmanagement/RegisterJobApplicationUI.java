@@ -6,10 +6,6 @@ import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 public class RegisterJobApplicationUI extends AbstractUI {
 
     private final RegisterJobApplicationController controller = new RegisterJobApplicationController();
@@ -19,7 +15,7 @@ public class RegisterJobApplicationUI extends AbstractUI {
         try {
             String directoryPath = Console.readLine("Path: ");
             String jobReference = controller.getFolderName(directoryPath);
-            directoryPath = directoryPath.concat("\\").concat(jobReference);
+            directoryPath = directoryPath.concat("//").concat(jobReference);
             String candidateEmail = controller.getFolderName(directoryPath);
             if (controller.checkIfApplicationExists(candidateEmail, jobReference)) {
                 System.out.println("Application already registered!");
@@ -28,7 +24,7 @@ public class RegisterJobApplicationUI extends AbstractUI {
             if (!controller.candidateExists(candidateEmail)) {
                 new AddCandidateUI().doShow();
             }
-            directoryPath = directoryPath.concat("\\").concat(candidateEmail);
+            directoryPath = directoryPath.concat("//").concat(candidateEmail);
             JobApplicationDTO result = controller.registerJobApplication(directoryPath, candidateEmail, jobReference);
             System.out.println("Job application for " + result.getJobOpeningReference() + " and candidate " + result.getCandidateEmail() + " registered successfully!");
         }catch (Exception e){
