@@ -222,6 +222,7 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
         return this.interviewModel != null;
     }
 
+
     public boolean hasRequirementSpecification() {
         return this.jobRequirement != null;
     }

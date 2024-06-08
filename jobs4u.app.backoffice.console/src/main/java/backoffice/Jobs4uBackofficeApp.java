@@ -17,6 +17,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class Jobs4uBackofficeApp extends BaseApplication {
     private Jobs4uBackofficeApp() {
