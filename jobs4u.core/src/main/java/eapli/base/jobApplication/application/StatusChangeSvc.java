@@ -26,7 +26,7 @@ public class StatusChangeSvc {
 
     private String getJobApplicationState(Status status) {
         return switch (status) {
-            case ACTIVE_APPLICATION -> JobApplicationState.ACCEPTED.toString();
+            case ACTIVE_APPLICATION -> JobApplicationState.RECEIVED.toString();
             case ACTIVE_SCREENING -> JobApplicationState.SCREENING.toString();
             case ACTIVE_INTERVIEWS -> JobApplicationState.INTERVIEWING.toString();
             case ACTIVE_ANALYSIS -> JobApplicationState.ANALYSIS.toString();
