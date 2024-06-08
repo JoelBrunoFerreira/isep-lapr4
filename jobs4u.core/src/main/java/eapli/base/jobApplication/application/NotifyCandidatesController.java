@@ -15,9 +15,12 @@ public class NotifyCandidatesController {
     }
 
 
+    /*
     public int getCandidateRanks() {
 
     }
+
+     */
 
 
 
