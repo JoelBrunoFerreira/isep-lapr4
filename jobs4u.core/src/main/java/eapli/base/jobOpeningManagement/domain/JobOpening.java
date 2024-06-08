@@ -293,10 +293,9 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
 
     public void setStatusByMovingtoPreviousPhase(String openPhase) {
 
-        if (openPhase.equalsIgnoreCase(Status.COMPLETED.toString())) {
-            this.status = Status.COMPLETED;
-            System.out.println("Recruitment process completed!");
-
+        if (openPhase.equalsIgnoreCase(Status.ACTIVE.toString())) {
+            this.status = Status.ACTIVE;
+            System.out.println("[Phase successfully updated! It's now in " + Status.ACTIVE.toString().toUpperCase() + " phase]");
         } else if (!this.recruitmentProcess.isEmpty()) {
 
             Phase activePhase = null;

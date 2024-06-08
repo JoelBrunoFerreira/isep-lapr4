@@ -14,11 +14,13 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import static eapli.base.jobOpeningManagement.RecruitmentProcessManagement.domain.Phase.*;
 import static eapli.base.jobOpeningManagement.domain.Status.*;
+import static eapli.framework.io.util.Console.readLine;
 
 public class OpenOrClosePhasesController {
 
@@ -135,10 +137,10 @@ public class OpenOrClosePhasesController {
                     setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
                     break;
                 case ACTIVE_ANALYSIS:
-                    currentPhase = ACTIVE.toString();
-                    previousState = ACTIVE_RESULT.toString();
-                    previousPhase = RESULT.toString();
-                    setNextPhaseStartDateAndProcessStatus2(openDate, currentPhase, previousPhase, previousState);
+                    currentPhase = ANALYSIS.toString();
+                    previousState = ACTIVE_SCREENING.toString();
+                    previousPhase = SCREENING.toString();
+                    setPreviousPhaseProcessStatus2(openDate, currentPhase, previousPhase, previousState);
                     break;
                 case ACTIVE_RESULT:
                     currentPhase = RESULT.toString();
@@ -286,7 +288,7 @@ public class OpenOrClosePhasesController {
                     setNextPhaseStartDateAndProcessStatus2(closeDate, currentPhase, nextPhase, nextState);
                     break;
                 case ACTIVE_ANALYSIS:
-                    currentPhase = ACTIVE.toString();
+                    currentPhase = ANALYSIS.toString();
                     nextState = ACTIVE_RESULT.toString();
                     nextPhase = RESULT.toString();
                     setNextPhaseStartDateAndProcessStatus2(closeDate, currentPhase, nextPhase, nextState);
@@ -425,6 +427,7 @@ public class OpenOrClosePhasesController {
     }
 
 
+/*
     private void setPreviousPhaseProcessStatus(LocalDate closeDate, RecruitmentProcessPhase processPhaseToChange, String previousPhase) {
         processPhaseToChange.getPeriod().setEndDate(closeDate);
         for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
@@ -436,15 +439,17 @@ public class OpenOrClosePhasesController {
         jobOpening.setStatusByMovingtoPreviousPhase(previousPhase);
         jobOpeningSvc.saveJobOpening(jobOpening);
     }
+*/
 
     private void setPreviousPhaseProcessStatus2(LocalDate openDate, String processPhaseToChange, String previousPhase, String previousState) {
 
         for (RecruitmentProcessPhase p : jobOpening.getRecruitmentProcess()) {
+     /*       if (p.getPhase().toString().equalsIgnoreCase(processPhaseToChange)){
+              p.getPeriod().setEndDate(LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            }*/
             if (p.getPhase().toString().equalsIgnoreCase(previousPhase)) {
                 p.getPeriod().setStartDate(openDate);
                 break;
-            }else if (p.getPhase().toString().equalsIgnoreCase(ACTIVE.toString())) {
-                p.getPeriod().setStartDate(openDate);
             }
         }
 

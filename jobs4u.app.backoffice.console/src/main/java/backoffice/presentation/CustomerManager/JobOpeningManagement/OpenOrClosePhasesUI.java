@@ -9,6 +9,7 @@ import eapli.framework.presentation.console.SelectWidget;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static eapli.base.jobOpeningManagement.domain.Status.ACTIVE_APPLICATION;
 import static eapli.framework.io.util.Console.readLine;
 
 public class OpenOrClosePhasesUI extends AbstractUI {
@@ -38,9 +39,16 @@ public class OpenOrClosePhasesUI extends AbstractUI {
 
             String option = readLine("CHOOSE WHAT MOVE TO DO TO CURRENT PHASE (next/previous):");
             if (option.equalsIgnoreCase("previous")) {
-
-                LocalDate openDate = LocalDate.parse(readLine("INSERT THE START DATE OF THE PREVIOUS PHASE (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                controller.returnToPreviousProcessPhase(openDate);
+                if (jobRefStatus.equalsIgnoreCase(ACTIVE_APPLICATION.toString())) {
+                    LocalDate today = LocalDate.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    String formattedDate = today.format(formatter);
+                    LocalDate parsedDate = LocalDate.parse(formattedDate, formatter);
+                    controller.returnToPreviousProcessPhase(parsedDate);
+                } else{
+                    LocalDate openDate = LocalDate.parse(readLine("INSERT THE START DATE OF THE PREVIOUS PHASE (DD-MM-YYYY): "), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    controller.returnToPreviousProcessPhase(openDate);
+                }
 
             } else if (option.equalsIgnoreCase("next")) {
 
