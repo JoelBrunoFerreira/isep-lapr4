@@ -12,10 +12,17 @@ public class GetTop20WordsService {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    private static Map<String, List<String>> wordsAndItsLocation = new TreeMap<>();
+    private final String filesPath = "\\\\wsl.localhost\\Ubuntu\\home\\jorge\\ISEP\\SCOMP\\us2001\\output_dir";
 
-    public static Map<String, List<String>> getTop20WordsAndItsLocation(String jobReference, String candidateEmail) {
-        File path = new File("C:\\Users\\jorge\\repos\\JobApplications-lapr4\\" + jobReference + "\\" + candidateEmail);
+    private Map<String, List<String>> wordsAndItsLocation = new TreeMap<>();
+
+    public Map<String, List<String>> getTop20WordsAndItsLocation(String jobReference, String candidateEmail) {
+        File path = new File(filesPath + "\\" + jobReference + "\\" + candidateEmail);
+
+        if (!path.exists() || !path.isDirectory()) {
+            System.out.println("The specified path does not exist or is not a directory: " + path);
+            return Collections.emptyMap();
+        }
 
         List<String> allSubmitedFiles = getAllFilesFromPath(path);
 
@@ -25,7 +32,7 @@ public class GetTop20WordsService {
 
     }
 
-    private static Map<String, List<String>> getTop20(Map<String, List<String>> wordsAndItsLocation) {
+    private Map<String, List<String>> getTop20(Map<String, List<String>> wordsAndItsLocation) {
         return wordsAndItsLocation.entrySet()
                 .stream()
                 .sorted((e1, e2) -> Integer.compare(e2.getValue().size(), e1.getValue().size()))
@@ -39,17 +46,32 @@ public class GetTop20WordsService {
     }
 
 
-    private static void createAndExecuteThreads(List<String> files) {
+    private void createAndExecuteThreads(List<String> files) {
+
+        List<Thread> threads = new ArrayList<>();
 
         for(int i = 0; i < files.size(); i++){
             WordCounterRunnable wcr = new WordCounterRunnable(wordsAndItsLocation, files.get(i));
             Thread t = new Thread(wcr, "Thread - " + i);
             t.start();
+            threads.add(t);
         }
+
+        for(Thread t : threads){
+            try{
+                t.join();
+                System.out.println(t.getName() + " finished.");
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+                t.interrupt();
+            }
+        }
+
+        System.out.println("Threads closed successfully.");
 
     }
 
-    private static List<String> getAllFilesFromPath(File path) {
+    private List<String> getAllFilesFromPath(File path) {
         List<String> allFilesFromPath = new ArrayList<>();
 
         File[] listOfFiles = path.listFiles();
@@ -61,16 +83,6 @@ public class GetTop20WordsService {
         }
 
         return allFilesFromPath;
-    }
-
-    public static void main(String[] args) {
-        Map <String, List<String>> top20 = getTop20WordsAndItsLocation("IBM-000001", "janefoster@marvel.com");
-        printMap(top20);
-    }
-
-    private static void printMap(Map<String, List<String>> map) {
-        map.forEach((word, locations) ->
-                System.out.println(word + ": " + locations.size() + " occurrences in files " + locations));
     }
 
 
