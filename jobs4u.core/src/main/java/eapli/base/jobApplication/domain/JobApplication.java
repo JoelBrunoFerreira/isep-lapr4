@@ -53,7 +53,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.applicationFiles = applicationFiles;
         this.candidate = candidate;
         this.jobOpening = jobOpening;
-        this.jobApplicationState = JobApplicationState.ACCEPTED;
+        this.jobApplicationState = JobApplicationState.RECEIVED;
         this.requirementResult = new RequirementResult(false, "Pending");
         this.interviewAnswers = null;
         this.requirementAnswers = null;
@@ -144,6 +144,6 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         return this.jobApplicationState;
     }
     public void changeApplicationStatus(String status){
-        this.jobApplicationState = JobApplicationState.valueOf(status);
+        this.jobApplicationState = JobApplicationState.parse(status);
     }
 }

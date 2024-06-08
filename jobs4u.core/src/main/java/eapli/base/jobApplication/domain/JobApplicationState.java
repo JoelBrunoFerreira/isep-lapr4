@@ -17,7 +17,7 @@ public enum JobApplicationState implements Serializable {
         this.description = description;
     }
     public static JobApplicationState parse(String state) {
-        return JobApplicationState.valueOf(state.trim().toUpperCase());
+        return JobApplicationState.valueOf(state.toUpperCase());
     }
 
     @Override
