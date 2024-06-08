@@ -29,15 +29,11 @@ public class DisplayRankedCandidatesUI extends AbstractUI {
         return false;
     }
     private void printCandidateMap( List<Map.Entry<CandidateDTO, Float>>  candidateDTOIntegerMap) {
-        candidateDTOIntegerMap.forEach(System.out::println);
-        /*for (Map.Entry<CandidateDTO, Integer> entry : candidateDTOIntegerMap) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        for (Map.Entry<CandidateDTO, Integer> entry : candidateDTOIntegerMap.entrySet()) {
+        for (Map.Entry<CandidateDTO, Float> entry : candidateDTOIntegerMap) {
             CandidateDTO candidate = entry.getKey();
-            Integer votes = entry.getValue();
-            System.out.println(candidate + "\nInterview Grade: " + votes);
-        }*/
+            Float grade = entry.getValue();
+            System.out.println(candidate + " | Grade: " + grade);
+        }
     }
     @Override
     public String headline() {

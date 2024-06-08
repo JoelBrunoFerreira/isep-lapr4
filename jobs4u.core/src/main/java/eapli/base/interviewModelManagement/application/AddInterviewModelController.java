@@ -20,10 +20,10 @@ public class AddInterviewModelController {
 
 
 
-    public Optional<InterviewModel> addInterviewModel(final String name, final String className, final String model) {
+    public Optional<InterviewModel> addInterviewModel(final String name, final String className, final String modelPath) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.LANGUAGE_ENGINEER);
 
-        InterviewModel interviewModel = new InterviewModel(new InterviewModelClass(className), new InterviewModelTitle(name), new InterviewModelTemplate(model));
+        InterviewModel interviewModel = new InterviewModel(new InterviewModelClass(className), new InterviewModelTitle(name), new InterviewModelTemplate(modelPath));
 
         return Optional.of(interviewModelRepository.save(interviewModel));
     }

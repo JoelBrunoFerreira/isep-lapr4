@@ -21,10 +21,10 @@ public class AddJobRequirementController {
 
 
 
-    public Optional<JobRequirement> addJobRequirement(final String name, final String className, final String model) {
+    public Optional<JobRequirement> addJobRequirement(final String name, final String className, final String modelPath) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.LANGUAGE_ENGINEER);
 
-        JobRequirement jobRequirement = new JobRequirement(new JobRequirementTitle(name), new JobRequirementClass(className), new JobRequirementTemplate(model));
+        JobRequirement jobRequirement = new JobRequirement(new JobRequirementTitle(name), new JobRequirementClass(className), new JobRequirementTemplate(modelPath));
 
         return Optional.of(jobRequirementRepository.save(jobRequirement));
     }
