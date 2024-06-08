@@ -1,5 +1,6 @@
 package eapli.base.jobApplication.application;
 
+import eapli.base.jobApplication.domain.JobApplication;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobApplication.repository.JobApplicationRepository;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
@@ -10,6 +11,8 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -45,5 +48,15 @@ public class ListApplicationController {
         return Optional.of(applicationRepository.findApplicationByCandidateEmailAndJobReference(email, jobReference).get().toDTO());
     }
 
+    public Iterable<JobApplicationDTO> getApplicationsByJobReference(String jobReference) {
+        List<JobApplicationDTO> result = new ArrayList<>();
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN, BaseRoles.CUSTOMER_MANAGER);
+
+        Iterable<JobApplication> applications = applicationRepository.findAllApplicationsByJobReference(jobReference);
+        for (JobApplication application: applications) {
+            result.add(application.toDTO());
+        }
+        return result;
+    }
 
 }
