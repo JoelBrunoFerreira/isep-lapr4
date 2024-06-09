@@ -24,7 +24,7 @@ public class NotifyCandidatesRankUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Candidates Rank for a job opening";
+        return "Notify Candidates for a Job Opening";
     }
 
 }

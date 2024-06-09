@@ -27,7 +27,7 @@ public class NotifyCandidatesController {
         // Return List of JobOpenings in phase result
     }
 
-    public void sendEmails(String jobReference, int vacancies) {
+    public void notifyCandidates(String jobReference, int vacancies) {
         int counter = 0;
 
         Map<Integer, String> results = new TreeMap<>();
