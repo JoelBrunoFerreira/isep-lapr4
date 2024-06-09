@@ -7,24 +7,27 @@
 ## 2. Customer Specifications and Clarifications
 + From the client clarifications:
 
-> Question:
-> Answer: 
+> Question: O que é o enable/disable do candidato?
+> Answer: Refere-se a desativar o acesso do candidato ao sistema (i.e., Candidate App).
 
-> Question: 
-> Answer: 
+> Question:  US 2000b – for the use case 2000b which states "As  Operator, I want to enable/disable a candidate". 
+I would like to know if the client would like two different menus to be created, with each menu responsible for either 
+activating or deactivating candidates.
+> Answer: I have no specific requirements for the UX/UI but I want you to follow best practices.
 
-> Question: 
-> Answer: 
+> Question: US2000b – Na us 2000b, é suposto ao desativar um candidato, apenas lhe retirar a role e deixa-lo como 
+user ao desativa-lo completamente?
+> Answer: Considero que o objetivo desta US é permitir bloquear e desbloquear o acesso de um candidato ao sistema. 
+Isso não deve invalidar as candidaturas dessa pessoa, apenas o acesso desse candidato ao sistema.
 
-> Question: 
-> Answer: 
 
 ## 3. Acceptance Criteria
 
-    AC1: The Candidate must provide his first and last name, an email valid account and a phhone number.
-    AC2: The system should generate automatically a 8 character long passorwd for each candidate, with uppercase and
-         lowercase letters, numbers and ate least a special character.
-    AC3: There can't be two different candidates with the same username.
+    AC1: After disable, the candidate should not be able to login, in the application.
+    AC2: After enable, the candidate should be able to login again, in the application.
+    AC3: When the candidate is deactivated, the date of deactivation should appear in the DEACTIVATEDON column of the database. 
+    AC4: When the candidate is activated, the DEACTIVATEDON column in the database should become NULL
+   
 
 ## 4. Found out Dependencies
 * The system should already have an registered Operator, with the authorization level necessary to manage candidates.
@@ -32,32 +35,29 @@
 
 ## 5 Input and Output Data
 
-Input Data:
+Input Data for enable:
 
-    Typed data:
-        a First name (String; mandatory)
-        a Last Name (String; mandatory)
-        a email (String; mandatory)
-        a Phone Number (String; mandatory)
+     - Typed data:
+        Candidate number (Integer; mandatory)
 
-Output Data:
+Input Data for disable:
 
-    Succcess of the operation: Display "Customer registered successfully" message.
-    - First name
-    - Last name
-    - email
-    - Phone Number
-    - Password (generated automatically by the system)
-    - Role
+    - Typed data:
+        Candidate number (Integer; mandatory)
 
-    (In)Success of the operation: Display "Error registering candidate" message.
+Output Data for disable:
+
+    - (In)Success of the operation: Display "Wrong username or password." message.
 
 
 ## 6. System Sequence Diagram (SSD)
+* For disable a candidate
+[US_2000b_deactivateUser_SSD.puml](US_2000b_deactivateUser_SSD.puml)
 
+* For enable a candidate
+[US_2000b_activateUser_SSD.puml](US_2000b_activateUser_SSD.puml)
 
 ## 7. Tests
- 
 
 ## 8. Observations
 * n/a
