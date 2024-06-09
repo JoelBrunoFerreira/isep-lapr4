@@ -3,9 +3,7 @@ package backoffice.presentation.CustomerManager.JobApplicationsManagement;
 import eapli.base.jobApplication.application.SaveInterviewAnswersController;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
 import java.io.IOException;
 
 public class SaveInterviewAnswersUI extends AbstractUI {

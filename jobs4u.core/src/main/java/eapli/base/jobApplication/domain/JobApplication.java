@@ -1,6 +1,8 @@
 package eapli.base.jobApplication.domain;
 
 
+import eapli.base.candidate.domain.Candidate;
+import eapli.base.candidate.domain.Email;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
@@ -39,12 +41,14 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     private InterviewAnswers interviewAnswers;
     @Getter
     private InterviewResult interviewResult;
+    @Getter
     @ManyToOne
     @JoinColumn(name = "candidateID")
     private Candidate candidate;
     @ManyToOne
     @JoinColumn(name = "jobReference")
     private JobOpening jobOpening;
+    @Getter
     private Rank rank;
     protected JobApplication() {
     }
@@ -53,7 +57,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.applicationFiles = applicationFiles;
         this.candidate = candidate;
         this.jobOpening = jobOpening;
-        this.jobApplicationState = JobApplicationState.ACCEPTED;
+        this.jobApplicationState = JobApplicationState.RECEIVED;
         this.requirementResult = new RequirementResult(false, "Pending");
         this.interviewAnswers = null;
         this.requirementAnswers = null;
@@ -71,7 +75,8 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         }
     }
     public boolean saveJobRequirementAnswers(String answers){
-        if (this.jobApplicationState.equals(JobApplicationState.RECEIVED) || this.jobApplicationState.equals(JobApplicationState.SCREENING)){
+        if (this.jobApplicationState.equals(JobApplicationState.RECEIVED)
+                || this.jobApplicationState.equals(JobApplicationState.SCREENING)){
             this.requirementAnswers = new RequirementAnswers(answers);
             System.out.println("Job Requirements answers saved successfully.");
             return true;
@@ -156,6 +161,6 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         return this.jobApplicationState;
     }
     public void changeApplicationStatus(String status){
-        this.jobApplicationState = JobApplicationState.valueOf(status);
+        this.jobApplicationState = JobApplicationState.parse(status);
     }
 }

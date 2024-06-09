@@ -24,11 +24,7 @@ public class SaveJobRequirementAnswersUI extends AbstractUI {
         }
         return false;
     }
-    private String getInterviewAnswersFile() throws IOException {
-        String filePath = Console.readLine("Job Requirement Answers file: (path including file)");
-        File file = new File(filePath);
-        return FileUtils.readFileToString(file, "UTF-8");
-    }
+   
     @Override
     public String headline() {
         return "Save Job Requirement Answers";

@@ -4,12 +4,10 @@ import eapli.base.candidate.application.DisplayRankedCandidatesController;
 import eapli.base.candidate.dto.CandidateDTO;
 import eapli.base.jobOpeningManagement.dto.JobOpeningDTO;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.ListWidget;
 import eapli.framework.presentation.console.SelectWidget;
 
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class DisplayRankedCandidatesUI extends AbstractUI {
     private final DisplayRankedCandidatesController controller = new DisplayRankedCandidatesController();
@@ -31,15 +29,11 @@ public class DisplayRankedCandidatesUI extends AbstractUI {
         return false;
     }
     private void printCandidateMap( List<Map.Entry<CandidateDTO, Float>>  candidateDTOIntegerMap) {
-        candidateDTOIntegerMap.forEach(System.out::println);
-        /*for (Map.Entry<CandidateDTO, Integer> entry : candidateDTOIntegerMap) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        for (Map.Entry<CandidateDTO, Integer> entry : candidateDTOIntegerMap.entrySet()) {
+        for (Map.Entry<CandidateDTO, Float> entry : candidateDTOIntegerMap) {
             CandidateDTO candidate = entry.getKey();
-            Integer votes = entry.getValue();
-            System.out.println(candidate + "\nInterview Grade: " + votes);
-        }*/
+            Float grade = entry.getValue();
+            System.out.println(candidate + " | Grade: " + grade);
+        }
     }
     @Override
     public String headline() {

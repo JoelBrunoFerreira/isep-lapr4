@@ -26,6 +26,11 @@ public class InMemoryJobApplicationRepository extends InMemoryDomainRepository<J
     }
 
     @Override
+    public Iterable<JobApplication> findApplicationsByJobOpeningApplicationRank(String jobReference) {
+        return null;
+    }
+
+    @Override
     public Iterable<JobApplicationDTO> findApplicationsDTOByCandidateEmail(String candidateEmail) {
         List<JobApplicationDTO> result = new ArrayList<>();
         for (JobApplication jobApplication : findAll()){

@@ -3,6 +3,7 @@ package backoffice.presentation.CustomerManager;
 import backoffice.presentation.CustomerManager.JobApplicationsManagement.*;
 import backoffice.presentation.CustomerManager.JobOpeningManagement.*;
 import backoffice.presentation.CustomerManager.candidateManagement.DisplayRankedCandidatesUI;
+import backoffice.presentation.CustomerManager.candidateManagement.NotifyCandidatesRankUI;
 import backoffice.presentation.CustomerManager.customerManagement.AddCustomerUI;
 import backoffice.presentation.candidates.DisplayCandidateDataUI;
 import backoffice.presentation.candidates.RankCandidatesUI;
@@ -66,6 +67,7 @@ public class CustomerManagerMainMenu {
         candidatesMenu.addItem(OPTION_1, "Display Candidates", new DisplayCandidateDataUI()::show);
         candidatesMenu.addItem(OPTION_2, "Rank Candidates", new RankCandidatesUI()::show);
         candidatesMenu.addItem(OPTION_3, "Display Candidates Ranked by interview", new DisplayRankedCandidatesUI()::show);
+        candidatesMenu.addItem(OPTION_4, "Notify Candidates of results", new NotifyCandidatesRankUI()::show);
         if (!Application.settings().isMenuLayoutHorizontal())
             candidatesMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         candidatesMenu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);

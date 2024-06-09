@@ -38,13 +38,11 @@ public class AddPluginUI extends AbstractUI {
             switch (value) {
                 case "1":
                     valid = true;
-                    //try {
                     title = Console.readLine("Plugin name: ");
+                    //TODO change class name
                     className = "app.JRPlugin";
                     model = Console.readLine("File Path: "); //getFileTemplate();
-                    //} catch (IOException e) {
-                    //    throw new RuntimeException(e);
-                    //}
+
 
                     Optional<JobRequirement> jobRequirement = addJobRequirementController.addJobRequirement(title, className, model);
 
@@ -58,13 +56,11 @@ public class AddPluginUI extends AbstractUI {
                     break;
                 case "2":
                     valid = true;
-                    //try {
+
                     title = Console.readLine("Plugin name: ");
                     className = "app.IMPlugin";
                     model = Console.readLine("File Path: "); //getFileTemplate();
-                    //} catch (IOException e) {
-                    //    throw new RuntimeException(e);
-                    //}
+
                     Optional<InterviewModel> interviewModel = addInterviewModelController.addInterviewModel(title, className, model);
 
                     if (interviewModel.isPresent()) {
@@ -85,12 +81,6 @@ public class AddPluginUI extends AbstractUI {
         return true;
     }
 
-    private String getFileTemplate() throws IOException {
-        //TODO get file path, read file and transform into string
-        String filePath = Console.readLine("File path: ");
-        File file = new File(filePath);
-        return FileUtils.readFileToString(file, "UTF-8");
-    }
 
     @Override
     public String headline() {

@@ -4,14 +4,7 @@ import customer.application.SrvProxy;
 import customer.presentation.CustomerMainMenu;
 import customer.presentation.LoginUI;
 import eapli.base.app.common.console.BaseApplication;
-import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.usermanagement.domain.BasePasswordPolicy;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
-import eapli.framework.io.util.Console;
-
-import java.io.IOException;
 
 public class Jobs4uCustomerApp extends BaseApplication {
     private Jobs4uCustomerApp() {

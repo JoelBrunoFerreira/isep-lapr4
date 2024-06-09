@@ -52,7 +52,6 @@ public class GenerateInterviewModelController {
 
     private void writeToFile(String content, String candidate, String jobReference) {
         try {
-            //TODO file name
             File myObj = new File(generatedIMsPath + candidate + "_" + jobReference + ".txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
@@ -70,7 +69,6 @@ public class GenerateInterviewModelController {
     }
 
     private String generateTemplate(InterviewModel interviewModel) {
-        String path = interviewModel.getInterviewModelTemplate().toString();
         InterviewModelPlugin plugin = interviewModel.buildThePlugin();
         return plugin.generateTemplate(interviewModel.getInterviewModelTemplate().toString());
     }
