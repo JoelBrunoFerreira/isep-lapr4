@@ -1,9 +1,6 @@
 package eapli.base.jobApplication.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.interviewModelManagement.domain.InterviewModel;
-import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
-import eapli.base.interviewModelManagement.integration.InterviewModelResult;
 import eapli.base.jobApplication.domain.JobApplication;
 import eapli.base.jobApplication.domain.JobApplicationState;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
