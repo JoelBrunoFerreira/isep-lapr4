@@ -38,7 +38,7 @@ public class EvaluateInterviewAnswersController {
         for (JobApplication jobApp : jobApplicationSvc.getAllJobApplications()) {
             JobApplicationState state = jobApp.jobApplicationState();
             if ((state == JobApplicationState.INTERVIEWING || state == JobApplicationState.ANALYSIS)
-                    && jobApp.getInterviewResult() == null) {
+                    && jobApp.getInterviewResult() != null) {
                 dtos.add(jobApp.toDTO());
             }
         }
