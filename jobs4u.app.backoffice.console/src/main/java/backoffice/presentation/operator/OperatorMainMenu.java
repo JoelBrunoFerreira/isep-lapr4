@@ -78,7 +78,7 @@ public class OperatorMainMenu {
                     listCandidateUI.doShow();
                     break;
                 case OPTION_3:
-		    activateUserAction.execute();
+		            activateUserAction.execute();
                     break;
                 case OPTION_4:
                     deactivateUserAction.execute();
