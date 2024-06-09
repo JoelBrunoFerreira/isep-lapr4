@@ -65,6 +65,8 @@ public class JobOpening implements AggregateRoot<JobReference>, DTOable<JobOpeni
     @Cascade(value = CascadeType.ALL)
     @JoinColumn(name = "jobOpeningID", referencedColumnName = "id")
     private List<RecruitmentProcessPhase> recruitmentProcess;
+
+    @Getter
     @ManyToOne
     private JobRequirement jobRequirement;
 

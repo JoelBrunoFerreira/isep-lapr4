@@ -15,7 +15,7 @@ public class SaveJobRequirementAnswersUI extends AbstractUI {
         try {
             String candidateEmail = Console.readLine("Candidate email: ");
             String jobReference = Console.readLine("Job Reference applying to: ");
-            String jobRequirements = Console.readLine("File path: ");
+            String jobRequirements = Console.readLine("Path: ");
             boolean success = controller.saveJobRequirementAnswersToJobApplication(candidateEmail, jobReference, jobRequirements);
             System.out.println(success?"Save successful.":"Save unsuccessful.");
 
@@ -24,6 +24,7 @@ public class SaveJobRequirementAnswersUI extends AbstractUI {
         }
         return false;
     }
+   
     @Override
     public String headline() {
         return "Save Job Requirement Answers";

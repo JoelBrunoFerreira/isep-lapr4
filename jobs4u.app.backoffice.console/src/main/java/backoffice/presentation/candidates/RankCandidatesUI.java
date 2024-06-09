@@ -14,7 +14,7 @@ public class RankCandidatesUI extends AbstractUI{
     @Override
     protected boolean doShow() {
         String reference = Console.readLine("Type the Job Reference: ");
-        Iterable<JobApplicationDTO> jobApplications = listApplicationController.listApplicationsByJobOpeningId(reference);
+        Iterable<JobApplicationDTO> jobApplications = listApplicationController.getApplicationsByJobReference(reference);
 
         if (!jobApplications.iterator().hasNext()) {
             System.out.println("No job applications for the selected job opening.");

@@ -6,6 +6,9 @@ import eapli.base.candidate.domain.Email;
 import eapli.base.jobApplication.dto.JobApplicationDTO;
 import eapli.base.jobOpeningManagement.domain.JobOpening;
 import eapli.base.jobOpeningManagement.domain.JobReference;
+import eapli.base.candidate.domain.Candidate;
+import eapli.base.candidate.domain.Email;
+import eapli.base.jobOpeningManagement.domain.Status;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -28,6 +31,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     @Column(nullable = false)
     private JobApplicationState jobApplicationState;
     @Column(name = "JobRequirement")
+    @Getter
     private RequirementAnswers requirementAnswers;
     private RequirementResult requirementResult;
 
@@ -117,6 +121,16 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.interviewResult = new InterviewResult().valueOf(interviewGrade);
     }
 
+    public void setRequirementResult(double requirementResult) {
+        if(requirementResult == 1){
+            this.requirementResult = new RequirementResult(true, null);
+        }else{
+            this.requirementResult = new RequirementResult(false, null);
+        }
+
+
+    }
+
     public void setRanking(int ranking) {
         this.rank = new Rank(ranking);
     }
@@ -133,6 +147,9 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.interviewSchedule = new InterviewSchedule(dateTime);
     }
 
+    public void applicationPassedRequirements(String description) {
+        this.requirementResult = new RequirementResult(true, description);
+    }
 
     public void rankApplication(String rank) {
         if (rank == null) {

@@ -11,7 +11,6 @@ participant ListJobApplicationsUI as UI <<presentation>>
 participant ListApplicationsController as Controller <<application>>
 database JobApplicationRepository as Repository <<repository>>
 participant JobApplication as Domain <<domain>>
-participant JobApplicationDTO as DTO <<DTO>>
 
 Actor --> UI: Display job application data
 activate UI
@@ -30,11 +29,10 @@ activate UI
             deactivate Repository
 
             Controller -> Domain: toDTO()
+            activate Domain
 
-            Domain -> DTO: toDto()
-            activate DTO
-            DTO -> Controller: JobApplicationDTO
-            deactivate DTO
+            Domain -> Controller: JobApplicationDTO
+            deactivate Domain
 
 
         Controller -> UI: JobApplicationDTO
