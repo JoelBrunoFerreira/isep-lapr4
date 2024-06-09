@@ -51,20 +51,25 @@ public class EvaluateJobRequirementUI extends AbstractUI {
 
         String HTML =
                 """
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Email</title>
-                </head>
-                <body>
-                    %s
-                    %s
-                    %s
-                </body>
-                </html>
-                """;
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Email</title>
+                        </head>
+                        <body>
+                            <h1>Jobs4u</h1>
+                            <p>Mr./Mrs. %s following your job application @%s, we would like to notify you the results of the result of the verification process.</p>
+                            <p>Congratulations! You were approved!!</p>
+                            <p>Best of luck!</p>
+                            <br>
+                            <footer>
+                                <p>Made with &#x1F493; by Code Warriors - All rights reserved</p>
+                            </footer>
+                        </body>
+                        </html>
+                        """;
 
         return String.format(HTML, username, jobReference);
     }
@@ -81,9 +86,14 @@ public class EvaluateJobRequirementUI extends AbstractUI {
                     <title>Email</title>
                 </head>
                 <body>
-                    %s
-                    %s
-                    %s
+                    <h1>Jobs4u</h1>
+                    <p>Mr./Mrs. %s following your job application @%s, we would like to notify you the results of the result of the verification process.</p>
+                    <p>You were not approved.</p>
+                    <p>Good luck for next time.</p>
+                    <br>
+                    <footer>
+                        <p>Made with &#x1F493; by Code Warriors - All rights reserved</p>
+                    </footer>
                 </body>
                 </html>
                 """;
