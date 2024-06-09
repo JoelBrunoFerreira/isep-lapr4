@@ -28,11 +28,11 @@ public class CandidateMainMenu extends AbstractUI {
         } else {
             renderer = new VerticalMenuRenderer(menu, MenuItemRenderer.DEFAULT);
         }
-        svc.startMonitoring();
         return renderer.render();
     }
 
     private Menu buildMainMenu() {
+        svc.startMonitoring();
         final Menu mainMenu = new Menu();
         mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         mainMenu.addItem(OPTION_1, "Display Job Applications", new DisplayJobApplicationsUI()::show);
