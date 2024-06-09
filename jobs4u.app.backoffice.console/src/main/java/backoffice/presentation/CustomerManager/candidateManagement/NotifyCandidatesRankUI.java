@@ -14,12 +14,14 @@ public class NotifyCandidatesRankUI extends AbstractUI {
         if (!jobOpeningDTOS.iterator().hasNext()) {
             System.out.println("No Job Openings in result phase");
             return false;
+        } else {
+            SelectWidget<JobOpeningDTO> jobOpeningDTOSelectWidget = new SelectWidget<>("Job Openings ", jobOpeningDTOS);
+            jobOpeningDTOSelectWidget.show();
+            String jobReference = jobOpeningDTOSelectWidget.selectedElement().getJobReference();
+            int vacancies = Integer.parseInt(jobOpeningDTOSelectWidget.selectedElement().getNumberVacancies());
+            controller.notifyCandidates(jobReference, vacancies);
+            return true;
         }
-        SelectWidget<JobOpeningDTO> jobOpeningDTOSelectWidget = new SelectWidget<>("Job Openings ", jobOpeningDTOS);
-        jobOpeningDTOSelectWidget.show();
-        String jobReference = jobOpeningDTOSelectWidget.selectedElement().getJobReference();
-        int vacancies = Integer.parseInt(jobOpeningDTOSelectWidget.selectedElement().getNumberVacancies());
-        return false;
     }
 
     @Override

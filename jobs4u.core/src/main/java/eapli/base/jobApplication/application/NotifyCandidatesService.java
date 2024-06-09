@@ -6,7 +6,7 @@ public class NotifyCandidatesService {
         // Empty constructor
     }
 
-    public String buildEmailForSelectedCandidate(String username, int rank, String jobReference) {
+    public String buildEmailForSelectedCandidate(String username, String jobReference, int rank) {
 
         String HTML =
                 """
@@ -33,7 +33,7 @@ public class NotifyCandidatesService {
         return String.format(HTML, username, jobReference, rank);
     }
 
-    public String buildEmailForNonSelectedCandidates(String username, int rank, String jobReference) {
+    public String buildEmailForNonSelectedCandidates(String username, String jobReference, int rank) {
 
         String HTML =
                 """
