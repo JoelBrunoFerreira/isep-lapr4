@@ -52,10 +52,10 @@ Output Data for disable:
 
 ## 6. System Sequence Diagram (SSD)
 * For disable a candidate
-[US_2000b_disable_candidate_SSD.puml](US_2000b_disable_candidate_SSD.puml)
+![US_2000b_disable_candidate_SSD.svg](US_2000b_disable_candidate_SSD.svg)
 
 * For enable a candidate
-[US_2000b_enable_candidate_SSD.puml](US_2000b_enable_candidate_SSD.puml)
+![US_2000b_enable_candidate_SSD.svg](US_2000b_enable_candidate_SSD.svg)
 
 ## 7. Tests
 
