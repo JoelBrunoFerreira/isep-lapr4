@@ -40,7 +40,8 @@ public class SrvCliHandler implements Runnable {
             sOut = new DataOutputStream(s.getOutputStream());
             sIn = new DataInputStream(s.getInputStream());
             while (true) {
-                if (sIn.readByte() == MESSAGE_VERSION) { //check version, cleans after read
+                char version = (char) sIn.readByte();
+                if (version == MESSAGE_VERSION) { //check version, cleans after read
                     MessageCodes code = MessageCodes.parse((char) sIn.readByte());
                     switch (code) { //check message code
                         case COMMTEST:
@@ -68,11 +69,13 @@ public class SrvCliHandler implements Runnable {
                         case NOTIFY_CANDIDATES_REQ:
                             System.out.println("Received NCAN");
                             notifyCandidates();
-                            //new Thread(this::notifyCandidates).start();
                             break;
                         default:
                             break;
                     }
+                }
+                else{
+                    System.out.println("Invalid message version.");
                 }
             }
         } catch (IOException ex) {
