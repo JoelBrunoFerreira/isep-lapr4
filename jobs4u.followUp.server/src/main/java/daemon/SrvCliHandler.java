@@ -67,7 +67,8 @@ public class SrvCliHandler implements Runnable {
                             break;
                         case NOTIFY_CANDIDATES_REQ:
                             System.out.println("Received NCAN");
-                            new Thread(this::notifyCandidates).start();
+                            notifyCandidates();
+                            //new Thread(this::notifyCandidates).start();
                             break;
                         default:
                             break;
@@ -92,6 +93,7 @@ public class SrvCliHandler implements Runnable {
                         String jobReference = jobApplication.toDTO().getJobOpeningReference();
                         String state = jobApplication.toDTO().getStatus();
                         String message = jobReference + ";" + state;
+                        applicationRepository.save(jobApplication);
 
                         int dataLenL = message.getBytes().length % 256;
                         int dataLenM = message.getBytes().length / 256;
@@ -115,7 +117,7 @@ public class SrvCliHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Thread.currentThread().interrupt();
+        //Thread.currentThread().interrupt();
     }
 
     private void listJobApplications() throws IOException {
