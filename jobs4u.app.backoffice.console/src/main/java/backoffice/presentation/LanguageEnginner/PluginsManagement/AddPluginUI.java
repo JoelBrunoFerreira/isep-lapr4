@@ -40,8 +40,8 @@ public class AddPluginUI extends AbstractUI {
                     valid = true;
                     title = Console.readLine("Plugin name: ");
                     //TODO change class name
-                    className = "app.JRPlugin";
-                    model = Console.readLine("File Path: "); //getFileTemplate();
+                    className = "app.JobRequirementPlugin";
+                    model = Console.readLine("File Path: ");
 
 
                     Optional<JobRequirement> jobRequirement = addJobRequirementController.addJobRequirement(title, className, model);
