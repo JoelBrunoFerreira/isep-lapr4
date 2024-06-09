@@ -19,6 +19,7 @@ public class NotifyCandidatesRankUI extends AbstractUI {
         jobOpeningDTOSelectWidget.show();
         String jobReference = jobOpeningDTOSelectWidget.selectedElement().getJobReference();
         int vacancies = Integer.parseInt(jobOpeningDTOSelectWidget.selectedElement().getNumberVacancies());
+        controller.sendEmails(jobReference,vacancies);
         return false;
     }
 
