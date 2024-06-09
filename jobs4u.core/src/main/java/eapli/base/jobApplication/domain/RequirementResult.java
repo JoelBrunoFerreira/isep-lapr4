@@ -17,7 +17,6 @@ public class RequirementResult implements ValueObject, Serializable {
         this.approved = false;
     }
     public RequirementResult(boolean approved, String justification) {
-        Preconditions.nonEmpty(justification);
         this.approved = approved;
         this.justification = Description.valueOf(justification);
     }

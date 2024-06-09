@@ -9,6 +9,7 @@ import eapli.base.jobOpeningManagement.domain.JobReference;
 import eapli.base.candidate.domain.Candidate;
 import eapli.base.candidate.domain.Email;
 import eapli.base.jobOpeningManagement.domain.Status;
+import eapli.base.jobRequirementsManagement.integration.JobRequirementResult;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -32,8 +33,8 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     private JobApplicationState jobApplicationState;
     @Column(name = "JobRequirement")
     @Getter
-    private RequirementAnswers requirementAnswers;
-    private RequirementResult requirementResult;
+    private RequirementAnswers requirementAnswers; //Template with answers
+    private RequirementResult requirementResult; // evaluation of the requirements
 
     private InterviewSchedule interviewSchedule;
     @Column(name = "InterviewAnswers")
@@ -50,6 +51,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     private JobOpening jobOpening;
     @Getter
     private Rank rank;
+
     protected JobApplication() {
     }
 
@@ -64,24 +66,23 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     }
 
     public boolean saveInterviewModelAnswers(String answers) {
-        if (this.jobApplicationState.equals(JobApplicationState.INTERVIEWING)){
+        if (this.jobApplicationState.equals(JobApplicationState.INTERVIEWING)) {
             this.interviewAnswers = new InterviewAnswers(answers);
             System.out.println("Interview answers saved successfully.");
             return true;
-        }
-        else{
+        } else {
             System.out.println("Operation must be executed during interview phase.");
             return false;
         }
     }
-    public boolean saveJobRequirementAnswers(String answers){
+
+    public boolean saveJobRequirementAnswers(String answers) {
         if (this.jobApplicationState.equals(JobApplicationState.RECEIVED)
-                || this.jobApplicationState.equals(JobApplicationState.SCREENING)){
+                || this.jobApplicationState.equals(JobApplicationState.SCREENING)) {
             this.requirementAnswers = new RequirementAnswers(answers);
             System.out.println("Job Requirements answers saved successfully.");
             return true;
-        }
-        else{
+        } else {
             System.out.println("Operation must be executed during Application or Screening phases.");
             return false;
         }
@@ -121,14 +122,12 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.interviewResult = new InterviewResult().valueOf(interviewGrade);
     }
 
-    public void setRequirementResult(double requirementResult) {
-        if(requirementResult == 1){
-            this.requirementResult = new RequirementResult(true, null);
-        }else{
-            this.requirementResult = new RequirementResult(false, null);
+    public void approveJobRequirements(JobRequirementResult result) {
+        String approved = "Rejected";
+        if (result.isValid()) {
+            approved = "Approved";
         }
-
-
+        this.requirementResult = new RequirementResult(result.isValid(), approved);
     }
 
     public void setRanking(int ranking) {
@@ -147,9 +146,6 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         this.interviewSchedule = new InterviewSchedule(dateTime);
     }
 
-    public void applicationPassedRequirements(String description) {
-        this.requirementResult = new RequirementResult(true, description);
-    }
 
     public void rankApplication(String rank) {
         if (rank == null) {
@@ -157,10 +153,12 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         }
         this.rank = new Rank(Integer.parseInt(rank));
     }
-    public JobApplicationState jobApplicationState(){
+
+    public JobApplicationState jobApplicationState() {
         return this.jobApplicationState;
     }
-    public void changeApplicationStatus(String status){
+
+    public void changeApplicationStatus(String status) {
         this.jobApplicationState = JobApplicationState.parse(status);
     }
 }

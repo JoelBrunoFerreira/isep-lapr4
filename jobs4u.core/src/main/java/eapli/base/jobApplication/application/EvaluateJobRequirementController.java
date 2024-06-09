@@ -55,9 +55,12 @@ public class EvaluateJobRequirementController {
         JobRequirementPlugin plugin = jobRequirement.buildThePlugin();
         JobRequirementResult result = plugin.validateRequirements(jobApplication.getRequirementAnswers().toString());
         if (result.isValid()){
-            jobApplication.setRequirementResult(result.getGrade());
+            jobApplication.approveJobRequirements(result);
             repo.save(jobApplication);
+            System.out.println("Candidate passed Job Requirements.");
         }else{
+            jobApplication.approveJobRequirements(result);
+            repo.save(jobApplication);
             System.out.println("Job Requirement file is not valid.");
             System.out.println(result.getErrorMessage());
         }
