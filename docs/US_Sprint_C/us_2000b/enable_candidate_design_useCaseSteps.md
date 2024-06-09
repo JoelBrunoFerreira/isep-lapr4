@@ -1,4 +1,4 @@
-UseCase explanation --> Enable a Candidate:
+Design:
 
     Operator: The actor initiating the use case.
 

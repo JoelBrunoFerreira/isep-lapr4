@@ -1,4 +1,4 @@
-UseCase explanation --> Disable a Candidate:
+Design:
 
     Operator: The actor initiating the use case.
 
@@ -9,7 +9,7 @@ UseCase explanation --> Disable a Candidate:
     RepositoryFactory (Factory): Factory creating the appropriate repositories.
     UserRepository (Repository): Repository where the user data is saved.
 
-Steps:
+UseCase Steps:
 
     The Operator selects "Disable a Candidate" from the OperatorMainMenu.
     The OperatorMainMenu calls the deactivateUserAction() method on the DeactivateUserController.
