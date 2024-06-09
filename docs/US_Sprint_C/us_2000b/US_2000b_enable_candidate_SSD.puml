@@ -1,0 +1,59 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor Operator as Actor
+participant OperatorMainMenu as UI <<presentation>>
+participant ActivateUserController as Controller <<application>>
+participant "user:SystemUser" as Domain <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database UserRepository as Repository <<repository>>
+
+Actor --> UI: Enable a Candidate
+activate UI
+    UI -> Controller: activateUserAction()
+    activate Controller
+        Controller -> Domain: deactivatedUsers()
+        activate Domain
+        Domain -> Controller: list of deactivated users
+        deactivate Domain
+    deactivate Controller
+
+    UI --> Actor: Ask candidate number
+    Actor --> UI: number
+
+    loop option != 0
+        UI --> Actor: Show List\nof Deactivated Users
+        Actor --> UI: Select User
+    end
+
+    UI -> Controller: activateUser(selectedUser)
+    activate Controller
+        Controller -> Domain: activateUser(user)
+        activate Domain
+        Domain -> Controller: user
+        deactivate Domain
+
+        Controller -> Persistence: repositories()
+        activate Persistence
+            Persistence -> Factory: create
+            Persistence -> Controller: factory
+        deactivate Persistence
+
+        Controller -> Factory: users()
+        activate Factory
+            Factory -> Repository: create
+            Factory -> Controller: userRepository
+        deactivate Factory
+
+        Controller -> Repository: save(user)
+        Controller -> UI: user
+    deactivate Controller
+
+    UI --> Actor: displayUserInfo
+deactivate UI
+@enduml
