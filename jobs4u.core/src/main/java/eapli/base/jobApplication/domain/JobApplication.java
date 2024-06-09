@@ -51,7 +51,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     private JobOpening jobOpening;
     @Getter
     private Rank rank;
-
+    private boolean applicationStatusChanged = false;
     protected JobApplication() {
     }
 
@@ -159,6 +159,14 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     }
 
     public void changeApplicationStatus(String status) {
+        this.applicationStatusChanged = true;
         this.jobApplicationState = JobApplicationState.parse(status);
+    }
+    public boolean notifyApplicationStatusChanged(){
+        if (this.applicationStatusChanged){
+            this.applicationStatusChanged=false;
+            return true;
+        }
+        return false;
     }
 }

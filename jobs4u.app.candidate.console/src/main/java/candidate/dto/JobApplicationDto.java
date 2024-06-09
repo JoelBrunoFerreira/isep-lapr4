@@ -12,8 +12,26 @@ public class JobApplicationDto {
         this.applicants = applicants;
     }
 
+    public JobApplicationDto(String jobReference, String state) {
+        this.jobReference = jobReference;
+        this.state = state;
+    }
+
+    public String getJobReference() {
+        return jobReference;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getApplicants() {
+        return applicants;
+    }
+
     @Override
     public String toString() {
         return "Job Reference: " + jobReference + " | State: " + state + " | Total applicants: " + applicants;
     }
+
 }

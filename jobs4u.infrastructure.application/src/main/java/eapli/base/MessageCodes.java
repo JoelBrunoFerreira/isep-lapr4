@@ -9,7 +9,9 @@ public enum MessageCodes {
     LIST_JOBOPENINGS_REQ('5'),
     LIST_JOBOPENINGS_RES('6'),
     LIST_JOBAPPLICATIONS_REQ('7'),
-    LIST_JOBAPPLICATIONS_RES('8');
+    LIST_JOBAPPLICATIONS_RES('8'),
+    NOTIFY_CANDIDATES_REQ('9'),
+    NOTIFY_CANDIDATES_RES('A');
     private char value;
 
     MessageCodes(char value) {

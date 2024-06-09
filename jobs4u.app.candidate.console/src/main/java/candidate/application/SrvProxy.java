@@ -33,6 +33,7 @@ public class SrvProxy {
 
     public static boolean disconnect() {
         try {
+
             sOut.write(MESSAGE_VERSION);
             sOut.write(MessageCodes.DISCONN.valueOf());
             writeEndOfMessage();
@@ -74,17 +75,49 @@ public class SrvProxy {
                 readEndOfMessage();
                 return true;
             } else if (code == MessageCodes.ERR.valueOf()) {
-                getDataLenL = sIn.readByte();
-                getDataLenM = sIn.readByte();
-                int totalSize = getDataLenL + (getDataLenM * 256);
-                String errorMessage = new String(sIn.readNBytes(totalSize));
-                readEndOfMessage();
-                System.out.println(errorMessage);
+                System.out.println(returnError());
                 return false;
             }
         }
         System.out.println("Wrong message version received!");
         return false;
+    }
+
+    public static List<JobApplicationDto> hasApplicationStateChanged() throws IOException {
+
+        List<JobApplicationDto> list = new ArrayList<>();
+
+        sOut.write(MESSAGE_VERSION);
+        sOut.write(MessageCodes.NOTIFY_CANDIDATES_REQ.valueOf());
+        writeEndOfMessage();
+
+        if ((char) sIn.readByte() == MESSAGE_VERSION) {
+            char code = (char) sIn.readByte();
+            if (code == MessageCodes.NOTIFY_CANDIDATES_RES.valueOf()) {
+                while (true) {
+                    int getDataLenL = sIn.readByte();
+                    int getDataLenM = sIn.readByte();
+                    int totalSize = getDataLenL + (getDataLenM * 256);
+                    if (totalSize <= 0) {
+                        break;
+                    }
+                    String message = new String(sIn.readNBytes(totalSize));
+
+                    String[] fields = message.split(";");
+                    String jobReference = fields[0];
+                    String state = fields[1];
+                    if (!jobReference.equalsIgnoreCase("error")){
+                        JobApplicationDto jobApplicationDto = new JobApplicationDto(jobReference, state);
+                        list.add(jobApplicationDto);
+                    }
+                }
+            } else if (code == MessageCodes.ERR.valueOf()) {
+                System.out.println(returnError());
+            }
+        }else {
+            System.out.println("Invalid message version.");
+        }
+        return list;
     }
 
     public static List<JobApplicationDto> getJobApplications() throws IOException {
@@ -114,13 +147,10 @@ public class SrvProxy {
                     result.add(jobApplicationDto);
                 }
             } else if (code == MessageCodes.ERR.valueOf()) {
-                int getDataLenL = sIn.readByte();
-                int getDataLenM = sIn.readByte();
-                int size = getDataLenL + getDataLenM * 256;
-                String error = new String(sIn.readNBytes(size));
-                readEndOfMessage();
-                System.out.println(error);
+                System.out.println(returnError());
             }
+        }else {
+            System.out.println("Invalid message version.");
         }
         return result;
     }
@@ -133,5 +163,13 @@ public class SrvProxy {
     private static void readEndOfMessage() throws IOException {
         sIn.readByte();
         sIn.readByte();
+    }
+    private static String returnError() throws IOException {
+        int getDataLenL = sIn.readByte();
+        int getDataLenM = sIn.readByte();
+        int size = getDataLenL + getDataLenM * 256;
+        String error = new String(sIn.readNBytes(size));
+        readEndOfMessage();
+        return error;
     }
 }

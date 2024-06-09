@@ -64,6 +64,11 @@ public class SrvCliHandler implements Runnable {
                         case LIST_JOBAPPLICATIONS_REQ:
                             System.out.println("Received JAP");
                             listJobApplications();
+                            break;
+                        case NOTIFY_CANDIDATES_REQ:
+                            System.out.println("Received NCAN");
+                            new Thread(this::notifyCandidates).start();
+                            break;
                         default:
                             break;
                     }
@@ -74,6 +79,45 @@ public class SrvCliHandler implements Runnable {
         }
     }
 
+    private void notifyCandidates() {
+        try {
+            boolean found = false;
+            Iterable<JobApplication> jobApplications = applicationRepository.findApplicationsByCandidate(user.email().toString());
+            if (jobApplications.iterator().hasNext()){
+                sOut.write(MESSAGE_VERSION);
+                sOut.write(MessageCodes.NOTIFY_CANDIDATES_RES.valueOf());
+                for (JobApplication jobApplication: jobApplications){
+                    if (jobApplication.notifyApplicationStatusChanged()){
+                        found = true;
+                        String jobReference = jobApplication.toDTO().getJobOpeningReference();
+                        String state = jobApplication.toDTO().getStatus();
+                        String message = jobReference + ";" + state;
+
+                        int dataLenL = message.getBytes().length % 256;
+                        int dataLenM = message.getBytes().length / 256;
+                        sOut.write(dataLenL);
+                        sOut.write(dataLenM);
+                        sOut.write(message.getBytes());
+                    }
+                }
+                if (!found){
+                    String message = "error;error";
+                    int dataLenL = message.getBytes().length % 256;
+                    int dataLenM = message.getBytes().length / 256;
+                    sOut.write(dataLenL);
+                    sOut.write(dataLenM);
+                    sOut.write(message.getBytes());
+                }
+                writeEndOfMessage();
+            } else {
+                returnErrCli("No job applications available.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Thread.currentThread().interrupt();
+    }
+
     private void listJobApplications() throws IOException {
         readEndOfMessage();
         Iterable<JobApplication> jobApplications = applicationRepository.findApplicationsByCandidate(user.email().toString());
@@ -82,11 +126,10 @@ public class SrvCliHandler implements Runnable {
             sOut.write(MessageCodes.LIST_JOBAPPLICATIONS_RES.valueOf());
             for (JobApplication ja : jobApplications) {
 
-                System.out.println(ja.toDTO().getJobOpeningReference());
-
                 String jobReference = ja.toDTO().getJobOpeningReference();
-                String state = ja.toDTO().getStatus();
+                System.out.println(jobReference);
 
+                String state = ja.toDTO().getStatus();
                 String applicantsCount = getApplicantsCount(jobReference);
                 String message = jobReference + ";" + state + ";" + applicantsCount;
 
@@ -98,7 +141,7 @@ public class SrvCliHandler implements Runnable {
             }
             writeEndOfMessage();
         } else {
-            returnErrCli("No Job Openings Available.");
+            returnErrCli("No job applications available.");
         }
     }
 
@@ -125,9 +168,8 @@ public class SrvCliHandler implements Runnable {
                 sOut.write(message.getBytes());
             }
             writeEndOfMessage();
-            //TODO send Job RES
         } else {
-            returnErrCli("No Job Openings Available.");
+            returnErrCli("No job openings available.");
         }
     }
 

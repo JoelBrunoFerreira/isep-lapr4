@@ -1,5 +1,6 @@
 package candidate.presentation;
 
+import candidate.application.ApplicationMonitorSvc;
 import candidate.application.DisplayJobApplicationsController;
 import candidate.dto.JobApplicationDto;
 import eapli.framework.presentation.console.AbstractUI;
@@ -9,6 +10,8 @@ import java.io.IOException;
 
 public class DisplayJobApplicationsUI extends AbstractUI {
     private final DisplayJobApplicationsController controller = new DisplayJobApplicationsController();
+
+
     @Override
     protected boolean doShow() {
         try {

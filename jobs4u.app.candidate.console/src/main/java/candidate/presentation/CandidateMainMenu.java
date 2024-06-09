@@ -1,5 +1,6 @@
 package candidate.presentation;
 
+import candidate.application.ApplicationMonitorSvc;
 import eapli.base.Application;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -18,7 +19,7 @@ public class CandidateMainMenu extends AbstractUI {
     private static final int OPTION_2 = 2;
     private static final int OPTION_3 = 3;
     private static final int PREVIOUS_MENU = 4;
-
+    private final ApplicationMonitorSvc svc =new ApplicationMonitorSvc();
     public boolean doShow() {
         final Menu menu = buildMainMenu();
         final MenuRenderer renderer;
@@ -27,6 +28,7 @@ public class CandidateMainMenu extends AbstractUI {
         } else {
             renderer = new VerticalMenuRenderer(menu, MenuItemRenderer.DEFAULT);
         }
+        svc.startMonitoring();
         return renderer.render();
     }
 

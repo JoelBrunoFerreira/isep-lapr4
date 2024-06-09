@@ -1,5 +1,6 @@
 package candidate;
 
+
 import candidate.application.SrvProxy;
 import candidate.presentation.CandidateMainMenu;
 import candidate.presentation.LoginUI;
@@ -7,6 +8,7 @@ import eapli.base.app.common.console.BaseApplication;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
 public class Jobs4uCandidateApp extends BaseApplication {
+
     private Jobs4uCandidateApp() {
         // private constructor to avoid instantiation
     }
@@ -28,6 +30,7 @@ public class Jobs4uCandidateApp extends BaseApplication {
                 System.out.println("Couldn't connect to server!");
                 System.exit(1);
             }
+
             final boolean auth = new LoginUI().login();
             if (auth) {
                 final var menu = new CandidateMainMenu();
