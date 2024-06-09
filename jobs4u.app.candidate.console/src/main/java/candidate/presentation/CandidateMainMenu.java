@@ -32,7 +32,7 @@ public class CandidateMainMenu extends AbstractUI {
     }
 
     private Menu buildMainMenu() {
-        svc.startMonitoring();
+        //svc.startMonitoring();
         final Menu mainMenu = new Menu();
         mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         mainMenu.addItem(OPTION_1, "Display Job Applications", new DisplayJobApplicationsUI()::show);
