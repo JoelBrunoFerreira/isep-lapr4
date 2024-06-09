@@ -29,6 +29,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
     @Column(nullable = false)
     private JobApplicationState jobApplicationState;
     @Column(name = "JobRequirement")
+    @Getter
     private RequirementAnswers requirementAnswers;
     private RequirementResult requirementResult;
 
@@ -70,7 +71,7 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
         }
     }
     public boolean saveJobRequirementAnswers(String answers){
-        if (this.jobApplicationState.equals(Status.ACTIVE_APPLICATION) || this.jobApplicationState.equals(Status.ACTIVE_SCREENING)){
+        if (this.jobApplicationState.equals(JobApplicationState.RECEIVED) || this.jobApplicationState.equals(JobApplicationState.SCREENING)){
             this.requirementAnswers = new RequirementAnswers(answers);
             System.out.println("Job Requirements answers saved successfully.");
             return true;
@@ -113,6 +114,16 @@ public class JobApplication implements AggregateRoot<Long>, DTOable<JobApplicati
 
     public void setInterviewGrade(float interviewGrade) {
         this.interviewResult = new InterviewResult().valueOf(interviewGrade);
+    }
+
+    public void setRequirementResult(double requirementResult) {
+        if(requirementResult == 1){
+            this.requirementResult = new RequirementResult(true, null);
+        }else{
+            this.requirementResult = new RequirementResult(false, null);
+        }
+
+
     }
 
     public void setRanking(int ranking) {

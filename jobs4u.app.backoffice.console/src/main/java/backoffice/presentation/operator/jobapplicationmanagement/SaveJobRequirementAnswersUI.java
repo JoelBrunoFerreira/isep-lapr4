@@ -15,11 +15,11 @@ public class SaveJobRequirementAnswersUI extends AbstractUI {
         try {
             String candidateEmail = Console.readLine("Candidate email: ");
             String jobReference = Console.readLine("Job Reference applying to: ");
-            String jobRequirements = getInterviewAnswersFile();
+            String jobRequirements = Console.readLine("Path: ");
             boolean success = controller.saveJobRequirementAnswersToJobApplication(candidateEmail, jobReference, jobRequirements);
             System.out.println(success?"Save successful.":"Save unsuccessful.");
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return false;

@@ -1,7 +1,9 @@
 package eapli.base.jobRequirementsManagement.domain;
 
 
+import eapli.base.interviewModelManagement.integration.InterviewModelPlugin;
 import eapli.base.jobRequirementsManagement.dto.JobRequirementDTO;
+import eapli.base.jobRequirementsManagement.integration.JobRequirementPlugin;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.representations.dto.DTOable;
 import jakarta.persistence.*;
@@ -61,4 +63,13 @@ public class JobRequirement implements AggregateRoot<Long>, DTOable<JobRequireme
     public String toString() {
         return this.jobRequirementClass.toString();
     }
+
+    public JobRequirementPlugin buildThePlugin(){
+        try{
+            return (JobRequirementPlugin) java.lang.Class.forName(jobRequirementClass.toString()).getDeclaredConstructor().newInstance();
+        }catch (Exception e){
+            throw new IllegalStateException("Error loading the plugin!");
+        }
+    }
+
 }

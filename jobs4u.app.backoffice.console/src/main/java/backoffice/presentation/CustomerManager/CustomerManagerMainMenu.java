@@ -53,7 +53,7 @@ public class CustomerManagerMainMenu {
         final Menu jobApplicationMenu = new Menu("Job Application Management >");
         jobApplicationMenu.addItem(OPTION_1, "List Job Applications", new ListJobApplicationsUI()::show);
         jobApplicationMenu.addItem(OPTION_2, "Schedule Interviews", new ScheduleInterviewUI()::show);
-        //TODO jobApplicationMenu.addItem(OPTION_3, "Evaluate Job Requirements", new SelectInterviewModelUI()::show);
+        jobApplicationMenu.addItem(OPTION_3, "Evaluate Job Requirements", new EvaluateJobRequirementUI()::show);
         jobApplicationMenu.addItem(OPTION_4, "Generate interview template", new GenerateInterviewModelUI()::show);
         jobApplicationMenu.addItem(OPTION_5, "Save interview answers", new SaveInterviewAnswersUI()::show);
         jobApplicationMenu.addItem(OPTION_6, "Evaluate interview", new EvaluateInterviewAnswersUI()::show);

@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public interface JobRequirementPlugin {
 
-    String generateTemplate(String model);
+    String generateTemplate(String path);
 
-    JobRequirementResult validateRequirements(String model, String requirements) throws IOException;
+    JobRequirementResult validateRequirements(String path) throws IOException;
 
 }
